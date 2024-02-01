@@ -1,5 +1,4 @@
 import { defineConfig } from 'vitepress';
-import { set_sidebar } from "../utils/auto_sidebar.mjs";
 import vueSidebar from "./menusidebar/vueSidebar.mjs";
 
 // https://vitepress.dev/reference/site-config
@@ -54,5 +53,3 @@ export default defineConfig({
     }
   }
 })
-
-console.log(set_sidebar("/frontend/vue"));
