@@ -7,12 +7,17 @@ export default defineConfig({
   title: "Knowledge Graph",
   description: "A knowledge summary for front-end.",
   lastUpdated: true,
+  head: [['link', { rel: 'icon', href: '/logo.svg' }]],
   themeConfig: {
     lastUpdatedText: "最后更新于",
     outlineTitle: "目录大纲",
     outline: [1,6],
-    logo: '../asset/img/logo.svg',
+    logo: '../logo.svg',
     i18nRouting: false,
+    docFooter: {
+      prev: '上一页',
+      next: '下一页'
+    },
     nav: [
       { text: '首页', link: '/' },
       {
