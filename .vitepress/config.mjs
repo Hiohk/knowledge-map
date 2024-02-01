@@ -40,7 +40,7 @@ export default defineConfig({
           { text: "南天门", link: '/' },
         ]
       },
-      { text: '交流社区', link: '/markdown-examples' }
+      { text: '交流社区', link: '/community' }
     ],
     sidebar: {
       "/frontend/vue/": vueSidebar

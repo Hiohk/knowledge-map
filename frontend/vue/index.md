@@ -1,7 +1,7 @@
 ---
 next:
-  text: '响应式基础'
-  link: '/frontend/vue/vue-01'
+  text: '模板语法'
+  link: '/frontend/vue/vue01'
 ---
 
 # Vue.js(vue3)

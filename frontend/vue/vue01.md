@@ -5,11 +5,9 @@ prev:
 
 next:
   text: '响应式基础'
-  link: '/frontend/vue/vue-02'
-
-lastUpdated: true
+  link: '/frontend/vue/vue02'
 ---
 
-# 简介
+# 模板语法
 
-Vue简介
+模板语法

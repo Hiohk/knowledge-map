@@ -1,4 +1,14 @@
-# Vue高级知识
+---
+prev:
+  text: '响应式基础'
+  link: '/frontend/vue/vue01'
+
+next:
+  text: '类与样式绑定'
+  link: '/frontend/vue/vue02'
+---
+
+# Vue知识
 
 Vue 提供了两个内置组件，可以帮助你制作基于状态变化的过渡和动画：
 

@@ -1,3 +1,13 @@
+---
+prev:
+  text: '模板语法'
+  link: '/frontend/vue/vue01'
+
+next:
+  text: '计算属性'
+  link: '/frontend/vue/vue03'
+---
+
 # 1. MVVM
 > 理解命令式编程与声明式编程的区别
 > 理解命令式编程与声明式编程的区别
