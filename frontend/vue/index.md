@@ -21,3 +21,19 @@ createApp({
   },
 }).mount("#app");
 ```
+
+## 1. MVVM
+> 理解命令式编程与声明式编程的区别
+
+### 1.1 MVC和MVVM的架构模型
+
+1. MVC：Model-View-Controller
+2. MVVM: Model-View-ViewModel
+
+### 1.2 data属性选项
+> 在vue2中data可以为一个对象，在vue3中data必须为一个函数，否则浏览器会报错；
+
+  data中返回的对象会被Vue的响应式系统劫持，之后对该对象的修改或者访问都会在劫持中被处理。
+
+### 1.3 methods属性选项
+  methods中的函数不可以写成箭头函数，因为箭头函数中this会指向父级作用域上下文；
