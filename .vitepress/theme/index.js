@@ -6,7 +6,7 @@ import './style.css'
 // 导入ant design vue
 import 'ant-design-vue/dist/reset.css';
 import Antd from 'ant-design-vue';
-import { Button } from 'ant-design-vue';
+import { GridLayout, GridItem } from 'grid-layout-plus';
 
 // 导入组件
 import HomeContent from "./components/HomeContent.vue";
@@ -21,5 +21,8 @@ export default {
   },
   enhanceApp({ app, router, siteData }) {
     app.use(Antd);
+    app
+      .component('GridLayout', GridLayout)
+      .component('GridItem', GridItem);
   }
 }

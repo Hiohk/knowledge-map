@@ -44,7 +44,7 @@ args1: 要侦听的源头；args2: 侦听的回调函数 `callback; args3: {deep
 </template>
 ```
 
-## 5.1 侦听数据源类型
+## 侦听数据源类型
 watch 的第一个参数可以是不同形式的“数据源”：它可以是一个 ref (包括计算属性)、一个响应式对象、一个 getter 函数、或多个数据源组成的数组：
 ```javascript
 const x = ref(0)
@@ -79,7 +79,7 @@ watch(
 )
 ```
 
-## 5.2 watchEffect()
+## watchEffect()
 ```javascript
 watchEffect(async () => {
   const response = await fetch(
@@ -90,7 +90,7 @@ watchEffect(async () => {
 ```
 对于这种只有一个依赖项的例子来说，watchEffect() 的好处相对较小。但是对于有多个依赖项的侦听器来说，使用 watchEffect() 可以消除手动维护依赖列表的负担。此外，如果你需要侦听一个嵌套数据结构中的几个属性，watchEffect() 可能会比深度侦听器更有效，因为它将只跟踪回调中被使用到的属性，而不是递归地跟踪所有的属性。
 
-## 5.3 回调的触发时机
+## 回调的触发时机
 如果想在侦听器回调中能访问被 Vue 更新**之后**的 DOM，你需要指明 flush: 'post' 选项：
 
 ```javascript
@@ -108,7 +108,7 @@ watchPostEffect(() => {
 })
 ```
 
-## 5.4 停止侦听器
+## 停止侦听器
 ```javascript
 const unwatch = watchEffect(() => {})
 
