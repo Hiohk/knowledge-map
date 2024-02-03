@@ -53,8 +53,7 @@ const cardImgStyle = (width, height) => {
     border-radius: 6px;
     /* border: 1px solid #40a9ff; */
     margin: 10px auto;
-    background: linear-gradient(90deg, #e9b8a9, #e4a1bb, #87bed2, #91d1c2);
-    /* background: linear-gradient(90deg, #f7f7f7, #dedede, #cdcdcd, #b6b6b6, #00a5e7);  */
+    /* background: linear-gradient(90deg, #e9b8a9, #e4a1bb, #87bed2, #91d1c2); */
     animation: Gradient 4s ease infinite;
 }
 
@@ -73,8 +72,11 @@ const cardImgStyle = (width, height) => {
 }
 
 .grid-item {
-    background-color: orange;
     border-radius: 8px;
+}
+
+.small-card {
+    background: linear-gradient(to bottom, rgb(190, 228, 236), white);
 }
 
 .small-card:hover {
