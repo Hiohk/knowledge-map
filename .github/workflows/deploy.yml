@@ -24,9 +24,9 @@ jobs:
 
          - name: Deploy
             # 将构建产物 commit 到一个分支上，用于发布静态站点资源
-            # https://github.com/peaceiris/actions-gh-pages
+            # https://github.com/peaceiris/actions-knowledges
             #不要将peaceiris改为自己的仓库名，我单纯的以为这个需要改成自己的仓库名，部署上去就build失败了，需引用该仓库的配置
-           uses: peaceiris/actions-gh-pages@v3
+           uses: peaceiris/actions-knowledges@v3
            with:
               # Github 会在 workflow 中自动生成 GIHUBT_TOKEN，用于认证 workflow 的运行
               github_token: ${{ secrets.GITHUB_TOKEN }}
