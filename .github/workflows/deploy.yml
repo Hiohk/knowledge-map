@@ -32,6 +32,6 @@ jobs:
               github_token: ${{ secrets.GITHUB_TOKEN }}
               # 静态资源目录设置
               publish_dir: .vitepress/dist
-              # 默认发布到 gh-pages 分支上，可以指定特定的发布分支（不能选拉取代码的分支）
-              publish_branch: gh-pages
+              # 默认发布到 knowledges 分支上，可以指定特定的发布分支（不能选拉取代码的分支）
+              publish_branch: knowledges
               full_commit_message: ${{ github.event.head_commit.message }}
