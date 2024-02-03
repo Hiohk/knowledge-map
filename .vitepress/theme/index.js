@@ -5,7 +5,7 @@ import './style.css'
 
 // 导入ant design vue
 import 'ant-design-vue/dist/reset.css';
-import Antd from 'ant-design-vue';
+import {Card,CardMeta} from 'ant-design-vue';
 import { GridLayout, GridItem } from 'grid-layout-plus';
 
 // 导入组件
@@ -20,7 +20,8 @@ export default {
     })
   },
   enhanceApp({ app, router, siteData }) {
-    app.use(Antd);
+    app.use(Card);
+    app.use(CardMeta);
     app
       .component('GridLayout', GridLayout)
       .component('GridItem', GridItem);
