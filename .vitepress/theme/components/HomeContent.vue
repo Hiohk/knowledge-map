@@ -39,8 +39,7 @@ const cardImgStyle = (width, height) => {
                 <a-card class="small-card" bordered hoverable size="small"
                     style="width: 100%;height: 100%;overflow: hidden;">
                     <template #cover>
-                        <img :style="cardImgStyle(item.w, item.h)" alt="example"
-                            :src="item.imgName" />
+                        <img :style="cardImgStyle(item.w, item.h)" alt="example" :src="item.imgName" />
                     </template>
                     <a-card-meta :title="item.name">
                         <template #description>

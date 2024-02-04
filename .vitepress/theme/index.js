@@ -10,6 +10,7 @@ import { GridLayout, GridItem } from 'grid-layout-plus';
 
 // 导入组件
 import HomeContent from "./components/HomeContent.vue";
+import NotFound from "./components/NotFound.vue";
 
 /** @type {import('vitepress').Theme} */
 export default {
@@ -17,6 +18,7 @@ export default {
   Layout: () => {
     return h(DefaultTheme.Layout, null, {
       'home-features-after': () => h(HomeContent),
+      'not-found': () => h(NotFound)
     })
   },
   enhanceApp({ app, router, siteData }) {
