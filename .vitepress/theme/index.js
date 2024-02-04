@@ -4,8 +4,8 @@ import DefaultTheme from 'vitepress/theme'
 import './style.css'
 
 // 导入ant design vue
+import Antd from 'ant-design-vue';
 import 'ant-design-vue/dist/reset.css';
-import {Card,CardMeta} from 'ant-design-vue';
 import { GridLayout, GridItem } from 'grid-layout-plus';
 
 // 导入组件
@@ -20,8 +20,7 @@ export default {
     })
   },
   enhanceApp({ app, router, siteData }) {
-    app.use(Card);
-    app.use(CardMeta);
+    app.use(Antd);
     app
       .component('GridLayout', GridLayout)
       .component('GridItem', GridItem);
