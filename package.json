@@ -16,6 +16,5 @@
     "@vue/runtime-core": "^3.4.15",
     "ant-design-vue": "^4.1.2",
     "grid-layout-plus": "^1.0.4"
-  },
-  "deploy": "touch ./output_folder/.nojekyll && gh-pages -d output_folder -t true"
+  }
 }

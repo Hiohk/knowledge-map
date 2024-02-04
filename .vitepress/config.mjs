@@ -13,7 +13,7 @@ export default defineConfig({
     lastUpdatedText: "最后更新于",
     outlineTitle: "目录大纲",
     outline: [1,6],
-    logo: '../logo.svg',
+    logo: '/logo.svg',
     i18nRouting: false,
     docFooter: {
       prev: '上一页',
