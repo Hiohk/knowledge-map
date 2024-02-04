@@ -3,12 +3,12 @@ import vueSidebar from "./menusidebar/vueSidebar.mjs";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  base: "/knowledge-graph/",
+  base: "/knowledge/",
   lang: 'zh-CN',
   title: "Knowledge Graph",
   description: "A knowledge summary for front-end.",
   lastUpdated: true,
-  head: [['link', { rel: 'icon', href: '/knowledge-graph/logo.svg' }]],
+  head: [['link', { rel: 'icon', href: '/knowledge/logo.svg' }]],
   themeConfig: {
     lastUpdatedText: "最后更新于",
     outlineTitle: "目录大纲",

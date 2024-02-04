@@ -14,5 +14,10 @@ export default defineConfig({
         }
       }
     }
+  },
+  resolve: {
+    alias: {
+      '@': '/assets'
+    }
   }
 });
