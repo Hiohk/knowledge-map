@@ -10,7 +10,7 @@ const WHITE_LIST = [
   ".vitepress",
   "node_modules",
   ".idea",
-  "assets",
+  "asset",
 ];
 
 // 判断是否是文件夹
