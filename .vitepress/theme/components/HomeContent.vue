@@ -45,7 +45,7 @@ const cardImgStyle = (width, height) => {
                         <template #description>
                             <span class="description-content">{{ item.content }}</span>
                             <div class="learn-more">
-                                <a-button type="link" :href="item.address" target="_self">了解更多</a-button>
+                                <a-button class="learn-more-btn" type="link" :href="item.address" target="_self">了解更多</a-button>
                             </div>
                         </template>
                     </a-card-meta>
@@ -94,8 +94,10 @@ const cardImgStyle = (width, height) => {
 .learn-more {
     margin-top: 10px;
     text-align: center;
-    font-weight: 600;
     color: #1677ff;
+}
+.learn-more-btn {
+    font-weight: 600;
 }
 
 .description-content {
