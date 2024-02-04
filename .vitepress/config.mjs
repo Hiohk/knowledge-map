@@ -54,7 +54,7 @@ export default defineConfig({
     ],
     footer: {
       message: "All rights reserved.",
-      copyright: "Copyright © 2023 HK Group."
+      copyright: "Copyright © 2024 HK Group."
     }
   }
 })
