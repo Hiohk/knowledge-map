@@ -1,0 +1,43 @@
+{
+  "hash": "73a9254e",
+  "configHash": "e2572e08",
+  "lockfileHash": "cb9be601",
+  "browserHash": "a95fb21b",
+  "optimized": {
+    "vue": {
+      "src": "../../../node_modules/vue/dist/vue.runtime.esm-bundler.js",
+      "file": "vue.js",
+      "fileHash": "d9c4bda3",
+      "needsInterop": false
+    },
+    "vitepress > @vue/devtools-api": {
+      "src": "../../../node_modules/.pnpm/@vue+devtools-api@7.0.14/node_modules/@vue/devtools-api/dist/index.js",
+      "file": "vitepress___@vue_devtools-api.js",
+      "fileHash": "ee72416d",
+      "needsInterop": false
+    },
+    "vitepress > @vueuse/core": {
+      "src": "../../../node_modules/.pnpm/@vueuse+core@10.7.2_vue@3.4.15/node_modules/@vueuse/core/index.mjs",
+      "file": "vitepress___@vueuse_core.js",
+      "fileHash": "38be01c6",
+      "needsInterop": false
+    },
+    "ant-design-vue": {
+      "src": "../../../node_modules/.pnpm/ant-design-vue@4.1.2_vue@3.4.15/node_modules/ant-design-vue/es/index.js",
+      "file": "ant-design-vue.js",
+      "fileHash": "4538a31d",
+      "needsInterop": false
+    },
+    "grid-layout-plus": {
+      "src": "../../../node_modules/.pnpm/grid-layout-plus@1.0.4_vue@3.4.15/node_modules/grid-layout-plus/es/index.mjs",
+      "file": "grid-layout-plus.js",
+      "fileHash": "626b59f9",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-66CEYOHS": {
+      "file": "chunk-66CEYOHS.js"
+    }
+  }
+}
