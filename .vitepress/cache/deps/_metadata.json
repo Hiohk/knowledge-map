@@ -1,43 +1,46 @@
 {
-  "hash": "253152e2",
-  "configHash": "26f00de9",
-  "lockfileHash": "cb9be601",
-  "browserHash": "753c6658",
+  "hash": "5c9a4b0e",
+  "configHash": "0afa0054",
+  "lockfileHash": "518a276c",
+  "browserHash": "9fd1fb37",
   "optimized": {
     "vue": {
       "src": "../../../node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "d6dfa901",
+      "fileHash": "db77d0b2",
       "needsInterop": false
     },
     "vitepress > @vue/devtools-api": {
-      "src": "../../../node_modules/.pnpm/@vue+devtools-api@7.0.14/node_modules/@vue/devtools-api/dist/index.js",
+      "src": "../../../node_modules/@vue/devtools-api/lib/esm/index.js",
       "file": "vitepress___@vue_devtools-api.js",
-      "fileHash": "1977e3d8",
+      "fileHash": "323fbfd5",
       "needsInterop": false
     },
     "vitepress > @vueuse/core": {
-      "src": "../../../node_modules/.pnpm/@vueuse+core@10.7.2_vue@3.4.15/node_modules/@vueuse/core/index.mjs",
+      "src": "../../../node_modules/@vueuse/core/index.mjs",
       "file": "vitepress___@vueuse_core.js",
-      "fileHash": "75de3571",
+      "fileHash": "876fd76b",
       "needsInterop": false
     },
     "ant-design-vue": {
-      "src": "../../../node_modules/.pnpm/ant-design-vue@4.1.2_vue@3.4.15/node_modules/ant-design-vue/es/index.js",
+      "src": "../../../node_modules/ant-design-vue/es/index.js",
       "file": "ant-design-vue.js",
-      "fileHash": "77a623d8",
+      "fileHash": "741eff3d",
       "needsInterop": false
     },
     "grid-layout-plus": {
-      "src": "../../../node_modules/.pnpm/grid-layout-plus@1.0.4_vue@3.4.15/node_modules/grid-layout-plus/es/index.mjs",
+      "src": "../../../node_modules/grid-layout-plus/es/index.mjs",
       "file": "grid-layout-plus.js",
-      "fileHash": "0c21bc2a",
+      "fileHash": "2e73a099",
       "needsInterop": false
     }
   },
   "chunks": {
-    "chunk-66CEYOHS": {
-      "file": "chunk-66CEYOHS.js"
+    "chunk-I27O6UFQ": {
+      "file": "chunk-I27O6UFQ.js"
+    },
+    "chunk-ZS7NZCD4": {
+      "file": "chunk-ZS7NZCD4.js"
     }
   }
 }
