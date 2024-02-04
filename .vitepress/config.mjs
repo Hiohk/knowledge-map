@@ -8,7 +8,7 @@ export default defineConfig({
   title: "Knowledge Graph",
   description: "A knowledge summary for front-end.",
   lastUpdated: true,
-  head: [['link', { rel: 'icon', href: '/knowledge-graph/logo.svg' }]],
+  head: [['link', { rel: 'icon', href: '/knowledge-graph/favicon.ico' }]],
   themeConfig: {
     lastUpdatedText: "最后更新于",
     outlineTitle: "目录大纲",
