@@ -16,7 +16,7 @@ Vue 使用一种基于 HTML 的模板语法，使我们能够声明式地将其�
 
 如果你对虚拟 DOM 的概念比较熟悉，并且偏好直接使用 JavaScript，你也可以结合可选的 JSX 支持直接手写渲染函数而不采用模板。但请注意，这将不会享受到和模板同等级别的编译时优化。
 
-## 1.1 mustache 语法
+## 1.1 文本插值（mustache语法）
 
 > react 中使用 jsx（类似于 js 的一种语法），vue 中使用基于 HTML 的模板语法；
 
@@ -24,3 +24,37 @@ Vue 使用一种基于 HTML 的模板语法，使我们能够声明式地将其�
 - \{ \{ 表达式 \} \};
 - \{ \{ 三元运算符 \} \} : \{ \{ age>18?"成年人":"未成年人" \} \};
 - \{ \{ 调用函数 \} \};
+
+## 1.2 原始HTML
+
+在当前**组件实例**上使用v-html，将此元素的innerHTML与rawHtml属性保持同步，也就是说使用了v-html的标签内部的内容会被替换为原生HTML属性的值。
+
+``` html
+<p>Using text interpolation: {{ rawHtml }}</p>
+<p>Using v-html directive: <span v-html="rawHtml"></span></p>
+```
+
+:::warning
+1. 不能使用v-html来拼接组合模板，因为Vue不是一个基于字符串的模板引擎。在使用Vue时，应当使用组件作为UI重用和组合的基本单元。
+
+2. 在网站上动态渲染任意HTML是非常危险的，容易造成**XSS漏洞**。**请仅在内容安全可信时再使用v-html，并且永远不要使用用户提供的HTML内容**。
+:::
+
+## 1.3 属性绑定
+
+
+``` html
+<!-- v-bind指令 -->
+<div v-bind:id="dynamicId"></div>
+
+<!-- 简写 -->
+<div :id="dynamicId"></div>
+
+<!-- 同名简写 在Vue 3.4及以上版本中可用-->
+<div :id></div>
+
+<!-- 绑定布尔值 -->
+<button :disabled="isButtonDisabled">Button</button>
+
+<!-- 其他绑定方法将在指令和事件一节介绍 -->
+```
