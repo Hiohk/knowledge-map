@@ -34,30 +34,37 @@ const cardImgStyle = (width, height) => {
     <div class="boxStyle">
         <GridLayout v-model:layout="layout" :col-num="12" :row-height="51" is-draggable :is-resizable="false"
             vertical-compact use-css-transforms>
-            <GridItem class="grid-item" v-for="item in layout" :key="item.i" :x="item.x" :y="item.y" :w="item.w" :h="item.h"
-                :i="item.i" @resize="handleResize">
-                <a-card class="small-card" bordered hoverable size="small"
-                    style="width: 100%;height: 100%;overflow: hidden;">
-                    <template #cover>
-                        <img :style="cardImgStyle(item.w, item.h)" alt="example" :src="item.imgName" />
-                    </template>
-                    <a-card-meta :title="item.name">
-                        <template #description>
-                            <span class="description-content">{{ item.content }}</span>
-                            <div class="learn-more">
-                                <a-button class="learn-more-btn" type="link" :href="item.address" target="_self">了解更多</a-button>
-                            </div>
-                        </template>
-                    </a-card-meta>
-                </a-card>
-            </GridItem>
+            <a-row>
+                <template v-for="item in layout" :key="item.i">
+                    <a-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+                        <GridItem class="grid-item" :x="item.x" :y="item.y" :w="item.w" :h="item.h" :i="item.i"
+                            @resize="handleResize">
+                            <a-card class="small-card" bordered hoverable size="small"
+                                style="width: 100%;height: 100%;overflow: hidden;">
+                                <template #cover>
+                                    <img :style="cardImgStyle(item.w, item.h)" alt="example" :src="item.imgName" />
+                                </template>
+                                <a-card-meta :title="item.name">
+                                    <template #description>
+                                        <span class="description-content">{{ item.content }}</span>
+                                        <div class="learn-more">
+                                            <a-button class="learn-more-btn" type="link" :href="item.address"
+                                                target="_self">了解更多</a-button>
+                                        </div>
+                                    </template>
+                                </a-card-meta>
+                            </a-card>
+                        </GridItem>
+                    </a-col>
+                </template>
+            </a-row>
         </GridLayout>
     </div>
 </template>
 
 <style scoped>
 .boxStyle {
-    width: 1152px;
+    max-width: 1181px;
     border-radius: 6px;
     /* border: 1px solid #40a9ff; */
     margin: 10px auto;
@@ -81,6 +88,7 @@ const cardImgStyle = (width, height) => {
 
 .grid-item {
     border-radius: 8px;
+    display: block !important;
 }
 
 .small-card {
@@ -96,6 +104,7 @@ const cardImgStyle = (width, height) => {
     text-align: center;
     color: #1677ff;
 }
+
 .learn-more-btn {
     font-weight: 600;
 }
