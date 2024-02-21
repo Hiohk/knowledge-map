@@ -183,6 +183,106 @@ for (let i = 1; i <= 5; i++) {
 // 1 2 3 4 5
 ```
 
+### 模块中的闭包
+
+```javascript
+function CoolModule() {
+  var something = "cool";
+  var another = [1, 2, 3];
+  function doSomething() {
+    console.log(something);
+  }
+  function doAnother() {
+    console.log(another.join(" ! "));
+  }
+  return {
+    doSomething: doSomething,
+    doAnother: doAnother,
+  };
+}
+var foo = CoolModule();
+foo.doSomething(); // cool
+foo.doAnother(); // 1 ! 2 ! 3
+```
+
+这个模式在 `JavaScript` 中被称为**模块(Module)**。正如在这段代码中所看到的，这里并没有明显的闭包，只有两个私有数据变量 `something`
+和 `another`，以及 `doSomething()` 和 `doAnother()` 两个内部函数，它们的词法作用域（而这就是闭包）也就是 `foo()` 的内部作用域。
+
+```javascript
+var foo = (function CoolModule(id) {
+  function change() {
+    // 修改公共 API
+    publicAPI.identify = identify2;
+  }
+  function identify1() {
+    console.log(id);
+  }
+  function identify2() {
+    console.log(id.toUpperCase());
+  }
+  var publicAPI = {
+    change: change,
+    identify: identify1,
+  };
+  return publicAPI;
+})("foo module");
+foo.identify(); // foo module
+foo.change();
+foo.identify(); // FOO MODULE
+```
+
+模块模式需要具备两个必要条件:
+
+1. 必须有外部的封闭函数，该函数必须至少被调用一次（每次调用都会创建一个新的模块实例）。
+2. 封闭函数必须返回至少一个内部函数，这样内部函数才能在私有作用域中形成闭包，并且可以访问或者修改私有的状态。
+
+接下来请看一个模块中定义封装进 API 的例子：
+
+```javascript
+var MyModules = (function Manager() {
+  var modules = {};
+  function define(name, deps, impl) {
+    for (var i = 0; i < deps.length; i++) {
+      deps[i] = modules[deps[i]];
+    }
+    modules[name] = impl.apply(impl, deps);
+  }
+  function get(name) {
+    return modules[name];
+  }
+  return {
+    define: define,
+    get: get,
+  };
+})();
+MyModules.define("bar", [], function () {
+  function hello(who) {
+    return "Let me introduce: " + who;
+  }
+  return {
+    hello: hello,
+  };
+});
+MyModules.define("foo", ["bar"], function (bar) {
+  var hungry = "hippo";
+  function awesome() {
+    console.log(bar.hello(hungry).toUpperCase());
+  }
+  return {
+    awesome: awesome,
+  };
+});
+var bar = MyModules.get("bar");
+var foo = MyModules.get("foo");
+console.log(bar.hello("hippo")); // Let me introduce: hippo
+foo.awesome(); // LET ME INTRODUCE: HIPPO
+```
+
+> 1.请问这段代码实现了什么功能？
+>
+> 2.`modules[name] = impl.apply(impl, deps);`有什么作用？
+
+
 ## 3.3 闭包的作用
 
 - **避免全局变量的污染**：通过将变量封装在函数内部，闭包可以防止这些变量被外部访问，从而避免了全局命名冲突。
@@ -227,4 +327,5 @@ newFunction("I am from inner function!");
 因此，在使用闭包时需要权衡其优缺点，并根据具体的应用场景和需求来决定是否使用闭包。同时，也需要注意避免过度使用闭包，以免导致内存占用过高和性能下降等问题。
 
 ## 3.5 总结
+
 闭包的总结......
