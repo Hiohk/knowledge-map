@@ -34,8 +34,14 @@ export default defineConfig({
       },
       {
         text: "后端", items: [
-          { text: 'Java', link: '/' },
-          { text: 'MySql', link: '/' },
+          { text: 'Java', link: '/java' },
+          { text: 'Spring', link: '/spring' },
+          { text: 'Spring Boot', link: '/springboot' },
+          { text: 'SpringCloud', link: '/springcloud' },
+          { text: 'MyBatis', link: '/mybatis' },
+          { text: 'MySQL', link: '/mysql' },
+          { text: 'Maven', link: '/maven' },
+          { text: 'Git', link: '/git' },
         ]
       },
       { text: "技术博客", link: '/blog' },
@@ -51,7 +57,7 @@ export default defineConfig({
       "/frontend/vue/": vueSidebar
     },
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
+      { icon: 'github', link: 'https://github.com/Hiohk' }
     ],
     footer: {
       message: "All rights reserved.",

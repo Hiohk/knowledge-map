@@ -329,3 +329,15 @@ newFunction("I am from inner function!");
 ## 3.5 总结
 
 闭包的总结......
+
+# 4. JavaScript中的this
+
+## 4.1 关于this
+## 4.2 总结
+
+# 5. 对象原型
+
+## 5.1 对象
+## 5.2 原型
+## 5.3 行为委托
+## 5.4 总结
