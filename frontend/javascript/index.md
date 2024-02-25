@@ -585,7 +585,7 @@ let multiply = x => 4 * x;
 >
 > 4.箭头函数也没有`prototype`属性。
 ## 4.5 总结
-this总结。。。
+this总结......
 
 
 # 5. 对象原型
