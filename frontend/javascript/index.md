@@ -5,23 +5,29 @@ JavaScript（JS）是一种具有函数优先特性的轻量级、解释型或�
 # 1. 作用域
 
 ## 1.1 什么是作用域
+
 什么是作用域...
 
 ## 1.2 词法作用域
+
 词法作用域...
 
 ## 1.3 函数作用域
+
 数作用域...
 
 ## 1.4 块作用域
+
 块作用域...
 
 # 2. 声明提升
 
 ## 2.1 变量声明提升
+
 变量声明提升...
 
 ## 2.2 函数声明提升
+
 函数声明提升...
 
 # 3. 闭包
@@ -288,7 +294,6 @@ foo.awesome(); // LET ME INTRODUCE: HIPPO
 >
 > 2.`modules[name] = impl.apply(impl, deps);`有什么作用？
 
-
 ## 3.3 闭包的作用
 
 - **避免全局变量的污染**：通过将变量封装在函数内部，闭包可以防止这些变量被外部访问，从而避免了全局命名冲突。
@@ -336,30 +341,37 @@ newFunction("I am from inner function!");
 
 闭包的总结......
 
-# 4. JavaScript中的this
+# 4. JavaScript 中的 this
+
 **this** 关键字是 `JavaScript` 中最复杂的机制之一。它是一个很特别的关键字，被自动定义在所有函数的作用域中。
 但是即使是非常有经验的`JavaScript` 开发者也很难说清它到底指向什么。
 
-任何足够先进的技术都和魔法无异。    ——Arthur C. Clarke
-## 4.1 关于this
-this到底指向什么？
-> 1.函数在调用时，JavaScript会<span style="color: red">默认给this绑定一个值</span>；
-> 
-> 2.this的<span style="color: red">绑定和定义的位置（编写的位置）</span>没有关系；
-> 
-> 3.this的<span style="color: red">绑定和调用以及调用的位置有关系</span>；
-> 
-> 4.this是<span style="color: red">在运行时被绑定</span>的；
+任何足够先进的技术都和魔法无异。 ——Arthur C. Clarke
 
-## 4.2 this绑定规则
+## 4.1 关于 this
+
+this 到底指向什么？
+
+> 1.函数在调用时，JavaScript 会<span style="color: red">默认给 this 绑定一个值</span>；
+>
+> 2.this 的<span style="color: red">绑定和定义的位置（编写的位置）</span>没有关系；
+>
+> 3.this 的<span style="color: red">绑定和调用以及调用的位置有关系</span>；
+>
+> 4.this 是<span style="color: red">在运行时被绑定</span>的；
+
+## 4.2 this 绑定规则
+
 ### 默认绑定
-独立函数调用的时候，this会采用默认绑定的方法；独立函数调用可以裂解为函数没有绑定到某个对象上进行调用。例如：
+
+独立函数调用的时候，this 会采用默认绑定的方法；独立函数调用可以裂解为函数没有绑定到某个对象上进行调用。例如：
 
 `example 1`普通的函数被独立的调用:
-``` javascript
+
+```javascript
 function foo() {
   console.log(this); // window
-  console.log( this.a ); // 2
+  console.log(this.a); // 2
 }
 
 var a = 2;
@@ -367,12 +379,13 @@ foo();
 ```
 
 `example 2`函数定义在对象中，但是独立调用:
-``` javascript
+
+```javascript
 var obj = {
   name: "Tom",
   bar: function () {
-    console.log("bar:",this);
-  }
+    console.log("bar:", this);
+  },
 };
 
 obj.bar(); // obj对象
@@ -381,12 +394,13 @@ baz(); // window
 ```
 
 `example 3`高阶函数:
-``` javascript
+
+```javascript
 var obj = {
   name: "Tom",
   bar: function () {
-    console.log("bar:",this);
-  }
+    console.log("bar:", this);
+  },
 };
 
 function test(fn) {
@@ -395,61 +409,128 @@ function test(fn) {
 test(obj.bar); // window
 ```
 
-严格模式（"use strict";）下，独立调用的函数中的this指向的是undefined。
+严格模式（"use strict";）下，独立调用的函数中的 this 指向的是 undefined。
+
 ### 隐式绑定
-``` javascript
+
+```javascript
 function foo() {
-  console.log( this.a );
+  console.log(this.a);
 }
 var obj = {
   a: 2,
-  foo: foo
+  foo: foo,
 };
 obj.foo(); // 2
 ```
-> 隐式绑定有一个前提条件：
-> 
+
+首先需要注意的是 `foo()` 的声明方式，及其之后是如何被当作引用属性添加到 obj 中的。但是无论是直接在 obj 中定义还是先定义再添加为引用属性，这个函数严格来说都不属于 obj 对象。
+然而，调用位置会使用 obj 上下文来引用函数，因此你可以说函数被调用时 obj 对象“拥有”或者“包含”它。
+
+当函数引用有上下文对象时，隐式绑定规则会把函数调用中的 this 绑定到这个上下文对象。因为调用 `foo()` 时 this 被绑定到 obj，因此 this.a 和 obj.a 是一样的。
+
+::: info 请思考下面这段代码的输出结果是什么？
+
+```javascript
+function foo() {
+  console.log(this.a);
+}
+var obj2 = {
+  a: 42,
+  foo: foo,
+};
+var obj1 = {
+  a: 2,
+  obj2: obj2,
+};
+obj1.obj2.foo(); // 42
+```
+
+对象属性引用链中只有最顶层或者说最后一层会影响调用位置。
+:::
+
+隐式绑定有一个前提条件：
+
 > 必须在调用的对象内部有一个对函数的引用（比如一个属性）；
-> 
+>
 > 如果没有这样的引用，在进行调用时，会报找不到该函数的错误；
-> 
-> 正是通过这个引用，间接的将this绑定到了这个对象上；
+>
+> 正是通过这个引用，间接的将 this 绑定到了这个对象上；
 
 如果不希望在对象内部包含这个函数的引用，同时又希望在这个对象你上进行强制调用，那么可以使用`call`和`apply`方法来显示绑定。
-### 显式绑定
-``` javascript
+
+**看起来像是隐式绑定的显式绑定（也称作隐式丢失）**：
+
+被隐式绑定的函数会丢失绑定对象，也就是说它会应用默认绑定，从而把 this 绑定到全局对象(在严格模式下，this会绑定到 `undefined `上)。
+
+`example 1`:
+
+```javascript
+function foo() {
+  console.log(this.a);
+}
 var obj = {
-  a: 2
+  a: 2,
+  foo: foo,
+};
+var bar = obj.foo; // 函数别名！
+var a = "oops, global"; // a 是全局对象的属性
+bar(); // "oops, global"
+```
+
+`example 2`:
+
+```javascript
+function foo() {
+  console.log(this.a);
+}
+function doFoo(fn) {
+  // fn 其实引用的是 foo
+  fn(); // <-- 调用位置！
+}
+var obj = {
+  a: 2,
+  foo: foo,
+};
+var a = "oops, global"; // a 是全局对象的属性
+doFoo(obj.foo); // "oops, global"
+```
+
+### 显式绑定
+
+```javascript
+var obj = {
+  a: 2,
 };
 
 function foo() {
-  console.log(this.a); // 2 
+  console.log(this.a); // 2
 }
 
 foo.call(obj); // 或者foo.apply(obj);
 obj.foo();
-
 ```
 
 :::tip **bind()、call()、apply()的区别是什么？**
 
-`bind()`、`call()`和`apply()`都是JavaScript中用于改变函数执行上下文（即this指向）的方法。它们的主要区别在于执行方式、传参方式以及对this的修改方式。
+`bind()`、`call()`和`apply()`都是 JavaScript 中用于改变函数执行上下文（即 this 指向）的方法。它们的主要区别在于执行方式、传参方式以及对 this 的修改方式。
 
-- **执行方式**：`call()`和`apply()`在改变后页面加载之后就立即执行，是同步代码。而`bind()`是异步代码，改变后不会立即执行，而是返回一个新的函数。这意味着你可以稍后再调用这个新函数，而this的值已经被绑定到了指定的对象。
+- **执行方式**：`call()`和`apply()`在改变后页面加载之后就立即执行，是同步代码。而`bind()`是异步代码，改变后不会立即执行，而是返回一个新的函数。这意味着你可以稍后再调用这个新函数，而 this 的值已经被绑定到了指定的对象。
 
 - **传参方式**：`call()`和`bind()`传参是一个一个逐一传入，不能使用剩余参数的方式传参。而`apply()`可以使用数组的方式传入参数，只要是数组方式就可以使用剩余参数的方式传入。
 
-- **修改this的性质**：`call()`和`apply()`只是临时修改一次this的指向，当再次调用原函数的时候，this的指向还是原来的指向。而`bind()`是永久修改函数this指向，但是它修改的不是原来的函数，而是返回一个新的函数，此函数的this永远被改变，绑定后就修改不了。
+- **修改 this 的性质**：`call()`和`apply()`只是临时修改一次 this 的指向，当再次调用原函数的时候，this 的指向还是原来的指向。而`bind()`是永久修改函数 this 指向，但是它修改的不是原来的函数，而是返回一个新的函数，此函数的 this 永远被改变，绑定后就修改不了。
 
-此外，还有一个值得注意的区别是，当`bind()`返回的函数使用new作为构造函数时，绑定的this值会失效，this指向实例对象，但传入的参数依然生效（new调用的优先级高于bind调用）。
+此外，还有一个值得注意的区别是，当`bind()`返回的函数使用 new 作为构造函数时，绑定的 this 值会失效，this 指向实例对象，但传入的参数依然生效（new 调用的优先级高于 bind 调用）。
 
-使用bind方法会创建一个新的绑定函数（bound function, BF），绑定函数是一个exotic function object(怪异函数对象，ECMAScript2015中的术语)。
+使用 bind 方法会创建一个新的绑定函数（bound function, BF），绑定函数是一个 exotic function object(怪异函数对象，ECMAScript2015 中的术语)。
 :::
 
-### new绑定
-``` javascript
+### new 绑定
+
+```javascript
 function foo() {
-  console.log( this); // foo函数对象（包含name属性）
+  console.log(this); // foo函数对象（包含name属性）
   this.name = "Tom";
 }
 
@@ -460,47 +541,53 @@ new foo();
 // 3. 执行函数体中的代码；
 // 4. 没有显示返回非空对象时，默认返回这个对象；
 ```
-### 内置函数中的this
+
+### 内置函数中的 this
 
 - 定时器：
-``` javascript
-setTimeout(function() {
+
+```javascript
+setTimeout(function () {
   console.log("定时器函数：", this); // window
 }, 1000);
 ```
+
 - 按钮的点击监听：
-``` javascript
-<button>按钮</button>
+
+```javascript
+<button>按钮</button>;
 
 var btnEl = document.querySelector("button");
-btnEl.onclick = function() {
+btnEl.onclick = function () {
   // this为btnEl指向的DOM对象（<button>按钮</button>）
-  console.log("btn的点击：", this); 
+  console.log("btn的点击：", this);
 };
 ```
 
-- forEach函数：
-``` javascript
-var names = ["Tom","Jack","Alice"];
-names.forEach(function(item) {
-  console.log("forEach函数:", this); // window
-}); 
+- forEach 函数：
 
-names.forEach(function(item) {
+```javascript
+var names = ["Tom", "Jack", "Alice"];
+names.forEach(function (item) {
+  console.log("forEach函数:", this); // window
+});
+
+names.forEach(function (item) {
   console.log("forEach函数:", this); // Joyce
-}, "Joyce"); 
+}, "Joyce");
 ```
 
-## 4.3 this绑定规则优先级
+## 4.3 this 绑定规则优先级
 
 1. 默认规则的优先级最低；
 2. 显式绑定优先级高于隐式绑定；
-3. new绑定优先级高于隐式绑定；
-4. new绑定优先级高于bind：
-   - new绑定和call、apply是不允许同时使用的，所以不存在谁的优先级更高；
-   - new绑定可以和bind一起使用，new绑定优先级更高；
-5. bind优先级高于apply和call:
-``` javascript
+3. new 绑定优先级高于隐式绑定；
+4. new 绑定优先级高于 bind：
+   - new 绑定和 call、apply 是不允许同时使用的，所以不存在谁的优先级更高；
+   - new 绑定可以和 bind 一起使用，new 绑定优先级更高；
+5. bind 优先级高于 apply 和 call:
+
+```javascript
 function foo() {
   console.log("foo:", this); // aaa
 }
@@ -508,9 +595,11 @@ var bindFn = foo.bind("aaa");
 bindFn.call("bbb");
 ```
 
-:::warning **this绑定的特殊情况**
-1. 如果在显示绑定中，传入null或者undefined，那么这个显示绑定会被忽略，使用默认规则：
-``` javascript
+:::warning **this 绑定的特殊情况**
+
+1. 如果在显示绑定中，传入 null 或者 undefined，那么这个显示绑定会被忽略，使用默认规则：
+
+```javascript
 function foo() {
   console.log(this);
 }
@@ -526,17 +615,18 @@ foo.apply(undefined); // undefined
 ```
 
 2. 间接函数引用：创建一个函数的间接引用，这种情况使用默认绑定规则。
-`(obj2.foo = obj1.foo)();`结果为window。
-``` javascript
+   `(obj2.foo = obj1.foo)();`结果为 window。
+
+```javascript
 var obj1 = {
   name: "Tom",
-  foo: function() {
+  foo: function () {
     console.log("foo:", this);
-  }
+  },
 };
 
 var obj2 = {
-  name: "Alice"
+  name: "Alice",
 };
 
 obj2.foo = obj1.foo();
@@ -549,55 +639,54 @@ obj1.foo(); // obj1对象
 :::
 
 ## 4.4 箭头函数
-箭头函数（arrow function）是ES6之后增加的一种编写函数 的方法。很大程度上，箭头函数实例化的函数对象与正式的函数表达式创建的函数对象行为是相同的。任何可以使用函数表达式的地方，都可以使用箭头函数。
+
+箭头函数（arrow function）是 ES6 之后增加的一种编写函数 的方法。很大程度上，箭头函数实例化的函数对象与正式的函数表达式创建的函数对象行为是相同的。任何可以使用函数表达式的地方，都可以使用箭头函数。
 
 ### 箭头函数的写法：
-``` javascript
+
+```javascript
 // 多个参数：
-let arrowSum = (a,b) => {
+let arrowSum = (a, b) => {
   return a + b;
 };
 
-let arrowSum = (a,b) => a + b;
+let arrowSum = (a, b) => a + b;
 
 // 如果返回值为一个对象，需要加上（）
-let fn = () => () => ({name: "Tom"});
+let fn = () => () => ({ name: "Tom" });
 
 // 只有一个参数：
 let double = (x) => {
   return 2 * x;
-}
+};
 
-let triple = x => {
+let triple = (x) => {
   return 3 * x;
-}
+};
 
-let multiply = x => 4 * x;
+let multiply = (x) => 4 * x;
 ```
 
 箭头函数与普通函数的区别：
 
 > 1.箭头函数不能使用`arguments`、`super`、`new.target`；
 >
-> 2.箭头函数也不能用作构造函数(不能和new一起来使用，会抛出错误)；
+> 2.箭头函数也不能用作构造函数(不能和 new 一起来使用，会抛出错误)；
 >
-> 3.箭头函数中没有this；
+> 3.箭头函数中没有 this；
 >
 > 4.箭头函数也没有`prototype`属性。
-## 4.5 总结
-this总结......
 
+## 4.5 总结
+
+this 总结......
 
 # 5. 对象原型
 
-
 ## 5.1 对象
-
 
 ## 5.2 原型
 
-
 ## 5.3 行为委托
-
 
 ## 5.4 总结
