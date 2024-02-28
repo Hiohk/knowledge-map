@@ -12,6 +12,7 @@
     "docs:preview": "vitepress preview"
   },
   "dependencies": {
+    "@ant-design/icons-vue": "^7.0.1",
     "@vue/runtime-core": "^3.4.15",
     "ant-design-vue": "^4.1.2",
     "grid-layout-plus": "^1.0.4"
