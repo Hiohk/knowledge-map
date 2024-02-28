@@ -27,9 +27,11 @@ export default defineConfig({
           { text: 'CSS', link: '/frontend/css', activeMatch: "/frontend/css" },
           { text: 'JavaScript', link: '/frontend/javascript/', activeMatch: "/frontend/javascript/" },
           { text: 'Vue.js', link: '/frontend/vue/', activeMatch: "/frontend/vue/" },
-          { text: 'Promise(待开发)', link: '/promise' },
-          { text: 'Node.js(待开发)', link: '/node' },
-          { text: 'TypeScript(待开发)', link: '/typescript' },
+          { text: 'Promise(暂未开放)', link: '/promise' },
+          { text: 'Ajax/Axios(暂未开放)', link: '/axios' },
+          { text: 'Node.js(暂未开放)', link: '/node' },
+          { text: 'HTTP(暂未开放)', link: '/http' },
+          { text: 'TypeScript(暂未开放)', link: '/typescript' },
         ]
       },
       {
