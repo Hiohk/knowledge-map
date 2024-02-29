@@ -15,7 +15,7 @@ const props = defineProps({
     }
 });
 const emit = defineEmits(["closePaperDetail"]);
-
+const activeKey = ref(["1"]);
 const paperObj = ref({});
 paperObj.value = props.currentPaperData;
 
@@ -87,7 +87,7 @@ const backToCard = () => {
                 <a-row :gutter="[16, 24]">
                     <a-col :span="24">
                         <div class="catalogue">
-                            <a-collapse ghost expandIconPosition="end">
+                            <a-collapse ghost v-model:activeKey="activeKey" expandIconPosition="end">
                                 <a-collapse-panel key="1" header="目录">
                                     <a-anchor :affix="false" :items="[
                                         {
