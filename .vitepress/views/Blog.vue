@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from "vue";
-import { EyeOutlined, CommentOutlined, LikeOutlined, SmileTwoTone } from '@ant-design/icons-vue';
+import { EyeOutlined, MessageOutlined, MessageTwoTone, LikeOutlined, SmileTwoTone } from '@ant-design/icons-vue';
+import Comment from "./Comment.vue";
 
 const blogData = ref([
     {
@@ -9,7 +10,8 @@ const blogData = ref([
         date: "2024-02-28 22:12:23",
         pageViews: 123,
         likes: 45,
-        comments: 3
+        comments: 3,
+        showComment: false
     },
     {
         title: "Object.assign 这算是深拷贝吗",
@@ -17,7 +19,8 @@ const blogData = ref([
         date: "2024-02-29 12:30:01",
         pageViews: 12,
         likes: 4,
-        comments: 2
+        comments: 2,
+        showComment: false
     },
     {
         title: "Object.assign 这算是深拷贝吗",
@@ -25,7 +28,8 @@ const blogData = ref([
         date: "2024-02-29 12:30:01",
         pageViews: 12,
         likes: 4,
-        comments: 2
+        comments: 2,
+        showComment: false
     },
     {
         title: "Object.assign 这算是深拷贝吗",
@@ -33,7 +37,8 @@ const blogData = ref([
         date: "2024-02-29 12:30:01",
         pageViews: 12,
         likes: 4,
-        comments: 2
+        comments: 2,
+        showComment: false
     },
     {
         title: "Object.assign 这算是深拷贝吗",
@@ -41,7 +46,8 @@ const blogData = ref([
         date: "2024-02-29 12:30:01",
         pageViews: 12,
         likes: 4,
-        comments: 2
+        comments: 2,
+        showComment: false
     },
     {
         title: "Object.assign 这算是深拷贝吗",
@@ -49,7 +55,8 @@ const blogData = ref([
         date: "2024-02-29 12:30:01",
         pageViews: 12,
         likes: 4,
-        comments: 2
+        comments: 2,
+        showComment: false
     },
     {
         title: "Object.assign 这算是深拷贝吗",
@@ -57,7 +64,8 @@ const blogData = ref([
         date: "2024-02-29 12:30:01",
         pageViews: 12,
         likes: 4,
-        comments: 2
+        comments: 2,
+        showComment: false
     }
 ]);
 const keywords = ref("");
@@ -66,13 +74,15 @@ const pageSize = ref(5);
 const pageSizeOptions = ref(["5", "10", "20", "30", "50", "100"]);
 const showTips = ref(true);
 
-const searchBlog = (data) => {
-
-};
+const searchBlog = (data) => { };
 
 const closeTips = () => {
-    showTips.value = false; 
+    showTips.value = false;
 };
+
+const toggleComment = (item) => {
+    item.showComment = !item.showComment;
+};  
 </script>
 
 <template>
@@ -111,9 +121,12 @@ const closeTips = () => {
                                                 <span class="icon-item">
                                                     <LikeOutlined /> {{ item.likes }}
                                                 </span>
-                                                <span class="icon-item">
-                                                    <CommentOutlined /> {{ item.comments }}
+                                                <span class="icon-item" @click="toggleComment(item)">
+                                                    <span v-if="!item.showComment"><MessageOutlined /></span>
+                                                    <span v-else><MessageTwoTone /></span>
+                                                    {{ item.comments }}
                                                 </span>
+                                                <span></span>
                                             </a-col>
 
                                             <a-col :span="12">
@@ -131,10 +144,13 @@ const closeTips = () => {
                                     </a-col>
                                 </a-row>
                             </a-col>
-                            <a-col :span="4">col-4</a-col>
+                            <a-col :span="4"></a-col>
                         </a-row>
                     </template>
                 </a-card-meta>
+                <div v-if="item.showComment">
+                    <comment></comment>
+                </div>
             </a-card>
         </div>
 

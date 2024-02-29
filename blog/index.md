@@ -10,6 +10,7 @@ import Blog from '../.vitepress/views/Blog.vue'
 
 <style>
     .blog {
+        max-width: 1200px;
         margin: 0px auto;
     }
 </style>

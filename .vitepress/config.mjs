@@ -47,7 +47,6 @@ export default defineConfig({
         ]
       },
       { text: "技术博客", link: '/blog/' },
-      { text: "分享", link: '/share' },
       {
         text: "探索", items: [
           { text: "南天门", link: '/' },

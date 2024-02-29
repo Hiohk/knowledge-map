@@ -1,0 +1,73 @@
+{
+  "hash": "3927cda0",
+  "configHash": "26f00de9",
+  "lockfileHash": "a840470f",
+  "browserHash": "9b6e1ffd",
+  "optimized": {
+    "vue": {
+      "src": "../../../node_modules/vue/dist/vue.runtime.esm-bundler.js",
+      "file": "vue.js",
+      "fileHash": "cdfa151e",
+      "needsInterop": false
+    },
+    "vitepress > @vue/devtools-api": {
+      "src": "../../../node_modules/.pnpm/@vue+devtools-api@7.0.14/node_modules/@vue/devtools-api/dist/index.js",
+      "file": "vitepress___@vue_devtools-api.js",
+      "fileHash": "90e344fc",
+      "needsInterop": false
+    },
+    "vitepress > @vueuse/core": {
+      "src": "../../../node_modules/.pnpm/@vueuse+core@10.7.2_vue@3.4.15/node_modules/@vueuse/core/index.mjs",
+      "file": "vitepress___@vueuse_core.js",
+      "fileHash": "38d7312d",
+      "needsInterop": false
+    },
+    "ant-design-vue": {
+      "src": "../../../node_modules/.pnpm/ant-design-vue@4.1.2_vue@3.4.15/node_modules/ant-design-vue/es/index.js",
+      "file": "ant-design-vue.js",
+      "fileHash": "e18ecedc",
+      "needsInterop": false
+    },
+    "grid-layout-plus": {
+      "src": "../../../node_modules/.pnpm/grid-layout-plus@1.0.4_vue@3.4.15/node_modules/grid-layout-plus/es/index.mjs",
+      "file": "grid-layout-plus.js",
+      "fileHash": "a7aca1e9",
+      "needsInterop": false
+    },
+    "@ant-design/icons-vue": {
+      "src": "../../../node_modules/@ant-design/icons-vue/es/index.js",
+      "file": "@ant-design_icons-vue.js",
+      "fileHash": "45a2ceb3",
+      "needsInterop": false
+    },
+    "dayjs": {
+      "src": "../../../node_modules/dayjs/dayjs.min.js",
+      "file": "dayjs.js",
+      "fileHash": "cfd4c773",
+      "needsInterop": true
+    },
+    "dayjs/plugin/relativeTime": {
+      "src": "../../../node_modules/dayjs/plugin/relativeTime.js",
+      "file": "dayjs_plugin_relativeTime.js",
+      "fileHash": "e1f1821b",
+      "needsInterop": true
+    },
+    "dayjs/locale/zh-cn": {
+      "src": "../../../node_modules/dayjs/locale/zh-cn.js",
+      "file": "dayjs_locale_zh-cn.js",
+      "fileHash": "af6314d8",
+      "needsInterop": true
+    }
+  },
+  "chunks": {
+    "chunk-P4NF5NST": {
+      "file": "chunk-P4NF5NST.js"
+    },
+    "chunk-E3XE4NTJ": {
+      "file": "chunk-E3XE4NTJ.js"
+    },
+    "chunk-ZS7NZCD4": {
+      "file": "chunk-ZS7NZCD4.js"
+    }
+  }
+}
