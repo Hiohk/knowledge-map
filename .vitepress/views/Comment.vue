@@ -3,8 +3,8 @@ import dayjs from 'dayjs';
 import { ref } from 'vue';
 import { LikeFilled, LikeOutlined, DislikeFilled, DislikeOutlined } from '@ant-design/icons-vue';
 import avatarImg from "../../assets/img/avatarImg.svg";
-import relativeTime from 'dayjs/plugin/relativeTime';
 import { message } from 'ant-design-vue';
+import relativeTime from 'dayjs/plugin/relativeTime';
 dayjs.extend(relativeTime);
 
 import 'dayjs/locale/zh-cn';
