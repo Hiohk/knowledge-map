@@ -68,6 +68,7 @@ const blogData = ref([
         showComment: false
     }
 ]);
+const emit = defineEmits(["getPaperDetail"]);
 const keywords = ref("");
 const currentPage = ref(1);
 const pageSize = ref(5);
@@ -82,7 +83,11 @@ const closeTips = () => {
 
 const toggleComment = (item) => {
     item.showComment = !item.showComment;
-};  
+};
+
+const toDetailPage = (item) => {
+    emit("getPaperDetail", item);
+};
 </script>
 
 <template>
@@ -103,7 +108,7 @@ const toggleComment = (item) => {
         </div>
 
         <div v-for="(item, index) in blogData" :key="index">
-            <a-card class="blog-card" bordered hoverable size="small">
+            <a-card class="blog-card" hoverable size="small" @click="toDetailPage(item)">
                 <a-card-meta :title="item.title">
                     <template #description>
                         <a-row>
@@ -191,6 +196,7 @@ const toggleComment = (item) => {
     margin: 20px 100px;
     background: linear-gradient(to right, #E0EBFE, #FFFFFF);
     border-radius: 12px;
+    border: 1px solid #f0f0f0;
     transition-duration: 0.2s;
     padding: 14px;
     cursor: pointer;
@@ -206,6 +212,7 @@ const toggleComment = (item) => {
 
 .blog-card:hover {
     background: linear-gradient(to right, #E0EBFE, #FFFFFF);
+    border: 1px solid #f0f0f0;
 }
 
 .blog-content {
