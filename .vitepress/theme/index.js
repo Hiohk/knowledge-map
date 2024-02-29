@@ -8,7 +8,6 @@ import Antd from 'ant-design-vue';
 import 'ant-design-vue/dist/reset.css';
 import { GridLayout, GridItem } from 'grid-layout-plus';
 
-
 // 导入组件
 import HomeContent from "./components/HomeContent.vue";
 import NotFound from "./components/NotFound.vue";
@@ -27,8 +26,5 @@ export default {
     app
       .component('GridLayout', GridLayout)
       .component('GridItem', GridItem);
-    app.config.globalProperties.$antdConfigProvider = {
-        // 配置项...
-      };
   }
 }

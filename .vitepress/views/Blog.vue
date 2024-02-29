@@ -122,8 +122,12 @@ const toggleComment = (item) => {
                                                     <LikeOutlined /> {{ item.likes }}
                                                 </span>
                                                 <span class="icon-item" @click="toggleComment(item)">
-                                                    <span v-if="!item.showComment"><MessageOutlined /></span>
-                                                    <span v-else><MessageTwoTone /></span>
+                                                    <span v-if="!item.showComment">
+                                                        <MessageOutlined />
+                                                    </span>
+                                                    <span v-else>
+                                                        <MessageTwoTone />
+                                                    </span>
                                                     {{ item.comments }}
                                                 </span>
                                                 <span></span>
@@ -156,7 +160,8 @@ const toggleComment = (item) => {
 
         <div class="pagination">
             <a-pagination v-model:current="currentPage" v-model:page-size="pageSize" :total="60"
-                :show-total="total => `总计 ${blogData.length} 条`" :defaultPageSize="5" :pageSizeOptions="pageSizeOptions" show-quick-jumper/>
+                :show-total="total => `总计 ${blogData.length} 条`" :defaultPageSize="5" :pageSizeOptions="pageSizeOptions"
+                show-quick-jumper />
         </div>
     </div>
 </template>
