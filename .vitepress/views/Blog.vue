@@ -155,8 +155,8 @@ const toggleComment = (item) => {
         </div>
 
         <div class="pagination">
-            <a-pagination v-model:current="currentPage" v-model:page-size="pageSize" :total="blogData.length"
-                :show-total="total => `总计 ${blogData.length} 条`" :defaultPageSize="5" :pageSizeOptions="pageSizeOptions" />
+            <a-pagination v-model:current="currentPage" v-model:page-size="pageSize" :total="60"
+                :show-total="total => `总计 ${blogData.length} 条`" :defaultPageSize="5" :pageSizeOptions="pageSizeOptions" show-quick-jumper/>
         </div>
     </div>
 </template>

@@ -22,27 +22,29 @@ const comments = ref([
 ]);
 const submitting = ref(false);
 const commentText = ref('');
-const replyText = ref("请发表你的评论");
+const replyText = ref("请输入你的评论");
 
 const like = (item) => {
-    item.likes += 1;
+    item.likes = 1;
+    item.dislikes = 0;
     item.action = 'liked';
 };
 
-const cancelLike = (item) => {
-    item.likes -= 1;
-    item.action = 'liked';
-};
+// const cancelLike = (item) => {
+//     item.likes -= 1;
+//     item.action = 'liked';
+// };
 
 const dislike = (item) => {
-    item.dislikes += 1;
+    item.dislikes = 1;
+    item.likes = 0;
     item.action = 'disliked';
 };
 
-const cancelDislike = (item) => {
-    item.dislikes -= 1;
-    item.action = 'disliked';
-};
+// const cancelDislike = (item) => {
+//     item.dislikes -= 1;
+//     item.action = 'disliked';
+// };
 
 const handleSubmit = () => {
     if (commentText.value === "") {
@@ -63,8 +65,9 @@ const handleSubmit = () => {
             },
             ...comments.value,
         ];
+        message.success('评论成功');
         commentText.value = '';
-        replyText.value = "请发表你的评论";
+        replyText.value = "请输入你的评论";
     }, 1000);
 };
 
@@ -95,7 +98,7 @@ const generateRandomNumberString = (length) => {
                             <span key="comment-basic-like">
                                 <a-tooltip title="赞">
                                     <template v-if="item.action === 'liked'">
-                                        <LikeFilled @click="cancelLike(item)" />
+                                        <LikeFilled @click="like(item)" />
                                     </template>
                                     <template v-else>
                                         <LikeOutlined @click="like(item)" />
@@ -108,7 +111,7 @@ const generateRandomNumberString = (length) => {
                             <span key="comment-basic-dislike">
                                 <a-tooltip title="踩一下">
                                     <template v-if="item.action === 'disliked'">
-                                        <DislikeFilled @click="cancelDislike(item)" />
+                                        <DislikeFilled @click="dislike(item)" />
                                     </template>
                                     <template v-else>
                                         <DislikeOutlined @click="dislike(item)" />
@@ -125,7 +128,7 @@ const generateRandomNumberString = (length) => {
                             <a-avatar :src="avatarImg" alt="Michael" />
                         </template>
                         <template #content>
-                            <p>
+                            <p class="comment-content">
                                 {{ item.content }}
                             </p>
                         </template>
@@ -157,3 +160,13 @@ const generateRandomNumberString = (length) => {
         </a-comment>
     </div>
 </template>
+
+<style scoped>
+.comment-content {
+    color: rgba(9, 20, 41, 0.8);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+</style>
