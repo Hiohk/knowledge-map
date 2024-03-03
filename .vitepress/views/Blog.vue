@@ -1,6 +1,13 @@
 <script setup>
 import { ref } from "vue";
-import { EyeOutlined, MessageOutlined, MessageTwoTone, LikeOutlined, SmileTwoTone } from '@ant-design/icons-vue';
+import {
+    EyeOutlined,
+    MessageOutlined,
+    MessageTwoTone,
+    LikeOutlined,
+    SmileTwoTone,
+    UpOutlined
+} from '@ant-design/icons-vue';
 import Comment from "./Comment.vue";
 
 const blogData = ref([
@@ -88,6 +95,10 @@ const toggleComment = (item) => {
 const toDetailPage = (item) => {
     emit("getPaperDetail", item);
 };
+
+const foldComment = (item) => {
+    item.showComment = !item.showComment;
+};
 </script>
 
 <template>
@@ -126,7 +137,7 @@ const toDetailPage = (item) => {
                                                 <span class="icon-item">
                                                     <LikeOutlined /> {{ item.likes }}
                                                 </span>
-                                                <span class="icon-item" @click="toggleComment(item)">
+                                                <span class="icon-item" @click.stop="toggleComment(item)">
                                                     <span v-if="!item.showComment">
                                                         <MessageOutlined />
                                                     </span>
@@ -157,10 +168,18 @@ const toDetailPage = (item) => {
                         </a-row>
                     </template>
                 </a-card-meta>
-                <div v-if="item.showComment">
-                    <comment></comment>
-                </div>
             </a-card>
+
+            <a-card class="blog-card" v-if="item.showComment" hoverable size="small">
+                <div class="fold-text">
+                    <a-button type="link" @click="foldComment(item)">收 起
+                        <UpOutlined />
+                    </a-button>
+                </div>
+                <comment></comment>
+            </a-card>
+
+
         </div>
 
         <div class="pagination">
@@ -237,5 +256,9 @@ const toDetailPage = (item) => {
 
 .tag {
     float: right;
+}
+
+.fold-text {
+    text-align: center;
 }
 </style>

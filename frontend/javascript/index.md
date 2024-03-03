@@ -742,3 +742,171 @@ person.age = 18;
 
 
 ## 5.4 总结
+
+
+# 6. 深入浏览器的渲染原理
+
+## 6.1 浏览器内核
+常见的浏览器内核有：
+- **Trident**(三叉戟)：IE、360安全浏览器、搜狗高速浏览器、百度浏览器、UC浏览器；
+- **Gecko**(壁虎)：Mozilla Firefox；
+- **Presto**(急板乐曲)->**Blink**（眨眼）: Opera;
+- **Webkit**: Safari、360极速浏览器、搜狗高速浏览器、移动端浏览器（Android、ios）;
+- **Webkit->Blink**: Google Chrome、Edge。
+
+## 6.2 网页的解析和浏览器渲染过程
+浏览器的渲染原理和网页的解析过程可以大致分为以下几个步骤：
+
+1. **DNS解析**：当用户输入一个网址并按下回车键的时候，浏览器首先会进行DNS解析，将域名转换成相应的IP地址，以便进行网络通信。
+TCP连接：浏览器通过DNS获取到Web服务器真正的IP地址后，会向Web服务器发起TCP连接请求。通过TCP三次握手建立好连接后，浏览器便可以将HTTP请求数据发送给服务器了。
+
+2. **发送HTTP请求**：浏览器向Web服务器发起一个HTTP请求，HTTP协议是建立在TCP协议之上的应用层协议，其本质是在建立起的TCP连接中，按照HTTP协议标准发送一个索要网页的请求。在这一过程中，会涉及到负载均衡等操作。
+解析HTML：浏览器从服务器获取HTML代码后，会开始解析HTML标记并将其构建成DOM树。DOM树是由HTML标签和它们的层级关系组成的树状结构，表示了网页的结构和内容。在解析HTML的过程中，浏览器还会解析meta标记、超链接、图像和CSS样式等。为了提高解析效率，浏览器在开始解析前，会启动一个预解析的线程，率先下载HTML中的外部CSS文件和外部的JS文件。如果主线程解析到link位置，此时外部的CSS文件还没有下载解析好，主线程不会等待，继续解析后续的HTML。
+
+3. **解析CSS**：浏览器完成了HTML的解析后，会解析CSS样式并将其应用于DOM树。CSS样式是一种控制网页布局和样式的标准，通过将样式表与HTML分离，使得网页制作更加简单和灵活。浏览器会根据选择器匹配元素，并应用相应的样式规则，计算出每个元素的最终样式。
+生成渲染树：浏览器会根据DOM树和样式信息生成渲染树。渲染树是由DOM树中的可见元素和它们的样式信息组成的树状结构，表示了网页的布局和外观。渲染树中的每个节点都是一个可见元素，包括文本、图片、表格等。在生成渲染树的过程中，浏览器会根据元素的样式信息计算出每个元素的几何属性，如位置、大小等。这个过程称为布局。
+4. **分层**：主线程会使用一套复杂的策略对整个布局树中进行分层。分层的好处在于，将来某一个层改变后，仅会对该层进行后续的处理，从而提升效率。
+绘制：主线程会为每个层单独产生绘制指令集，用于描述这一层的内容该如何画出来。浏览器会根据渲染树的结构和几何属性进行绘制，将网页内容显示在用户界面上。在绘制过程中，浏览器会将渲染树中的每个节点转换为屏幕上的像素。
+
+
+## 6.3 回流和重绘解析
+在HTML中，每个元素都可以理解成一个盒子，在浏览器解析过程中，会涉及到回流与重绘：
+
+- **回流**：布局引擎会根据各种样式计算每个盒子在页面上的大小与位置；
+- **重绘**：当计算好盒模型的位置、大小及其他属性后，浏览器根据每个盒子特性进行绘制。
+
+具体的浏览器解析渲染机制如下：
+
+- 解析HTML，生成DOM树，解析CSS，生成CSSOM树；
+- 将DOM树和CSSOM树结合，生成渲染树(Render Tree)；
+- Layout(回流):根据生成的渲染树，进行回流(Layout)，得到节点的几何信息（位置，大小）；
+- Painting(重绘):根据渲染树以及回流得到的几何信息，得到节点的绝对像素；
+- Display:将像素发送给GPU，展示在页面上；
+
+### 回流触发时机
+回流这一阶段主要是计算节点的位置和几何信息，那么当页面布局和几何信息发生变化的时候，就需要回流，如下面情况：
+
+1. 添加或删除可见的DOM元素；
+2. 元素的位置发生变化；
+3. 元素的尺寸发生变化（包括外边距、内边框、边框大小、高度和宽度等）；
+4. 内容发生变化，比如文本变化或图片被另一个不同尺寸的图片所替代；
+5. 页面一开始渲染的时候（这避免不了）；
+6. 浏览器的窗口尺寸变化（因为回流是根据视口的大小来计算元素的位置和大小的）；
+7. 还有一些容易被忽略的操作：获取一些特定属性的值；
+
+> offsetTop、offsetLeft、 offsetWidth、offsetHeight、scrollTop、scrollLeft、scrollWidth、scrollHeight、clientTop、 clientLeft、clientWidth、clientHeight
+
+这些属性有一个共性，就是需要通过即时计算得到。因此浏览器为了获取这些值，也会进行回流
+
+除此还包括getComputedStyle方法，原理是一样的。
+
+### 重绘触发时机
+触发回流一定会触发重绘。可以把页面理解为一个黑板，黑板上有一朵画好的小花。现在我们要把这朵从左边移到了右边，那我们要先确定好右边的具体位置，画好形状（回流），再画上它原有的颜色（重绘）。
+
+除此之外还有一些其他引起重绘行为：
+
+- 颜色的修改
+- 文本方向的修改
+- 阴影的修改
+
+总之，<span style="color: red">**回流一定会触发重绘，而重绘不一定会回流**</span>。
+
+### 浏览器优化机制
+现代的浏览器都是很聪明的，由于每次重排都会造成额外的计算消耗，因此大多数浏览器都会通过队列化修改并批量执行来优化重排过程。浏览器会将修改操作放入到队列里，直到过了一段时间或者操作达到了一个阈值，才清空队列。但是！当你获取布局信息的操作的时候，会强制队列刷新，比如当你访问以下属性或者使用以下方法：
+
+> offsetTop、offsetLeft、offsetWidth、offsetHeight
+> 
+> scrollTop、scrollLeft、scrollWidth、scrollHeight
+> 
+> clientTop、clientLeft、clientWidth、clientHeight
+> 
+> getComputedStyle()
+> 
+> getBoundingClientRect
+
+以上属性和方法都需要返回最新的布局信息，因此浏览器不得不清空队列，触发回流重绘来返回正确的值。因此，我们在修改样式的时候，最好避免使用上面列出的属性，他们都会刷新渲染队列。如果要使用它们，最好将值缓存起来。
+
+### 如何避免回流
+
+- 如果想设定元素的样式，通过改变元素的 class 类名 (尽可能在 DOM 树的最里层)；
+- 避免设置多项内联样式；
+- 应用元素的动画，使用 position 属性的 fixed 值或 absolute 值(如前文示例所提)；
+- 避免使用 table 布局，table 中每个元素的大小以及内容的改动，都会导致整个 table 的重新计算；
+- 对于那些复杂的动画，对其设置 position: fixed/absolute，尽可能地使元素脱离文档流，从而减少对其他元素的影响；
+- 使用css3硬件加速，可以让transform、opacity、filters这些动画不会引起回流重绘；
+- 避免使用 CSS 的 JavaScript 表达式；
+
+当我们需要对 DOM 进行一系列修改的时候，可以通过批量修改 DOM 来减少回流重绘次数。
+有三种方式可以让 DOM 脱离文档流：
+
+- 隐藏元素，应用修改，重新显示；
+- 使用文档片段(document fragment)在当前DOM之外构建一个子树，再把它拷贝回文档；
+- 将原始元素拷贝到一个脱离文档的节点中，修改节点后，再替换原始的元素。
+
+关于重绘与回流的进一步介绍，请参考[重绘与回流](https://segmentfault.com/a/1190000017329980)。
+
+## 6.4 合成和性能分析
+元素绘制的过程，可以将布局后的元素绘制到多个合成图层中，这是浏览器的一种优化手段。
+默认情况下，标准流中的内容都是被绘制在同一个图层中的；而一些特殊的属性，会创建一个新的合成层（Compositing Layer）,并且新的图层可以利用 GPU 来加速绘制，因为每个合成层都是单独渲染的。
+
+可以行成新的合成层的常见属性：
+
+- 3D transforms
+- video、canvas、iframe
+- opacity 动画转换时
+- position：fixed
+- will-change: 一个实验性的属性，提前告诉浏览器元素可能发生哪些变化
+- animation或transition设置了opacity、transform
+  
+分层确实可以提高性能，但是它以内存管理为代价，因此不应作为 web 性能优化策略的一部分过度使用。
+
+## 6.5 defer和async属性
+在浏览器的解析过程中，遇到了 script 元素时不能继续构建 DOM 树的，它只会停止继续构建，首先下载 JavaScript
+代码，并且执行 JavaScript 的脚本，只有等到 JavaScript脚本执行结束后，才会继续解析 HTML，构建 DOM 树。
+
+> 因为 JavaScript 的作用之一就是操作 DOM，并且修改 DOM；
+> 
+> 如果等到 DOM 树构建完成并且渲染再执行 JavaScript，会造成严重的回流和重绘，影响页面性能；
+>
+> 所以在遇到 script 元素时，优先下载和执行 JavaScript代码，再继续构建 DOM树。
+
+但是，**这会造成页面的解析阻塞，在脚本下载、执行完成之前，用户在界面上什么都看不到**。
+为解决这个问题，script 元素提供了两个属性 `defer` 和 `async`。
+
+
+::: info defer 属性
+浏览器不等待脚本下载，而继续解析 HTML，构建 DOM Tree。
+脚本会由浏览器来进行下载，但是不会阻塞DOMTree的构建过程；
+如果脚本提前下载好了，它会等待 DOM Tree 构建完成，在 DOMContentLoaded 事件之前先执行defer中的代码；
+
+- DOMContentLoad 总是会等待 defer 中的代码执行完成；
+- 另外多个带 defer 的脚本可以保持正确的顺序执行；
+- 从某个角度来说，defer 可以提高页面的性能，并且推荐放到 head 元素中；
+- defer 仅适用于外部脚本，对于 script 默认内容会被忽略。
+:::
+
+::: info async 属性
+- 浏览器不会因 async 脚本而阻塞；
+- async 脚本不能保证顺序执行，它是独立下载、独立运行，不会等待其他脚本；
+- async 不会保证在 DOMContentLoad 之前或者之后执行；
+:::
+
+defer 通常用于需要再文档解析后操作 DOM 的 JavaScript 代码，并且对多个 script 文件有顺序要求的；
+async 通常用于独立的脚本，对其他脚本，甚至 DOM 没有依赖的。
+
+## 6.6 JavaScript执行原理
+
+
+
+## 6.7 总结
+总结......
+
+# 7. V8引擎
+
+v8引擎是前端面试过程中可能会问到的关于底层原理的知识。详情请参考[V8官网](https://v8.dev/)。
+
+::: tip 什么是V8引擎？这是V8官网的一段介绍：
+V8 is Google’s open source high-performance JavaScript and WebAssembly engine, written in C++. It is used in Chrome and in Node.js, among others. It implements ECMAScript and WebAssembly, and runs on Windows 7 or later, macOS 10.12+, and Linux systems that use x64, IA-32, ARM, or MIPS processors. V8 can run standalone, or can be embedded into any C++ application.
+
+V8 是 Google 开源的 JavaScript 和 WebAssembly 引擎，用 C++ 编写。它用于 Chrome 和 Node.js 等。V8实现了 ECMAScript 和 WebAssembly，并在 Windows7 或更高版本、macOS10.12+ 以及使用 x64、IA-32 或 ARM 处理器的 Linux 系统上运行。其他系统（IBM i、AIX）和处理器（MIPS、ppcle64、s390x）由外部维护。V8 可以独立运行，也可以嵌入到任何 C++ 应用程序中。
+:::

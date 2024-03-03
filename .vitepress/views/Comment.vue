@@ -88,7 +88,6 @@ const generateRandomNumberString = (length) => {
 
 <template>
     <div>
-        <a-divider style="height: 1px;"></a-divider>
         <!-- 显示评论 -->
         <a-list v-if="comments.length" :data-source="comments" :header="`${comments.length} 评论`" item-layout="horizontal">
             <template #renderItem="{ item }">
