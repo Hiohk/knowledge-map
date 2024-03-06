@@ -2,42 +2,75 @@
   "hash": "d2292eb1",
   "configHash": "9eabad11",
   "lockfileHash": "e04cb455",
-  "browserHash": "d5f71a47",
+  "browserHash": "b4a30b0e",
   "optimized": {
     "vue": {
       "src": "../../../node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "ac35ae66",
+      "fileHash": "080d6fde",
       "needsInterop": false
     },
     "vitepress > @vue/devtools-api": {
       "src": "../../../node_modules/.pnpm/@vue+devtools-api@7.0.15_vue@3.4.21/node_modules/@vue/devtools-api/dist/index.js",
       "file": "vitepress___@vue_devtools-api.js",
-      "fileHash": "d3974d60",
+      "fileHash": "9c204fce",
       "needsInterop": false
     },
     "vitepress > @vueuse/core": {
       "src": "../../../node_modules/.pnpm/@vueuse+core@10.9.0_vue@3.4.21/node_modules/@vueuse/core/index.mjs",
       "file": "vitepress___@vueuse_core.js",
-      "fileHash": "a7edaed4",
+      "fileHash": "9608680b",
       "needsInterop": false
     },
     "ant-design-vue": {
       "src": "../../../node_modules/.pnpm/ant-design-vue@4.1.2_vue@3.4.21/node_modules/ant-design-vue/es/index.js",
       "file": "ant-design-vue.js",
-      "fileHash": "042c3226",
+      "fileHash": "cb1423d2",
       "needsInterop": false
     },
     "grid-layout-plus": {
       "src": "../../../node_modules/.pnpm/grid-layout-plus@1.0.4_vue@3.4.21/node_modules/grid-layout-plus/es/index.mjs",
       "file": "grid-layout-plus.js",
-      "fileHash": "7b5764cc",
+      "fileHash": "b746aa67",
       "needsInterop": false
+    },
+    "@ant-design/icons-vue": {
+      "src": "../../../node_modules/.pnpm/@ant-design+icons-vue@7.0.1_vue@3.4.21/node_modules/@ant-design/icons-vue/es/index.js",
+      "file": "@ant-design_icons-vue.js",
+      "fileHash": "04dbe3db",
+      "needsInterop": false
+    },
+    "dayjs": {
+      "src": "../../../node_modules/.pnpm/dayjs@1.11.10/node_modules/dayjs/dayjs.min.js",
+      "file": "dayjs.js",
+      "fileHash": "adbe83e0",
+      "needsInterop": true
+    },
+    "dayjs/plugin/relativeTime": {
+      "src": "../../../node_modules/.pnpm/dayjs@1.11.10/node_modules/dayjs/plugin/relativeTime.js",
+      "file": "dayjs_plugin_relativeTime.js",
+      "fileHash": "e0662b5a",
+      "needsInterop": true
+    },
+    "dayjs/locale/zh-cn": {
+      "src": "../../../node_modules/.pnpm/dayjs@1.11.10/node_modules/dayjs/locale/zh-cn.js",
+      "file": "dayjs_locale_zh-cn.js",
+      "fileHash": "d0f5cc41",
+      "needsInterop": true
     }
   },
   "chunks": {
-    "chunk-X3FLJ7JS": {
-      "file": "chunk-X3FLJ7JS.js"
+    "chunk-KBRT6ZXZ": {
+      "file": "chunk-KBRT6ZXZ.js"
+    },
+    "chunk-IEUCY4ZU": {
+      "file": "chunk-IEUCY4ZU.js"
+    },
+    "chunk-I376RV5Q": {
+      "file": "chunk-I376RV5Q.js"
+    },
+    "chunk-ZS7NZCD4": {
+      "file": "chunk-ZS7NZCD4.js"
     }
   }
 }

@@ -5,7 +5,7 @@ layout: home
 hero:
   name: "Knowledge Graph"
   text: "For front-end and back-end."
-  tagline: "其实地上本没有路，走的人多了，也便成了路。"
+  tagline: "时间不能改变你的故事内容，却可以改变你的叙述方式。"
   image: 
     src: /background.svg
     alt: 背景图片

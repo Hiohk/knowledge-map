@@ -11,8 +11,8 @@ export default defineConfig({
   head: [['link', { rel: 'icon', href: '/knowledge-graph/logo.svg' }]],
   themeConfig: {
     lastUpdatedText: "最后更新于",
-    outlineTitle: "目录大纲",
-    outline: [1,6],
+    outlineTitle: "目录",
+    outline: [1,3],
     logo: '/logo.svg',
     i18nRouting: false,
     docFooter: {
@@ -27,6 +27,7 @@ export default defineConfig({
           { text: 'CSS', link: '/frontend/css', activeMatch: "/frontend/css" },
           { text: 'JavaScript', link: '/frontend/javascript/', activeMatch: "/frontend/javascript/" },
           { text: 'Vue.js', link: '/frontend/vue/', activeMatch: "/frontend/vue/" },
+          { text: '前端开发规范', link: '/frontend/convention/', activeMatch: "/frontend/convention/" },
           { text: 'Promise(暂未开放)', link: '/promise' },
           { text: 'Ajax/Axios(暂未开放)', link: '/axios' },
           { text: 'Node.js(暂未开放)', link: '/node' },
