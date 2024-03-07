@@ -1,76 +1,43 @@
 {
-  "hash": "0f1bb248",
-  "configHash": "0afa0054",
-  "lockfileHash": "2c45880b",
-  "browserHash": "6cf0213c",
+  "hash": "d2292eb1",
+  "configHash": "9eabad11",
+  "lockfileHash": "e04cb455",
+  "browserHash": "d5f71a47",
   "optimized": {
     "vue": {
       "src": "../../../node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "f7a75baf",
+      "fileHash": "71de1e29",
       "needsInterop": false
     },
     "vitepress > @vue/devtools-api": {
-      "src": "../../../node_modules/@vue/devtools-api/lib/esm/index.js",
+      "src": "../../../node_modules/.pnpm/@vue+devtools-api@7.0.15_vue@3.4.21/node_modules/@vue/devtools-api/dist/index.js",
       "file": "vitepress___@vue_devtools-api.js",
-      "fileHash": "b9c93555",
+      "fileHash": "cd2ba487",
       "needsInterop": false
     },
     "vitepress > @vueuse/core": {
-      "src": "../../../node_modules/@vueuse/core/index.mjs",
+      "src": "../../../node_modules/.pnpm/@vueuse+core@10.9.0_vue@3.4.21/node_modules/@vueuse/core/index.mjs",
       "file": "vitepress___@vueuse_core.js",
-      "fileHash": "9297730f",
+      "fileHash": "de3af9e9",
       "needsInterop": false
     },
     "ant-design-vue": {
-      "src": "../../../node_modules/ant-design-vue/es/index.js",
+      "src": "../../../node_modules/.pnpm/ant-design-vue@4.1.2_vue@3.4.21/node_modules/ant-design-vue/es/index.js",
       "file": "ant-design-vue.js",
-      "fileHash": "b50c96ca",
+      "fileHash": "3cbd8040",
       "needsInterop": false
     },
     "grid-layout-plus": {
-      "src": "../../../node_modules/grid-layout-plus/es/index.mjs",
+      "src": "../../../node_modules/.pnpm/grid-layout-plus@1.0.4_vue@3.4.21/node_modules/grid-layout-plus/es/index.mjs",
       "file": "grid-layout-plus.js",
-      "fileHash": "5bf9cff1",
+      "fileHash": "bc6ce51b",
       "needsInterop": false
-    },
-    "@ant-design/icons-vue": {
-      "src": "../../../node_modules/@ant-design/icons-vue/es/index.js",
-      "file": "@ant-design_icons-vue.js",
-      "fileHash": "a110d6c4",
-      "needsInterop": false
-    },
-    "dayjs": {
-      "src": "../../../node_modules/dayjs/dayjs.min.js",
-      "file": "dayjs.js",
-      "fileHash": "466a9145",
-      "needsInterop": true
-    },
-    "dayjs/plugin/relativeTime": {
-      "src": "../../../node_modules/dayjs/plugin/relativeTime.js",
-      "file": "dayjs_plugin_relativeTime.js",
-      "fileHash": "8a7c8f43",
-      "needsInterop": true
-    },
-    "dayjs/locale/zh-cn": {
-      "src": "../../../node_modules/dayjs/locale/zh-cn.js",
-      "file": "dayjs_locale_zh-cn.js",
-      "fileHash": "fdc83c0b",
-      "needsInterop": true
     }
   },
   "chunks": {
-    "chunk-TWZ6GZXF": {
-      "file": "chunk-TWZ6GZXF.js"
-    },
-    "chunk-P4NF5NST": {
-      "file": "chunk-P4NF5NST.js"
-    },
-    "chunk-I27O6UFQ": {
-      "file": "chunk-I27O6UFQ.js"
-    },
-    "chunk-ZS7NZCD4": {
-      "file": "chunk-ZS7NZCD4.js"
+    "chunk-X3FLJ7JS": {
+      "file": "chunk-X3FLJ7JS.js"
     }
   }
 }

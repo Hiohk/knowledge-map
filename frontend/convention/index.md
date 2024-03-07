@@ -854,20 +854,1066 @@ console.log(foo, bar, baz);
 ```
 
 ## 8. 箭头函数
+#### 8.1 当你必须使用匿名函数时 (当传递内联函数时)， 使用箭头函数
+eslint: [prefer-arrow-callback](https://eslint.org/docs/latest/rules/prefer-arrow-callback.html), [arrow-spacing](https://eslint.org/docs/latest/rules/arrow-spacing.html)
+
+> 为什么? 它创建了一个在 `this` 上下文中执行的函数版本，它通常是你想要的，并且是一个更简洁的语法。
+> 
+> 为什么不? 如果你有一个相当复杂的函数，你可以把这个逻辑转移到它自己的命名函数表达式中。
+
+```javascript
+// bad
+[1, 2, 3].map(function (x) {
+  const y = x + 1;
+  return x * y;
+});
+
+// good
+[1, 2, 3].map((x) => {
+  const y = x + 1;
+  return x * y;
+});
+```
+
+#### 8.2 如果函数体包含一个单独的语句，返回一个没有副作用的 [expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators#Expressions)，省略括号并使用隐式返回。否则，保留括号并使用 `return` 语句 
+eslint: [arrow-parens](https://eslint.org/docs/latest/rules/arrow-parens.html), [arrow-body-style](https://eslint.org/docs/latest/rules/arrow-body-style.html)
+
+> 为什么? 语法糖。多个函数被链接在一起时，提高可读性。
+
+```javascript
+// bad
+[1, 2, 3].map(number => {
+  const nextNumber = number + 1;
+  `A string containing the ${nextNumber}.`;
+});
+
+// good
+[1, 2, 3].map(number => `A string containing the ${number}.`);
+
+// good
+[1, 2, 3].map((number) => {
+  const nextNumber = number + 1;
+  return `A string containing the ${nextNumber}.`;
+});
+
+// good
+[1, 2, 3].map((number, index) => ({
+  [index]: number,
+}));
+
+// 没有副作用的隐式返回
+function foo(callback) {
+  const val = callback();
+  if (val === true) {
+    // 如果回调返回 true 执行
+  }
+}
+
+let bool = false;
+
+// bad
+foo(() => bool = true);
+
+// good
+foo(() => {
+  bool = true;
+});
+```
+
+#### 8.3 如果表达式跨越多个行，用括号将其括起来，以获得更好的可读性。
+
+> 为什么? 它清楚地显示了函数的起点和终点。
+
+```javascript
+// bad
+['get', 'post', 'put'].map(httpMethod => Object.prototype.hasOwnProperty.call(
+    httpMagicObjectWithAVeryLongName,
+    httpMethod,
+  )
+);
+
+// good
+['get', 'post', 'put'].map(httpMethod => (
+  Object.prototype.hasOwnProperty.call(
+    httpMagicObjectWithAVeryLongName,
+    httpMethod,
+  )
+));
+```
+
+#### 8.4 如果你的函数接收一个参数，则可以不用括号，省略括号。 否则，为了保证清晰和一致性，需要在参数周围加上括号。 注意：总是使用括号是可以接受的，在这种情况下，我们使用 [“always” option](https://eslint.org/docs/latest/rules/arrow-parens#always) 来配置 eslint。
+eslint: [arrow-parens](https://eslint.org/docs/latest/rules/arrow-parens.html)
+
+> 为什么? 减少视觉上的混乱。
+
+```javascript
+// bad
+[1, 2, 3].map((x) => x * x);
+
+// good
+[1, 2, 3].map(x => x * x);
+
+// good
+[1, 2, 3].map(number => (
+  `A long string with the ${number}. It’s so long that we don’t want it to take up space on the .map line!`
+));
+
+// bad
+[1, 2, 3].map(x => {
+  const y = x + 1;
+  return x * y;
+});
+
+// good
+[1, 2, 3].map((x) => {
+  const y = x + 1;
+  return x * y;
+});
+```
+
+#### 8.5 避免箭头函数符号 (`=>`) 和比较运算符 (`<=`, `>=`) 的混淆
+eslint: [no-confusing-arrow](https://eslint.org/docs/latest/rules/no-confusing-arrow)
+
+```javascript
+// bad
+const itemHeight = item => item.height > 256 ? item.largeSize : item.smallSize;
+
+// bad
+const itemHeight = (item) => item.height > 256 ? item.largeSize : item.smallSize;
+
+// good
+const itemHeight = item => (item.height > 256 ? item.largeSize : item.smallSize);
+
+// good
+const itemHeight = (item) => {
+  const { height, largeSize, smallSize } = item;
+  return height > 256 ? largeSize : smallSize;
+};
+```
+
+#### 8.6 注意带有隐式返回的箭头函数函数体的位置
+eslint: [implicit-arrow-linebreak](https://eslint.org/docs/latest/rules/implicit-arrow-linebreak)
+
+```javascript
+// bad
+(foo) =>
+  bar;
+
+(foo) =>
+  (bar);
+
+// good
+(foo) => bar;
+(foo) => (bar);
+(foo) => (
+   bar
+)
+```
 
 ## 9. 类和构造器
+#### 9.1 尽量使用 `class`。避免直接操作 `prototype`
+
+?为什么? `class` 语法更简洁，更容易推理。
+
+```javascript
+// bad
+function Queue(contents = []) {
+  this.queue = [...contents];
+}
+Queue.prototype.pop = function () {
+  const value = this.queue[0];
+  this.queue.splice(0, 1);
+  return value;
+};
+
+// good
+class Queue {
+  constructor(contents = []) {
+    this.queue = [...contents];
+  }
+  pop() {
+    const value = this.queue[0];
+    this.queue.splice(0, 1);
+    return value;
+  }
+}
+```
+
+#### 9.2 使用 `extends` 来扩展继承。
+
+> 为什么? 它是一个内置的方法，可以在不破坏 `instanceof` 的情况下继承原型功能。
+
+```javascript
+// bad
+const inherits = require('inherits');
+function PeekableQueue(contents) {
+  Queue.apply(this, contents);
+}
+inherits(PeekableQueue, Queue);
+PeekableQueue.prototype.peek = function () {
+  return this.queue[0];
+};
+
+// good
+class PeekableQueue extends Queue {
+  peek() {
+    return this.queue[0];
+  }
+}
+```
+
+#### 9.3 方法返回了 `this` 来供其内部方法调用
+
+```javascript
+// bad
+Jedi.prototype.jump = function () {
+  this.jumping = true;
+  return true;
+};
+
+Jedi.prototype.setHeight = function (height) {
+  this.height = height;
+};
+
+const luke = new Jedi();
+luke.jump(); // => true
+luke.setHeight(20); // => undefined
+
+// good
+class Jedi {
+  jump() {
+    this.jumping = true;
+    return this;
+  }
+
+  setHeight(height) {
+    this.height = height;
+    return this;
+  }
+}
+
+const luke = new Jedi();
+
+luke.jump()
+  .setHeight(20);
+```
+
+#### 9.4 只要在确保能正常工作并且不产生任何副作用的情况下，编写一个自定义的 `toString()` 方法也是可以的
+
+```javascript
+class Jedi {
+  constructor(options = {}) {
+    this.name = options.name || 'no name';
+  }
+
+  getName() {
+    return this.name;
+  }
+
+  toString() {
+    return `Jedi - ${this.getName()}`;
+  }
+}
+```
+
+#### 9.5 如果没有指定类，则类具有默认的构造器。 一个空的构造器或是一个代表父类的函数是没有必要的
+eslint: [no-useless-constructor](https://eslint.org/docs/rules/no-useless-constructor)
+
+```javascript
+// bad
+class Jedi {
+  constructor() {}
+
+  getName() {
+    return this.name;
+  }
+}
+
+// bad
+class Rey extends Jedi {
+  constructor(...args) {
+    super(...args);
+  }
+}
+
+// good
+class Rey extends Jedi {
+  constructor(...args) {
+    super(...args);
+    this.name = 'Rey';
+  }
+}
+```
+
+#### 9.6 避免定义重复的类成员
+eslint: [no-dupe-class-members](https://eslint.org/docs/rules/no-dupe-class-members)
+
+> 为什么? 重复的类成员声明将会默认倾向于最后一个 - 具有重复的类成员可以说是一个错误。
+
+``` javascript
+// bad
+class Foo {
+  bar() { return 1; }
+  bar() { return 2; }
+}
+
+// good
+class Foo {
+  bar() { return 1; }
+}
+
+// good
+class Foo {
+  bar() { return 2; }
+}
+```
 
 ## 10. 模块
+#### 10.1 你可能经常使用模块 (`import/export`) 在一些非标准模块的系统上。 你也可以在你喜欢的模块系统上相互转换
+
+> 为什么? 模块是未来的趋势，让我们拥抱未来。
+
+```javascript
+// bad
+const AirbnbStyleGuide = require('./AirbnbStyleGuide');
+module.exports = AirbnbStyleGuide.es6;
+
+// ok
+import AirbnbStyleGuide from './AirbnbStyleGuide';
+export default AirbnbStyleGuide.es6;
+
+// best
+import { es6 } from './AirbnbStyleGuide';
+export default es6;
+```
+
+#### 10.2 不要使用通配符导入
+
+> 为什么? 这确定你有一个单独的默认导出。
+
+```javascript
+// bad
+import * as AirbnbStyleGuide from './AirbnbStyleGuide';
+
+// good
+import AirbnbStyleGuide from './AirbnbStyleGuide';
+```
+
+#### 10.3 不要直接从导入导出
+
+> 为什么? 虽然写在一行很简洁，但是有一个明确的导入和一个明确的导出能够保证一致性。
+
+```javascript
+// bad
+// filename es6.js
+export { es6 as default } from './AirbnbStyleGuide';
+
+// good
+// filename es6.js
+import { es6 } from './AirbnbStyleGuide';
+export default es6;
+```
+
+#### 10.4 只从一个路径导入所有需要的东西
+eslint: [no-duplicate-imports](https://eslint.org/docs/latest/rules/no-duplicate-imports)
+
+> 为什么? 从同一个路径导入多个行，使代码更难以维护。
+
+```javascript
+// bad
+import foo from 'foo';
+// … 其他导入 … //
+import { named1, named2 } from 'foo';
+
+// good
+import foo, { named1, named2 } from 'foo';
+
+// good
+import foo, {
+  named1,
+  named2,
+} from 'foo';
+```
+
+#### 10.5 不要导出可变的引用
+eslint: [import/no-mutable-exports](https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-mutable-exports.md)
+
+> 为什么? 在一般情况下，应该避免发生突变，但是在导出可变引用时及其容易发生突变。虽然在某些特殊情况下，可能需要这样，但是一般情况下只需要导出常量引用。
+
+```javascript
+// bad
+let foo = 3;
+export { foo };
+
+// good
+const foo = 3;
+export { foo };
+```
+
+#### 10.6 在单个导出的模块中，选择默认模块而不是指定的导出
+eslint: [import/prefer-default-export](https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/prefer-default-export.md)
+
+> 为什么? 为了鼓励更多的文件只导出一件东西，这样可读性和可维护性更好。
+
+```javascript
+// bad
+export function foo() {}
+
+// good
+export default function foo() {}
+```
+
+#### 10.7 将所有的 `imports` 语句放在所有非导入语句的上边
+eslint: [import/first](https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/first.md)
+
+> 为什么? 由于所有的 `imports` 都被提前，保持他们在顶部是为了防止意外发生。
+
+```javascript
+// bad
+import foo from 'foo';
+foo.init();
+
+import bar from 'bar';
+
+// good
+import foo from 'foo';
+import bar from 'bar';
+
+foo.init();
+```
+
+#### 10.8 多行导入应该像多行数组和对象一样缩进
+
+> 为什么? 花括号和其他规范一样，遵循相同的缩进规则，后边的都好一样。
+
+```javascript
+// bad
+import {longNameA, longNameB, longNameC, longNameD, longNameE} from 'path';
+
+// good
+import {
+  longNameA,
+  longNameB,
+  longNameC,
+  longNameD,
+  longNameE,
+} from 'path';
+```
+
+#### 10.9 在模块导入语句中禁止使用 Webpack 加载器语法
+eslint: [import/no-webpack-loader-syntax](https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-webpack-loader-syntax.md)
+
+> 为什么? 因为在导入语句中使用 `webpack` 语法，将代码和模块绑定在一起。应该在 `webpack.config.js` 中使用加载器语法。
+
+```javascript
+// bad
+import fooSass from 'css!sass!foo.scss';
+import barCss from 'style!css!bar.css';
+
+// good
+import fooSass from 'foo.scss';
+import barCss from 'bar.css';
+```
 
 ## 11. 迭代器和发生器
+#### 11.1 不要使用迭代器。你应该使用 `JavaScript` 的高阶函数代替 `for-in` 或者 `for-of`
+eslint: [no-iterator](https://eslint.org/docs/latest/rules/no-iterator.html) [no-restricted-syntax](https://eslint.org/docs/latest/rules/no-restricted-syntax)
+
+> 为什么? 这是我们强制的规则。拥有返回值得纯函数比这个更容易解释。
+>
+> 使用 `map()` / `every()` / `filter()` / `find()` / `findIndex()` / `reduce()` / `some()` / ... 遍历数组， 和使用 `Object.keys()` / `Object.values()` / `Object.entries()` 迭代你的对象生成数组。
+
+```javascript
+const numbers = [1, 2, 3, 4, 5];
+
+// bad
+let sum = 0;
+for (let num of numbers) {
+  sum += num;
+}
+sum === 15;
+
+// good
+let sum = 0;
+numbers.forEach((num) => {
+  sum += num;
+});
+sum === 15;
+
+// best (use the functional force)
+const sum = numbers.reduce((total, num) => total + num, 0);
+sum === 15;
+
+// bad
+const increasedByOne = [];
+for (let i = 0; i < numbers.length; i++) {
+  increasedByOne.push(numbers[i] + 1);
+}
+
+// good
+const increasedByOne = [];
+numbers.forEach((num) => {
+  increasedByOne.push(num + 1);
+});
+
+// best (keeping it functional)
+const increasedByOne = numbers.map(num => num + 1);
+```
+
+#### 11.2 不要使用发生器
+
+> 为什么? 它们不能很好的适应 `ES5`。
+
+
+#### 11.3 如果你必须使用发生器或者无视我们的建议，请确保他们的函数签名是正常的间隔
+eslint: [generator-star-spacing](https://eslint.org/docs/latest/rules/generator-star-spacing)
+
+> 为什么? `function` 和 `*` 是同一个概念关键字的一部分 - `*` 不是 `function` 的修饰符，`function*` 是一个不同于 `function` 的构造器。
+
+```javascript
+// bad
+function * foo() {
+  // ...
+}
+
+// bad
+const bar = function * () {
+  // ...
+};
+
+// bad
+const baz = function *() {
+  // ...
+};
+
+// bad
+const quux = function*() {
+  // ...
+};
+
+// bad
+function*foo() {
+  // ...
+}
+
+// bad
+function *foo() {
+  // ...
+}
+
+// very bad
+function
+*
+foo() {
+  // ...
+}
+
+// very bad
+const wat = function
+*
+() {
+  // ...
+};
+
+// good
+function* foo() {
+  // ...
+}
+
+// good
+const foo = function* () {
+  // ...
+};
+```
 
 ## 12. 属性
+#### 12.1 访问属性时使用点符号
+eslint: [dot-notation](https://eslint.org/docs/latest/rules/dot-notation.html)
+
+```javascript
+const luke = {
+  jedi: true,
+  age: 28,
+};
+
+// bad
+const isJedi = luke['jedi'];
+
+// good
+const isJedi = luke.jedi;
+```
+
+#### 12.2 使用变量访问属性时，使用 `[]` 表示法。
+
+```javascript
+const luke = {
+  jedi: true,
+  age: 28,
+};
+
+function getProp(prop) {
+  return luke[prop];
+}
+
+const isJedi = getProp('jedi');
+```
+
+#### 12.3 计算指数时，可以使用 `**` 运算符
+eslint: [no-restricted-properties](https://eslint.org/docs/rules/no-restricted-properties)
+
+```javascript
+// bad
+const binary = Math.pow(2, 10);
+
+// good
+const binary = 2 ** 10;
+```
 
 ## 13. 变量
+#### 13.1 使用 `const` 或者 `let` 来定义变量。 不这样做将创建一个全局变量。 我们希望避免污染全局命名空间。 Captain Planet 警告过我们
+eslint: [no-undef](https://eslint.org/docs/latest/rules/no-undef) [prefer-const](https://eslint.org/docs/latest/rules/prefer-const)
+
+```javascript
+// bad
+superPower = new SuperPower();
+
+// good
+const superPower = new SuperPower();
+```
+
+#### 13.2 使用 `const` 或者 `let` 声明每一个变量
+eslint: [one-var](https://eslint.org/docs/latest/rules/one-var.html)
+
+> 为什么? 这样更容易添加新的变量声明，而且你不必担心是使用 `;` 还是使用 `,` 或引入标点符号的差别。 你可以通过 debugger 逐步查看每个声明，而不是立即跳过所有声明。
+
+```javascript
+// bad
+const items = getItems(),
+    goSportsTeam = true,
+    dragonball = 'z';
+
+// bad
+// (compare to above, and try to spot the mistake)
+const items = getItems(),
+    goSportsTeam = true;
+    dragonball = 'z';
+
+// good
+const items = getItems();
+const goSportsTeam = true;
+const dragonball = 'z';
+```
+
+#### 13.3 把 `const` 声明的放在一起，把 `let` 声明的放在一起。
+
+> 为什么? 这在后边如果需要根据前边的赋值变量指定一个变量时很有用。
+
+```javascript
+// bad
+let i, len, dragonball,
+    items = getItems(),
+    goSportsTeam = true;
+
+// bad
+let i;
+const items = getItems();
+let dragonball;
+const goSportsTeam = true;
+let len;
+
+// good
+const goSportsTeam = true;
+const items = getItems();
+let dragonball;
+let i;
+let length;
+```
+
+#### 13.4 在你需要的使用定义变量，但是要把它们放在一个合理的地方
+
+> 为什么? `let` 和 `const` 是块级作用域而不是函数作用域。
+
+```javascript
+// bad - 不必要的函数调用
+function checkName(hasName) {
+  const name = getName();
+
+  if (hasName === 'test') {
+    return false;
+  }
+
+  if (name === 'test') {
+    this.setName('');
+    return false;
+  }
+
+  return name;
+}
+
+// good
+function checkName(hasName) {
+  if (hasName === 'test') {
+    return false;
+  }
+
+  const name = getName();
+
+  if (name === 'test') {
+    this.setName('');
+    return false;
+  }
+
+  return name;
+}
+```
+
+#### 13.5 不要链式变量赋值
+eslint: [no-multi-assign](https://eslint.org/docs/latest/rules/no-multi-assign)
+
+> 为什么? 链式变量赋值会创建隐式全局变量。
+
+```javascript
+// bad
+(function example() {
+  // JavaScript 把它解释为
+  // let a = ( b = ( c = 1 ) );
+  // let 关键词只适用于变量 a ；变量 b 和变量 c 则变成了全局变量。
+  let a = b = c = 1;
+}());
+
+console.log(a); // throws ReferenceError
+console.log(b); // 1
+console.log(c); // 1
+
+// good
+(function example() {
+  let a = 1;
+  let b = a;
+  let c = a;
+}());
+
+console.log(a); // throws ReferenceError
+console.log(b); // throws ReferenceError
+console.log(c); // throws ReferenceError
+
+// 对于 `const` 也一样
+```
+
+#### 13.6 避免使用不必要的递增和递减 (`++`, `--`)
+eslint: [no-plusplus](https://eslint.org/docs/latest/rules/no-plusplus)
+
+> 为什么? 在eslint文档中，一元递增和递减语句以自动分号插入为主题，并且在应用程序中可能会导致默认值的递增或递减。它还可以用像 `num += 1` 这样的语句来改变您的值，而不是使用 `num++` 或 `num ++` 。不允许不必要的增量和减量语句也会使您无法预先递增/预递减值，这也会导致程序中的意外行为。
+
+```javascript
+// bad
+
+const array = [1, 2, 3];
+let num = 1;
+num++;
+--num;
+
+let sum = 0;
+let truthyCount = 0;
+for (let i = 0; i < array.length; i++) {
+  let value = array[i];
+  sum += value;
+  if (value) {
+    truthyCount++;
+  }
+}
+
+// good
+
+const array = [1, 2, 3];
+let num = 1;
+num += 1;
+num -= 1;
+
+const sum = array.reduce((a, b) => a + b, 0);
+const truthyCount = array.filter(Boolean).length;
+```
+
+#### 13.7 避免在赋值语句 `=` 前后换行。如果你的代码违反了 `max-len`， 使用括号包裹
+eslint: [operator-linebreak](https://eslint.org/docs/latest/rules/operator-linebreak.html)
+
+> 为什么? 在 `=` 前后换行，可能混淆赋的值。
+
+```javascript
+// bad
+const foo =
+  superLongLongLongLongLongLongLongLongFunctionName();
+
+// bad
+const foo
+  = 'superLongLongLongLongLongLongLongLongString';
+
+// good
+const foo = (
+  superLongLongLongLongLongLongLongLongFunctionName()
+);
+
+// good
+const foo = 'superLongLongLongLongLongLongLongLongString';
+```
 
 ## 14. 提升
+#### 14.1 `var` 定义的变量会被提升到函数范围的最顶部，但是它的赋值不会。`const` 和 `let` 声明的变量受到一个称之为 [Temporal Dead Zones (TDZ)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let#Temporal_Dead_Zone_and_errors_with_let) 的新概念保护。 知道为什么 [typeof 不再安全](http://es-discourse.com/t/why-typeof-is-no-longer-safe/15) 是很重要的
+
+```javascript
+// 我们知道这个行不通 (假设没有未定义的全局变量)
+function example() {
+  console.log(notDefined); // => throws a ReferenceError
+}
+
+// 在引用变量后创建变量声明将会因变量提升而起作用。
+// 注意: 真正的值 `true` 不会被提升。
+function example() {
+  console.log(declaredButNotAssigned); // => undefined
+  var declaredButNotAssigned = true;
+}
+
+// 解释器将变量提升到函数的顶部
+// 这意味着我们可以将上边的例子重写为：
+function example() {
+  let declaredButNotAssigned;
+  console.log(declaredButNotAssigned); // => undefined
+  declaredButNotAssigned = true;
+}
+
+// 使用 const 和 let
+function example() {
+  console.log(declaredButNotAssigned); // => throws a ReferenceError
+  console.log(typeof declaredButNotAssigned); // => throws a ReferenceError
+  const declaredButNotAssigned = true;
+}
+```
+
+#### 14.2 匿名函数表达式提升变量名，而不是函数赋值
+
+```javascript
+function example() {
+  console.log(anonymous); // => undefined
+
+  anonymous(); // => TypeError anonymous is not a function
+
+  var anonymous = function () {
+    console.log('anonymous function expression');
+  };
+}
+```
+
+#### 14.3 命名函数表达式提升的是变量名，而不是函数名或者函数体
+
+```javascript
+function example() {
+  console.log(named); // => undefined
+
+  named(); // => TypeError named is not a function
+
+  superPower(); // => ReferenceError superPower is not defined
+
+  var named = function superPower() {
+    console.log('Flying');
+  };
+}
+
+// 当函数名和变量名相同时也是如此。
+function example() {
+  console.log(named); // => undefined
+
+  named(); // => TypeError named is not a function
+
+  var named = function named() {
+    console.log('named');
+  };
+}
+```
+
+#### 14.4 函数声明提升其名称和函数体
+
+```javascript
+function example() {
+  superPower(); // => Flying
+
+  function superPower() {
+    console.log('Flying');
+  }
+}
+```
+更多信息请参考 [Ben Cherry](https://www.adequatelygood.com/) 的 [JavaScript Scoping & Hoisting](https://www.adequatelygood.com/JavaScript-Scoping-and-Hoisting.html)。
 
 ## 15. 比较运算符和等号
+#### 15.1 使用 `===` 和 `!==` 而不是 `==` 和 `!=`
+eslint: [eqeqeq](https://eslint.org/docs/latest/rules/eqeqeq.html)
+
+#### 15.2 条件语句，例如 `if` 语句使用 `ToBoolean` 的抽象方法来计算表达式的结果，并始终遵循以下简单的规则：
+
+- **Objects** 的取值为：**true**
+- **Undefined** 的取值为：**false**
+- **Null** 的取值为：**false**
+- **Booleans** 的取值为：**布尔值的取值**
+- **Numbers** 的取值为：如果为 *+0, -0, or NaN** 值为 **false** 否则为 **true**
+- **Strings** 的取值为: 如果是一个空字符串 `''` 值为 **false** 否则为 **true**
+  
+```javascript
+if ([0] && []) {
+  // true
+  // 一个数组（即使是空的）是一个对象，对象的取值为 true
+}
+```
+
+#### 15.3 对于布尔值使用简写，但是对于字符串和数字进行显式比较
+
+```javascript
+// bad
+if (isValid === true) {
+  // ...
+}
+
+// good
+if (isValid) {
+  // ...
+}
+
+// bad
+if (name) {
+  // ...
+}
+
+// good
+if (name !== '') {
+  // ...
+}
+
+// bad
+if (collection.length) {
+  // ...
+}
+
+// good
+if (collection.length > 0) {
+  // ...
+}
+```
+
+#### 5.4 获取更多信息请查看 Angus Croll 的 [Truth Equality and JavaScript](https://javascriptweblog.wordpress.com/2011/02/07/truth-equality-and-javascript/#more-2108)
+
+#### 15.5 在 `case` 和 `default` 的子句中，如果存在声明 (例如, `let`, `const`, `function`, 和 `class`)，使用大括号来创建块
+eslint: [no-case-declarations](https://eslint.org/docs/latest/rules/no-case-declarations.html)
+
+> 为什么? 语法声明在整个 `switch` 块中都是可见的，但是只有在赋值的时候才会被初始化，这种情况只有在 `case` 条件达到才会发生。 当多个 `case` 语句定义相同的东西是，这会导致问题问题。
+
+```javascript
+// bad
+switch (foo) {
+  case 1:
+    let x = 1;
+    break;
+  case 2:
+    const y = 2;
+    break;
+  case 3:
+    function f() {
+      // ...
+    }
+    break;
+  default:
+    class C {}
+}
+
+// good
+switch (foo) {
+  case 1: {
+    let x = 1;
+    break;
+  }
+  case 2: {
+    const y = 2;
+    break;
+  }
+  case 3: {
+    function f() {
+      // ...
+    }
+    break;
+  }
+  case 4:
+    bar();
+    break;
+  default: {
+    class C {}
+  }
+}
+```
+
+#### 15.6 三目表达式不应该嵌套，通常是单行表达式
+eslint: [no-nested-ternary](https://eslint.org/docs/latest/rules/no-nested-ternary.html)
+
+```javascript
+// bad
+const foo = maybe1 > maybe2
+  ? "bar"
+  : value1 > value2 ? "baz" : null;
+
+// 分离为两个三目表达式
+const maybeNull = value1 > value2 ? 'baz' : null;
+
+// better
+const foo = maybe1 > maybe2
+  ? 'bar'
+  : maybeNull;
+
+// best
+const foo = maybe1 > maybe2 ? 'bar' : maybeNull;
+```
+
+#### 15.7 避免不必要的三目表达式
+eslint: [no-unneeded-ternary](https://eslint.org/docs/latest/rules/no-unneeded-ternary.html)
+
+```javascript
+// bad
+const foo = a ? a : b;
+const bar = c ? true : false;
+const baz = c ? false : true;
+
+// good
+const foo = a || b;
+const bar = !!c;
+const baz = !c;
+```
+
+#### 15.8 使用该混合运算符时，使用括号括起来。 唯一例外的是标准算数运算符 (`+`, `-`, `*`, &`/`) 因为他们的优先级被广泛理解
+eslint: [no-mixed-operators](https://eslint.org/docs/latest/rules/no-mixed-operators.html)
+
+> 为什么? 这能提高可读性并且表明开发人员的意图。
+
+```javascript
+// bad
+const foo = a && b < 0 || c > 0 || d + 1 === 0;
+
+// bad
+const bar = a ** b - 5 % d;
+
+// bad
+// 可能陷入一种 (a || b) && c 的思考
+if (a || b && c) {
+  return d;
+}
+
+// good
+const foo = (a && b < 0) || c > 0 || (d + 1 === 0);
+
+// good
+const bar = (a ** b) - (5 % d);
+
+// good
+if (a || (b && c)) {
+  return d;
+}
+
+// good
+const bar = a + b / c * d;
+```
 
 ## 16. 块
 
