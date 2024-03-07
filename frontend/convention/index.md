@@ -832,36 +832,25 @@ new Date(...[2016, 8, 5]);
 ```
 
 #### 7.15 具有多行签名或者调用的函数应该像本指南中的其他多行列表一样缩进：在一行上只有一个条目，并且每个条目最后加上逗号
+
 eslint: [function-paren-newline](https://eslint.org/docs/latest/rules/function-paren-newline)
 
-``` javascript
+```javascript
 // bad
-function foo(bar,
-baz,
-quux) {
-// ...
+function foo(bar, baz, quux) {
+  // ...
 }
 
 // good
-function foo(
-bar,
-baz,
-quux,
-) {
-// ...
+function foo(bar, baz, quux) {
+  // ...
 }
 
 // bad
-console.log(foo,
-bar,
-baz);
+console.log(foo, bar, baz);
 
 // good
-console.log(
-foo,
-bar,
-baz,
-);
+console.log(foo, bar, baz);
 ```
 
 ## 8. 箭头函数
