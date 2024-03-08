@@ -1,6 +1,7 @@
 import { defineConfig } from 'vitepress';
 import vueSidebar from "./menusidebar/vueSidebar.mjs";
-import conventionSidebar from "./menusidebar/conventionSidebar.mjs"
+import conventionSidebar from "./menusidebar/conventionSidebar.mjs";
+import javascriptSidebar from "./menusidebar/javascriptSidebar.mjs"
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -61,7 +62,8 @@ export default defineConfig({
     ],
     sidebar: {
       "/frontend/vue/": vueSidebar,
-      "/frontend/convention/": conventionSidebar
+      "/frontend/convention/": conventionSidebar,
+      "/frontend/javascript/": javascriptSidebar
     },
     socialLinks: [
       { icon: 'github', link: 'https://github.com/Hiohk' }
