@@ -1,5 +1,6 @@
 import { defineConfig } from 'vitepress';
 import vueSidebar from "./menusidebar/vueSidebar.mjs";
+import conventionSidebar from "./menusidebar/conventionSidebar.mjs"
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -18,6 +19,9 @@ export default defineConfig({
     docFooter: {
       prev: '上一页',
       next: '下一页'
+    },
+    search: {
+      provider: 'local'
     },
     nav: [
       { text: '首页', link: '/' },
@@ -56,7 +60,8 @@ export default defineConfig({
       { text: '交流社区', link: '/community' }
     ],
     sidebar: {
-      "/frontend/vue/": vueSidebar
+      "/frontend/vue/": vueSidebar,
+      "/frontend/convention/": conventionSidebar
     },
     socialLinks: [
       { icon: 'github', link: 'https://github.com/Hiohk' }

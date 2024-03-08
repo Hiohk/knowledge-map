@@ -77,10 +77,12 @@
 :root {
   --vp-button-brand-border: transparent;
   --vp-button-brand-text: var(--vp-c-white);
-  --vp-button-brand-bg: var(--vp-c-brand-3);
+  /* --vp-button-brand-bg: var(--vp-c-brand-3); */
+  --vp-button-brand-bg: #1677FF;
   --vp-button-brand-hover-border: transparent;
   --vp-button-brand-hover-text: var(--vp-c-white);
-  --vp-button-brand-hover-bg: var(--vp-c-brand-2);
+  /* --vp-button-brand-hover-bg: var(--vp-c-brand-2); */
+  --vp-button-brand-hover-bg: #008DFF;
   --vp-button-brand-active-border: transparent;
   --vp-button-brand-active-text: var(--vp-c-white);
   --vp-button-brand-active-bg: var(--vp-c-brand-1);
@@ -135,4 +137,19 @@
 
 .DocSearch {
   --docsearch-primary-color: var(--vp-c-brand-1) !important;
+}
+
+/* 导航栏首页title区域样式 */
+.curtain {
+  background-color: rgb(255, 255, 255) !important;
+}
+
+/* 侧边栏样式 */
+.VPSidebar {
+  background-color: rgb(255, 255, 255) !important;
+}
+
+
+:root {
+  --vp-code-copy-copied-text-content: '已复制';
 }
