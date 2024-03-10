@@ -14,7 +14,7 @@ export default defineConfig({
   themeConfig: {
     lastUpdatedText: "最后更新于",
     outlineTitle: "目录",
-    outline: [1,3],
+    outline: [1, 3],
     logo: '/logo.svg',
     i18nRouting: false,
     docFooter: {
@@ -42,7 +42,7 @@ export default defineConfig({
       },
       {
         text: "后端", items: [
-          { text: 'Java', link: '/java' },
+          { text: 'Java', link: '/backend/java/', activeMatch: "/backend/java/" },
           { text: 'Spring', link: '/spring' },
           { text: 'Spring Boot', link: '/springboot' },
           { text: 'SpringCloud', link: '/springcloud' },

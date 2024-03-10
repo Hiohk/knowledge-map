@@ -32,6 +32,7 @@ const cardImgStyle = (width, height) => {
 
 <template>
     <div class="boxStyle">
+        <div><span>wedwefe</span></div>
         <GridLayout v-model:layout="layout" :col-num="12" :row-height="51" is-draggable :is-resizable="false"
             vertical-compact use-css-transforms>
             <a-row>

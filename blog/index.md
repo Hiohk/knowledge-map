@@ -31,7 +31,7 @@ const bodyStyle = ref({
 });
 
 const getPaperDetail = (data) => {
-    showPaperDetail.value = true;
+    // showPaperDetail.value = true;
     currentPaperData.value = data;
 };
 
