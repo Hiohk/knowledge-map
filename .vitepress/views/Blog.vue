@@ -129,7 +129,6 @@ const foldComment = (item) => {
                                                     <a-tag color="orange">Vue.js</a-tag>
                                                     <a-tag color="green">基础知识</a-tag>
                                                     <a-tag color="cyan">编程</a-tag>
-                                                    <a-tag color="blue">面试</a-tag>
                                                     <a-tag color="purple">笔试</a-tag>
                                                 </span>
                                             </a-col>
