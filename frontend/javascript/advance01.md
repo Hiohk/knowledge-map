@@ -1,5 +1,13 @@
 # JavaScript 知识
 
+**符号说明**
+
+- :white_check_mark: 需要学习者**掌握**的知识点；
+- :heart: 高级开发者需要**重点掌握**的知识点；
+- :rocket: 需要学习者**理解**的知识点；
+- :star: 需要学习者**了解**的知识点；
+- :x: 拓展知识点，可以不用学习；
+
 # 1. 作用域
 
 ## 1.1 什么是作用域
@@ -938,11 +946,86 @@ V8 是 Google 开源的 JavaScript 和 WebAssembly 引擎，用 C++ 编写。它
 
 # 7. 函数
 
-## 7.1 函数属性和arguments
+## 7.1 函数属性和arguments :white_check_mark:
+### 函数的属性
+- name 属性：获取函数的名称；
+- length 属性：获取函数参数的个数；
+- 展开语法 (Spread syntax), 可以在函数调用/数组构造时，将数组表达式或者 string 在语法层面展开；还可以在构造字面量对象时，将对象表达式按 key-value 的方式展开。(字面量一般指 [1, 2, 3] 或者 {name: "mdn"} 这种简洁的构造方式)
 
-## 7.2 纯函数的理解和应用
+```javascript
+function sum(x, y, z) {
+  return x + y + z;
+}
 
-## 7.3 柯里化的理解和应用
+const numbers = [1, 2, 3];
+
+console.log(sum(...numbers));
+// Expected output: 6
+
+console.log(sum.apply(null, numbers));
+// Expected output: 6
+```
+
+- 剩余参数：剩余参数语法允许我们将一个不定数量的参数表示为一个数组。
+  
+```javascript
+function sum(...theArgs) {
+  let total = 0;
+  for (const arg of theArgs) {
+    total += arg;
+  }
+  return total;
+}
+
+console.log(sum(1, 2, 3));
+// Expected output: 6
+
+console.log(sum(1, 2, 3, 4));
+// Expected output: 10
+```
+
+::: tip 展开语法和剩余参数语法有什么不同？
+剩余语法 (Rest syntax) 看起来和展开语法完全相同，不同点在于，剩余参数用于解构数组和对象。从某种意义上说，剩余语法与展开语法是相反的：展开语法将数组展开为其中的各个元素，而剩余语法则是将多个元素收集起来并“凝聚”为单个元素。
+:::
+
+### arguments 对象
+
+arguments 是一个对应于传递给函数的参数的**类数组对象**。**类数组**意味着 arguments 有长度属性并且属性的索引是从零开始的，但是它没有 Array 的内置方法，例如 forEach() 和 map() 都是没有的。
+
+将 arguments 转化为真正的数组：
+
+```javascript
+var args = Array.prototype.slice.call(arguments);
+var args = [].slice.call(arguments);
+
+// ES2015
+const args = Array.from(arguments);
+const args = [...arguments];
+```
+
+::: tip 剩余参数和 arguments 对象的区别
+- 剩余参数只包含那些没有对应形参的实参，而 arguments 对象包含了传给函数的所有实参。
+- arguments 对象不是一个真正的数组，而剩余参数是真正的 Array 实例，也就是说你能够在它上面直接使用所有的数组方法，比如 sort，map，forEach 或 pop。
+- arguments 对象还有一些附加的属性（如 callee 属性）。
+:::
+
+## 7.2 纯函数的理解和应用 :rocket:
+### 纯函数的定义
+- 确定的输入，一定会产生确定的输出；
+- 函数在执行过程中，不能产生副作用；
+
+> 副作用：在执行一个函数时，除了返回函数值外，还对调用函数产生了附加的影响，比如修改了全局变量，修改参数或者改变外部的存储。
+
+### 纯函数的应用
+纯函数可以用于封装自己的函数或插件。
+
+## 7.3 柯里化的理解和应用 :heart: 
+### 柯里化（Currying）
+把接收多个参数的函数，变成接收一个单一参数（最初函数的第一个参数）的函数，并且返回接收余下的参数，而且返回结果的新函数的技术。
+也就是说，只传递给函数一部分参数来调用它，让它返回一个函数去处理剩余的参数，这个过程就称之为柯里化。
+
+### 柯里化的应用
+
 
 ## 7.4 组合函数理解和应用
 
