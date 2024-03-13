@@ -1026,11 +1026,124 @@ const args = [...arguments];
 
 ### 柯里化的应用
 
+```javascript
+function curry(fn) {
+  return function curried(...args) {
+    if(args.length >= fn.length) {
+      return fn.apply(this, args);
+    } else {
+      return function(...args2) {
+        return curried.apply(this, args.concat(args2));
+      }
+    }
+  }
+}
+```
 
-## 7.4 组合函数理解和应用
+::: warning 思考：上述这段柯里化代码涉及的知识点有哪些？
+1. 函数的属性：fn.length 获取函数参数的个数；
+2. 闭包；
+3. 函数递归；
+4. apply()的用法；
+5. this 指向问题。
+:::
 
-## 7.5 with、eval的使用
+柯里化函数的应用场景：
 
+- **参数复用**：柯里化函数可以将多参数函数转换为一系列单参数函数，从而允许参数的复用。例如，当需要多次调用同一个函数并传递相同的参数时，可以先柯里化这个函数，然后重复使用返回的单参数函数。
+- **延迟计算**：柯里化可以实现延迟计算，即只有在需要结果时才进行计算。这在处理计算密集型任务或需要优化性能的场景中特别有用。
+- **动态创建函数**：柯里化可以用于根据条件动态创建函数。例如，在处理不同浏览器的事件监听时，可以根据浏览器的兼容性动态生成不同的函数。
+- **部分应用的实现**：柯里化允许将一个多参数函数转化为一个只接受部分参数的函数。这使得我们可以更灵活地调用函数，只需要传入必要的参数即可。
+- **便于函数组合和管道操作**：柯里化的函数可以方便地与其他函数进行组合和管道操作，从而构建出更复杂的函数逻辑。
+
+
+## 7.4 组合函数理解和应用 :rocket:
+组合函数（compose function）通常用于将一个函数链式地应用于一系列的值。每个函数都会将它的输出传递给链中的下一个函数。组合函数在函数式编程中非常常见，因为它允许我们以简洁、声明式的方式创建复杂的函数逻辑。
+
+```javascript
+function double(num) {
+  return num * 2;
+}
+
+function pow(num) {
+  return num * 2;
+}
+
+function composeFn(...fns) {
+  var length = fns.length;
+  if(length <= 0) return;
+  for(var i = 0; i < length; i++) {
+    var fn = fns[i];
+    if(type fn !== "function") {
+      throw new Error(`index position ${i} must be function.`);
+    }
+  }
+
+  return function(...args) {
+    var result = fns[0].apply(this, args);
+    for(var i = 1; i < length; i++) {
+      var fn = fns[i];
+      result = fn.apply(this, [result]);
+    }
+  }
+}
+
+var newFn = composeFn(double,pow);
+newFn(100);
+```
+
+再看一个例子：
+
+```javascript
+function compose(...fns) {  
+  if (fns.length === 0) {  
+    return arg => arg;  
+  }  
+  
+  if (fns.length === 1) {  
+    return fns[0];  
+  }  
+  
+  return fns.reduce((a, b) => (...args) => a(b(...args)));  
+}
+// 这个函数接受任意数量的函数作为参数，并返回一个新的函数。
+// 这个新的函数将按照从右到左的顺序调用传入的函数。
+// 这是因为JavaScript中的函数是从左到右求值的，所以我们需要在reduce函数中反转函数的顺序。
+const double = x => x * 2;  
+const addFive = x => x + 5;  
+  
+const composedFunction = compose(double, addFive);  
+  
+console.log(composedFunction(3)); // 输出：16 (因为 (3 + 5) * 2 = 16)
+```
+## 7.5 with、eval的使用 :x:
+`with` 语句扩展一个语句的作用域链。
+:::danger 已弃用: 不再推荐使用该特性。 
+```javascript
+function f(foo, values) {
+  with (foo) {
+    console.log(values);
+  }
+}
+```
+:::
+
+`eval()` 函数会将传入的字符串当做 JavaScript 代码进行执行。
+```javascript
+console.log(eval('2 + 2'));
+// Expected output: 4
+
+console.log(eval(new String('2 + 2')));
+// Expected output: 2 + 2
+
+console.log(eval('2 + 2') === eval('4'));
+// Expected output: true
+
+console.log(eval('2 + 2') === eval(new String('2 + 2')));
+// Expected output: false
+```
+
+`eval()` 是一个危险的函数，它使用与调用者相同的权限执行代码。如果你用 `eval()` 运行的字符串代码被恶意方（不怀好意的人）修改，你最终可能会在你的网页/扩展程序的权限下，在用户计算机上运行恶意代码。更重要的是，第三方代码可以看到某一个 `eval()` 被调用时的作用域，这也有可能导致一些不同方式的攻击。相似的 `Function` 就不容易被攻击。(**永远不要使用 eval！**)
 ## 7.6 严格模式的使用
 
 ## 7.7 总结
