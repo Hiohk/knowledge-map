@@ -1174,6 +1174,94 @@ console.log(eval("2 + 2") === eval(new String("2 + 2")));
 
 `eval()` 是一个危险的函数，它使用与调用者相同的权限执行代码。如果你用 `eval()` 运行的字符串代码被恶意方（不怀好意的人）修改，你最终可能会在你的网页/扩展程序的权限下，在用户计算机上运行恶意代码。更重要的是，第三方代码可以看到某一个 `eval()` 被调用时的作用域，这也有可能导致一些不同方式的攻击。相似的 `Function` 就不容易被攻击。(**永远不要使用 eval！**)
 
-## 7.6 严格模式的使用
+## 7.6 严格模式的使用 :star:
+严格模式("use strict")是一种具有限制性的 JavaScript 模式，从而使代码隐式的脱离了“懒散（sloppy）模式”;支持严格模式的浏览器在检测到代码中有严格你模式时，会以更加严格的方式进行检测和执行。
+- 严格模式通过抛出错误，来消除一些原有的静默错误；
+- 严格模式让 JS 引擎在执行代码时可以进行更多的优化（不需要对一些特殊的语法进行处理）；
+- 严格模式禁用了在 ECMAScript 未来版本中可能会定义的一些语法。
 
+严格模式的限制：
+1. 严格模式下无法再意外创建全局变量。
+```javascript
+"use strict";
+// 假如有一个全局变量叫做 mistypedVariable
+mistypedVaraible = 17; // 因为变量名拼写错误
+// 这一行代码就会抛出 ReferenceError
+```
+2. 严格模式会使引起静默失败 (silently fail，注：不报错也没有任何效果) 的赋值操作抛出异常。
+```javascript
+"use strict";
+
+// 给不可写属性赋值
+var obj1 = {};
+Object.defineProperty(obj1, "x", { value: 42, writable: false });
+obj1.x = 9; // 抛出 TypeError 错误
+
+// 给只读属性赋值
+var obj2 = {
+  get x() {
+    return 17;
+  },
+};
+obj2.x = 5; // 抛出 TypeError 错误
+
+// 给不可扩展对象的新属性赋值
+var fixed = {};
+Object.preventExtensions(fixed);
+fixed.newProp = "ohai"; // 抛出 TypeError 错误
+```
+
+3. 在严格模式下，试图删除不可删除的属性时会抛出异常 (之前这种操作不会产生任何效果):
+```javascript
+"use strict";
+delete Object.prototype; // 抛出 TypeError 错误
+```
+
+4. 在 Gecko 版本 34 之前，严格模式要求一个对象内的所有属性名在对象内必须唯一。
+```javascript
+"use strict";
+var o = { p: 1, p: 2 }; // !!! 语法错误
+```
+
+5. 严格模式要求函数的参数名唯一。
+```javascript
+function sum(a, a, c) {
+  // !!! 语法错误
+  "use strict";
+  return a + a + c; // 代码运行到这里会出错
+}
+```
+
+6. 严格模式禁止八进制数字语法。
+```javascript
+"use strict";
+var sum =
+  015 + // !!! 语法错误
+  197 +
+  142;
+```
+
+7. ECMAScript 6 中的严格模式禁止设置 primitive 值的属性。不采用严格模式，设置属性将会简单忽略 (no-op),采用严格模式，将抛出TypeError错误。
+```javascript
+"use strict";
+
+false.true = ""; // TypeError
+(14).sailing = "home"; // TypeError
+"with".you = "far away"; // TypeError
+```
+
+这里只列举部分严格模式的规则，更多请参考[MDN-严格模式](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Strict_mode)。
 ## 7.7 总结
+
+# 8. 对象的增强知识 :white_check_mark:
+
+## 8.1 Object.defineProperty()
+`Object.defineProperty()` 静态方法会直接在一个对象上定义一个新属性，或修改其现有属性，并返回此对象。
+
+## 8.2 数据属性描述符
+
+## 8.3 存取属性描述符
+
+## 8.4 Object.defineProperties()
+
+## 8.5 对象的其他方法补充
