@@ -1,3 +1,13 @@
+---
+prev:
+  text: "简介"
+  link: "/frontend/javascript/index"
+
+next:
+  text: "数组、字符串和数字"
+  link: "/frontend/javascript/basic02"
+---
+
 # 1. 数据类型
 
 ## 1.1 内置类型 :white_check_mark:

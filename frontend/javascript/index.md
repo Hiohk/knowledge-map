@@ -1,3 +1,9 @@
+---
+next:
+  text: "数据类型"
+  link: "/frontend/javascript/basic01"
+---
+
 # 简介
 
 **符号说明**
