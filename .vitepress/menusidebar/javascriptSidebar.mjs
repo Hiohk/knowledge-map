@@ -8,7 +8,7 @@ export default [
         items: [
             { text: '简介', link: `${commonPath}/index.md` },
             { text: '数据类型', link: `${commonPath}/basic01` },
-            { text: '值', link: `${commonPath}/basic02` },
+            { text: '数组、字符串和数字', link: `${commonPath}/basic02` },
             { text: '原生函数', link: `${commonPath}/basic03` },
             { text: '强制类型转换', link: `${commonPath}/basic04` },
             { text: '语法', link: `${commonPath}/basic05` },
