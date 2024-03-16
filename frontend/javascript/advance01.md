@@ -8,9 +8,9 @@
 - :star: 需要学习者**了解**的知识点；
 - :x: 拓展知识点，可以不用学习；
 
-# 1. 作用域
+# 1. 作用域 :white_check_mark:
 
-## 1.1 什么是作用域
+## 1.1 什么是作用域 
 
 首先，你需要知道执行上下文一词，每个执行上下文都有一个关联的**变量对象**（variable object），而这个执行上下文中定义的所有变量和函数都存在于这个对象上。**全局上下文**是最外层的上下文。根据 `ECMAScript` 实现的宿主环境，表示全局上下文的对象可能不一样，例如，在浏览器环境中，全局上下文就是我们常说的 `window` 对象，因此所有通过 `var` 定义的全局变量和函数都会成为 `window` 对象的属性和方法。
 
@@ -52,7 +52,7 @@ JavaScript 的作用域分以下三种：
 
 块作用域...
 
-# 2. 声明提升
+# 2. 声明提升 :white_check_mark:
 
 ## 2.1 变量声明提升
 
@@ -62,7 +62,7 @@ JavaScript 的作用域分以下三种：
 
 函数声明提升...
 
-# 3. 闭包
+# 3. 闭包 :white_check_mark:
 
 ## 3.1 前言
 
@@ -373,7 +373,7 @@ newFunction("I am from inner function!");
 
 闭包的总结......
 
-# 4. JavaScript 中的 this
+# 4. JavaScript 中的 this :white_check_mark:
 
 **this** 关键字是 `JavaScript` 中最复杂的机制之一。它是一个很特别的关键字，被自动定义在所有函数的作用域中。
 但是即使是非常有经验的`JavaScript` 开发者也很难说清它到底指向什么。
@@ -721,7 +721,7 @@ let multiply = (x) => 4 * x;
 
 this 总结......
 
-# 5. 对象原型
+# 5. 对象 :white_check_mark: 
 
 ## 5.1 对象
 
@@ -751,9 +751,176 @@ person.age = 18;
 
 ## 5.4 总结
 
-# 6. 深入浏览器的渲染原理
 
-## 6.1 浏览器内核
+# 6. 对象原型和原型链 :white_check_mark: 
+## 6.1 对象和函数的原型
+JavaScript 中每个对象都有一个特殊的内置属性 `[[prototype]]`, 这个特殊的对象可以指向另外一个对象。当我们通过引用对象的属性 key 来获取一个 value 时，它会触发 `[[Get]]` 操作；这个操作会首先检查对象是否有对应的属性，如果有的话就使用它；如果对象中没有该属性，那么会访问对象 `[[prototype]]` 内置属性指向的对象上的属性。
+
+那么如何获取对象的原型：
+1. 通过对象的 `__proto__` 属性来获取（早期浏览器自己添加的，存在一定的兼容性问题）；
+2. 通过 `Object.getPrototypeOf()` 方法可以获取到；
+   new、constructor
+函数的原型：([[prototype]])。
+
+## 6.2 new、constructor
+new 操作符所做的事情：
+1. 在内存中创建一个新的对象（空对象）；
+2. **这个对象内部的 `[[prototype]]` 属性会被赋值为该构造函数的 `prototype` 属性（函数的显示原型赋值给对象的隐式原型）**。
+3. 让函数的this指向这个对象，执行构造函数的代码（为这个新对象添加属性）；
+4. 判断函数的返回值类型，如果是值类型，返回创建的对象。如果是引用类型，就返回这个引用类型的对象。
+
+constructor 属性：
+默认情况下原型上都会添加一个属性叫做 constructor，这个 constructor 指向当前的函数对象：
+```javascript
+function Person() {}
+var p1 = new Person();
+
+console.log(Person.prototype.constructor); // function Person() {}
+console.log(p1.__proto__.constructor); // function Person() {}
+console.log(p1.__proto__.constructor.name); // "Person"
+
+```
+
+## 6.3 原型链的查找顺序 
+1. 当访问一个对象的属性或方法时，首先会查找该对象自身是否拥有该属性或方法。
+2. 如果对象自身没有该属性或方法，那么会查找该对象的原型（即 `__proto__` 属性指向的对象）。
+3. 如果在原型中也没有找到所需的属性或方法，那么会继续向上查找，即查找原型的原型，以此类推。
+4. 这个查找过程会一直持续，直到找到 Object.prototype 为止。在 JavaScript 中，Object.prototype 的 `__proto__` 属性值为 null，这标志着原型链的结束。
+
+## 6.4 原型链实现的继承
+```javascript
+// 定义一个父类  
+function Parent() {  
+  this.name = 'Parent';  
+  this.sayHello = function() {  
+    console.log('Hello from Parent!');  
+  }  
+}  
+  
+// 定义子类并继承父类  
+function Child() {  
+  this.age = 10;  
+}  
+  
+// 将父类的实例赋值给子类的原型，实现继承  
+Child.prototype = new Parent();  
+  
+// 添加子类特有的方法  
+Child.prototype.sayGoodbye = function() {  
+  console.log('Goodbye from Child!');  
+}  
+  
+// 创建子类的实例并测试  
+var child = new Child();  
+console.log(child.name); // 输出：Parent  
+child.sayHello(); // 输出：Hello from Parent!  
+console.log(child.age); // 输出：10  
+child.sayGoodbye(); // 输出：Goodbye from Child!
+```
+
+需要注意的是，这种继承方式存在一些缺点。例如，当 Parent 类的构造函数中有一些初始化代码时，这些代码会在 Child.prototype = new Parent();这行代码执行时被调用，可能会导致不必要的副作用。此外，如果多个子类都继承自同一个父类，并且父类的构造函数中有一些共享的数据（如数组或对象），那么这些数据可能会在多个子类之间产生冲突。
+
+为了克服这些缺点，我们可以使用其他继承模式，如组合继承、寄生组合继承等。这些模式可以更加灵活和高效地实现继承，但它们的实现方式相对复杂一些。在实际开发中，我们需要根据具体的需求和场景选择合适的继承模式。
+## 6.5 借用构造函数继承
+在 JavaScript 中，除了通过原型链实现继承，还可以使用借用构造函数（也称为伪经典继承或构造函数盗用）的方式来实现继承。这种继承方式的主要思想是在子类的构造函数中调用父类的构造函数，从而继承父类的属性。
+
+```javascript
+// 父类构造函数  
+function Parent(name) {  
+  this.name = name;  
+  this.sayHello = function() {  
+    console.log(`Hello from ${this.name}!`);  
+  }  
+}  
+  
+// 子类构造函数  
+function Child(name, age) {  
+  // 借用父类的构造函数，继承父类的属性  
+  Parent.call(this, name);  
+    
+  this.age = age;  
+  this.sayGoodbye = function() {  
+    console.log(`Goodbye from ${this.name}!`);  
+  }  
+}  
+  
+// 创建子类的实例并测试  
+var child = new Child('ChildName', 10);  
+console.log(child.name); // 输出：ChildName  
+child.sayHello(); // 输出：Hello from ChildName!  
+console.log(child.age); // 输出：10  
+child.sayGoodbye(); // 输出：Goodbye from ChildName!
+```
+在这个例子中，Child 构造函数通过 Parent.call(this, name) 调用了 Parent 构造函数，并将 this 上下文（即新创建的 Child 实例）传递给它。这样，Child 实例就拥有了 Parent 构造函数中定义的 name 属性和 sayHello 方法。
+
+需要注意的是，通过借用构造函数实现继承时，方法（如 sayHello 和 sayGoodbye）会在每个实例上单独创建，这会导致函数复用问题，并可能增加内存消耗。如果父类的方法不经常改变，并且需要在多个实例之间共享，那么使用原型链继承可能是更好的选择。
+
+另外，借用构造函数继承不能继承父类原型链上的属性和方法，只能继承通过构造函数定义的属性和方法。如果需要继承原型链上的属性和方法，还需要结合原型链继承的方式来实现。
+
+## 6.6 寄生组合实现继承
+寄生组合继承（Parasitic Combination Inheritance）是 JavaScript 中一种优化了的继承方式，它结合了原型链继承和借用构造函数继承的优点，同时避免了它们的缺点。这种继承方式既可以在子类实例上拥有父类实例的属性，又可以实现函数复用，避免在子类实例上创建不必要的、多余的属性。
+
+```javascript
+function inheritPrototype(child, parent) {  
+  // 创建父类原型的一个副本  
+  var prototype = Object.create(parent.prototype);  
+  // 增强对象，设置constructor属性指向子类  
+  prototype.constructor = child;  
+  // 将新创建的对象赋值给子类的原型  
+  child.prototype = prototype;  
+}  
+  
+// 父类  
+function Parent(name) {  
+  this.name = name;  
+  this.colors = ['red', 'blue', 'green'];  
+}  
+  
+// 父类的方法  
+Parent.prototype.sayHello = function() {  
+  console.log(`Hello from ${this.name}!`);  
+};  
+  
+// 子类  
+function Child(name, age) {  
+  // 借用父类的构造函数  
+  Parent.call(this, name);  
+  this.age = age;  
+}  
+  
+// 继承父类的原型  
+inheritPrototype(Child, Parent);  
+  
+// 子类特有的方法  
+Child.prototype.sayGoodbye = function() {  
+  console.log(`Goodbye from ${this.name}!`);  
+};  
+  
+// 创建子类的实例并测试  
+var child = new Child('ChildName', 10);  
+console.log(child.name); // 输出：ChildName  
+child.sayHello(); // 输出：Hello from ChildName!  
+console.log(child.age); // 输出：10  
+child.sayGoodbye(); // 输出：Goodbye from ChildName!  
+  
+// 修改父类原型中的数组，检查子类实例是否受到影响  
+Parent.prototype.colors.push('purple');  
+var anotherChild = new Child('AnotherChild', 12);  
+console.log(anotherChild.colors); // 输出：['red', 'blue', 'green', 'purple']
+```
+
+在这个例子中，inheritPrototype 函数负责实现寄生组合继承的核心逻辑。它首先使用 Object.create(parent.prototype) 创建一个父类原型的副本，这样就不会因为修改父类原型而影响到子类原型。然后，它设置新创建对象的 constructor 属性为子类构造函数，最后将这个新对象赋值给子类的 prototype 属性。
+
+通过调用 Parent.call(this, name)，子类构造函数可以借用父类构造函数来继承属性。这样，子类实例就可以拥有父类实例的属性，并且这些属性不会被所有子类实例共享。同时，子类实例还可以访问到父类原型链上的方法，实现了函数复用。
+
+寄生组合继承是 JavaScript 中最常用且推荐的继承模式之一，因为它避免了原型链继承中属性共享的问题，也解决了借用构造函数继承中函数复用的问题。
+
+## 6.7 总结
+原型和原型链是面试中常考的知识点，想要清晰的描述清楚原型链并不是一件容易的事。在学习这一章节知识时，学习者要注意对相关理论的理解。
+
+# 7. 深入浏览器的渲染原理 :heart:
+
+## 7.1 浏览器内核
 
 常见的浏览器内核有：
 
@@ -763,7 +930,7 @@ person.age = 18;
 - **Webkit**: Safari、360 极速浏览器、搜狗高速浏览器、移动端浏览器（Android、ios）;
 - **Webkit->Blink**: Google Chrome、Edge。
 
-## 6.2 网页的解析和浏览器渲染过程
+## 7.2 网页的解析和浏览器渲染过程
 
 浏览器的渲染原理和网页的解析过程可以大致分为以下几个步骤：
 
@@ -778,7 +945,7 @@ person.age = 18;
 4. **分层**：主线程会使用一套复杂的策略对整个布局树中进行分层。分层的好处在于，将来某一个层改变后，仅会对该层进行后续的处理，从而提升效率。
    绘制：主线程会为每个层单独产生绘制指令集，用于描述这一层的内容该如何画出来。浏览器会根据渲染树的结构和几何属性进行绘制，将网页内容显示在用户界面上。在绘制过程中，浏览器会将渲染树中的每个节点转换为屏幕上的像素。
 
-## 6.3 回流和重绘解析
+## 7.3 回流和重绘解析
 
 在 HTML 中，每个元素都可以理解成一个盒子，在浏览器解析过程中，会涉及到回流与重绘：
 
@@ -858,7 +1025,7 @@ person.age = 18;
 
 关于重绘与回流的进一步介绍，请参考[重绘与回流](https://segmentfault.com/a/1190000017329980)。
 
-## 6.4 合成和性能分析
+## 7.4 合成和性能分析
 
 元素绘制的过程，可以将布局后的元素绘制到多个合成图层中，这是浏览器的一种优化手段。
 默认情况下，标准流中的内容都是被绘制在同一个图层中的；而一些特殊的属性，会创建一个新的合成层（Compositing Layer）,并且新的图层可以利用 GPU 来加速绘制，因为每个合成层都是单独渲染的。
@@ -874,7 +1041,7 @@ person.age = 18;
 
 分层确实可以提高性能，但是它以内存管理为代价，因此不应作为 web 性能优化策略的一部分过度使用。
 
-## 6.5 defer 和 async 属性
+## 7.5 defer 和 async 属性
 
 在浏览器的解析过程中，遇到了 script 元素时不能继续构建 DOM 树的，它只会停止继续构建，首先下载 JavaScript
 代码，并且执行 JavaScript 的脚本，只有等到 JavaScript 脚本执行结束后，才会继续解析 HTML，构建 DOM 树。
@@ -909,7 +1076,7 @@ person.age = 18;
 defer 通常用于需要再文档解析后操作 DOM 的 JavaScript 代码，并且对多个 script 文件有顺序要求的；
 async 通常用于独立的脚本，对其他脚本，甚至 DOM 没有依赖的。
 
-## 6.6 JavaScript 执行原理
+## 7.6 JavaScript 执行原理
 
 以下的描述并不是我写作的本意，其来源于“文心一言”的回答。
 
@@ -941,7 +1108,7 @@ JavaScript 是一种解释型语言，这意味着它的代码在执行时会被
 
 通过以上过程，JavaScript 能够在浏览器中执行并处理各种交互和动态内容。
 
-## 6.7 V8 引擎
+## 7.7 V8 引擎
 
 v8 引擎是前端面试过程中可能会问到的关于底层原理的知识。详情请参考[V8 官网](https://v8.dev/)。
 
@@ -951,13 +1118,13 @@ V8 is Google’s open source high-performance JavaScript and WebAssembly engine,
 V8 是 Google 开源的 JavaScript 和 WebAssembly 引擎，用 C++ 编写。它用于 Chrome 和 Node.js 等。V8 实现了 ECMAScript 和 WebAssembly，并在 Windows7 或更高版本、macOS10.12+ 以及使用 x64、IA-32 或 ARM 处理器的 Linux 系统上运行。其他系统（IBM i、AIX）和处理器（MIPS、ppcle64、s390x）由外部维护。V8 可以独立运行，也可以嵌入到任何 C++ 应用程序中。
 :::
 
-## 6.8 总结
+## 7.8 总结
 
 总结......
 
-# 7. 函数
+# 8. 函数 :white_check_mark: 
 
-## 7.1 函数属性和 arguments :white_check_mark:
+## 8.1 函数属性和 arguments :white_check_mark:
 
 ### 函数的属性
 
@@ -1023,7 +1190,7 @@ const args = [...arguments];
 - arguments 对象还有一些附加的属性（如 callee 属性）。
   :::
 
-## 7.2 纯函数的理解和应用 :rocket:
+## 8.2 纯函数的理解和应用 :rocket:
 
 ### 纯函数的定义
 
@@ -1036,7 +1203,7 @@ const args = [...arguments];
 
 纯函数可以用于封装自己的函数或插件。
 
-## 7.3 柯里化的理解和应用 :heart:
+## 8.3 柯里化的理解和应用 :heart:
 
 ### 柯里化（Currying）
 
@@ -1076,7 +1243,7 @@ function curry(fn) {
 - **部分应用的实现**：柯里化允许将一个多参数函数转化为一个只接受部分参数的函数。这使得我们可以更灵活地调用函数，只需要传入必要的参数即可。
 - **便于函数组合和管道操作**：柯里化的函数可以方便地与其他函数进行组合和管道操作，从而构建出更复杂的函数逻辑。
 
-## 7.4 组合函数理解和应用 :rocket:
+## 8.4 组合函数理解和应用 :rocket:
 
 组合函数（compose function）通常用于将一个函数链式地应用于一系列的值。每个函数都会将它的输出传递给链中的下一个函数。组合函数在函数式编程中非常常见，因为它允许我们以简洁、声明式的方式创建复杂的函数逻辑。
 
@@ -1141,7 +1308,7 @@ const composedFunction = compose(double, addFive);
 console.log(composedFunction(3)); // 输出：16 (因为 (3 + 5) * 2 = 16)
 ```
 
-## 7.5 with、eval 的使用 :x:
+## 8.5 with、eval 的使用 :x:
 
 `with` 语句扩展一个语句的作用域链。
 :::danger 已弃用: 不再推荐使用该特性。
@@ -1174,8 +1341,8 @@ console.log(eval("2 + 2") === eval(new String("2 + 2")));
 
 `eval()` 是一个危险的函数，它使用与调用者相同的权限执行代码。如果你用 `eval()` 运行的字符串代码被恶意方（不怀好意的人）修改，你最终可能会在你的网页/扩展程序的权限下，在用户计算机上运行恶意代码。更重要的是，第三方代码可以看到某一个 `eval()` 被调用时的作用域，这也有可能导致一些不同方式的攻击。相似的 `Function` 就不容易被攻击。(**永远不要使用 eval！**)
 
-## 7.6 严格模式的使用 :star:
-严格模式("use strict")是一种具有限制性的 JavaScript 模式，从而使代码隐式的脱离了“懒散（sloppy）模式”;支持严格模式的浏览器在检测到代码中有严格你模式时，会以更加严格的方式进行检测和执行。
+## 8.6 严格模式的使用 :star:
+严格模式("use strict")是一种具有限制性的 JavaScript 模式，从而使代码隐式的脱离了“懒散（sloppy）模式”;支持严格模式的浏览器在检测到代码中有严格模式时，会以更加严格的方式进行检测和执行。
 - 严格模式通过抛出错误，来消除一些原有的静默错误；
 - 严格模式让 JS 引擎在执行代码时可以进行更多的优化（不需要对一些特殊的语法进行处理）；
 - 严格模式禁用了在 ECMAScript 未来版本中可能会定义的一些语法。
@@ -1251,17 +1418,139 @@ false.true = ""; // TypeError
 ```
 
 这里只列举部分严格模式的规则，更多请参考[MDN-严格模式](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Strict_mode)。
-## 7.7 总结
+## 8.7 总结
 
-# 8. 对象的增强知识 :white_check_mark:
+# 9. 对象的增强知识 :white_check_mark:
 
-## 8.1 Object.defineProperty()
+## 9.1 Object.defineProperty()
 `Object.defineProperty()` 静态方法会直接在一个对象上定义一个新属性，或修改其现有属性，并返回此对象。
 
-## 8.2 数据属性描述符
+```javascript
+Object.defineProperty(obj, prop, descriptor)
 
-## 8.3 存取属性描述符
+// obj: 要定义属性的对象。
+// prop: 一个字符串或 Symbol，指定了要定义或修改的属性键。
+// descriptor: 要定义或修改的属性的描述符。
+```
 
-## 8.4 Object.defineProperties()
+## 9.2 数据属性描述符
+对象中存在的属性描述符有两种主要类型：数据描述符和访问器描述符。数据描述符是一个具有可写或不可写值的属性。访问器描述符是由 getter/setter 函数对描述的属性。描述符只能是这两种类型之一，不能同时为两者。
 
-## 8.5 对象的其他方法补充
+数据描述符和访问器描述符都是对象, 它们都有以下可选项：
+
+- **configurable**:
+当设置为 false 时，该属性的类型不能在数据属性和访问器属性之间更改，且该属性不可被删除，且其描述符的其他属性也不能被更改（但是，如果它是一个可写的数据描述符，则 value 可以被更改，writable 可以更改为 false）。默认值为 false。
+
+- **enumerable**: 当且仅当该属性在对应对象的属性枚举中出现时，值为 true。默认值为 false。
+
+数据描述符还具有以下可选键值：
+
+- **value**: 与属性相关联的值。可以是任何有效的 JavaScript 值（数字、对象、函数等）。默认值为 undefined。
+
+- **writable**: 如果与属性相关联的值可以使用赋值运算符更改，则为 true。默认值为 false。
+
+## 9.3 访问器描述符
+访问器描述符还具有以下可选键值：
+
+- **get**：用作属性 getter 的函数，如果没有 getter 则为 undefined。当访问该属性时，将不带参地调用此函数，并将 this 设置为通过该属性访问的对象（因为可能存在继承关系，这可能不是定义该属性的对象）。返回值将被用作该属性的值。默认值为 undefined。
+
+- **set**：用作属性 setter 的函数，如果没有 setter 则为 undefined。当该属性被赋值时，将调用此函数，并带有一个参数（要赋给该属性的值），并将 this 设置为通过该属性分配的对象。默认值为 undefined。
+
+## 9.4 Object.defineProperties()
+`Object.defineProperties()` 静态方法直接在一个对象上定义**多个**新的属性或修改现有属性，并返回该对象。
+```javascript
+const object1 = {};
+
+Object.defineProperties(object1, {
+  property1: {
+    value: 42,
+    writable: true,
+  },
+  property2: {},
+});
+
+console.log(object1.property1);
+// Expected output: 42
+```
+## 9.5 对象的其他方法补充 :star:
+1. `Object.getOwnPropertyDescriptor()` 静态方法返回一个对象，该对象描述给定对象上特定属性（即直接存在于对象上而不在对象的原型链中的属性）的配置。返回的对象是可变的，但对其进行更改不会影响原始属性的配置。
+
+```javascript
+const object1 = {
+  property1: 42,
+};
+
+const descriptor1 = Object.getOwnPropertyDescriptor(object1, 'property1');
+
+console.log(descriptor1.configurable);
+// Expected output: true
+
+console.log(descriptor1.value);
+// Expected output: 42
+```
+
+2. `Object.getOwnPropertyDescriptors()` 静态方法返回给定对象的所有自有属性描述符。
+
+```javascript
+const object1 = {
+  property1: 42,
+};
+
+const descriptors1 = Object.getOwnPropertyDescriptors(object1);
+
+console.log(descriptors1.property1.writable);
+// Expected output: true
+
+console.log(descriptors1.property1.value);
+// Expected output: 42
+```
+
+3. `Object.preventExtensions()` 静态方法可以防止新属性被添加到对象中（即防止该对象被扩展）。它还可以防止对象的原型被重新指定。
+  
+```javascript
+const object1 = {};
+
+Object.preventExtensions(object1);
+
+try {
+  Object.defineProperty(object1, 'property1', {
+    value: 42,
+  });
+} catch (e) {
+  console.log(e);
+  // Expected output: TypeError: Cannot define property property1, object is not extensible
+}
+```
+
+4. `Object.seal()` 静态方法密封一个对象。密封一个对象会阻止其扩展并且使得现有属性不可配置。密封对象有一组固定的属性：不能添加新属性、不能删除现有属性或更改其可枚举性和可配置性、不能重新分配其原型。只要现有属性的值是可写的，它们仍然可以更改。seal() 返回传入的同一对象。
+
+```javascript
+const object1 = {
+  property1: 42,
+};
+
+Object.seal(object1);
+object1.property1 = 33;
+console.log(object1.property1);
+// Expected output: 33
+
+delete object1.property1; // Cannot delete when sealed
+console.log(object1.property1);
+// Expected output: 33
+```
+
+5. `Object.freeze()` 静态方法可以使一个对象被冻结。冻结对象可以防止扩展，并使现有的属性不可写入和不可配置。被冻结的对象不能再被更改：不能添加新的属性，不能移除现有的属性，不能更改它们的可枚举性、可配置性、可写性或值，对象的原型也不能被重新指定。freeze() 返回与传入的对象相同的对象。冻结一个对象是 JavaScript 提供的最高完整性级别保护措施。
+
+```javascript
+const obj = {
+  prop: 42,
+};
+
+Object.freeze(obj);
+
+obj.prop = 33;
+// Throws an error in strict mode
+
+console.log(obj.prop);
+// Expected output: 42
+```
