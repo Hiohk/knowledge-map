@@ -748,9 +748,75 @@ person.age = 18;
 **复杂基本类型**，如函数和数组。
 
 ## 5.3 对象的遍历
+1. **`for...in` 循环**
 
-## 5.4 总结
+for...in循环用于遍历对象的可枚举属性。
 
+```javascript
+let obj = {a: 1, b: 2, c: 3};  
+  
+for (let key in obj) {  
+    console.log(key + ": " + obj[key]);  // a: 1 b: 2 c: 3
+}
+```
+注意：for...in循环也会遍历到原型链上的属性，如果只需要遍历对象自身的属性，可以使用hasOwnProperty方法进行判断。
+
+2. **`Object.keys()` 方法**
+
+Object.keys()方法返回一个表示给定对象的所有可枚举属性的字符串数组。
+
+```javascript
+let obj = {a: 1, b: 2, c: 3};  
+  
+Object.keys(obj).forEach(function(key) {  
+    console.log(key + ": " + obj[key]);  // a: 1 b: 2 c: 3
+});
+```
+
+3. **`Object.values()` 方法**
+
+Object.values()方法返回一个给定对象自身的所有可枚举属性值的数组。
+
+```javascript
+let obj = {a: 1, b: 2, c: 3};  
+  
+Object.values(obj).forEach(function(value) {  
+    console.log(value); // 1 2 3
+});
+```
+
+4. **`Object.entries()` 方法**
+
+Object.entries()方法返回一个给定对象自身可枚举属性的键值对数组。
+
+```javascript
+let obj = {a: 1, b: 2, c: 3};  
+  
+Object.entries(obj).forEach(([key, value]) => {  
+    console.log(key + ": " + value); // a: 1 b: 2 c: 3
+});
+```
+5. **使用 `Object.prototype.hasOwnProperty()`**
+
+如果你只想遍历对象自身的属性，而不是继承的属性，可以使用hasOwnProperty()方法。
+
+```javascript
+let obj = {a: 1, b: 2, c: 3};  
+  
+for (let key in obj) {  
+    if (obj.hasOwnProperty(key)) {  
+        console.log(key + ": " + obj[key]);  // a: 1 b: 2 c: 3
+    }  
+}
+```
+
+## 5.4 对象的方法补充
+- `hasOwnProperty`: 对象是否有某一个自己的属性（不是在原型上的属性）；
+- `in` 和 `for in` 操作符：判断某个属性是否在某个对象或者对象的原型上；
+- `instanceof`: 用于检测构造函数的 prototype，是否出现在某个实例对象的原型链上；
+- `isPrototypeOf`: 用于检测某个对象，是否出现在某个实例对象的原型链上；
+
+## 5.5 总结
 
 # 6. 对象原型和原型链 :white_check_mark: 
 ## 6.1 对象和函数的原型
@@ -915,12 +981,300 @@ console.log(anotherChild.colors); // 输出：['red', 'blue', 'green', 'purple']
 
 寄生组合继承是 JavaScript 中最常用且推荐的继承模式之一，因为它避免了原型链继承中属性共享的问题，也解决了借用构造函数继承中函数复用的问题。
 
-## 6.7 总结
+## 6.7 原型继承关系
+原型继承关系图解：
+![image](../../assets/img/javascript_prototype.png)
+
+## 6.8 总结
 原型和原型链是面试中常考的知识点，想要清晰的描述清楚原型链并不是一件容易的事。在学习这一章节知识时，学习者要注意对相关理论的理解。
 
-# 7. 深入浏览器的渲染原理 :heart:
+# 7. 类与继承 :white_check_mark:
+类（class）是 ECMAScript 中新的基础性语法糖结构。虽然 ECMAScript 6 类表面上看起来可以支持正式的面向对象编程，但实际上它背后使用的仍然是原型和构造函数的概念。
 
-## 7.1 浏览器内核
+## 7.1 class 方式定义类
+与函数类似，类的定义也有两种主要方式：类声明和类表达式。
+
+```javascript
+// 类声明
+class Person {}
+
+// 类表达式
+const Animal = class {};
+```
+
+与函数表达式类似，类表达式在它们被求值前也不能引用。与函数定义不同的是，虽然函数声明可以可以提升（更多详情请参考声明提升章节），但类的定义不能：
+
+```javascript
+console.log(FunctionExpression); // undefined
+var FunctionExpression = function () {}; 
+console.log(FunctionExpression); // function () {}
+
+console.log(FunctionDeclaration); // FunctionDeclaration () {}
+function FunctionDeclaration() {};
+console.log(FunctionDeclaration); // FunctionDeclaration () {}
+
+console.log(CLassExpression); // undefined
+var CLassExpression = class {};
+console.log(ClassExpression); // class {}
+
+console.log(CLassDeclaration); // ReferenceError: CLassDeclaration is not defined
+class CLassDeclaration {};
+console.log(CLassDeclaration); // class CLassDeclaration {}
+```
+
+另一个和函数声明不同的地方是，函数受函数作用域限制，而类受块作用域限制：
+
+```javascript
+{
+  function FunctionDeclaration () {}
+  class classDeclaration {}
+}
+console.log(FunctionDeclaration); // FunctionDeclaration() {}
+console.log(classDeclaration); // ReferenceError: CLassDeclaration is not defined
+```
+
+类构造函数：`constructor` 关键字用于在类定义块内部创建类的构造函数。
+
+```javascript
+class Person {
+  constructor(name) {
+    console.log(arguments.length);
+    this.name = name || null;
+  }
+}
+
+let p1 = new Person; // 0
+console.log(p1.name); // null
+
+let p2 = new Person("Tom"); // 1
+console.log(p2.name); // Tom
+```
+
+默认情况下，类构造函数会在执行之后返回 this 对象。构造函数返回的对象会被用作实例化的对象，如果没有什么引用新创建的 this 对象，那么这个对象会被销毁。不过，如果返回的不是 this 对象，而是其他对象，那么这个对象不会通过 instanceof 操作符检测出跟类有关联，因为这个对象的原型指针并没有被修改。
+
+```javascript
+class Person {
+  constructor(override) {
+    this.foo = "foo";
+    if(override) {
+      return {
+        bar: "bar"
+      }
+    }
+  }
+}
+
+let p1 = new Person();
+let p2 = new Person(true);
+
+console.log(p1);// Person{ foo: "foo"}
+console.log(p1 instanceof Person); // true
+
+console.log(p2);// { bar: "bar"}
+console.log(p1 instanceof Person); // false
+```
+
+类也是一种特殊函数，如:
+```javascript
+class Person {}
+console.log(typeof Person); // function
+```
+
+类标签符有 prototype 属性，而这个原型也有一个 constructor 属性指向类自身：
+```javascript
+class Person {}
+console.log(Person.prototype); // { constructor: f() }
+console.log(Person === Person.prototype.constructor); // true
+```
+
+与普通构造函数一样，可以使用 instanceof 操作符检查构造函数原型是否存在于实例的原型链中：
+```javascript
+class Person {}
+let p = new Person();
+console.log(p instanceof Person); // true
+```
+
+## 7.2 类的实例、原型和类成员
+### 实例成员
+每次通过 new 调佣类标识符时，都会执行类构造函数。在这个函数内部，可以为新创建的实例（this）添加”自有“属性。每个实例都对应一个唯一的成员对象，这意味着所有成员都不会在原型上共享。
+```javascript
+class Person {
+  constructor() {
+    this.name = new String("Jack");
+    this.sayName = () => console.log(this.name);
+  }
+}
+
+let p1 = new Person();
+let p2 = new Person();
+
+p1.sayName(); // Jack
+p2.sayName(); // Jack
+
+console.log(p1.name === p2.name); // false
+console.log(p1.sayName === p2.sayName); // false
+```
+
+### 原型方法与访问器
+为了在实例间共享方法，类定义语法在类块中定义的方法作为原型方法。
+```javascript
+class Person {
+  constructor() {
+    this.locate = () => console.log("instance");
+  }
+
+  locate() {
+    console.log("prototype");
+  }
+}
+
+let p = new Person();
+p.locate(); // instance
+Person.prototype.locate(); // prototype
+```
+
+类定义也支持获取和设置访问器：
+```javascript
+class Person {
+  set name(newName) {
+    this.name_ = newName;
+  }
+
+  get name() {
+    return this.name_;
+  }
+}
+
+let p = new Person();
+p.name = "Jake";
+console.log(p.name);
+```
+
+### 静态方法
+可以在类上定义静态方法。这些方法通常用于执行不特定于实例的操作，也不要求存在类的实例。与原型成员类似，每个类上只能有一个静态成员。在静态成员中，this 引用类自身。
+```javascript
+class Person {
+  constructor() {
+    // 添加到 this 的所有内容都会存在于不同的实例上
+    this.locate = () => console.log("instance,", this);
+  }
+
+  locate() {
+    console.log("prototype,", this);
+  }
+
+  static locate() {
+    console.log("class,", this);
+  }
+}
+
+let p = new Person();
+p.locate(); //instance, Person {}
+Person.prototype.locate(); // prototype, { constructor: ... }
+Person.locate(); // class, class Person {}
+```
+
+### 非函数原型和类成员
+虽然累定义并不显示支持在原型或类上添加成员数据，但在类定义外部，可以手动添加：
+
+```javascript
+class Person {
+  sayName() {
+    console.log(`${Person.greeting} ${this.name}`);
+  }
+}
+// 在类上定义数据成员
+Person.greeting = "My name is";
+
+// 在原型上定义数据成员
+Person.prototype.name = "Jake";
+
+let p = new Person();
+p.sayName(); // My name is Jake
+```
+
+### 迭代器与生成器方法
+类定义语法支持在原型和类本身上定义生成器方法：
+```javascript
+class Person {
+  // 在原型上定义生成器方法
+  *createNicknameIterator() {
+    yield "Jack";
+    yield "Jake";
+    yield "Tom";
+  }
+
+  // 在类上定义生成器方法
+  static *createJobIterator() {
+    yield "Butcher";
+    yield "Baker";
+    yield "Candlestick maker";
+  }
+}
+
+let jobIter = Person.createJobIterator();
+console.log(jobIter.next().value); // Butcher
+console.log(jobIter.next().value); // Baker
+console.log(jobIter.next().value); // Candlestick maker
+
+let p = new Person();
+leu nicknameIter = p.createNicknameIterator();
+console.log(nicknameIter.next().value); // Jack
+console.log(nicknameIter.next().value); // Jake
+console.log(nicknameIter.next().value); // Tom
+```
+
+## 7.3 extends 实现继承
+
+### 继承基础
+ES6 使用 `extends` 关键字实现单继承。类和原型上定义的方法都会带到派生类，this 的值会反映调用相应方法的实例或者类：
+```javascript
+class Vehicle {
+  identifyPrototype(id) {
+    console.log(id, this);
+  }
+
+  static identifyClass(id) {
+    console.log(id, this);
+  }
+}
+
+class Bus extends Vehicle {}
+
+let v = new Vehicle();
+let b = new Bus();
+
+b.identifyPrototype("bus"); // bus Bus {}
+v.identifyPrototype("vehicle"); // Vehicle Vehicle {}
+
+Bus.identifyClass("bus"); // bus class Bus {}
+Vehicle.identifyClass("vehicle"); // vehicle class Vehicle {}
+```
+
+### 构造函数、HomeObject() 和 super()
+
+### 抽象基类
+
+### 继承内置类型
+
+### 类混入
+
+
+## 7.4 Babel 的 ES6 转 ES5
+
+
+## 7.5 面相对象多态的理解
+
+
+## 7.6 ES6 对象的增强
+
+
+## 7.7 总结
+作为一个高级开发者，你应该掌握原型继承、类的继承等相关知识，甚至你应该会手写不同类型的继承方式。（这在过往面试中有考察过）
+
+# 8. 深入浏览器的渲染原理 :heart:
+
+## 8.1 浏览器内核
 
 常见的浏览器内核有：
 
@@ -930,7 +1284,7 @@ console.log(anotherChild.colors); // 输出：['red', 'blue', 'green', 'purple']
 - **Webkit**: Safari、360 极速浏览器、搜狗高速浏览器、移动端浏览器（Android、ios）;
 - **Webkit->Blink**: Google Chrome、Edge。
 
-## 7.2 网页的解析和浏览器渲染过程
+## 8.2 网页的解析和浏览器渲染过程
 
 浏览器的渲染原理和网页的解析过程可以大致分为以下几个步骤：
 
@@ -945,7 +1299,7 @@ console.log(anotherChild.colors); // 输出：['red', 'blue', 'green', 'purple']
 4. **分层**：主线程会使用一套复杂的策略对整个布局树中进行分层。分层的好处在于，将来某一个层改变后，仅会对该层进行后续的处理，从而提升效率。
    绘制：主线程会为每个层单独产生绘制指令集，用于描述这一层的内容该如何画出来。浏览器会根据渲染树的结构和几何属性进行绘制，将网页内容显示在用户界面上。在绘制过程中，浏览器会将渲染树中的每个节点转换为屏幕上的像素。
 
-## 7.3 回流和重绘解析
+## 8.3 回流和重绘解析
 
 在 HTML 中，每个元素都可以理解成一个盒子，在浏览器解析过程中，会涉及到回流与重绘：
 
@@ -1025,7 +1379,7 @@ console.log(anotherChild.colors); // 输出：['red', 'blue', 'green', 'purple']
 
 关于重绘与回流的进一步介绍，请参考[重绘与回流](https://segmentfault.com/a/1190000017329980)。
 
-## 7.4 合成和性能分析
+## 8.4 合成和性能分析
 
 元素绘制的过程，可以将布局后的元素绘制到多个合成图层中，这是浏览器的一种优化手段。
 默认情况下，标准流中的内容都是被绘制在同一个图层中的；而一些特殊的属性，会创建一个新的合成层（Compositing Layer）,并且新的图层可以利用 GPU 来加速绘制，因为每个合成层都是单独渲染的。
@@ -1041,7 +1395,7 @@ console.log(anotherChild.colors); // 输出：['red', 'blue', 'green', 'purple']
 
 分层确实可以提高性能，但是它以内存管理为代价，因此不应作为 web 性能优化策略的一部分过度使用。
 
-## 7.5 defer 和 async 属性
+## 8.5 defer 和 async 属性
 
 在浏览器的解析过程中，遇到了 script 元素时不能继续构建 DOM 树的，它只会停止继续构建，首先下载 JavaScript
 代码，并且执行 JavaScript 的脚本，只有等到 JavaScript 脚本执行结束后，才会继续解析 HTML，构建 DOM 树。
@@ -1076,7 +1430,7 @@ console.log(anotherChild.colors); // 输出：['red', 'blue', 'green', 'purple']
 defer 通常用于需要再文档解析后操作 DOM 的 JavaScript 代码，并且对多个 script 文件有顺序要求的；
 async 通常用于独立的脚本，对其他脚本，甚至 DOM 没有依赖的。
 
-## 7.6 JavaScript 执行原理
+## 8.6 JavaScript 执行原理
 
 以下的描述并不是我写作的本意，其来源于“文心一言”的回答。
 
@@ -1108,7 +1462,7 @@ JavaScript 是一种解释型语言，这意味着它的代码在执行时会被
 
 通过以上过程，JavaScript 能够在浏览器中执行并处理各种交互和动态内容。
 
-## 7.7 V8 引擎
+## 8.7 V8 引擎
 
 v8 引擎是前端面试过程中可能会问到的关于底层原理的知识。详情请参考[V8 官网](https://v8.dev/)。
 
@@ -1118,13 +1472,13 @@ V8 is Google’s open source high-performance JavaScript and WebAssembly engine,
 V8 是 Google 开源的 JavaScript 和 WebAssembly 引擎，用 C++ 编写。它用于 Chrome 和 Node.js 等。V8 实现了 ECMAScript 和 WebAssembly，并在 Windows7 或更高版本、macOS10.12+ 以及使用 x64、IA-32 或 ARM 处理器的 Linux 系统上运行。其他系统（IBM i、AIX）和处理器（MIPS、ppcle64、s390x）由外部维护。V8 可以独立运行，也可以嵌入到任何 C++ 应用程序中。
 :::
 
-## 7.8 总结
+## 8.8 总结
 
 总结......
 
-# 8. 函数 :white_check_mark: 
+# 9. 函数 :white_check_mark: 
 
-## 8.1 函数属性和 arguments :white_check_mark:
+## 9.1 函数属性和 arguments :white_check_mark:
 
 ### 函数的属性
 
@@ -1190,7 +1544,7 @@ const args = [...arguments];
 - arguments 对象还有一些附加的属性（如 callee 属性）。
   :::
 
-## 8.2 纯函数的理解和应用 :rocket:
+## 9.2 纯函数的理解和应用 :rocket:
 
 ### 纯函数的定义
 
@@ -1203,7 +1557,7 @@ const args = [...arguments];
 
 纯函数可以用于封装自己的函数或插件。
 
-## 8.3 柯里化的理解和应用 :heart:
+## 9.3 柯里化的理解和应用 :heart:
 
 ### 柯里化（Currying）
 
@@ -1243,7 +1597,7 @@ function curry(fn) {
 - **部分应用的实现**：柯里化允许将一个多参数函数转化为一个只接受部分参数的函数。这使得我们可以更灵活地调用函数，只需要传入必要的参数即可。
 - **便于函数组合和管道操作**：柯里化的函数可以方便地与其他函数进行组合和管道操作，从而构建出更复杂的函数逻辑。
 
-## 8.4 组合函数理解和应用 :rocket:
+## 9.4 组合函数理解和应用 :rocket:
 
 组合函数（compose function）通常用于将一个函数链式地应用于一系列的值。每个函数都会将它的输出传递给链中的下一个函数。组合函数在函数式编程中非常常见，因为它允许我们以简洁、声明式的方式创建复杂的函数逻辑。
 
@@ -1308,7 +1662,7 @@ const composedFunction = compose(double, addFive);
 console.log(composedFunction(3)); // 输出：16 (因为 (3 + 5) * 2 = 16)
 ```
 
-## 8.5 with、eval 的使用 :x:
+## 9.5 with、eval 的使用 :x:
 
 `with` 语句扩展一个语句的作用域链。
 :::danger 已弃用: 不再推荐使用该特性。
@@ -1341,7 +1695,7 @@ console.log(eval("2 + 2") === eval(new String("2 + 2")));
 
 `eval()` 是一个危险的函数，它使用与调用者相同的权限执行代码。如果你用 `eval()` 运行的字符串代码被恶意方（不怀好意的人）修改，你最终可能会在你的网页/扩展程序的权限下，在用户计算机上运行恶意代码。更重要的是，第三方代码可以看到某一个 `eval()` 被调用时的作用域，这也有可能导致一些不同方式的攻击。相似的 `Function` 就不容易被攻击。(**永远不要使用 eval！**)
 
-## 8.6 严格模式的使用 :star:
+## 9.6 严格模式的使用 :star:
 严格模式("use strict")是一种具有限制性的 JavaScript 模式，从而使代码隐式的脱离了“懒散（sloppy）模式”;支持严格模式的浏览器在检测到代码中有严格模式时，会以更加严格的方式进行检测和执行。
 - 严格模式通过抛出错误，来消除一些原有的静默错误；
 - 严格模式让 JS 引擎在执行代码时可以进行更多的优化（不需要对一些特殊的语法进行处理）；
@@ -1418,11 +1772,11 @@ false.true = ""; // TypeError
 ```
 
 这里只列举部分严格模式的规则，更多请参考[MDN-严格模式](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Strict_mode)。
-## 8.7 总结
+## 9.7 总结
 
-# 9. 对象的增强知识 :white_check_mark:
+# 10. 对象的增强知识 :white_check_mark:
 
-## 9.1 Object.defineProperty()
+## 10.1 Object.defineProperty()
 `Object.defineProperty()` 静态方法会直接在一个对象上定义一个新属性，或修改其现有属性，并返回此对象。
 
 ```javascript
@@ -1433,7 +1787,7 @@ Object.defineProperty(obj, prop, descriptor)
 // descriptor: 要定义或修改的属性的描述符。
 ```
 
-## 9.2 数据属性描述符
+## 10.2 数据属性描述符
 对象中存在的属性描述符有两种主要类型：数据描述符和访问器描述符。数据描述符是一个具有可写或不可写值的属性。访问器描述符是由 getter/setter 函数对描述的属性。描述符只能是这两种类型之一，不能同时为两者。
 
 数据描述符和访问器描述符都是对象, 它们都有以下可选项：
@@ -1449,14 +1803,14 @@ Object.defineProperty(obj, prop, descriptor)
 
 - **writable**: 如果与属性相关联的值可以使用赋值运算符更改，则为 true。默认值为 false。
 
-## 9.3 访问器描述符
+## 10.3 访问器描述符
 访问器描述符还具有以下可选键值：
 
 - **get**：用作属性 getter 的函数，如果没有 getter 则为 undefined。当访问该属性时，将不带参地调用此函数，并将 this 设置为通过该属性访问的对象（因为可能存在继承关系，这可能不是定义该属性的对象）。返回值将被用作该属性的值。默认值为 undefined。
 
 - **set**：用作属性 setter 的函数，如果没有 setter 则为 undefined。当该属性被赋值时，将调用此函数，并带有一个参数（要赋给该属性的值），并将 this 设置为通过该属性分配的对象。默认值为 undefined。
 
-## 9.4 Object.defineProperties()
+## 10.4 Object.defineProperties()
 `Object.defineProperties()` 静态方法直接在一个对象上定义**多个**新的属性或修改现有属性，并返回该对象。
 ```javascript
 const object1 = {};
@@ -1472,7 +1826,7 @@ Object.defineProperties(object1, {
 console.log(object1.property1);
 // Expected output: 42
 ```
-## 9.5 对象的其他方法补充 :star:
+## 10.5 对象的其他方法补充 :star:
 1. `Object.getOwnPropertyDescriptor()` 静态方法返回一个对象，该对象描述给定对象上特定属性（即直接存在于对象上而不在对象的原型链中的属性）的配置。返回的对象是可变的，但对其进行更改不会影响原始属性的配置。
 
 ```javascript

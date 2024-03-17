@@ -199,7 +199,7 @@ typeof typeof 42; // "string"
 
 变量在未持有值的时候为 undefined。此时 typeof 返回 "undefined"：
 
-```javacript
+```javascript
 var a;
 typeof a; // "undefined"
 var b = 42;
