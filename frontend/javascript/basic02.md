@@ -4,7 +4,7 @@
 
 ### 数组的定义
 
-1. 和其他强类型语言不同，在 JavaScript 中，数组可以容纳任何类型的值；
+01. 和其他强类型语言不同，在 JavaScript 中，数组可以容纳任何类型的值；
 
 ```javascript
 var a = [1, "2", [3]];
@@ -13,7 +13,7 @@ a[0] === 1; // true
 a[2][0] === 3; // true
 ```
 
-2. 对数组声明后即可向其中加入值，不需要预先设定大小；
+02. 对数组声明后即可向其中加入值，不需要预先设定大小；
 
 ```javascript
 var a = [];
@@ -24,9 +24,9 @@ a[2] = [3];
 a.length; // 3
 ```
 
-3. 使用 delete 运算符可以将单元从数组中删除，但是请注意，单元删除后，数组的 length 属性并不会发生变化；
+03. 使用 delete 运算符可以将单元从数组中删除，但是请注意，单元删除后，数组的 length 属性并不会发生变化；
 
-4. 数组通过数字进行索引，但有趣的是它们也是对象，所以也可以包含字符串键值和属性（但这些并不计算在数组长度内）；
+04. 数组通过数字进行索引，但有趣的是它们也是对象，所以也可以包含字符串键值和属性（但这些并不计算在数组长度内）；
 
 ```javascript
 var a = [];
@@ -37,7 +37,7 @@ a["foobar"]; // 2
 a.foobar; // 2
 ```
 
-5. 如果字符串键值能够被强制类型转换为十进制数字的话，它就会被当作数字索引来处理；
+05. 如果字符串键值能够被强制类型转换为十进制数字的话，它就会被当作数字索引来处理；
 
 ```javascript
 var a = [];
@@ -103,15 +103,15 @@ a.join; // undefined
 a.map; // undefined
 var c = Array.prototype.join.call(a, "-");
 var d = Array.prototype.map
-  .call(a, function (v) {
-    return v.toUpperCase() + ".";
-  })
-  .join("");
+    .call(a, function(v) {
+        return v.toUpperCase() + ".";
+    })
+    .join("");
 c; // "f-o-o"
 d; // "F.O.O."
 ```
 
-这里引申一个 JavaScript 面试常见问题--**字符串反转**。数组有一个字符串没有的可变更成员函数 `reverse()`：
+这里引申一个 JavaScript 面试常见问题--**字符串反转**。数组有一个字符串没有的可变更成员函数 `reverse()` ：
 
 ```javascript
 var a = "foo";
@@ -130,12 +130,12 @@ Array.prototype.reverse.call(a);
 ```javascript
 var a = "foo";
 var c = a
-  // 将a的值转换为字符数组
-  .split("")
-  // 将数组中的字符进行倒转
-  .reverse()
-  // 将数组中的字符拼接回字符串
-  .join("");
+    // 将a的值转换为字符数组
+    .split("")
+    // 将数组中的字符进行倒转
+    .reverse()
+    // 将数组中的字符拼接回字符串
+    .join("");
 console.log(c); // "oof"
 ```
 
@@ -180,7 +180,7 @@ var c = 1 / a;
 c; // 2e-11
 ```
 
-由于数字值可以使用 Number 对象进行封装，因此数字值可以调用 `Number.prototype` 中的方法。例如，`tofixed(..)` 方法可指定小数部分的显示位数：
+由于数字值可以使用 Number 对象进行封装，因此数字值可以调用 `Number.prototype` 中的方法。例如， `tofixed(..)` 方法可指定小数部分的显示位数：
 
 ```javascript
 var a = 42.59;
@@ -207,14 +207,14 @@ a.toPrecision(6); // "42.5900"
 
 ```javascript
 // 无效语法：
-42.toFixed( 3 ); // SyntaxError
+42. toFixed(3); // SyntaxError
 // 下面的语法都有效：
-(42).toFixed( 3 ); // "42.000"
-0.42.toFixed( 3 ); // "0.420"
-42..toFixed( 3 ); // "42.000"
+(42).toFixed(3); // "42.000"
+0.42.toFixed(3); // "0.420"
+42..toFixed(3); // "42.000"
 
 // 下面的语法也是有效的（请注意其中的空格）：
-42 .toFixed(3); // "42.000"
+42. toFixed(3); // "42.000"
 ```
 
 还可以用指数形式来表示较大的数字，如：
@@ -246,17 +246,17 @@ var onemilliononehundredthousand = 1.1e6; // 即 1.1 * 10^6
 
 简单来说，二进制浮点数中的 0.1 和 0.2 并不是十分精确，它们相加的结果并非刚好等于 0.3，而是一个比较接近的数字 0.30000000000000004，所以条件判断结果为 false。
 
-那么应该怎样来判断 0.1 + 0.2 和 0.3 是否相等呢？最常见的方法是设置一个误差范围值，通常称为“机器精度”（machine epsilon），对 JavaScript 的数字来说，这个值通常是 2^-52 (2.220446049250313e-16)。从 ES6 开始，该值定义在 Number.EPSILON 中。
+那么应该怎样来判断 0.1 + 0.2 和 0.3 是否相等呢？最常见的方法是设置一个误差范围值，通常称为“机器精度”（machine epsilon），对 JavaScript 的数字来说，这个值通常是 2^-52 (2.220446049250313e-16)。从 ES6 开始，该值定义在 Number. EPSILON 中。
 
 ```javascript
 // ES6 之前的版本写 polyfill：
 if (!Number.EPSILON) {
-  Number.EPSILON = Math.pow(2, -52);
+    Number.EPSILON = Math.pow(2, -52);
 }
 
 // ES6:
 function numbersCloseEnoughToEqual(n1, n2) {
-  return Math.abs(n1 - n2) < Number.EPSILON;
+    return Math.abs(n1 - n2) < Number.EPSILON;
 }
 var a = 0.1 + 0.2;
 var b = 0.3;
@@ -272,24 +272,24 @@ numbersCloseEnoughToEqual(0.0000001, 0.0000002); // false
 
 ### 整数的安全范围
 
-数字的呈现方式决定了“整数”的安全值范围远远小于 Number.MAX_VALUE。
+数字的呈现方式决定了“整数”的安全值范围远远小于 Number. MAX_VALUE。
 能够被“安全”呈现的最大整数是 2^53 - 1，即 9007199254740991，在 ES6 中被定义为
-Number.MAX_SAFE_INTEGER。最小整数是 -9007199254740991，在 ES6 中被定义为 Number.MIN_SAFE_INTEGER。
+Number. MAX_SAFE_INTEGER。最小整数是 -9007199254740991，在 ES6 中被定义为 Number. MIN_SAFE_INTEGER。
 
 有时 JavaScript 程序需要处理一些比较大的数字，如数据库中的 64 位 ID 等。由于 JavaScript 的数字类型无法精确呈现 64 位数值，所以必须将它们保存（转换）为字符串。
 
 Number 的常见属性：
 
-| 属性                     | 描述                                                        | 值                                           |
-| ------------------------ | ----------------------------------------------------------- | -------------------------------------------- |
-| Number.MAX_VALUE         | 静态数据属性表示在 JavaScript 中可表示的最大数值            | 1.7976931348623157E+308(2^1024 - 1)          |
-| Number.MIN_VALUE         | 静态数据属性表示在 JavaScript 中可表示的最小正数值          | 5E-324(2-1074)                               |
-| Number.MAX_SAFE_INTEGER  | 静态数据属性表示在 JavaScript 中最大的安全整数（2^53 – 1）  | 9007199254740991                             |
-| Number.MIN_SAFE_INTEGER  | 静态数据属性代表在 JavaScript 中最小的安全整数（-2^53 – 1） | -9007199254740991                            |
-| Number.NEGATIVE_INFINITY | 静态数据属性表示负无穷值                                    | 与全局属性 Infinity 的负值相同               |
-| Number.POSITIVE_INFINITY | 静态数据属性表示正无穷大值                                  | 与全局属性 Infinity 的值相同                 |
-| Number.NaN               | 静态数据属性表示非数字值，等同于 NaN。                      | 数字值 NaN                                   |
-| Number.EPSILON           | 静态数据属性表示 1 与大于 1 的最小浮点数之间的差值          | 2.2204460492503130808472633361816E-16(2^-52) |
+| 属性                      | 描述                                                        | 值                                           |
+| ------------------------- | ----------------------------------------------------------- | -------------------------------------------- |
+| Number. MAX_VALUE         | 静态数据属性表示在 JavaScript 中可表示的最大数值            | 1.7976931348623157E+308(2^1024 - 1)          |
+| Number. MIN_VALUE         | 静态数据属性表示在 JavaScript 中可表示的最小正数值          | 5E-324(2-1074)                               |
+| Number. MAX_SAFE_INTEGER  | 静态数据属性表示在 JavaScript 中最大的安全整数（2^53 – 1）  | 9007199254740991                             |
+| Number. MIN_SAFE_INTEGER  | 静态数据属性代表在 JavaScript 中最小的安全整数（-2^53 – 1） | -9007199254740991                            |
+| Number. NEGATIVE_INFINITY | 静态数据属性表示负无穷值                                    | 与全局属性 Infinity 的负值相同               |
+| Number. POSITIVE_INFINITY | 静态数据属性表示正无穷大值                                  | 与全局属性 Infinity 的值相同                 |
+| Number. NaN               | 静态数据属性表示非数字值，等同于 NaN。                      | 数字值 NaN                                   |
+| Number. EPSILON           | 静态数据属性表示 1 与大于 1 的最小浮点数之间的差值          | 2.2204460492503130808472633361816E-16(2^-52) |
 
 ### 整数检测
 
@@ -305,9 +305,9 @@ Number.isInteger(42.3); // false
 
 ```javascript
 if (!Number.isInteger) {
-  Number.isInteger = function (num) {
-    return typeof num == "number" && num % 1 == 0;
-  };
+    Number.isInteger = function(num) {
+        return typeof num == "number" && num % 1 == 0;
+    };
 }
 ```
 
@@ -323,15 +323,15 @@ Number.isSafeInteger(Math.pow(2, 53) - 1); // true
 
 ```javascript
 if (!Number.isSafeInteger) {
-  Number.isSafeInteger = function (num) {
-    return Number.isInteger(num) && Math.abs(num) <= Number.MAX_SAFE_INTEGER;
-  };
+    Number.isSafeInteger = function(num) {
+        return Number.isInteger(num) && Math.abs(num) <= Number.MAX_SAFE_INTEGER;
+    };
 }
 ```
 
 ### 32 位有符号整数
 
-虽然整数最大能够达到 53 位，但是有些数字操作（如数位操作）只适用于 32 位数字，所以这些操作中数字的安全范围就要小很多，变成从 Math.pow(-2,31)（-2147483648，约－21 亿）到 Math.pow(2,31) - 1（2147483647，约 21 亿）。
+虽然整数最大能够达到 53 位，但是有些数字操作（如数位操作）只适用于 32 位数字，所以这些操作中数字的安全范围就要小很多，变成从 Math.pow(-2, 31)（-2147483648，约－21 亿）到 Math.pow(2, 31) - 1（2147483647，约 21 亿）。
 
 `a | 0` 可以将变量 a 中的数值转换为 32 位有符号整数，因为数位运算符 | 只适用于 32 位整数（它只关心 32 位以内的值，其他的数位将被忽略）。因此与 0 进行操作即可截取 a 中的 32 位数位。
 
@@ -341,17 +341,17 @@ JavaScript 数据类型中有几个特殊的值需要开发人员特别注意和
 
 ### 不是值的值
 
-undefined 类型只有一个值，即 `undefined`。null 类型也只有一个值，即 `null`。它们的名称既是类型也是值。
+undefined 类型只有一个值，即 `undefined` 。null 类型也只有一个值，即 `null` 。它们的名称既是类型也是值。
 
 undefined 和 null 常被用来表示“空的”值或“不是值”的值。二者之间有一些细微的差别。例如：
 
-- `null` 指空值（empty value）
-- `undefined` 指没有值（missing value）
+* `null` 指空值（empty value）
+* `undefined` 指没有值（missing value）
 
 或者：
 
-- `undefined` 指从未赋值
-- `null` 指曾赋过值，但是目前没有值
+* `undefined` 指从未赋值
+* `null` 指曾赋过值，但是目前没有值
 
 null 是一个特殊关键字，不是标识符，我们不能将其当作变量来使用和赋值。然而 undefined 却是一个标识符，可以被当作变量来使用和赋值。
 
@@ -361,19 +361,20 @@ null 是一个特殊关键字，不是标识符，我们不能将其当作变量
 
 ```javascript
 function foo() {
-  undefined = 2; // 非常糟糕的做法！
-}
-foo();
-function foo() {
-  "use strict";
-  undefined = 2; // TypeError!
+    undefined = 2; // 非常糟糕的做法！
 }
 foo();
 
 function foo() {
-  "use strict";
-  var undefined = 2;
-  console.log(undefined); // 2
+    "use strict";
+    undefined = 2; // TypeError!
+}
+foo();
+
+function foo() {
+    "use strict";
+    var undefined = 2;
+    console.log(undefined); // 2
 }
 foo();
 ```
@@ -382,18 +383,18 @@ foo();
 
 ```javascript
 function doSomething() {
-  // 注： APP.ready 由程序自己定义
-  if (!APP.ready) {
-    // 稍后再试
-    return void setTimeout(doSomething, 100);
-  }
-  var result;
-  // 其他
-  return result;
+    // 注： APP.ready 由程序自己定义
+    if (!APP.ready) {
+        // 稍后再试
+        return void setTimeout(doSomething, 100);
+    }
+    var result;
+    // 其他
+    return result;
 }
 // 现在可以了吗？
 if (doSomething()) {
-  // 立即执行下一个任务
+    // 立即执行下一个任务
 }
 ```
 
@@ -401,19 +402,21 @@ if (doSomething()) {
 
 ### 特殊的数字
 
-全局属性 NaN 是一个表示非数字（not a number）的值。NaN 是全局对象的一个属性。换句话说，它是全局作用域中的一个变量。NaN 的初始值不是数字——与 Number.NaN 的值相同。在现代浏览器中，NaN 是一个不可配置、不可写的属性。即使不是这样，也要避免重写它。在程序中很少使用 NaN。
+01. **NaN**
+
+全局属性 NaN 是一个表示非数字（not a number）的值。NaN 是全局对象的一个属性。换句话说，它是全局作用域中的一个变量。NaN 的初始值不是数字——与 Number. NaN 的值相同。在现代浏览器中，NaN 是一个不可配置、不可写的属性。即使不是这样，也要避免重写它。在程序中很少使用 NaN。
 
 有五种不同类型的操作返回 NaN：
 
-- 失败的数字转换（例如，显式转换，如 `parseInt("abc")`、`Number(undefined)`，或隐式转换，如 `Math.abs(undefined)）`;
+* 失败的数字转换（例如，显式转换，如 `parseInt("abc")`、`Number(undefined)`，或隐式转换，如 `Math.abs(undefined)）`; 
 
-- 计算结果不是实数的数学运算（例如，`Math.sqrt(-1)`）;
+* 计算结果不是实数的数学运算（例如，`Math.sqrt(-1)`）; 
 
-- 不定式（例如，`0 * Infinity`、`1 ** Infinity`、`Infinity / Infinity`、`Infinity - Infinity`）;
+* 不定式（例如，`0 * Infinity`、`1 ** Infinity`、`Infinity / Infinity`、`Infinity - Infinity`）; 
 
-- 一个操作数被强制转换为 `NaN` 的方法或表达式（例如，`7 ** NaN`、`7 * "abc"`）——这意味着 `NaN` 具有传染性;
+* 一个操作数被强制转换为 `NaN` 的方法或表达式（例如，`7 ** NaN`、`7 * "abc"`）——这意味着 `NaN` 具有传染性; 
 
-- 将无效值表示为数字的其他情况（例如，`new Date("blabla").getTime()`、`"".charCodeAt(1)）`。
+* 将无效值表示为数字的其他情况（例如，`new Date("blabla").getTime()`、`"".charCodeAt(1)）`。
 
 ```javascript
 var a = 2 / "foo"; // NaN
@@ -447,21 +450,198 @@ ES6 之前的浏览器的 polyfill:
 
 ```javascript
 if (!Number.isNaN) {
-  Number.isNaN = function (n) {
-    return typeof n === "number" && window.isNaN(n);
-  };
+    Number.isNaN = function(n) {
+        return typeof n === "number" && window.isNaN(n);
+    };
 }
 var a = 2 / "foo";
 var b = "foo";
 Number.isNaN(a); // true
-Number.isNaN(b); // false——好！
+Number.isNaN(b); // false
 ```
 
 实际上还有一个更简单的方法，即利用 NaN 不等于自身这个特点。NaN 是 JavaScript 中唯一一个不等于自身的值。
 
+```javascript
+if (!Number.isNaN) {
+    Number.isNaN = function(n) {
+        return n !== n;
+    };
+}
+```
+
+02. **无穷数**
+
+```javascript
+var a = 1 / 0; // Infinity (即 Number.POSITIVE_INfiNITY)
+var b = -1 / 0; // -Infinity (即 Number.NEGATIVE_INfiNITY)
+
+var a = Number.MAX_VALUE; // 1.7976931348623157e+308
+a + a; // Infinity
+a + Math.pow(2, 970); // Infinity
+a + Math.pow(2, 969); // 1.7976931348623157e+308
+```
+
+规范规定，如果数学运算（如加法）的结果超出处理范围，则由 IEEE 754 规范中的“就近取整”（round-to-nearest）模式来决定最后的结果。例如，相对于 Infinity，Number. MAX_VALUE + Math.pow(2, 969) 与 Number. MAX_VALUE 更为接近，因此它被“向下取整”（round down）；而 Number. MAX_VALUE + Math.pow(2, 970) 与 Infinity 更为接近，所以它被“向上取整”（round up）。
+
+03. **零值**
+
+```javascript
+var a = 0 / -3; // -0
+var b = 0 * -3; // -0
+
+// 但是规范定义的返回结果是这样！
+a.toString(); // "0"
+a + ""; // "0"
+String(a); // "0"
+// JSON也如此，很奇怪
+JSON.stringify(a); // "0"
+
+// 有意思的是，如果反过来将其从字符串转换为数字，得到的结果是准确的：
++
+"-0"; // -0
+Number("-0"); // -0
+JSON.parse("-0"); // -0
+```
+
+加法和减法运算不会得到负零（negative zero）。 `JSON.stringify(-0)` 返回 "0"，而 `JSON.parse("-0")` 返回 -0。
+
+负零转换为字符串的结果令人费解，它的比较操作也是如此：
+
+```javascript
+var a = 0;
+var b = 0 / -3;
+a == b; // true
+-
+0 == 0; // true
+a === b; // true
+-
+0 === 0; // true
+0 > -0; // false 
+a > b; // false
+```
+
+要区分 -0 和 0，不能仅仅依赖开发调试窗口的显示结果，还需要做一些特殊处理：
+
+```javascript
+function isNegZero(n) {
+    n = Number(n);
+    return (n === 0) && (1 / n === -Infinity);
+}
+isNegZero(-0); // true
+isNegZero(0 / -3); // true
+isNegZero(0); // false
+```
+
 ### 特殊等式
 
+ES6 中新加入了一个工具方法 Object.is(..) 来判断两个值是否绝对相等。
+
+```javascript
+var a = 2 / "foo";
+var b = -3 * 0;
+Object.is(a, NaN); // true
+Object.is(b, -0); // true
+Object.is(b, 0); // false
+```
+
+对于 ES6 之前的版本，Object.is(..) 有一个简单的 polyfill：
+
+```javascript
+if (!Object.is) {
+    Object.is = function(v1, v2) {
+        // 判断是否是-0
+        if (v1 === 0 && v2 === 0) {
+            return 1 / v1 === 1 / v2;
+        }
+        // 判断是否是NaN
+        if (v1 !== v1) {
+            return v2 !== v2;
+        }
+        // 其他情况
+        return v1 === v2;
+    };
+}
+```
+
+能使用 `==` 和 `===` 时就尽量不要使用 `Object.is(..)` ，因为前者效率更高、更为通用。 `Object.is(..)` 主要用来处理那些特殊的相等比较。
+
 ## 2.5 值和引用 :white_check_mark:
+
+JavaScript 中没有指针，引用的工作机制也不尽相同。在 JavaScript 中变量不可能成为指向另一个变量的引用。JavaScript 引用指向的是值。如果一个值有多个引用，这些引用指向的都是同一个值，它们相互之间没有引用 / 指向关系。JavaScript 对值和引用的赋值 / 传递在语法上没有区别，完全根据值的类型来决定。
+
+```javascript
+var a = 2;
+var b = a; // b是a的值的一个副本
+b++;
+a; // 2
+b; // 3
+var c = [1, 2, 3];
+var d = c; // d是[1,2,3]的一个引用
+d.push(4);
+c; // [1,2,3,4]
+d; // [1,2,3,4]
+```
+
+由于引用指向的是值本身而非变量，所以一个引用无法更改另一个引用的指向。
+
+```javascript
+var a = [1, 2, 3];
+var b = a;
+a; // [1,2,3]
+b; // [1,2,3]
+// 然后
+b = [4, 5, 6];
+a; // [1,2,3]
+b; // [4,5,6]
+```
+
+```javascript
+function foo(x) {
+    x.push(4);
+    x; // [1,2,3,4]
+    // 然后
+    x = [4, 5, 6];
+    x.push(7);
+    x; // [4,5,6,7]
+}
+var a = [1, 2, 3];
+foo(a);
+a; // 是[1,2,3,4]，不是[4,5,6,7]
+```
+
+我们向函数传递 a 的时候，实际是将引用 a 的一个复本赋值给 x，而 a 仍然指向 [1, 2, 3]。在函数中我们可以通过引用 x 来更改数组的值（push(4) 之后变为 [1, 2, 3, 4]）。但 x = [4, 5, 6] 并不影响 a 的指向，所以 a 仍然指向 [1, 2, 3, 4]。
+
+```javascript
+function foo(x) {
+    x.push(4);
+    x; // [1,2,3,4]
+    // 然后
+    x.length = 0; // 清空数组
+    x.push(4, 5, 6, 7);
+    x; // [4,5,6,7]
+}
+var a = [1, 2, 3];
+foo(a);
+a; // 是[4,5,6,7]，不是[1,2,3,4]
+```
+
+从上例可以看出，x.length = 0 和 x.push(4, 5, 6, 7) 并没有创建一个新的数组，而是更改了当前的数组。于是 a 指向的值变成了 [4, 5, 6, 7]。
+
+如果需要传递指向标量基本类型值（比如 2）的引用，就可以将其封装到对应的数字封装对象中。与预期不同的是，虽然传递的是指向数字对象的引用复本，但我们并不能通过它来更改其中的基本类型值：
+
+```javascript
+function foo(x) {
+    x = x + 1;
+    x; // 3 
+}
+var a = 2;
+var b = new Number(a); // Object(a)也一样
+foo(b);
+console.log(b); // 是2，不是3
+```
+
+x = x + 1 中，x 中的标量基本类型值 2 从数字对象中拆封（或者提取）出来后，x 就神不知鬼不觉地从引用变成了数字对象，它的值为 2 + 1 等于 3。然而函数外的 b 仍然指向原来那个值为 2 的数字对象。
 
 ## 2.6 总结
 
