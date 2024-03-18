@@ -264,6 +264,10 @@ numbersCloseEnoughToEqual(a, b); // true
 numbersCloseEnoughToEqual(0.0000001, 0.0000002); // false
 ```
 
+> [**Polyfill**](https://developer.mozilla.org/zh-CN/docs/Glossary/Polyfill) 是一块代码（通常是 Web 上的 JavaScript），用来为旧浏览器提供它没有原生支持的较新的功能。
+>
+> 比如说 polyfill 可以让 IE7 使用 Silverlight 插件来模拟 HTML Canvas 元素的功能，或模拟 CSS 实现 rem 单位的支持，或 text-shadow，或其他任何你想要的功能。
+
 此外，能够呈现的最大浮点数大约是 1.798e+308（这是一个相当大的数字），它定义在 `Number.MAX_VALUE` 中。最小浮点数定义在 `Number.MIN_VALUE` 中，大约是 5e-324，它不是负数，但无限接近于 0 ！
 
 ### 整数的安全范围
@@ -394,8 +398,66 @@ if (doSomething()) {
 ```
 
 这里 setTimeout(..) 函数返回一个数值（计时器间隔的唯一标识符，用来取消计时），但是为了确保 if 语句不产生误报（false positive），我们要 void 掉它。
+
 ### 特殊的数字
 
+全局属性 NaN 是一个表示非数字（not a number）的值。NaN 是全局对象的一个属性。换句话说，它是全局作用域中的一个变量。NaN 的初始值不是数字——与 Number.NaN 的值相同。在现代浏览器中，NaN 是一个不可配置、不可写的属性。即使不是这样，也要避免重写它。在程序中很少使用 NaN。
+
+有五种不同类型的操作返回 NaN：
+
+- 失败的数字转换（例如，显式转换，如 `parseInt("abc")`、`Number(undefined)`，或隐式转换，如 `Math.abs(undefined)）`;
+
+- 计算结果不是实数的数学运算（例如，`Math.sqrt(-1)`）;
+
+- 不定式（例如，`0 * Infinity`、`1 ** Infinity`、`Infinity / Infinity`、`Infinity - Infinity`）;
+
+- 一个操作数被强制转换为 `NaN` 的方法或表达式（例如，`7 ** NaN`、`7 * "abc"`）——这意味着 `NaN` 具有传染性;
+
+- 将无效值表示为数字的其他情况（例如，`new Date("blabla").getTime()`、`"".charCodeAt(1)）`。
+
+```javascript
+var a = 2 / "foo"; // NaN
+typeof a === "number"; // true
+
+var a = 2 / "foo";
+a == NaN; // false
+a === NaN; // false
+```
+
+NaN 是一个特殊值，它和自身不相等，是唯一一个非自反（自反，reflexive，即 x === x 不成立）的值。而 NaN != NaN 为 true，很奇怪吧？那应该怎样来判断它呢？
+
+```javascript
+var a = 2 / "foo";
+isNaN(a); // true
+```
+
+isNaN(..) 有一个严重的缺陷，它的检查方式过于死板，就是“检查参数是否不是 NaN，也不是数字”。但是这样做的结果并不太准确：
+
+```javascript
+var a = 2 / "foo";
+var b = "foo";
+a; // NaN
+b;
+("foo");
+window.isNaN(a); // true
+window.isNaN(b); // true
+```
+
+ES6 之前的浏览器的 polyfill:
+
+```javascript
+if (!Number.isNaN) {
+  Number.isNaN = function (n) {
+    return typeof n === "number" && window.isNaN(n);
+  };
+}
+var a = 2 / "foo";
+var b = "foo";
+Number.isNaN(a); // true
+Number.isNaN(b); // false——好！
+```
+
+实际上还有一个更简单的方法，即利用 NaN 不等于自身这个特点。NaN 是 JavaScript 中唯一一个不等于自身的值。
 
 ### 特殊等式
 
