@@ -1,3 +1,13 @@
+---
+prev:
+  text: "数据类型"
+  link: "/frontend/javascript/basic01"
+
+next:
+  text: "原生函数"
+  link: "/frontend/javascript/basic03"
+---
+
 # 2. 数组、字符串和数字
 
 ## 2.1 数组 :white_check_mark:

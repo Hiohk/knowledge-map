@@ -1,3 +1,13 @@
+---
+prev:
+  text: "数组、字符串和数字"
+  link: "/frontend/javascript/basic02"
+
+next:
+  text: "强制类型转换"
+  link: "/frontend/javascript/basic04"
+---
+
 # 3. 原生函数
 
 ## 3.1 内不能属性 [[Class]]
