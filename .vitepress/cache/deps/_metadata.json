@@ -1,89 +1,59 @@
 {
-  "hash": "2ebbf9e8",
-  "configHash": "629082cb",
-  "lockfileHash": "2c45880b",
-  "browserHash": "59d71a2e",
+  "hash": "7b27a426",
+  "configHash": "324e259a",
+  "lockfileHash": "e04cb455",
+  "browserHash": "318ec050",
   "optimized": {
     "vue": {
       "src": "../../../node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "978e48cf",
+      "fileHash": "24558133",
       "needsInterop": false
     },
     "vitepress > @vue/devtools-api": {
       "src": "../../../node_modules/@vue/devtools-api/lib/esm/index.js",
       "file": "vitepress___@vue_devtools-api.js",
-      "fileHash": "6369df3c",
+      "fileHash": "410c54f1",
       "needsInterop": false
     },
     "vitepress > @vueuse/core": {
       "src": "../../../node_modules/@vueuse/core/index.mjs",
       "file": "vitepress___@vueuse_core.js",
-      "fileHash": "d2c8dd97",
+      "fileHash": "0d8145d6",
       "needsInterop": false
     },
     "vitepress > @vueuse/integrations/useFocusTrap": {
       "src": "../../../node_modules/@vueuse/integrations/useFocusTrap.mjs",
       "file": "vitepress___@vueuse_integrations_useFocusTrap.js",
-      "fileHash": "500d0f37",
+      "fileHash": "4cd0dbeb",
       "needsInterop": false
     },
     "vitepress > mark.js/src/vanilla.js": {
       "src": "../../../node_modules/mark.js/src/vanilla.js",
       "file": "vitepress___mark__js_src_vanilla__js.js",
-      "fileHash": "0f188048",
+      "fileHash": "e4f2c239",
       "needsInterop": false
     },
     "vitepress > minisearch": {
       "src": "../../../node_modules/minisearch/dist/es/index.js",
       "file": "vitepress___minisearch.js",
-      "fileHash": "21de5ae2",
+      "fileHash": "a72c6315",
       "needsInterop": false
     },
     "ant-design-vue": {
       "src": "../../../node_modules/ant-design-vue/es/index.js",
       "file": "ant-design-vue.js",
-      "fileHash": "4d4ff97b",
+      "fileHash": "df4e1e4b",
       "needsInterop": false
     },
     "grid-layout-plus": {
       "src": "../../../node_modules/grid-layout-plus/es/index.mjs",
       "file": "grid-layout-plus.js",
-      "fileHash": "91b4ceb6",
+      "fileHash": "78da2284",
       "needsInterop": false
-    },
-    "@ant-design/icons-vue": {
-      "src": "../../../node_modules/@ant-design/icons-vue/es/index.js",
-      "file": "@ant-design_icons-vue.js",
-      "fileHash": "2cc5b68c",
-      "needsInterop": false
-    },
-    "dayjs": {
-      "src": "../../../node_modules/dayjs/dayjs.min.js",
-      "file": "dayjs.js",
-      "fileHash": "4353dcb5",
-      "needsInterop": true
-    },
-    "dayjs/plugin/relativeTime": {
-      "src": "../../../node_modules/dayjs/plugin/relativeTime.js",
-      "file": "dayjs_plugin_relativeTime.js",
-      "fileHash": "d85d4d25",
-      "needsInterop": true
-    },
-    "dayjs/locale/zh-cn": {
-      "src": "../../../node_modules/dayjs/locale/zh-cn.js",
-      "file": "dayjs_locale_zh-cn.js",
-      "fileHash": "d555c177",
-      "needsInterop": true
     }
   },
   "chunks": {
-    "chunk-TWZ6GZXF": {
-      "file": "chunk-TWZ6GZXF.js"
-    },
-    "chunk-P4NF5NST": {
-      "file": "chunk-P4NF5NST.js"
-    },
     "chunk-IM4JLXM5": {
       "file": "chunk-IM4JLXM5.js"
     },
