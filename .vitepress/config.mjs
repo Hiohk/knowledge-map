@@ -43,13 +43,16 @@ export default defineConfig({
       {
         text: "后端", items: [
           { text: 'Java', link: '/backend/java/', activeMatch: "/backend/java/" },
-          { text: 'Spring', link: '/spring' },
-          { text: 'Spring Boot', link: '/springboot' },
-          { text: 'SpringCloud', link: '/springcloud' },
-          { text: 'MyBatis', link: '/mybatis' },
-          { text: 'MySQL', link: '/mysql' },
-          { text: 'Maven', link: '/maven' },
-          { text: 'Git', link: '/git' },
+          { text: 'Spring(暂未开放)', link: '/spring' },
+          { text: 'SpringBoot(暂未开放)', link: '/springBoot' },
+          { text: 'SpringMVC(暂未开放)', link: '/springmvc' },
+          { text: 'SpringCloud(暂未开放)', link: '/springCloud' },
+          { text: 'MyBatis(暂未开放)', link: '/mybatis' },
+          { text: 'MySQL(暂未开放)', link: '/mysql' },
+          { text: 'TCP/IP(暂未开放)', link: '/tcp' },
+          { text: 'Redis(暂未开放)', link: '/redis' },
+          { text: 'Maven(暂未开放)', link: '/maven' },
+          { text: 'Git(暂未开放)', link: '/git' },
         ]
       },
       { text: "技术博客", link: '/blog/' },
