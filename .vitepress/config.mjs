@@ -1,7 +1,8 @@
 import { defineConfig } from 'vitepress';
 import vueSidebar from "./menusidebar/vueSidebar.mjs";
 import conventionSidebar from "./menusidebar/conventionSidebar.mjs";
-import javascriptSidebar from "./menusidebar/javascriptSidebar.mjs"
+import javascriptSidebar from "./menusidebar/javascriptSidebar.mjs";
+import javaSidebar from './menusidebar/javaSidebar.mjs';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -42,7 +43,7 @@ export default defineConfig({
       },
       {
         text: "后端", items: [
-          { text: 'Java', link: '/backend/java/', activeMatch: "/backend/java/" },
+          { text: 'Java', link: '/backend/java/java01', activeMatch: "/backend/java/java01" },
           { text: 'Spring(暂未开放)', link: '/spring' },
           { text: 'SpringBoot(暂未开放)', link: '/springBoot' },
           { text: 'SpringMVC(暂未开放)', link: '/springmvc' },
@@ -66,7 +67,8 @@ export default defineConfig({
     sidebar: {
       "/frontend/vue/": vueSidebar,
       "/frontend/convention/": conventionSidebar,
-      "/frontend/javascript/": javascriptSidebar
+      "/frontend/javascript/": javascriptSidebar,
+      "/backend/java/": javaSidebar
     },
     socialLinks: [
       { icon: 'github', link: 'https://github.com/Hiohk' }
