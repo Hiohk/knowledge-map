@@ -4,7 +4,7 @@ prev:
   link: "/backend/java/java03"
 
 next:
-  text: "原生函数"
+  text: "异常"
   link: "/backend/java/java05"
 ---
 
