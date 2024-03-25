@@ -5,7 +5,7 @@
     "postcss": "^8.4.33",
     "tailwindcss": "^3.4.1",
     "vite": "^5.0.12",
-    "vitepress": "^1.0.0-rc.40"
+    "vitepress": "^1.0.1"
   },
   "scripts": {
     "docs:dev": "vitepress dev",
