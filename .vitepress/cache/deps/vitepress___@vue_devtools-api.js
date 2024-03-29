@@ -1,35 +1,11 @@
-<<<<<<< HEAD
-import "./chunk-ZS7NZCD4.js";
-
-// node_modules/@vue/devtools-api/lib/esm/env.js
-function getDevtoolsGlobalHook() {
-  return getTarget().__VUE_DEVTOOLS_GLOBAL_HOOK__;
-}
-function getTarget() {
-  return typeof navigator !== "undefined" && typeof window !== "undefined" ? window : typeof global !== "undefined" ? global : {};
-}
-var isProxyAvailable = typeof Proxy === "function";
-
-// node_modules/@vue/devtools-api/lib/esm/const.js
-var HOOK_SETUP = "devtools-plugin:setup";
-var HOOK_PLUGIN_SETTINGS_SET = "plugin:settings:set";
-
-// node_modules/@vue/devtools-api/lib/esm/time.js
-var supported;
-var perf;
-function isPerformanceSupported() {
-  var _a;
-  if (supported !== void 0) {
-    return supported;
-=======
 import {
   isReactive,
   isRef,
   toRaw
-} from "./chunk-REZKGHM3.js";
+} from "./chunk-Z6B2QTD3.js";
 import "./chunk-ZS7NZCD4.js";
 
-// node_modules/.pnpm/@vue+devtools-shared@7.0.20/node_modules/@vue/devtools-shared/dist/index.js
+// node_modules/@vue/devtools-shared/dist/index.js
 var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -282,7 +258,7 @@ var import_rfdc = __toESM(require_rfdc(), 1);
 var deepClone = (0, import_rfdc.default)({ circles: true });
 init_esm_shims();
 
-// node_modules/.pnpm/hookable@5.5.3/node_modules/hookable/dist/index.mjs
+// node_modules/hookable/dist/index.mjs
 function flatHooks(configHooks, hooks = {}, parentName) {
   for (const key in configHooks) {
     const subHook = configHooks[key];
@@ -292,39 +268,202 @@ function flatHooks(configHooks, hooks = {}, parentName) {
     } else if (typeof subHook === "function") {
       hooks[name] = subHook;
     }
->>>>>>> 4b74f89813f8d41af7a0c2e8bceffe92715e5ae4
   }
-  if (typeof window !== "undefined" && window.performance) {
-    supported = true;
-    perf = window.performance;
-  } else if (typeof global !== "undefined" && ((_a = global.perf_hooks) === null || _a === void 0 ? void 0 : _a.performance)) {
-    supported = true;
-    perf = global.perf_hooks.performance;
-  } else {
-    supported = false;
-  }
-  return supported;
+  return hooks;
 }
-function now() {
-  return isPerformanceSupported() ? perf.now() : Date.now();
+var defaultTask = { run: (function_) => function_() };
+var _createTask = () => defaultTask;
+var createTask = typeof console.createTask !== "undefined" ? console.createTask : _createTask;
+function serialTaskCaller(hooks, args) {
+  const name = args.shift();
+  const task = createTask(name);
+  return hooks.reduce(
+    (promise, hookFunction) => promise.then(() => task.run(() => hookFunction(...args))),
+    Promise.resolve()
+  );
+}
+function parallelTaskCaller(hooks, args) {
+  const name = args.shift();
+  const task = createTask(name);
+  return Promise.all(hooks.map((hook2) => task.run(() => hook2(...args))));
+}
+function callEachWith(callbacks, arg0) {
+  for (const callback of [...callbacks]) {
+    callback(arg0);
+  }
+}
+var Hookable = class {
+  constructor() {
+    this._hooks = {};
+    this._before = void 0;
+    this._after = void 0;
+    this._deprecatedMessages = void 0;
+    this._deprecatedHooks = {};
+    this.hook = this.hook.bind(this);
+    this.callHook = this.callHook.bind(this);
+    this.callHookWith = this.callHookWith.bind(this);
+  }
+  hook(name, function_, options = {}) {
+    if (!name || typeof function_ !== "function") {
+      return () => {
+      };
+    }
+    const originalName = name;
+    let dep;
+    while (this._deprecatedHooks[name]) {
+      dep = this._deprecatedHooks[name];
+      name = dep.to;
+    }
+    if (dep && !options.allowDeprecated) {
+      let message = dep.message;
+      if (!message) {
+        message = `${originalName} hook has been deprecated` + (dep.to ? `, please use ${dep.to}` : "");
+      }
+      if (!this._deprecatedMessages) {
+        this._deprecatedMessages = /* @__PURE__ */ new Set();
+      }
+      if (!this._deprecatedMessages.has(message)) {
+        console.warn(message);
+        this._deprecatedMessages.add(message);
+      }
+    }
+    if (!function_.name) {
+      try {
+        Object.defineProperty(function_, "name", {
+          get: () => "_" + name.replace(/\W+/g, "_") + "_hook_cb",
+          configurable: true
+        });
+      } catch {
+      }
+    }
+    this._hooks[name] = this._hooks[name] || [];
+    this._hooks[name].push(function_);
+    return () => {
+      if (function_) {
+        this.removeHook(name, function_);
+        function_ = void 0;
+      }
+    };
+  }
+  hookOnce(name, function_) {
+    let _unreg;
+    let _function = (...arguments_) => {
+      if (typeof _unreg === "function") {
+        _unreg();
+      }
+      _unreg = void 0;
+      _function = void 0;
+      return function_(...arguments_);
+    };
+    _unreg = this.hook(name, _function);
+    return _unreg;
+  }
+  removeHook(name, function_) {
+    if (this._hooks[name]) {
+      const index = this._hooks[name].indexOf(function_);
+      if (index !== -1) {
+        this._hooks[name].splice(index, 1);
+      }
+      if (this._hooks[name].length === 0) {
+        delete this._hooks[name];
+      }
+    }
+  }
+  deprecateHook(name, deprecated) {
+    this._deprecatedHooks[name] = typeof deprecated === "string" ? { to: deprecated } : deprecated;
+    const _hooks = this._hooks[name] || [];
+    delete this._hooks[name];
+    for (const hook2 of _hooks) {
+      this.hook(name, hook2);
+    }
+  }
+  deprecateHooks(deprecatedHooks) {
+    Object.assign(this._deprecatedHooks, deprecatedHooks);
+    for (const name in deprecatedHooks) {
+      this.deprecateHook(name, deprecatedHooks[name]);
+    }
+  }
+  addHooks(configHooks) {
+    const hooks = flatHooks(configHooks);
+    const removeFns = Object.keys(hooks).map(
+      (key) => this.hook(key, hooks[key])
+    );
+    return () => {
+      for (const unreg of removeFns.splice(0, removeFns.length)) {
+        unreg();
+      }
+    };
+  }
+  removeHooks(configHooks) {
+    const hooks = flatHooks(configHooks);
+    for (const key in hooks) {
+      this.removeHook(key, hooks[key]);
+    }
+  }
+  removeAllHooks() {
+    for (const key in this._hooks) {
+      delete this._hooks[key];
+    }
+  }
+  callHook(name, ...arguments_) {
+    arguments_.unshift(name);
+    return this.callHookWith(serialTaskCaller, name, ...arguments_);
+  }
+  callHookParallel(name, ...arguments_) {
+    arguments_.unshift(name);
+    return this.callHookWith(parallelTaskCaller, name, ...arguments_);
+  }
+  callHookWith(caller, name, ...arguments_) {
+    const event = this._before || this._after ? { name, args: arguments_, context: {} } : void 0;
+    if (this._before) {
+      callEachWith(this._before, event);
+    }
+    const result = caller(
+      name in this._hooks ? [...this._hooks[name]] : [],
+      arguments_
+    );
+    if (result instanceof Promise) {
+      return result.finally(() => {
+        if (this._after && event) {
+          callEachWith(this._after, event);
+        }
+      });
+    }
+    if (this._after && event) {
+      callEachWith(this._after, event);
+    }
+    return result;
+  }
+  beforeEach(function_) {
+    this._before = this._before || [];
+    this._before.push(function_);
+    return () => {
+      if (this._before !== void 0) {
+        const index = this._before.indexOf(function_);
+        if (index !== -1) {
+          this._before.splice(index, 1);
+        }
+      }
+    };
+  }
+  afterEach(function_) {
+    this._after = this._after || [];
+    this._after.push(function_);
+    return () => {
+      if (this._after !== void 0) {
+        const index = this._after.indexOf(function_);
+        if (index !== -1) {
+          this._after.splice(index, 1);
+        }
+      }
+    };
+  }
+};
+function createHooks() {
+  return new Hookable();
 }
 
-<<<<<<< HEAD
-// node_modules/@vue/devtools-api/lib/esm/proxy.js
-var ApiProxy = class {
-  constructor(plugin, hook) {
-    this.target = null;
-    this.targetQueue = [];
-    this.onQueue = [];
-    this.plugin = plugin;
-    this.hook = hook;
-    const defaultSettings = {};
-    if (plugin.settings) {
-      for (const id in plugin.settings) {
-        const item = plugin.settings[id];
-        defaultSettings[id] = item.defaultValue;
-=======
-// node_modules/.pnpm/perfect-debounce@1.0.0/node_modules/perfect-debounce/dist/index.mjs
+// node_modules/perfect-debounce/dist/index.mjs
 var DEBOUNCE_DEFAULTS = {
   trailing: true
 };
@@ -346,24 +485,17 @@ function debounce(fn, wait = 25, options = {}) {
         const promise = applyFn(_this, trailingArgs);
         trailingArgs = null;
         return promise;
->>>>>>> 4b74f89813f8d41af7a0c2e8bceffe92715e5ae4
       }
+    });
+    return currentPromise;
+  };
+  return function(...args) {
+    if (currentPromise) {
+      if (options.trailing) {
+        trailingArgs = args;
+      }
+      return currentPromise;
     }
-<<<<<<< HEAD
-    const localSettingsSaveId = `__vue-devtools-plugin-settings__${plugin.id}`;
-    let currentSettings = Object.assign({}, defaultSettings);
-    try {
-      const raw = localStorage.getItem(localSettingsSaveId);
-      const data = JSON.parse(raw);
-      Object.assign(currentSettings, data);
-    } catch (e) {
-    }
-    this.fallbacks = {
-      getSettings() {
-        return currentSettings;
-      },
-      setSettings(value) {
-=======
     return new Promise((resolve) => {
       const shouldCallNow = !timeout && options.leading;
       clearTimeout(timeout);
@@ -388,7 +520,7 @@ async function _applyPromised(fn, _this, args) {
   return await fn.apply(_this, args);
 }
 
-// node_modules/.pnpm/@vue+devtools-kit@7.0.20_vue@3.4.21/node_modules/@vue/devtools-kit/dist/index.js
+// node_modules/@vue/devtools-kit/dist/index.js
 var __create2 = Object.create;
 var __defProp2 = Object.defineProperty;
 var __getOwnPropDesc2 = Object.getOwnPropertyDescriptor;
@@ -1936,102 +2068,514 @@ var require_speakingurl = __commonJS2({
           return getSlug;
         });
       } else {
->>>>>>> 4b74f89813f8d41af7a0c2e8bceffe92715e5ae4
         try {
-          localStorage.setItem(localSettingsSaveId, JSON.stringify(value));
+          if (root.getSlug || root.createSlug) {
+            throw "speakingurl: globals exists /(getSlug|createSlug)/";
+          } else {
+            root.getSlug = getSlug;
+            root.createSlug = createSlug;
+          }
         } catch (e) {
         }
-        currentSettings = value;
-      },
-      now() {
-        return now();
       }
-    };
-    if (hook) {
-      hook.on(HOOK_PLUGIN_SETTINGS_SET, (pluginId, value) => {
-        if (pluginId === this.plugin.id) {
-          this.fallbacks.setSettings(value);
-        }
-      });
-    }
-    this.proxiedOn = new Proxy({}, {
-      get: (_target, prop) => {
-        if (this.target) {
-          return this.target.on[prop];
-        } else {
-          return (...args) => {
-            this.onQueue.push({
-              method: prop,
-              args
-            });
-          };
-        }
-      }
-    });
-    this.proxiedTarget = new Proxy({}, {
-      get: (_target, prop) => {
-        if (this.target) {
-          return this.target[prop];
-        } else if (prop === "on") {
-          return this.proxiedOn;
-        } else if (Object.keys(this.fallbacks).includes(prop)) {
-          return (...args) => {
-            this.targetQueue.push({
-              method: prop,
-              args,
-              resolve: () => {
-              }
-            });
-            return this.fallbacks[prop](...args);
-          };
-        } else {
-          return (...args) => {
-            return new Promise((resolve) => {
-              this.targetQueue.push({
-                method: prop,
-                args,
-                resolve
-              });
-            });
-          };
-        }
-      }
-    });
+    })(exports);
   }
-  async setRealTarget(target) {
-    this.target = target;
-    for (const item of this.onQueue) {
-      this.target.on[item.method](...item.args);
-    }
-    for (const item of this.targetQueue) {
-      item.resolve(await this.target[item.method](...item.args));
-    }
+});
+var require_speakingurl2 = __commonJS2({
+  "../../node_modules/.pnpm/speakingurl@14.0.1/node_modules/speakingurl/index.js"(exports, module) {
+    "use strict";
+    init_esm_shims2();
+    module.exports = require_speakingurl();
+  }
+});
+init_esm_shims2();
+init_esm_shims2();
+init_esm_shims2();
+init_esm_shims2();
+init_esm_shims2();
+init_esm_shims2();
+init_esm_shims2();
+init_esm_shims2();
+init_esm_shims2();
+init_esm_shims2();
+var _a;
+var _b;
+var devtoolsHooks = (_b = (_a = target).__VUE_DEVTOOLS_HOOK) != null ? _b : _a.__VUE_DEVTOOLS_HOOK = createHooks();
+var on = {
+  vueAppInit(fn) {
+    devtoolsHooks.hook("app:init", fn);
+  },
+  vueAppConnected(fn) {
+    devtoolsHooks.hook("app:connected", fn);
+  },
+  componentAdded(fn) {
+    return devtoolsHooks.hook("component:added", fn);
+  },
+  componentUpdated(fn) {
+    return devtoolsHooks.hook("component:updated", fn);
+  },
+  componentRemoved(fn) {
+    return devtoolsHooks.hook("component:removed", fn);
+  },
+  setupDevtoolsPlugin(fn) {
+    devtoolsHooks.hook("devtools-plugin:setup", fn);
   }
 };
-
-// node_modules/@vue/devtools-api/lib/esm/index.js
-function setupDevtoolsPlugin(pluginDescriptor, setupFn) {
-  const descriptor = pluginDescriptor;
-  const target = getTarget();
-  const hook = getDevtoolsGlobalHook();
-  const enableProxy = isProxyAvailable && descriptor.enableEarlyProxy;
-  if (hook && (target.__VUE_DEVTOOLS_PLUGIN_API_AVAILABLE__ || !enableProxy)) {
-    hook.emit(HOOK_SETUP, pluginDescriptor, setupFn);
-  } else {
-    const proxy = enableProxy ? new ApiProxy(descriptor, hook) : null;
-    const list = target.__VUE_DEVTOOLS_PLUGINS__ = target.__VUE_DEVTOOLS_PLUGINS__ || [];
-    list.push({
-      pluginDescriptor: descriptor,
-      setupFn,
-      proxy
-    });
-    if (proxy)
-      setupFn(proxy.proxiedTarget);
+var hook = {
+  on,
+  setupDevToolsPlugin(pluginDescriptor, setupFn) {
+    return devtoolsHooks.callHook("devtools-plugin:setup", pluginDescriptor, setupFn);
   }
+};
+init_esm_shims2();
+init_esm_shims2();
+init_esm_shims2();
+init_esm_shims2();
+init_esm_shims2();
+init_esm_shims2();
+init_esm_shims2();
+var import_speakingurl = __toESM2(require_speakingurl2(), 1);
+init_esm_shims2();
+init_esm_shims2();
+init_esm_shims2();
+var _a2;
+var _b2;
+var apiHooks = (_b2 = (_a2 = target).__VUE_DEVTOOLS_API_HOOK) != null ? _b2 : _a2.__VUE_DEVTOOLS_API_HOOK = createHooks();
+function getRoutes(router) {
+  const routesMap = /* @__PURE__ */ new Map();
+  return ((router == null ? void 0 : router.getRoutes()) || []).filter((i) => !routesMap.has(i.path) && routesMap.set(i.path, 1));
 }
+function filterRoutes(routes) {
+  return routes.map((item) => {
+    let { path, name, children } = item;
+    if (children == null ? void 0 : children.length)
+      children = filterRoutes(children);
+    return {
+      path,
+      name,
+      children
+    };
+  });
+}
+function filterCurrentRoute(route) {
+  if (route) {
+    const { fullPath, hash, href, path, name, matched, params, query } = route;
+    return {
+      fullPath,
+      hash,
+      href,
+      path,
+      name,
+      params,
+      query,
+      matched: filterRoutes(matched)
+    };
+  }
+  return route;
+}
+function normalizeRouterInfo(appRecord) {
+  function init() {
+    var _a10;
+    const router = (_a10 = appRecord.app) == null ? void 0 : _a10.config.globalProperties.$router;
+    const currentRoute = filterCurrentRoute(router == null ? void 0 : router.currentRoute.value);
+    const routes = filterRoutes(getRoutes(router));
+    const c = console.warn;
+    console.warn = () => {
+    };
+    target[ROUTER_INFO_KEY] = {
+      currentRoute: currentRoute ? deepClone(currentRoute) : {},
+      routes: deepClone(routes)
+    };
+    target[ROUTER_KEY] = router;
+    console.warn = c;
+  }
+  init();
+  hook.on.componentUpdated(debounce(() => {
+    init();
+    apiHooks.callHook("router-info:updated", target[ROUTER_INFO_KEY]);
+  }, 200));
+}
+function setupDevToolsPlugin(pluginDescriptor, setupFn) {
+  return hook.setupDevToolsPlugin(pluginDescriptor, setupFn);
+}
+init_esm_shims2();
+init_esm_shims2();
+init_esm_shims2();
+init_esm_shims2();
+init_esm_shims2();
+init_esm_shims2();
+init_esm_shims2();
+init_esm_shims2();
+var StateEditor = class {
+  constructor() {
+    this.refEditor = new RefStateEditor();
+  }
+  set(object, path, value, cb) {
+    const sections = Array.isArray(path) ? path : path.split(".");
+    const markRef = false;
+    while (sections.length > 1) {
+      const section = sections.shift();
+      if (object instanceof Map)
+        object = object.get(section);
+      if (object instanceof Set)
+        object = Array.from(object.values())[section];
+      else
+        object = object[section];
+      if (this.refEditor.isRef(object))
+        object = this.refEditor.get(object);
+    }
+    const field = sections[0];
+    const item = this.refEditor.get(object)[field];
+    if (cb) {
+      cb(object, field, value);
+    } else {
+      if (this.refEditor.isRef(item))
+        this.refEditor.set(item, value);
+      else if (markRef)
+        object[field] = value;
+      else
+        object[field] = value;
+    }
+  }
+  get(object, path) {
+    const sections = Array.isArray(path) ? path : path.split(".");
+    for (let i = 0; i < sections.length; i++) {
+      if (object instanceof Map)
+        object = object.get(sections[i]);
+      else
+        object = object[sections[i]];
+      if (this.refEditor.isRef(object))
+        object = this.refEditor.get(object);
+      if (!object)
+        return void 0;
+    }
+    return object;
+  }
+  has(object, path, parent = false) {
+    if (typeof object === "undefined")
+      return false;
+    const sections = Array.isArray(path) ? path.slice() : path.split(".");
+    const size = !parent ? 1 : 2;
+    while (object && sections.length > size) {
+      const section = sections.shift();
+      object = object[section];
+      if (this.refEditor.isRef(object))
+        object = this.refEditor.get(object);
+    }
+    return object != null && Object.prototype.hasOwnProperty.call(object, sections[0]);
+  }
+  createDefaultSetCallback(state) {
+    return (object, field, value) => {
+      if (state.remove || state.newKey) {
+        if (Array.isArray(object))
+          object.splice(field, 1);
+        else if (toRaw(object) instanceof Map)
+          object.delete(field);
+        else if (toRaw(object) instanceof Set)
+          object.delete(Array.from(object.values())[field]);
+        else
+          Reflect.deleteProperty(object, field);
+      }
+      if (!state.remove) {
+        const target9 = object[state.newKey || field];
+        if (this.refEditor.isRef(target9))
+          this.refEditor.set(target9, value);
+        else if (toRaw(object) instanceof Map)
+          object.set(state.newKey || field, value);
+        else if (toRaw(object) instanceof Set)
+          object.add(value);
+        else
+          object[state.newKey || field] = value;
+      }
+    };
+  }
+};
+var RefStateEditor = class {
+  set(ref, value) {
+    if (isRef(ref)) {
+      ref.value = value;
+    } else {
+      if (ref instanceof Set && Array.isArray(value)) {
+        ref.clear();
+        value.forEach((v) => ref.add(v));
+        return;
+      }
+      const currentKeys = Object.keys(value);
+      if (ref instanceof Map) {
+        const previousKeysSet2 = new Set(ref.keys());
+        currentKeys.forEach((key) => {
+          ref.set(key, Reflect.get(value, key));
+          previousKeysSet2.delete(key);
+        });
+        previousKeysSet2.forEach((key) => ref.delete(key));
+        return;
+      }
+      const previousKeysSet = new Set(Object.keys(ref));
+      currentKeys.forEach((key) => {
+        Reflect.set(ref, key, Reflect.get(value, key));
+        previousKeysSet.delete(key);
+      });
+      previousKeysSet.forEach((key) => Reflect.deleteProperty(ref, key));
+    }
+  }
+  get(ref) {
+    return isRef(ref) ? ref.value : ref;
+  }
+  isRef(ref) {
+    return isRef(ref) || isReactive(ref);
+  }
+};
+var stateEditor = new StateEditor();
+init_esm_shims2();
+init_esm_shims2();
+init_esm_shims2();
+var UNDEFINED = "__vue_devtool_undefined__";
+var INFINITY = "__vue_devtool_infinity__";
+var NEGATIVE_INFINITY = "__vue_devtool_negative_infinity__";
+var NAN = "__vue_devtool_nan__";
+init_esm_shims2();
+init_esm_shims2();
+var tokenMap = {
+  [UNDEFINED]: "undefined",
+  [NAN]: "NaN",
+  [INFINITY]: "Infinity",
+  [NEGATIVE_INFINITY]: "-Infinity"
+};
+var reversedTokenMap = Object.entries(tokenMap).reduce((acc, [key, value]) => {
+  acc[value] = key;
+  return acc;
+}, {});
+init_esm_shims2();
+init_esm_shims2();
+init_esm_shims2();
+init_esm_shims2();
+init_esm_shims2();
+init_esm_shims2();
+init_esm_shims2();
+var MAX_SERIALIZED_SIZE = 512 * 1024;
+init_esm_shims2();
+init_esm_shims2();
+init_esm_shims2();
+init_esm_shims2();
+function addCustomTab(tab) {
+  if (devtoolsState.tabs.some((t) => t.name === tab.name))
+    return;
+  devtoolsState.tabs.push(tab);
+}
+init_esm_shims2();
+function addCustomCommand(action) {
+  if (devtoolsState.commands.some((t) => t.id === action.id))
+    return;
+  devtoolsState.commands.push(action);
+}
+function removeCustomCommand(actionId) {
+  const index = devtoolsState.commands.findIndex((t) => t.id === actionId);
+  if (index === -1)
+    return;
+  devtoolsState.commands.splice(index, 1);
+}
+init_esm_shims2();
+var _a3;
+var _b3;
+(_b3 = (_a3 = target).__VUE_DEVTOOLS_COMPONENT_INSPECTOR_ENABLED__) != null ? _b3 : _a3.__VUE_DEVTOOLS_COMPONENT_INSPECTOR_ENABLED__ = true;
+init_esm_shims2();
+init_esm_shims2();
+init_esm_shims2();
+var STATE_KEY = "__VUE_DEVTOOLS_GLOBAL_STATE__";
+function initStateFactory() {
+  return {
+    connected: false,
+    clientConnected: false,
+    appRecords: [],
+    activeAppRecord: null,
+    selectedComponentId: null,
+    pluginBuffer: [],
+    tabs: [],
+    commands: [],
+    vitePluginDetected: false,
+    activeAppRecordId: null,
+    highPerfModeEnabled: false
+  };
+}
+var _a4;
+var _b4;
+(_b4 = (_a4 = target)[STATE_KEY]) != null ? _b4 : _a4[STATE_KEY] = initStateFactory();
+var callStateUpdatedHook = debounce((state, oldState) => {
+  apiHooks.callHook("devtools:state-updated", state, oldState);
+}, 80);
+var callConnectedUpdatedHook = debounce((state, oldState) => {
+  apiHooks.callHook("devtools:connected-updated", state, oldState);
+}, 80);
+var devtoolsState = new Proxy(target[STATE_KEY], {
+  get(target9, property) {
+    return target[STATE_KEY][property];
+  },
+  deleteProperty(target9, property) {
+    delete target9[property];
+    return true;
+  },
+  set(target9, property, value) {
+    const oldState = { ...target[STATE_KEY] };
+    target9[property] = value;
+    target[STATE_KEY][property] = value;
+    callStateUpdatedHook(target[STATE_KEY], oldState);
+    if (["connected", "clientConnected"].includes(property.toString()) && oldState[property] !== value)
+      callConnectedUpdatedHook(target[STATE_KEY], oldState);
+    return true;
+  }
+});
+Object.defineProperty(devtoolsState.tabs, "push", {
+  configurable: true,
+  value(...items) {
+    const result = Array.prototype.push.apply(this, items);
+    devtoolsState.tabs = this;
+    apiHooks.callHook("custom-tabs:updated", this);
+    return result;
+  }
+});
+["push", "splice"].forEach((method) => {
+  Object.defineProperty(devtoolsState.commands, method, {
+    configurable: true,
+    value(...args) {
+      const result = Array.prototype[method].apply(this, args);
+      devtoolsState.commands = this;
+      apiHooks.callHook("custom-commands:updated", this);
+      return result;
+    }
+  });
+});
+init_esm_shims2();
+init_esm_shims2();
+var ROUTER_KEY = "__VUE_DEVTOOLS_ROUTER__";
+var ROUTER_INFO_KEY = "__VUE_DEVTOOLS_ROUTER_INFO__";
+var _a5;
+var _b5;
+(_b5 = (_a5 = target)[ROUTER_INFO_KEY]) != null ? _b5 : _a5[ROUTER_INFO_KEY] = {
+  currentRoute: null,
+  routes: []
+};
+var _a6;
+var _b6;
+(_b6 = (_a6 = target)[ROUTER_KEY]) != null ? _b6 : _a6[ROUTER_KEY] = null;
+var devtoolsRouterInfo = new Proxy(target[ROUTER_INFO_KEY], {
+  get(target9, property) {
+    return target[ROUTER_INFO_KEY][property];
+  }
+});
+init_esm_shims2();
+var CONTEXT_KEY = "__VUE_DEVTOOLS_CONTEXT__";
+function initContextFactory() {
+  return {
+    appRecord: null,
+    api: null,
+    inspector: [],
+    timelineLayer: [],
+    routerInfo: {},
+    router: null,
+    activeInspectorTreeId: "",
+    componentPluginHookBuffer: []
+  };
+}
+var _a7;
+var _b7;
+(_b7 = (_a7 = target)[CONTEXT_KEY]) != null ? _b7 : _a7[CONTEXT_KEY] = initContextFactory();
+function resetDevToolsContext() {
+  target[CONTEXT_KEY] = initContextFactory();
+}
+var devtoolsContext = new Proxy(target[CONTEXT_KEY], {
+  get(target9, property) {
+    if (property === "router")
+      return target[ROUTER_KEY];
+    else if (property === "clear")
+      return resetDevToolsContext;
+    return target[CONTEXT_KEY][property];
+  },
+  set(target9, property, value) {
+    target[CONTEXT_KEY][property] = value;
+    return true;
+  }
+});
+var devtoolsAppRecords = new Proxy(devtoolsState.appRecords, {
+  get(_, property) {
+    if (property === "value")
+      return devtoolsState.appRecords;
+    else if (property === "active")
+      return devtoolsState.activeAppRecord;
+    else if (property === "activeId")
+      return devtoolsState.activeAppRecordId;
+  },
+  set(target9, property, value) {
+    var _a10;
+    const oldState = { ...devtoolsState };
+    if (property === "value") {
+      devtoolsState.appRecords = value;
+    } else if (property === "active") {
+      const _value = value;
+      devtoolsState.activeAppRecord = _value;
+      devtoolsContext.appRecord = _value;
+      devtoolsContext.api = _value.api;
+      devtoolsContext.inspector = (_a10 = _value.inspector) != null ? _a10 : [];
+      normalizeRouterInfo(value);
+      devtoolsContext.routerInfo = devtoolsRouterInfo;
+    } else if (property === "activeId") {
+      devtoolsState.activeAppRecordId = value;
+    }
+    callStateUpdatedHook(devtoolsState, oldState);
+    if (["connected", "clientConnected"].includes(property.toString()) && oldState[property] !== value)
+      callConnectedUpdatedHook(devtoolsState, oldState);
+    return true;
+  }
+});
+var _a8;
+var _b8;
+var appRecordInfo = (_b8 = (_a8 = target).__VUE_DEVTOOLS_APP_RECROD_INFO__) != null ? _b8 : _a8.__VUE_DEVTOOLS_APP_RECROD_INFO__ = {
+  id: 0,
+  appIds: /* @__PURE__ */ new Set()
+};
+init_esm_shims2();
+var _a9;
+var _b9;
+(_b9 = (_a9 = target).__VUE_DEVTOOLS_ENV__) != null ? _b9 : _a9.__VUE_DEVTOOLS_ENV__ = {
+  vitePluginDetected: false
+};
+function onDevToolsConnected(fn) {
+  return new Promise((resolve) => {
+    if (devtoolsState.connected) {
+      fn();
+      resolve();
+      return;
+    }
+    apiHooks.hook("devtools:connected-updated", (state) => {
+      if (state.connected) {
+        fn();
+        resolve();
+      }
+    });
+  });
+}
+function onDevToolsClientConnected(fn) {
+  return new Promise((resolve) => {
+    if (devtoolsState.connected && devtoolsState.clientConnected) {
+      fn();
+      resolve();
+      return;
+    }
+    apiHooks.hook("devtools:connected-updated", (state) => {
+      if (state.connected && state.clientConnected) {
+        fn();
+        resolve();
+      }
+    });
+  });
+}
+init_esm_shims2();
 export {
-  isPerformanceSupported,
-  now,
-  setupDevtoolsPlugin
+  addCustomCommand,
+  addCustomTab,
+  onDevToolsClientConnected,
+  onDevToolsConnected,
+  removeCustomCommand,
+  setupDevToolsPlugin,
+  setupDevToolsPlugin as setupDevtoolsPlugin
 };
 //# sourceMappingURL=vitepress___@vue_devtools-api.js.map

@@ -13,6 +13,7 @@ export default defineConfig({
   lastUpdated: true,
   head: [['link', { rel: 'icon', href: '/knowledge-graph/logo.svg' }]],
   markdown: {
+    math: true,
     image: {
       // 图片懒加载
       lazyLoading: true
