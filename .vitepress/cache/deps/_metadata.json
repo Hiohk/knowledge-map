@@ -1,55 +1,49 @@
 {
-  "hash": "e94ceda2",
-  "configHash": "2c13ab2f",
-  "lockfileHash": "d0109116",
-  "browserHash": "bd583bb8",
+  "hash": "ea32187f",
+  "configHash": "a8ed3adb",
+  "lockfileHash": "e6f32cd6",
+  "browserHash": "e06a8822",
   "optimized": {
     "vue": {
       "src": "../../../node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "146c24bb",
+      "fileHash": "4b8bc0e7",
       "needsInterop": false
     },
     "vitepress > @vue/devtools-api": {
       "src": "../../../node_modules/vitepress/node_modules/@vue/devtools-api/dist/index.js",
       "file": "vitepress___@vue_devtools-api.js",
-      "fileHash": "58e63286",
+      "fileHash": "be08c666",
       "needsInterop": false
     },
     "vitepress > @vueuse/core": {
       "src": "../../../node_modules/@vueuse/core/index.mjs",
       "file": "vitepress___@vueuse_core.js",
-      "fileHash": "9682397d",
+      "fileHash": "200f1de1",
       "needsInterop": false
     },
     "vitepress > @vueuse/integrations/useFocusTrap": {
       "src": "../../../node_modules/@vueuse/integrations/useFocusTrap.mjs",
       "file": "vitepress___@vueuse_integrations_useFocusTrap.js",
-      "fileHash": "d0bfe216",
+      "fileHash": "fac1781c",
       "needsInterop": false
     },
     "vitepress > mark.js/src/vanilla.js": {
       "src": "../../../node_modules/mark.js/src/vanilla.js",
       "file": "vitepress___mark__js_src_vanilla__js.js",
-      "fileHash": "a87198b4",
+      "fileHash": "21e45892",
       "needsInterop": false
     },
     "vitepress > minisearch": {
       "src": "../../../node_modules/minisearch/dist/es/index.js",
       "file": "vitepress___minisearch.js",
-      "fileHash": "8fa562c4",
+      "fileHash": "724b75dd",
       "needsInterop": false
     },
     "ant-design-vue": {
       "src": "../../../node_modules/ant-design-vue/es/index.js",
       "file": "ant-design-vue.js",
-      "fileHash": "7bb1e298",
-      "needsInterop": false
-    },
-    "grid-layout-plus": {
-      "src": "../../../node_modules/grid-layout-plus/es/index.mjs",
-      "file": "grid-layout-plus.js",
-      "fileHash": "4dbdbc32",
+      "fileHash": "7582b011",
       "needsInterop": false
     }
   },
