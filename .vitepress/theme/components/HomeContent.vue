@@ -103,7 +103,7 @@ const cardImgStyle = (width, height) => {
 }
 
 .grid-item {
-    border-radius: 8px;
+    border-radius: 15px;
     display: block !important;
 }
 
