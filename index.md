@@ -20,11 +20,11 @@ hero:
       text: 后端知识
       link: /
 
-features:
-  - title: JavaScript 💞
-    details: JavaScript基础和高级知识汇总
-  - title: Vue.js 🦢
-    details: 关于Vue3的知识
-  - title: Node.js 🐧
-    details: Node.js相关知识
+# features:
+#   - title: JavaScript 💞
+#     details: JavaScript基础和高级知识汇总
+#   - title: Vue.js 🦢
+#     details: 关于Vue3的知识
+#   - title: Node.js 🐧
+#     details: Node.js相关知识
 ---
