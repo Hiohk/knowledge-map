@@ -54,7 +54,7 @@ const expandText = () => {
 }
 
 .tag {
-    text-align: left;
+    text-align: left !important;
 }
 
 .title {
