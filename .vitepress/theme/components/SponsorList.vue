@@ -25,7 +25,7 @@ const shrinkCard = () => {
                         <transition name="fade">
                             <div class="sponsor-tip" @mouseenter="expandCard" @mouseleave="shrinkCard">
                                 <div v-if="!expanded" key="sponsor">成为赞助商</div>
-                                <div v-else key="content" class="content">广告招商(Email)：hk_snnu2020@163.com</div>
+                                <div v-else key="content" class="content">广告招商：hk_snnu2020@163.com</div>
                             </div>
                         </transition>
                     </a-col>
