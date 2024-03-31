@@ -14,7 +14,7 @@ const expandText = () => {
                 <img class="cover-img" alt="robots" :src="robots" />
             </a-col>
             <a-col :span="24">
-                <div class="tag">
+                <div class="blog-tag">
                     <a-tag color="pink">Gemini</a-tag>
                     <a-tag color="#2db7f5">2024年下旬开放</a-tag>
                 </div>
@@ -53,8 +53,9 @@ const expandText = () => {
     border-radius: 16px;
 }
 
-.tag {
-    text-align: left !important;
+.blog-tag {
+    float: left;
+    /* text-align: left !important; */
 }
 
 .title {
