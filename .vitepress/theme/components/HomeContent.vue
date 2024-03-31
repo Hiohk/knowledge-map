@@ -1,5 +1,9 @@
 <script setup>
 import { ref } from 'vue';
+import SponsorList from "./SponsorList.vue";
+import RightFloatButton from './RightFloatButton.vue';
+import TimeLineEvent from './TimeLineEvent.vue';
+import RecommendationBlog from './RecommendationBlog.vue';
 
 import HTML5 from "../../../assets/img/HTML5.svg";
 import CSS from "../../../assets/img/CSS.svg";
@@ -39,33 +43,55 @@ const cardImgStyle = (width, height) => {
 </script>
 
 <template>
-    <div class="boxStyle">
-        <a-row :gutter="[16, 20]">
-            <template v-for="(item, index) in layout" :key="item.i">
-                <a-col :xs="12" :sm="12" :md="6" :lg="4" :xl="4">
-                    <a-card class="grid-item small-card" bordered hoverable size="small"
-                        style="width: 100%;height: 100%;overflow: hidden;">
-                        <template #cover>
-                            <img :style="cardImgStyle(item.w, item.h)" alt="example" :src="item.imgName" />
-                        </template>
-                        <a-card-meta :title="item.name">
-                            <template #description>
-                                <span class="description-content">{{ item.content }}</span>
-                                <div class="learn-more">
-                                    <a-button v-if="layout.length - 1 !== index" class="learn-more-btn" type="link"
-                                        :href="item.address" target="_self">了解更多</a-button>
-                                </div>
+    <div class="container">
+        <div class="sponsor-by">
+            <sponsor-list></sponsor-list>
+        </div>
+        <div>
+            <a-row :gutter="[16, 20]">
+                <template v-for="(item, index) in layout" :key="item.i">
+                    <a-col :xs="12" :sm="12" :md="6" :lg="4" :xl="4">
+                        <a-card class="grid-item small-card" bordered hoverable size="small"
+                            style="width: 100%;height: 100%;overflow: hidden;">
+                            <template #cover>
+                                <img :style="cardImgStyle(item.w, item.h)" alt="example" :src="item.imgName" />
                             </template>
-                        </a-card-meta>
-                    </a-card>
+                            <a-card-meta :title="item.name">
+                                <template #description>
+                                    <span class="description-content">{{ item.content }}</span>
+                                    <div class="learn-more">
+                                        <a-button v-if="layout.length - 1 !== index" class="learn-more-btn" type="link"
+                                            :href="item.address" target="_self">了解更多</a-button>
+                                    </div>
+                                </template>
+                            </a-card-meta>
+                        </a-card>
+                    </a-col>
+                </template>
+            </a-row>
+        </div>
+
+        <div class="time-line-event">
+            <a-row :gutter="16">
+                <a-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
+                    <div>
+                        <time-line-event></time-line-event>
+                    </div>
                 </a-col>
-            </template>
-        </a-row>
+                <a-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
+                    <recommendation-blog></recommendation-blog>
+                </a-col>
+            </a-row>
+        </div>
+
+        <div>
+            <right-float-button></right-float-button>
+        </div>
     </div>
 </template>
 
 <style scoped>
-.boxStyle {
+.container {
     margin: auto;
     width: 100%;
     max-width: 1280px;
@@ -76,13 +102,13 @@ const cardImgStyle = (width, height) => {
 }
 
 @media (min-width: 640px) {
-    .boxStyle {
+    .container {
         padding: 0 48px;
     }
 }
 
 @media (min-width: 960px) {
-    .boxStyle {
+    .container {
         width: 100%;
         padding: 0 64px;
     }
@@ -135,5 +161,9 @@ const cardImgStyle = (width, height) => {
 
 .vgl-layout {
     --vgl-placeholder-bg: pink;
+}
+
+.time-line-event {
+    margin-top: 50px;
 }
 </style>
