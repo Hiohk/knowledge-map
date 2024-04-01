@@ -8,7 +8,7 @@ This is a knowledge summary website for front-end and back-end.
 
 ## 预览
 
-![image](./assets/img/preview.jpg)
+![image](/assets/img/preview.jpg)
 
 ## 启动项目
 
