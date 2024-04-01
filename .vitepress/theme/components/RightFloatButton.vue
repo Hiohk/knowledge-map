@@ -9,7 +9,7 @@ import { QuestionCircleOutlined, QqOutlined, WechatOutlined, BellOutlined } from
             <a-tooltip placement="left" color="#fff">
                 <template #title>
                     <div>
-                        <a-qrcode value="http://www.antdv.com" type="canvas" />
+                        <img class="communication" src="../../../assets/img/qq.jpg" alt="qq群">
                     </div>
                 </template>
                 <a-float-button>
@@ -23,7 +23,7 @@ import { QuestionCircleOutlined, QqOutlined, WechatOutlined, BellOutlined } from
             <a-tooltip placement="left" color="#fff">
                 <template #title>
                     <div>
-                        <a-qrcode value="http://www.antdv.com" type="canvas" />
+                        <img class="communication" src="../../../assets/img/qq.jpg" alt="qq群">
                     </div>
                 </template>
                 <a-float-button>
@@ -66,5 +66,9 @@ import { QuestionCircleOutlined, QqOutlined, WechatOutlined, BellOutlined } from
     color: #000;
     padding: 10px;
     width: auto;
+}
+
+.communication {
+    width: 200px;
 }
 </style>
