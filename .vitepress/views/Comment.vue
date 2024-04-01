@@ -2,7 +2,7 @@
 import dayjs from 'dayjs';
 import { ref } from 'vue';
 import { LikeFilled, LikeOutlined, DislikeFilled, DislikeOutlined } from '@ant-design/icons-vue';
-import avatarImg from "/assets/img/avatarImg.svg";
+import avatarImg from "/avatarImg.svg";
 import { message } from 'ant-design-vue';
 import relativeTime from 'dayjs/plugin/relativeTime';
 dayjs.extend(relativeTime);
