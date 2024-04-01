@@ -36,16 +36,17 @@ import { QuestionCircleOutlined, QqOutlined, WechatOutlined, BellOutlined } from
             <a-tooltip placement="left" color="#fff">
                 <template #title>
                     <div class="tooltip">
-                        <a-badge-ribbon text="帮助文档" color="green">
-                            <a-card title="Knowledge Graph" size="small">
-                                <p>This is a knowledge summary website for front-end and back-end.</p>
+                        <a-badge-ribbon text="发布预告" color="green">
+                            <a-card title="Future Plan" size="small">
+                                <p>1. 2024年下旬，发布集成Gemini API的智能问答系统模块；</p>
+                                <p>2. 2024年底，发布交流社区模块。</p>
                             </a-card>
                         </a-badge-ribbon>
                     </div>
                 </template>
                 <a-float-button>
                     <template #icon>
-                        <BellOutlined />
+                            <BellOutlined />
                     </template>
                 </a-float-button>
             </a-tooltip>
@@ -60,9 +61,6 @@ import { QuestionCircleOutlined, QqOutlined, WechatOutlined, BellOutlined } from
 .tooltip {
     background-color: #fff;
     margin: 0;
-}
-
-.tooltip {
     color: #000;
     padding: 10px;
     width: auto;
