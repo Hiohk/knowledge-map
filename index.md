@@ -12,13 +12,13 @@ hero:
   actions:
     - theme: brand
       text: 开始探索
-      link: /
+      link: /blog/
     - theme: alt
       text: 前端知识
-      link: /
+      link: /frontend/html
     - theme: alt
       text: 后端知识
-      link: /
+      link: /backend/java/java01
 
 # features:
 #   - title: JavaScript 💞
