@@ -2,10 +2,11 @@ import { ssrRenderAttrs, ssrRenderStyle } from "vue/server-renderer";
 import { useSSRContext } from "vue";
 import { _ as _export_sfc } from "./app.js";
 import "@vueuse/core";
-import "./@docsearch.w40geAFS.js";
 import "ant-design-vue";
-import "./ant-design-vue.w40geAFS.js";
-import "grid-layout-plus";
+import "@ant-design/icons-vue";
+import "@vueuse/integrations/useFocusTrap";
+import "mark.js/src/vanilla.js";
+import "minisearch";
 const __pageData = JSON.parse('{"title":"1. 模板语法","description":"","frontmatter":{"prev":{"text":"简介","link":"/frontend/vue/"},"next":{"text":"响应式基础","link":"/frontend/vue/vue02"}},"headers":[],"relativePath":"frontend/vue/vue01.md","filePath":"frontend/vue/vue01.md","lastUpdated":1707362753000}');
 const _sfc_main = { name: "frontend/vue/vue01.md" };
 function _sfc_ssrRender(_ctx, _push, _parent, _attrs, $props, $setup, $data, $options) {

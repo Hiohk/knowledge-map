@@ -2,10 +2,11 @@ import { ssrRenderAttrs } from "vue/server-renderer";
 import { useSSRContext } from "vue";
 import { _ as _export_sfc } from "./app.js";
 import "@vueuse/core";
-import "./@docsearch.w40geAFS.js";
 import "ant-design-vue";
-import "./ant-design-vue.w40geAFS.js";
-import "grid-layout-plus";
+import "@ant-design/icons-vue";
+import "@vueuse/integrations/useFocusTrap";
+import "mark.js/src/vanilla.js";
+import "minisearch";
 const __pageData = JSON.parse('{"title":"11. 模板引用","description":"","frontmatter":{"prev":{"text":"生命周期","link":"/frontend/vue/vue10"},"next":{"text":"组件基础","link":"/frontend/vue/vue12"}},"headers":[],"relativePath":"frontend/vue/vue11.md","filePath":"frontend/vue/vue11.md","lastUpdated":1706867478000}');
 const _sfc_main = { name: "frontend/vue/vue11.md" };
 function _sfc_ssrRender(_ctx, _push, _parent, _attrs, $props, $setup, $data, $options) {

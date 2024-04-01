@@ -2,10 +2,11 @@ import { ssrRenderAttrs, ssrRenderStyle } from "vue/server-renderer";
 import { useSSRContext } from "vue";
 import { _ as _export_sfc } from "./app.js";
 import "@vueuse/core";
-import "./@docsearch.w40geAFS.js";
 import "ant-design-vue";
-import "./ant-design-vue.w40geAFS.js";
-import "grid-layout-plus";
+import "@ant-design/icons-vue";
+import "@vueuse/integrations/useFocusTrap";
+import "mark.js/src/vanilla.js";
+import "minisearch";
 const __pageData = JSON.parse('{"title":"Vue.js(vue3)","description":"","frontmatter":{"next":{"text":"模板语法","link":"/frontend/vue/vue01"}},"headers":[],"relativePath":"frontend/vue/index.md","filePath":"frontend/vue/index.md","lastUpdated":1706867478000}');
 const _sfc_main = { name: "frontend/vue/index.md" };
 function _sfc_ssrRender(_ctx, _push, _parent, _attrs, $props, $setup, $data, $options) {
