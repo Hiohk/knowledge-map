@@ -2,7 +2,7 @@
 import dayjs from 'dayjs';
 import { ref } from 'vue';
 import { LikeFilled, LikeOutlined, DislikeFilled, DislikeOutlined } from '@ant-design/icons-vue';
-import avatarImg from "../../assets/img/avatarImg.svg";
+import avatarImg from "/assets/img/avatarImg.svg";
 import { message } from 'ant-design-vue';
 import relativeTime from 'dayjs/plugin/relativeTime';
 dayjs.extend(relativeTime);
@@ -89,7 +89,8 @@ const generateRandomNumberString = (length) => {
 <template>
     <div>
         <!-- 显示评论 -->
-        <a-list v-if="comments.length" :data-source="comments" :header="`${comments.length} 评论`" item-layout="horizontal">
+        <a-list v-if="comments.length" :data-source="comments" :header="`${comments.length} 评论`"
+            item-layout="horizontal">
             <template #renderItem="{ item }">
                 <a-list-item>
                     <a-comment>
