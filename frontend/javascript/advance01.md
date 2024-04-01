@@ -1033,7 +1033,7 @@ console.log(anotherChild.colors); // 输出：['red', 'blue', 'green', 'purple']
 
 原型继承关系图解：
 
-![image](../../assets/img/javascript_prototype.png)
+![image](/assets/img/javascript_prototype.png)
 
 ## 6.8 总结
 
