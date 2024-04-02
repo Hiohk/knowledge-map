@@ -38,11 +38,25 @@ next:
 第一步：编写异常类继承 Exception/RuntimeException
 第二步：提供一个无参数构造方法，再提供一个带 String msg 参数的构造方法，在构造方法中调用父类的构造方法。
 ```java
+public class IllegalNameException extends Exception {
+    public IllegalNameException() {
+    }
 
+    public IllegalNameException(String message) {
+        super(message);
+    }
+}
 ```
 
 ```java
+public class IllegalNameException extends RuntimeException {
+    public IllegalNameException() {
+    }
 
+    public IllegalNameException(String message) {
+        super(message);
+    }
+}
 ```
 
 ## 5.4 异常的处理
