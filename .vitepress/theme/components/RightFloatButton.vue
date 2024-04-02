@@ -9,7 +9,7 @@ import { QuestionCircleOutlined, QqOutlined, WechatOutlined, BellOutlined } from
             <a-tooltip placement="left" color="#fff">
                 <template #title>
                     <div>
-                        <img class="communication" src="../../../assets/img/qq.jpg" alt="qq群">
+                        <img class="communication" src="/qq.jpg" alt="qq群">
                     </div>
                 </template>
                 <a-float-button>
@@ -23,7 +23,7 @@ import { QuestionCircleOutlined, QqOutlined, WechatOutlined, BellOutlined } from
             <a-tooltip placement="left" color="#fff">
                 <template #title>
                     <div>
-                        <img class="communication" src="../../../assets/img/qq.jpg" alt="qq群">
+                        <img class="communication" src="/qq.jpg" alt="qq群">
                     </div>
                 </template>
                 <a-float-button>

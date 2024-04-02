@@ -5,18 +5,18 @@ import RightFloatButton from './RightFloatButton.vue';
 import TimeLineEvent from './TimeLineEvent.vue';
 import RecommendationBlog from './RecommendationBlog.vue';
 
-import HTML5 from "../../../assets/img/HTML5.svg";
-import CSS from "../../../assets/img/CSS.svg";
-import JavaScript from "../../../assets/img/JavaScript.svg";
-import node from "../../../assets/img/node.svg";
-import vue from "../../../assets/img/Vue.svg";
-import ajax from "../../../assets/img/ajax.svg";
-import waiting from "../../../assets/img/waiting.svg";
-import java from "../../../assets/img/java.svg";
-import spring from "../../../assets/img/spring.svg";
-import mybatis from "../../../assets/img/mybatis.svg";
-import mysql from "../../../assets/img/mysql.svg";
-import Git from "../../../assets/img/Git.svg";
+import HTML5 from "/HTML5.svg";
+import CSS from "/CSS.svg";
+import JavaScript from "/JavaScript.svg";
+import node from "/node.svg";
+import vue from "/Vue.svg";
+import ajax from "/ajax.svg";
+import waiting from "/waiting.svg";
+import java from "/java.svg";
+import spring from "/spring.svg";
+import mybatis from "/mybatis.svg";
+import mysql from "/mysql.svg";
+import Git from "/Git.svg";
 
 const layout = ref([
     { "w": 2, "h": 5, "i": "0", "name": "HTML", "imgName": HTML5, "address": "/knowledge-graph/frontend/html", "content": "HTML 是用于创建网页的标准标记语言。它用于定义网页的结构和内容，如段落、链接、图片等。HTML 文件通常与 CSS 和 JavaScript 一起使用，以提供样式和交互性。" },

@@ -1,6 +1,5 @@
 <script setup>
 import { ref } from 'vue';
-const text = ref('https://www.antdv.com/');
 
 const expanded = ref(false);
 

@@ -1,5 +1,5 @@
 <script setup>
-import robots from "../../../assets/img/robots.svg";
+import robots from "/robots.svg";
 import { RightOutlined } from '@ant-design/icons-vue';
 
 const expandText = () => {
