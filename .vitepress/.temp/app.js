@@ -4949,9 +4949,8 @@ const _sfc_main$5 = {
       const _component_a_tooltip = resolveComponent("a-tooltip");
       const _component_a_float_button = resolveComponent("a-float-button");
       const _component_a_badge_ribbon = resolveComponent("a-badge-ribbon");
-      const _component_a_card = resolveComponent("a-card");
       const _component_a_back_top = resolveComponent("a-back-top");
-      _push(`<div${ssrRenderAttrs(mergeProps({ class: "container" }, _attrs))} data-v-2b284ae2>`);
+      _push(`<div${ssrRenderAttrs(mergeProps({ class: "container" }, _attrs))} data-v-2ce664f6>`);
       _push(ssrRenderComponent(_component_a_float_button_group, {
         shape: "circle",
         style: { right: "15px" }
@@ -4964,7 +4963,7 @@ const _sfc_main$5 = {
             }, {
               title: withCtx((_2, _push3, _parent3, _scopeId2) => {
                 if (_push3) {
-                  _push3(`<div data-v-2b284ae2${_scopeId2}><img class="communication"${ssrRenderAttr("src", _imports_0)} alt="qq群" data-v-2b284ae2${_scopeId2}></div>`);
+                  _push3(`<div data-v-2ce664f6${_scopeId2}><img class="communication"${ssrRenderAttr("src", _imports_0)} alt="qq群" data-v-2ce664f6${_scopeId2}></div>`);
                 } else {
                   return [
                     createVNode("div", null, [
@@ -5010,7 +5009,7 @@ const _sfc_main$5 = {
             }, {
               title: withCtx((_2, _push3, _parent3, _scopeId2) => {
                 if (_push3) {
-                  _push3(`<div data-v-2b284ae2${_scopeId2}><img class="communication"${ssrRenderAttr("src", _imports_0)} alt="qq群" data-v-2b284ae2${_scopeId2}></div>`);
+                  _push3(`<div data-v-2ce664f6${_scopeId2}><img class="communication"${ssrRenderAttr("src", _imports_0)} alt="qq群" data-v-2ce664f6${_scopeId2}></div>`);
                 } else {
                   return [
                     createVNode("div", null, [
@@ -5056,39 +5055,20 @@ const _sfc_main$5 = {
             }, {
               title: withCtx((_2, _push3, _parent3, _scopeId2) => {
                 if (_push3) {
-                  _push3(`<div class="tooltip" data-v-2b284ae2${_scopeId2}>`);
+                  _push3(`<div class="tooltip" data-v-2ce664f6${_scopeId2}>`);
                   _push3(ssrRenderComponent(_component_a_badge_ribbon, {
-                    text: "帮助文档",
+                    text: "预告",
                     color: "green"
                   }, {
                     default: withCtx((_3, _push4, _parent4, _scopeId3) => {
                       if (_push4) {
-                        _push4(ssrRenderComponent(_component_a_card, {
-                          title: "Knowledge Graph",
-                          size: "small"
-                        }, {
-                          default: withCtx((_4, _push5, _parent5, _scopeId4) => {
-                            if (_push5) {
-                              _push5(`<p data-v-2b284ae2${_scopeId4}>This is a knowledge summary website for front-end and back-end.</p>`);
-                            } else {
-                              return [
-                                createVNode("p", null, "This is a knowledge summary website for front-end and back-end.")
-                              ];
-                            }
-                          }),
-                          _: 1
-                        }, _parent4, _scopeId3));
+                        _push4(`<div class="tooltip-title" data-v-2ce664f6${_scopeId3}>Future Plan</div><p data-v-2ce664f6${_scopeId3}>1. 2024年中旬，上线注册和登录功能；发布技术博客模块，开放评论功能</p><p data-v-2ce664f6${_scopeId3}>2. 2024年下旬，发布集成Gemini API的智能问答系统模块</p><p data-v-2ce664f6${_scopeId3}>3. 2024年底，发布交流社区模块</p>`);
                       } else {
                         return [
-                          createVNode(_component_a_card, {
-                            title: "Knowledge Graph",
-                            size: "small"
-                          }, {
-                            default: withCtx(() => [
-                              createVNode("p", null, "This is a knowledge summary website for front-end and back-end.")
-                            ]),
-                            _: 1
-                          })
+                          createVNode("div", { class: "tooltip-title" }, "Future Plan"),
+                          createVNode("p", null, "1. 2024年中旬，上线注册和登录功能；发布技术博客模块，开放评论功能"),
+                          createVNode("p", null, "2. 2024年下旬，发布集成Gemini API的智能问答系统模块"),
+                          createVNode("p", null, "3. 2024年底，发布交流社区模块")
                         ];
                       }
                     }),
@@ -5099,19 +5079,14 @@ const _sfc_main$5 = {
                   return [
                     createVNode("div", { class: "tooltip" }, [
                       createVNode(_component_a_badge_ribbon, {
-                        text: "帮助文档",
+                        text: "预告",
                         color: "green"
                       }, {
                         default: withCtx(() => [
-                          createVNode(_component_a_card, {
-                            title: "Knowledge Graph",
-                            size: "small"
-                          }, {
-                            default: withCtx(() => [
-                              createVNode("p", null, "This is a knowledge summary website for front-end and back-end.")
-                            ]),
-                            _: 1
-                          })
+                          createVNode("div", { class: "tooltip-title" }, "Future Plan"),
+                          createVNode("p", null, "1. 2024年中旬，上线注册和登录功能；发布技术博客模块，开放评论功能"),
+                          createVNode("p", null, "2. 2024年下旬，发布集成Gemini API的智能问答系统模块"),
+                          createVNode("p", null, "3. 2024年底，发布交流社区模块")
                         ]),
                         _: 1
                       })
@@ -5202,19 +5177,14 @@ const _sfc_main$5 = {
                 title: withCtx(() => [
                   createVNode("div", { class: "tooltip" }, [
                     createVNode(_component_a_badge_ribbon, {
-                      text: "帮助文档",
+                      text: "预告",
                       color: "green"
                     }, {
                       default: withCtx(() => [
-                        createVNode(_component_a_card, {
-                          title: "Knowledge Graph",
-                          size: "small"
-                        }, {
-                          default: withCtx(() => [
-                            createVNode("p", null, "This is a knowledge summary website for front-end and back-end.")
-                          ]),
-                          _: 1
-                        })
+                        createVNode("div", { class: "tooltip-title" }, "Future Plan"),
+                        createVNode("p", null, "1. 2024年中旬，上线注册和登录功能；发布技术博客模块，开放评论功能"),
+                        createVNode("p", null, "2. 2024年下旬，发布集成Gemini API的智能问答系统模块"),
+                        createVNode("p", null, "3. 2024年底，发布交流社区模块")
                       ]),
                       _: 1
                     })
@@ -5246,7 +5216,7 @@ _sfc_main$5.setup = (props, ctx) => {
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add(".vitepress/theme/components/RightFloatButton.vue");
   return _sfc_setup$5 ? _sfc_setup$5(props, ctx) : void 0;
 };
-const RightFloatButton = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["__scopeId", "data-v-2b284ae2"]]);
+const RightFloatButton = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["__scopeId", "data-v-2ce664f6"]]);
 const _sfc_main$4 = {
   __name: "TimeLineEvent",
   __ssrInlineRender: true,
@@ -6548,7 +6518,7 @@ async function render(path) {
   ctx.content = await renderToString(app, ctx);
   return ctx;
 }
-const localSearchIndex = { "root": () => import("./@localSearchIndexroot.Cg6FHLJ2.js") };
+const localSearchIndex = { "root": () => import("./@localSearchIndexroot.DBw3Nsng.js") };
 class LRUCache {
   constructor(max = 10) {
     __publicField(this, "max");
