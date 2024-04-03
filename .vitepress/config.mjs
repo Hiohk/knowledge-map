@@ -9,7 +9,7 @@ export default defineConfig({
   base: "/knowledge-graph/",
   lang: 'zh-CN',
   title: "Knowledge Graph",
-  description: "A knowledge summary for front-end.",
+  description: "A knowledge summary for frontend and backend.",
   lastUpdated: true,
   head: [['link', { rel: 'icon', href: '/knowledge-graph/logo.svg' }]],
   markdown: {
