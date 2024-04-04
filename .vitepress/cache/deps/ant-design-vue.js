@@ -942,7 +942,7 @@ function toPrimitive(t3, r3) {
 // node_modules/@babel/runtime/helpers/esm/toPropertyKey.js
 function toPropertyKey(t3) {
   var i3 = toPrimitive(t3, "string");
-  return "symbol" == _typeof(i3) ? i3 : String(i3);
+  return "symbol" == _typeof(i3) ? i3 : i3 + "";
 }
 
 // node_modules/@babel/runtime/helpers/esm/defineProperty.js
