@@ -202,12 +202,19 @@ int[][] arr = new int[3][];
    选中导航栏的 `Help`，然后选中 `Edit Custom VM Options...`，接着在 `IDEA64.exe.vmoptions` 文件中添加内容 `-Deditable.java.test.console=true`，最后在重启 IDEA 即可解决。
 
 ## 4.6 数据结构与算法 :x:
+
 略
+
 ## 4.7 数组的排序算法 :x:
+
 略
+
 ## 4.8 数组的查找算法 :x:
+
 略
+
 ## 4.9 Arrays 工具类 :star:
+
 - `Arrays.toString()` 方法：将数组转换成字符串
 - `Arrays.deepToString()` 方法：可以将二维数组转换成字符串
 - `Arrays.equals(int[] arr1, int[] arr2)` 方法：判断两个数组是否相等
@@ -215,12 +222,12 @@ int[][] arr = new int[3][];
 - `Arrays.deepEquals(Object[] arr1, Object[] arr2)` 方法：判断两个二维数组是否相等
 - `Arrays.sort(int[] arr)` 方法：基于快速排序算法，适合小型数据量排序
 - `Arrays.sort(String[] arr)` 方法
-- `Arrays.parallelSort(int[] arr)` 方法：基于分治的归并排序算法，支持多核CPU排序，适合大数据量排序
+- `Arrays.parallelSort(int[] arr)` 方法：基于分治的归并排序算法，支持多核 CPU 排序，适合大数据量排序
 - `int binarySearch(int[] arr, int elt)` 方法：二分法查找
 - `Arrays.fill(int[] arr, int data)` 方法：填充数组
 - `Arrays.fill(int[] a, int fromIndex, int toIndex, int val)` 方法
 - `int[] Arrays.copyOf(int[] original, int newLength)` 方法：数组拷贝
 - `int[] Arrays.copyOfRange(int[] original, int from, int to)`
-- `Arrays.asList(T... data)` 方法：将一组数据转换成List集合
+- `Arrays.asList(T... data)` 方法：将一组数据转换成 List 集合
 
 <a-back-top />

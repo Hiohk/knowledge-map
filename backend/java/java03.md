@@ -343,7 +343,7 @@ public class Singleton {
 - 具有相同的形参列表；
 - 具有相同的返回值类型；
 
-## 3.11 多态 :white_check_mark: 
+## 3.11 多态 :white_check_mark:
 
 ### 什么是向上转型和向下转型？
 

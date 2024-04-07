@@ -152,6 +152,7 @@ try {
 ::: tip try...finally 面试题
 
 面试题 1：
+
 ```java
 public static void m1() {
   try {
@@ -168,6 +169,7 @@ public static void m1() {
 ```
 
 面试题 2：
+
 ```java
 public static void m2() {
   int i = 100;
@@ -179,6 +181,7 @@ public static void m2() {
 }
 int result = m2(); // 输出：100, 而不是101
 ```
+
 :::
 
 3. 通常在 finally 语句块中完成资源的释放
