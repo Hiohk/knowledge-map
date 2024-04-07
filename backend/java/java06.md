@@ -318,6 +318,7 @@ Byte、Short、Integer、Long、Float、Double 都继承了 Number 类，因此�
 - `longValue()`
 - `floatValue()`
 - `doubleValue()`
+  
 这些方法的作用就是将包装类型的数据转换为基本数据类型。包装类转换成基本数据类型的过程我们称为：拆箱(unboxing)。
 
 Boolean的拆箱方法：`booleanValue()`; Character的拆箱方法：`charValue()`;
@@ -409,6 +410,7 @@ System.out.println(a == b); // true
 ## 6.4 大数字
 
 1. 如果整数超过 long 的最大值怎么办？
+
 java 中提供了一种引用数据类型来解决这个问题：java.math.BigInteger。它的父类是 Number。
 
 常用构造方法：`BigInteger(String val)`。
@@ -425,7 +427,8 @@ java 中提供了一种引用数据类型来解决这个问题：java.math.BigIn
 - `BigInteger pow(int exponent)`:	次幂
 - `BigInteger sqrt()`: 平方根
 
-2. 如果浮点型数据超过 double 的最大值怎么办？
+1. 如果浮点型数据超过 double 的最大值怎么办？
+
 java 中提供了一种引用数据类型来解决这个问题：java.math.BigDecimal（经常用在财务软件中）。它的父类是Number。
 
 构造方法：`BigDecimal(String val)`。
@@ -440,7 +443,7 @@ java 中提供了一种引用数据类型来解决这个问题：java.math.BigDe
 - `BigDecimal movePointLeft(int n)`:	向左移动小数点
 - `BigDecimal movePointRight(int n)`:	向右移动小数点
 
-3. 数字格式化
+1. 数字格式化
 有时我们需要将数字以某种格式展示，在 java 中如何格式化呢？
 - `java.text.DecimalFormat` 类是专门用来对数字进行格式的。
 - 常用数字格式：
@@ -451,15 +454,31 @@ java 中提供了一种引用数据类型来解决这个问题：java.math.BigDe
 
 
 ## 6.5 日期处理
-### 日期相关API
+### 日期相关 API
 1. `long l = System.currentTimeMillis();` // 获取自1970年1月1日0时0分0秒到系统当前时间的总毫秒数。
 2. java.util.Date 日期类
    - 构造方法：Date()
    - 构造方法：Date(long 毫秒)
 3. java.util.SimpleDateFormat 日期格式化类
    - 日期转换成字符串（java.util.Date -> java.lang.String）
+  ```java
+  Date now = new Date();
+  SimpleDateFormat simpleDateFormat = 
+        new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSS");
+  String str = simpleDateFormat.format(now);
+  System.out.println(str);
+  //2024-04-05 11:14:46 383
+  ```
    - 字符串转换成日期（java.lang.String -> java.util.Date）
-4. java.util.Calendar 日历类
+  ```java
+  String strDate = "2024-04-05 11:14:46 383";
+  SimpleDateFormat simpleDateFormat = 
+        new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSS");
+  Date date = simpleDateFormat.parse(strDate);
+  System.out.println(date);
+  // Fri Apr 05 11:14:46 CST 2024
+  ```
+1. java.util.Calendar 日历类
   - 获取当前时间的日历对象：Calendar c = Calendar.getInstance();
   - 获取日历中的某部分：int year = c.get(Calendar.YEAR);
       - `Calendar.YEAR` 获取年份			
@@ -618,10 +637,10 @@ enum 枚举类型名 {
 }
 ```
 5. 通过反编译(javap)可以看到：
-- 所有枚举类型默认继承 java.lang.Enum,因此枚举类型无法继承其他类。
+- 所有枚举类型默认继承 java.lang.Enum，因此枚举类型无法继承其他类
 - 所有的枚举类型都被 final 修饰，所以枚举类型是无法继承的
 - 所有的枚举值都是常量
-- 所有的枚举类型中都有一个 values 数组（可以通过values()获取所有枚举值并遍历）
+- 所有的枚举类型中都有一个 values 数组（可以通过 values() 获取所有枚举值并遍历）
 
 
 ### 枚举的高级用法
@@ -630,7 +649,7 @@ enum 枚举类型名 {
 - 实例方法，静态方法
 - 实例变量，静态变量
 2. 枚举类中的构造方法是私有化的（默认就是私有化的，只能在本类中调用）
-- 构造方法调用时不能用new。直接使用“枚举值(实参);”调用。
+- 构造方法调用时不能用 new。直接使用“枚举值(实参);”调用。
 - 每一个枚举值相当于枚举类型的实例。
 3. 枚举类型中如果编写了其他代码，必须要有枚举值，枚举值的定义要放到最上面，
 最后一个枚举值的分号不能省略。
@@ -644,9 +663,9 @@ enum 枚举类型名 {
 常用构造方法：`Random()`
 
 常用方法：
- - `int nextInt()`: 获取一个int类型取值范围内的随机int数
- - `int nextInt(int bound)`: 获取[0,bound)区间的随机数
- - `double nextDouble()`: 获取[0.0, 1.0)的随机数。
+ - `int nextInt()`: 获取一个 int 类型取值范围内的随机 int 数
+ - `int nextInt(int bound)`: 获取 [0,bound) 区间的随机数
+ - `double nextDouble()`: 获取 [0.0, 1.0) 的随机数。
 
 ## 6.10 System
 java.lang.System类的常用方法：
