@@ -63,6 +63,7 @@ System.out.println(s1 == s2); // true
 
 ::: tip 扩展知识-`intern()`
 将堆中的字符串变量放到字符串常量池中：
+
 ```java
 String s1 = "abc";
 String s2 = "def";
@@ -72,6 +73,7 @@ System.out.println(s3 == s4); // false
 String s5 = s3.intern(); // [!code highlight]
 System.out.println(s5 == s4); // true // [!code highlight]
 ```
+
 :::
 
 以上程序中字符串常量中有三个： "abc", "def", "abcdef"，除了字符串常量池的字符串之外，在堆中还有一个字符串对象 "abcdef"。
@@ -139,12 +141,14 @@ String s1 = "aaa" + "bbb";
 - `String stripTrailing();` 去除后空白
 - `String toString();` new String(original) 默认重写了 toString() 方法。
 - `String intern();` 获取字符串常量池中的字符串，如果常量池中没有，则将字符串加入常量池并返回。
+
 ```java
 byte[] bytes = {97,98,99,100};
 String s = new String(bytes);
 String s2 = s.intern();
 // 将字符串 "abcd" 放入字符串常量池并返回常量池中的字符串 "abcd"
 ```
+
 - `static String join(CharSequence d, CharSequence... elements);` 将多个字符串以某个分隔符连接（Java8 新增）
 - `static String join(CharSequence delimiter, Iterable<? extends CharSequence> elements);`
 - `static String valueOf(boolean b);` 以下所有的静态方法 valueOf 作用是将非字符串类型的数据转换为字符串形式。
@@ -234,20 +238,24 @@ String s2 = s.intern();
   判断当前字符串是否符合正则表达式 regex。
 
 ## 6.2 StringBuffer 与 StringBuilder
+
 ### StringBuffer 和 StringBuilder：可变长度字符串
+
 1. 这两个类是专门为频繁进行字符串拼接而准备。
 2. StringBuffer 先出现的，Java5 的时候新增了 StringBuilder，StringBuffer 是线程安全的。在不需要考虑线程安全问题的情况下优先选择 StringBuilder，效率较高一些。
 3. 底层是 byte[] 数组，并且这个 byte[] 数组没有被 final 修饰，这说明如果 byte[] 数组满了，可以创建一个更大的新数组来达到扩容，然后它可以重新指向这个新的数组对象。
 4. 优化策略：创建 StringBuilder 对象时，预估计字符串的长度，给定一个合适的初始化容量，减少底层数组的扩容。
-5. StringBuilder默认初始化容量：16
-6. StringBuilder 一次扩容多少？可以通过 Debug 跟踪一下 append 方法。扩容策略是：从当前容量开始，每次扩容为原来的2倍再加上2。
+5. StringBuilder 默认初始化容量：16
+6. StringBuilder 一次扩容多少？可以通过 Debug 跟踪一下 append 方法。扩容策略是：从当前容量开始，每次扩容为原来的 2 倍再加上 2。
 
 ### StringBuffer 和 StringBuilder 构造方法
-- `StringBuilder()`: 构造一个字符串生成器，其中不包含任何字符，初始容量为16个字符。
+
+- `StringBuilder()`: 构造一个字符串生成器，其中不包含任何字符，初始容量为 16 个字符。
 - `StringBuilder(int capacity)`: 构造一个字符串生成器，其中不包含任何字符，并且具有由容量参数指定的初始容量。
 - `StringBuilder(String str)`: 构造初始化为指定字符串内容的字符串生成器。
 
 ### StringBuffer 和 StringBuilder 常用方法
+
 - `StringBuilder append(Type data);`
 - `StringBuilder delete(int start, int end);`
 - `StringBuilder deleteCharAt(int index);`
@@ -267,7 +275,9 @@ String s2 = s.intern();
 - `String toString();`
 
 ### String 的效率问题
+
 以下这种写法尽量避免，效率太低：
+
 ```java
 String s = “”;
 for(int i = 0; i < 100000; i++){
@@ -280,7 +290,8 @@ for(int i = 0; i < 100000; i++){
 }
 ```
 
-因此建议使用下面的方式，只创建一个StringBuilder对象。
+因此建议使用下面的方式，只创建一个 StringBuilder 对象。
+
 ```java
 long begin = System.currentTimeMillis();
 StringBuilder s = new StringBuilder();
@@ -291,62 +302,74 @@ long end = System.currentTimeMillis();
 System.out.println(end-begin);
 ```
 
-String、StringBuilder、StringBuffer效率PK。
+String、StringBuilder、StringBuffer 效率 PK。
 
 ## 6.3 包装类
+
 ### 什么是包装类？有什么用？
-为了方便开发，Java为8种基本数据类型分别又提供了对应的包装类。（包装类都是引用数据类型。）
-| 8种基本数据类型 | 包装类                  |
+
+为了方便开发，Java 为 8 种基本数据类型分别又提供了对应的包装类。（包装类都是引用数据类型。）
+| 8 种基本数据类型 | 包装类 |
 | --------------- | ----------------------- |
-| byte            | java.lang.Byte          |
-| short           | java.lang.Short         |
-| int             | java.lang.**Integer**   |
-| long            | java.lang.Long          |
-| float           | java.lang.Float         |
-| double          | java.lang.Double        |
-| boolean         | java.lang.Boolean       |
-| char            | java.lang.**Character** |
+| byte | java.lang.Byte |
+| short | java.lang.Short |
+| int | java.lang.**Integer** |
+| long | java.lang.Long |
+| float | java.lang.Float |
+| double | java.lang.Double |
+| boolean | java.lang.Boolean |
+| char | java.lang.**Character** |
 
 其中 Integer 使用最多，以它为代表进行学习。
 
 包装类中的 6 个数字类型都继承了 Number 类：
 
 Byte、Short、Integer、Long、Float、Double 都继承了 Number 类，因此这些类中都有以下这些方法：
+
 - `byteValue()`
 - `shortValue()`
 - `intValue()`
 - `longValue()`
 - `floatValue()`
 - `doubleValue()`
-这些方法的作用就是将包装类型的数据转换为基本数据类型。包装类转换成基本数据类型的过程我们称为：拆箱(unboxing)。
+  这些方法的作用就是将包装类型的数据转换为基本数据类型。包装类转换成基本数据类型的过程我们称为：拆箱(unboxing)。
 
-Boolean的拆箱方法：`booleanValue()`; Character的拆箱方法：`charValue()`;
+Boolean 的拆箱方法：`booleanValue()`; Character 的拆箱方法：`charValue()`;
 
 ### Integer 的常量
+
 通过 Integer 提供的常量可以获取 int 的最大值和最小值：
+
 - 最大值：`Integer.MAX_VALUE`
 - 最小值：`Integer.MIN_VALUE`
 
 当然，其它 5 个数字包装类也有对应的常量：
-- byte最大值：`Byte.MAX_VALUE`
-- byte最小值：`Byte.MIN_VALUE`
-- short最大值：`Short.MAX_VALUE`
-- short最小值：`Short.MIN_VALUE`
+
+- byte 最大值：`Byte.MAX_VALUE`
+- byte 最小值：`Byte.MIN_VALUE`
+- short 最大值：`Short.MAX_VALUE`
+- short 最小值：`Short.MIN_VALUE`
 
 ### Integer 的构造方法
+
 1. `Integer(int value)`
-  - Java9 之后标记已过时，不建议使用。
-  - 该构造方法可以将基本数据类型转换成包装类。这个过程我们称为装箱 boxing
+
+- Java9 之后标记已过时，不建议使用。
+- 该构造方法可以将基本数据类型转换成包装类。这个过程我们称为装箱 boxing
+
 2. `Integer(String s)`
-  - Java9之后标记已过时，不建议使用。
-  - 该构造方法可以将字符串数字转换成包装类。但字符串必须是整数数字，如果不是会出现异常：NumberFormatException
+
+- Java9 之后标记已过时，不建议使用。
+- 该构造方法可以将字符串数字转换成包装类。但字符串必须是整数数字，如果不是会出现异常：NumberFormatException
 
 其它包装类的构造方法也是如此，例如 Boolean 的构造方法:
-  - `Boolean(boolean value)`
-  - `Boolean(String s)`
-以上两个构造方法也都在 Java9 的时候标记已过时。
+
+- `Boolean(boolean value)`
+- `Boolean(String s)`
+  以上两个构造方法也都在 Java9 的时候标记已过时。
 
 ### Integer 的常用方法
+
 - `static int compare(int x, int y)` 比较大小
 - `static int max(int a, int b)` 最大值
 - `static int min(int a, int b)` 最小值
@@ -363,27 +386,33 @@ Boolean的拆箱方法：`booleanValue()`; Character的拆箱方法：`charValue
 - `static Integer valueOf(String s)` 将字符串转换成 Integer（这个字符串必须是数字字符串才行，不然出现 NumberFormatException）
 
 ### 三种类型之间的互相转换
-String、int、Integer三种类型之间的互相转换（String,double,Double转换原理相同）:
+
+String、int、Integer 三种类型之间的互相转换（String,double,Double 转换原理相同）:
 ![alt text](image-11.png)
 
 注：Integer ——> int: `Integer A = new Integer(5); int a = A.intValue();`
 
 ### Java5 新特性：自动装箱和自动拆箱
+
 Java5 之后为了开发方便，引入了新特性：自动拆箱和自动装箱。
 
-- 自动装箱：auto boxing: 
+- 自动装箱：auto boxing:
+
 ```java
 Integer a = 10000;
 // 底层实际上的操作：Integer a = new Integer(10000);
 ```
-- 自动拆箱：auto unboxing: 
+
+- 自动拆箱：auto unboxing:
+
 ```java
 Integer a = 10000;
 int b = a; // 底层实际上的操作：int b = a.intValue();
 System.out.println(a + 1); // 这里的 a 也会做自动拆箱。
 ```
-  
+
 注意空指针异常：
+
 ```java
 Integer a = null;
 System.out.println(a + 1);
@@ -393,10 +422,12 @@ System.out.println(a + 1);
 因为 a 是 null，访问实例方法会出现空指针异常，因此使用时应注意。
 
 ### 整数型常量池
-1. [-128 ~ 127] Java 为这个区间的Integer 对象创建了**整数型常量池**。
+
+1. [-128 ~ 127] Java 为这个区间的 Integer 对象创建了**整数型常量池**。
 2. 也就是说如果整数没有超出范围的话，直接从整数型常量池获取 Integer 对象。
 
 以下是一个面试题：请说出它的输出结果：
+
 ```java
 Integer x = 128;
 Integer y = 128;
@@ -409,50 +440,54 @@ System.out.println(a == b); // true
 ## 6.4 大数字
 
 1. 如果整数超过 long 的最大值怎么办？
-java 中提供了一种引用数据类型来解决这个问题：java.math.BigInteger。它的父类是 Number。
+   java 中提供了一种引用数据类型来解决这个问题：java.math.BigInteger。它的父类是 Number。
 
 常用构造方法：`BigInteger(String val)`。
 
 常用方法：
-- `BigInteger add(BigInteger val)`:	求和
-- `BigInteger subtract(BigInteger val)`:	相减
-- `BigInteger multiply(BigInteger val)`:	乘积
-- `BigInteger divide(BigInteger val)`:	商
-- `int compareTo(BigInteger val)`:	比较
+
+- `BigInteger add(BigInteger val)`: 求和
+- `BigInteger subtract(BigInteger val)`: 相减
+- `BigInteger multiply(BigInteger val)`: 乘积
+- `BigInteger divide(BigInteger val)`: 商
+- `int compareTo(BigInteger val)`: 比较
 - `BigInteger abs()`: 绝对值
-- `BigInteger max(BigInteger val)`:	最大值
-- `BigInteger min(BigInteger val)`:	最小值
-- `BigInteger pow(int exponent)`:	次幂
+- `BigInteger max(BigInteger val)`: 最大值
+- `BigInteger min(BigInteger val)`: 最小值
+- `BigInteger pow(int exponent)`: 次幂
 - `BigInteger sqrt()`: 平方根
 
 2. 如果浮点型数据超过 double 的最大值怎么办？
-java 中提供了一种引用数据类型来解决这个问题：java.math.BigDecimal（经常用在财务软件中）。它的父类是Number。
+   java 中提供了一种引用数据类型来解决这个问题：java.math.BigDecimal（经常用在财务软件中）。它的父类是 Number。
 
 构造方法：`BigDecimal(String val)`。
 
 常用方法：
+
 - `BigDecimal add(BigDecimal augend)`: 求和
-- `BigDecimal subtract(BigDecimal subtrahend)`:	相减
-- `BigDecimal multiply(BigDecimal multiplicand)`:	乘积
+- `BigDecimal subtract(BigDecimal subtrahend)`: 相减
+- `BigDecimal multiply(BigDecimal multiplicand)`: 乘积
 - `BigDecimal divide(BigDecimal divisor)`: 商
-- `BigDecimal max(BigDecimal val)`:	最大值
-- `BigDecimal min(BigDecimal val)`:	最小值
-- `BigDecimal movePointLeft(int n)`:	向左移动小数点
-- `BigDecimal movePointRight(int n)`:	向右移动小数点
+- `BigDecimal max(BigDecimal val)`: 最大值
+- `BigDecimal min(BigDecimal val)`: 最小值
+- `BigDecimal movePointLeft(int n)`: 向左移动小数点
+- `BigDecimal movePointRight(int n)`: 向右移动小数点
 
 3. 数字格式化
-有时我们需要将数字以某种格式展示，在 java 中如何格式化呢？
+   有时我们需要将数字以某种格式展示，在 java 中如何格式化呢？
+
 - `java.text.DecimalFormat` 类是专门用来对数字进行格式的。
 - 常用数字格式：
-  - `###,###.##`    // 三个数字为一组，组和组之间使用逗号隔开，保留两位小数
-  - `###,###.0000`  // 三个数字为一组，组和组之间使用逗号隔开，保留4位小数，不够补0
+  - `###,###.##` // 三个数字为一组，组和组之间使用逗号隔开，保留两位小数
+  - `###,###.0000` // 三个数字为一组，组和组之间使用逗号隔开，保留 4 位小数，不够补 0
 - 构造方法：`DecimalFormat(String pattern)`
 - 常用方法：`String format(数字)`
 
-
 ## 6.5 日期处理
-### 日期相关API
-1. `long l = System.currentTimeMillis();` // 获取自1970年1月1日0时0分0秒到系统当前时间的总毫秒数。
+
+### 日期相关 API
+
+1. `long l = System.currentTimeMillis();` // 获取自 1970 年 1 月 1 日 0 时 0 分 0 秒到系统当前时间的总毫秒数。
 2. java.util.Date 日期类
    - 构造方法：Date()
    - 构造方法：Date(long 毫秒)
@@ -460,28 +495,31 @@ java 中提供了一种引用数据类型来解决这个问题：java.math.BigDe
    - 日期转换成字符串（java.util.Date -> java.lang.String）
    - 字符串转换成日期（java.lang.String -> java.util.Date）
 4. java.util.Calendar 日历类
-  - 获取当前时间的日历对象：Calendar c = Calendar.getInstance();
-  - 获取日历中的某部分：int year = c.get(Calendar.YEAR);
-      - `Calendar.YEAR` 获取年份			
-      - `Calendar.MONTH` 获取月份，0表示1月，1表示2月，...，11表示12月
-      - `Calendar.DAY_OF_MONTH` 获取本月的第几天	
-      - `Calendar.DAY_OF_YEAR` 获取本年的第几天
-      - `Calendar.HOUR_OF_DAY` 小时，24小时制		
-      - `Calendar.HOUR` 小时，12小时制
-      - `Calendar.MINUTE` 获取分钟		
-      - `Calendar.SECOND` 获取秒
-      - `Calendar.MILLISECOND` 获取毫秒		
-      - `Calendar.DAY_OF_WEEK` 获取星期几，1表示星期日，...，7表示星期六
 
-  - java.util.Calendar 日历类:
-      - `calendar.set(Calendar.YEAR, 2023)` 日历的set方法：设置日历  
-      - `calendar.set(2008, Calendar.SEPTEMBER,8)` 日历的set方法：设置日历 
-      - `calendar.add(Calendar.YEAR, 1)` 日历的add方法（日历中各个部分的加减）
-      - `calendar.setTime(new Date())` 日历对象的setTime()让日历关联具体的时间
-      - `Date time = calendar.getTime()` 日历对象的getTime()方法获取日历的具体时间
+- 获取当前时间的日历对象：Calendar c = Calendar.getInstance();
+- 获取日历中的某部分：int year = c.get(Calendar.YEAR);
+
+  - `Calendar.YEAR` 获取年份
+  - `Calendar.MONTH` 获取月份，0 表示 1 月，1 表示 2 月，...，11 表示 12 月
+  - `Calendar.DAY_OF_MONTH` 获取本月的第几天
+  - `Calendar.DAY_OF_YEAR` 获取本年的第几天
+  - `Calendar.HOUR_OF_DAY` 小时，24 小时制
+  - `Calendar.HOUR` 小时，12 小时制
+  - `Calendar.MINUTE` 获取分钟
+  - `Calendar.SECOND` 获取秒
+  - `Calendar.MILLISECOND` 获取毫秒
+  - `Calendar.DAY_OF_WEEK` 获取星期几，1 表示星期日，...，7 表示星期六
+
+- java.util.Calendar 日历类:
+  - `calendar.set(Calendar.YEAR, 2023)` 日历的 set 方法：设置日历
+  - `calendar.set(2008, Calendar.SEPTEMBER,8)` 日历的 set 方法：设置日历
+  - `calendar.add(Calendar.YEAR, 1)` 日历的 add 方法（日历中各个部分的加减）
+  - `calendar.setTime(new Date())` 日历对象的 setTime()让日历关联具体的时间
+  - `Date time = calendar.getTime()` 日历对象的 getTime()方法获取日历的具体时间
 
 ## 6.6 Java8 的新日期 API
-传统的日期API存在线程安全问题，Java8 又提供了一套全新的日期API:
+
+传统的日期 API 存在线程安全问题，Java8 又提供了一套全新的日期 API:
 
 - `java.time.LocalDate`、`java.time.LocalTime`、`java.time.LocalDateTime`: 日期、时间、日期时间
 - `java.time.Instant`: 时间戳信息
@@ -490,54 +528,71 @@ java 中提供了一种引用数据类型来解决这个问题：java.math.BigDe
 - `java.time.temporal.TemporalAdjusters`: 提供了一些方法用于方便的进行日期时间调整
 - `java.time.format.DateTimeFormatter`: 用于进行日期时间格式化和解析
 
-### LocalDate日期、LocalTime时间、LocalDateTime日期时间
-1. 获取当前时间（精确到纳秒，1秒=1000毫秒，1毫秒=1000微秒，1微秒=1000纳秒）
-  ```java
-  LocalDateTime now = LocalDateTime.now(); 
-  ```
+### LocalDate 日期、LocalTime 时间、LocalDateTime 日期时间
+
+1. 获取当前时间（精确到纳秒，1 秒=1000 毫秒，1 毫秒=1000 微秒，1 微秒=1000 纳秒）
+
+```java
+LocalDateTime now = LocalDateTime.now();
+```
+
 2. 获取指定日期时间
+
 ```java
 LocalDateTime ldt = LocalDateTime.of(2008,8,8,8,8,8,8);
 // 获取指定的日期时间
 ```
+
 3. 加日期和加时间
+
 ```java
-LocalDateTime localDateTime = 
+LocalDateTime localDateTime =
       ldt.plusYears(1).plusMonths(1).plusDays(1).plusHours(1)
          .plusMinutes(1).plusSeconds(1).plusNanos(1);
 ```
-4. 减日期和减时间 
+
+4. 减日期和减时间
+
 ```java
-LocalDateTime localDateTime = 
+LocalDateTime localDateTime =
       ldt.minusYears(1).minusMonths(1).minusDays(1).minusHours(1)
          .minusMinutes(1).minusSeconds(1).minusNanos(1);
 ```
+
 5. 获取年月日时分秒
+
 ```java
-int year = now.getYear(); // 年			
+int year = now.getYear(); // 年
 int month = now.getMonth().getValue(); // 月
-int dayOfMonth = now.getDayOfMonth(); // 一个月的第几天	
+int dayOfMonth = now.getDayOfMonth(); // 一个月的第几天
 int dayOfWeek = now.getDayOfWeek().getValue(); // 一个周第几天
-int dayOfYear = now.getDayOfYear(); // 一年的第几天	
+int dayOfYear = now.getDayOfYear(); // 一年的第几天
 int hour = now.getHour(); // 时
-int minute = now.getMinute(); // 分			
+int minute = now.getMinute(); // 分
 int second = now.getSecond(); // 秒
 int nano = now.getNano(); // 纳秒
 ```
 
 ### Instant 时间戳
+
 Instant 时间戳——获取 1970 年 1 月 1 日 0 时 0 分 0 秒到某个时间的时间戳。
+
 1. 获取系统当前时间（UTC：全球标准时间）
+
 ```java
-Instant instant = Instant.now(); 
+Instant instant = Instant.now();
 ```
+
 2. 获取时间戳
+
 ```java
-long epochMilli = instant.toEpochMilli(); 
+long epochMilli = instant.toEpochMilli();
 ```
 
 ### Duration 计算时间间隔
+
 计算两个时间相差时间间隔:
+
 ```java
 LocalDateTime now1 = LocalDateTime.of(2008,8,8,8,8,8);
 LocalDateTime now2 = LocalDateTime.of(2009,9,9,9,9,9);
@@ -549,7 +604,9 @@ System.out.println(between.toDays());
 ```
 
 ### Period 计算日期间隔
+
 计算两个日期间隔:
+
 ```java
 LocalDate now1 = LocalDate.of(2007,7,7);
 LocalDate now2 = LocalDate.of(2008,8,8);
@@ -563,6 +620,7 @@ System.out.println(between.getDays());
 ```
 
 #### TemporalAdjusters 时间矫正器
+
 ```java
 LocalDateTime now = LocalDateTime.now(); // 获取系统当前时间
 now.with(TemporalAdjusters.firstDayOfMonth()); // 当前月的第一天
@@ -574,13 +632,17 @@ now.with(TemporalAdjusters.next(DayOfWeek.MONDAY)); // 下周一
 ```
 
 ### DateTimeFormatter 日期格式化
+
 1. 日期格式化 （LocalDateTime --> String）
+
 ```java
 LocalDateTime now = LocalDateTime.now();
 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 String s = dtf.format(now);
 ```
+
 1. 将字符串转换成日期（String --> LocalDateTime）
+
 ```java
 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 LocalDateTime localDateTime = LocalDateTime.parse("2008-08-08 08:08:08", dtf);
@@ -588,96 +650,118 @@ System.out.println(localDateTime);
 ```
 
 ## 6.7 Math
+
 java.lang.Math 数学工具类，都是静态方法。
 
 1. 常用属性：`static final double PI`（圆周率）
 
 2. 常用方法：
-- `static int abs(int a)`			绝对值
-- `static double ceil(double a)`	向上取整
-- `static double floor(double a)`	向下取整
-- `static int max(int a, int b)`	最大值
-- `static int min(int a, int b)`	最小值
-- `static double random()`		随机数[0.0, 1.0)     
-- `int num = (int)(Math.random() * 100)` 可以获取[0-100)的随机数
-- `static long round(double a)`		四舍五入
-- `static double sqrt(double a)`	平方根
-- `static double pow(double a, double b)`  a的b次幂
 
-## 6.8 枚举（Java5新特性）
+- `static int abs(int a)` 绝对值
+- `static double ceil(double a)` 向上取整
+- `static double floor(double a)` 向下取整
+- `static int max(int a, int b)` 最大值
+- `static int min(int a, int b)` 最小值
+- `static double random()` 随机数[0.0, 1.0)
+- `int num = (int)(Math.random() * 100)` 可以获取[0-100)的随机数
+- `static long round(double a)` 四舍五入
+- `static double sqrt(double a)` 平方根
+- `static double pow(double a, double b)` a 的 b 次幂
+
+## 6.8 枚举（Java5 新特性）
+
 ### 枚举的基本用法
-1. 枚举类型在Java中是一种引用数据类型。
+
+1. 枚举类型在 Java 中是一种引用数据类型。
 2. 合理使用枚举类型可以让代码更加清晰、可读性更高，可以有效地避免一些常见的错误。
 3. 什么情况下考虑使用枚举类型？
-  - 这个数据是有限的，并且可以一枚一枚列举出来的。
-  - 枚举类型是类型安全的，它可以有效地防止使用错误的类型进行赋值。
+
+- 这个数据是有限的，并且可以一枚一枚列举出来的。
+- 枚举类型是类型安全的，它可以有效地防止使用错误的类型进行赋值。
+
 4. 枚举如何定义？以下是最基本的格式：
+
 ```java
 enum 枚举类型名 {
     枚举值1, 枚举值2, 枚举值3, 枚举值4
 }
 ```
+
 5. 通过反编译(javap)可以看到：
+
 - 所有枚举类型默认继承 java.lang.Enum,因此枚举类型无法继承其他类。
 - 所有的枚举类型都被 final 修饰，所以枚举类型是无法继承的
 - 所有的枚举值都是常量
-- 所有的枚举类型中都有一个 values 数组（可以通过values()获取所有枚举值并遍历）
-
+- 所有的枚举类型中都有一个 values 数组（可以通过 values()获取所有枚举值并遍历）
 
 ### 枚举的高级用法
+
 1. 普通类中可以编写的元素，枚举类型中也可以编写。
+
 - 静态代码块，构造代码块
 - 实例方法，静态方法
 - 实例变量，静态变量
+
 2. 枚举类中的构造方法是私有化的（默认就是私有化的，只能在本类中调用）
-- 构造方法调用时不能用new。直接使用“枚举值(实参);”调用。
+
+- 构造方法调用时不能用 new。直接使用“枚举值(实参);”调用。
 - 每一个枚举值相当于枚举类型的实例。
+
 3. 枚举类型中如果编写了其他代码，必须要有枚举值，枚举值的定义要放到最上面，
-最后一个枚举值的分号不能省略。
+   最后一个枚举值的分号不能省略。
 4. 枚举类因为默认继承了 java.lang.Enum，因此不能再继承其他类，但可以实现接口。
+
 - 第一种实现方式：在枚举类中实现。
 - 第二种实现方式：让每一个枚举值实现接口。
 
 ## 6.9 Random
+
 `java.util.Random`: 随机数生成器（生成随机数的工具类）。
 
 常用构造方法：`Random()`
 
 常用方法：
- - `int nextInt()`: 获取一个int类型取值范围内的随机int数
- - `int nextInt(int bound)`: 获取[0,bound)区间的随机数
- - `double nextDouble()`: 获取[0.0, 1.0)的随机数。
+
+- `int nextInt()`: 获取一个 int 类型取值范围内的随机 int 数
+- `int nextInt(int bound)`: 获取[0,bound)区间的随机数
+- `double nextDouble()`: 获取[0.0, 1.0)的随机数。
 
 ## 6.10 System
-java.lang.System类的常用方法：
+
+java.lang.System 类的常用方法：
 
 1. 常用属性：
+
 - `static final PrintStream err` 标准错误输出流（System.err.println(“错误信息”);输出红色字体）
 - `static final InputStream in` 标准输入流
 - `static final PrintStream out` 标准输出流
 
 2. 常用方法：
+
 - `static void arraycopy(Object src, int srcPos, Object dest, int destPos, int length)` 数组拷贝
 - `static void exit(int status)` 退出虚拟机
 - `static void gc()` 建议启动垃圾回收器
-- `static long currentTimeMillis()` 获取自1970-01-01 00:00:00 000到系统当前时间的总毫秒数
-- `static long nanoTime()` 获取自1970年1月1日0时0分0秒以来，当前时间的纳秒数
+- `static long currentTimeMillis()` 获取自 1970-01-01 00:00:00 000 到系统当前时间的总毫秒数
+- `static long nanoTime()` 获取自 1970 年 1 月 1 日 0 时 0 分 0 秒以来，当前时间的纳秒数
 - `static Map<String,String> getenv()` 获取当前系统的环境变量，例如 Path，JAVA_HOME，CLASSPATH 等。
 - `static Properties getProperties()` 获取当前系统的属性。
-- `static String getProperty(String key)` 通过key获取指定的系统属性。
+- `static String getProperty(String key)` 通过 key 获取指定的系统属性。
 
 ## 6.11 UUID
+
 UUID（通用唯一标识符）是一种软件构建的标准，用来生成具有唯一性的 ID。
 
 UUID 具有以下特点：
+
 1. UUID 可以在分布式系统中生成唯一的标识符，避免因为主键冲突等问题带来的麻烦。
 2. UUID 具有足够的唯一性，重复的概率相当低。UUID 使用的是 128 位数字，除了传统的 16 进制表示之外（32 位的 16 进制表示），还有基于 62 进制的表示，可以更加简洁紧凑。
 3. UUID 生成时不需要依赖任何中央控制器或数据库服务器，可以在本地方便、快速地生成唯一标识符。
 4. UUID 生成后可以被许多编程语言支持并方便地转化为字符串表示形式，适用于多种应用场景。
 
-在 Java 开发中，UUID 的使用是非常普遍的。它可以用于生成数据表主键、场景标识、链路追踪、缓存 Key 等。使用 UUID 可以方便地避免主键、缓存Key等因冲突而产生的问题，同时能够实现多种功能，例如追踪、缓存、日志记录等。
+在 Java 开发中，UUID 的使用是非常普遍的。它可以用于生成数据表主键、场景标识、链路追踪、缓存 Key 等。使用 UUID 可以方便地避免主键、缓存 Key 等因冲突而产生的问题，同时能够实现多种功能，例如追踪、缓存、日志记录等。
 
 Java 中的 java.util.UUID 类提供对 UUID 的支持:
+
 - 生成 UUID：`static UUID randomUUID()`
 - 将 UUID 转换为字符串：`String toString()`
 

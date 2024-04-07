@@ -71,7 +71,7 @@ export default defineConfig({
       {
         text: "后端", items: [
           { text: 'Java', link: '/backend/java/java01', activeMatch: "/backend/java/java01" },
-          { text: 'JavaWeb(暂未开放)', link: '/backend/javaWeb' },
+          { text: 'JavaWeb', link: '/backend/javaweb/', activeMatch: "/backend/javaweb/" },
           { text: 'Maven(暂未开放)', link: '/backend/maven' },
           { text: 'Spring(暂未开放)', link: '/backend/spring' },
           { text: 'SpringMVC(暂未开放)', link: '/backend/springmvc' },
