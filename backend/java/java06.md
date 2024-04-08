@@ -493,15 +493,18 @@ System.out.println(a == b); // true
    - 构造方法：Date(long 毫秒)
 3. java.util.SimpleDateFormat 日期格式化类
    - 日期转换成字符串（java.util.Date -> java.lang.String）
-  ```java
-  Date now = new Date();
-  SimpleDateFormat simpleDateFormat = 
-        new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSS");
-  String str = simpleDateFormat.format(now);
-  System.out.println(str);
-  //2024-04-05 11:14:46 383
-  ```
-   - 字符串转换成日期（java.lang.String -> java.util.Date）
+
+```java
+Date now = new Date();
+SimpleDateFormat simpleDateFormat =
+      new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSS");
+String str = simpleDateFormat.format(now);
+System.out.println(str);
+//2024-04-05 11:14:46 383
+```
+
+- 字符串转换成日期（java.lang.String -> java.util.Date）
+
 4. java.util.Calendar 日历类
 
 - 获取当前时间的日历对象：Calendar c = Calendar.getInstance();
