@@ -9,7 +9,7 @@ import { QuestionCircleOutlined, QqOutlined, WechatOutlined, BellOutlined } from
             <a-popover placement="left">
                 <template #content>
                     <div>
-                        <img class="communication" src="/qq.jpg" alt="qq群">
+                        <img class="communication" src="/qq.svg" alt="qq群">
                     </div>
                 </template>
                 <a-float-button>
@@ -22,7 +22,7 @@ import { QuestionCircleOutlined, QqOutlined, WechatOutlined, BellOutlined } from
             <a-popover placement="left">
                 <template #content>
                     <div>
-                        <img class="communication" src="/qq.jpg" alt="qq群">
+                        <img class="communication" src="/qq.svg" alt="qq群">
                     </div>
                 </template>
                 <a-float-button>
