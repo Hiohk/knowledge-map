@@ -269,13 +269,13 @@ while(it.hasNext()) {
 
 - `boolean hasNext()` 判断光标当前指向的位置是否存在元素。
 - `E next()` 将当前光标指向的元素返回，然后将光标向下移动一位。
-- `void remove()` 删除上一次 next()方法返回的那个数据(删除的是集合中的)。remove()方法调用的前提是：你先调用 next()方法。不然会报错。
+- `void remove()` 删除上一次 next() 方法返回的那个数据(删除的是集合中的)。remove() 方法调用的前提是：你先调用 next() 方法。不然会报错。
 - `void add​(E e)` 添加元素（将元素添加到光标指向的位置，然后光标向下移动一位。）
 - `boolean hasPrevious()` 判断当前光标指向位置的上一个位置是否存在元素。
 - `E previous()` 获取上一个元素（将光标向上移动一位，然后将光标指向的元素返回）
 - `int nextIndex()` 获取光标指向的那个位置的下标
 - `int previousIndex()` 获取光标指向的那个位置的上一个位置的下标
-- `void set​(E e)` 修改的是上一次 next()方法返回的那个数据（修改的是集合中的）。set()方法调用的前提是：你先调用了 next()方法。不然会报错。
+- `void set​(E e)` 修改的是上一次 next() 方法返回的那个数据（修改的是集合中的）。set() 方法调用的前提是：你先调用了 next() 方法。不然会报错。
 
 ### List 接口使用 Comparator 排序
 
@@ -284,18 +284,112 @@ while(it.hasNext()) {
 - 所有自定义类型排序时必须指定排序规则。（int 不需要指定，String 不需要指定，因为他们都有固定的排序规则。int 按照数字大小。String 按照字典中的顺序）
 - 如何给自定义类型指定排序规则？让自定义类型实现 java.lang. Comparable 接口，然后重写 compareTo 方法，在该方法中指定比较规则。
 
-2.  List 集合的排序
+```java
+   // User.class
+   public class User implements Comparable<User> {
+      // ...
+
+      @Override
+      public int compareTo(User user) {
+        // 升序
+        return this.age - user.age;
+
+        // 或者 调用字符串的compareTo()方法
+        return this.name.compareTo(user.name);
+      }
+   }
+
+    // main
+    public static void main(String[] args) {
+        User user1 = new User("Tom", 16);
+        User user2 = new User("MaY", 18);
+        User user3 = new User("Alice", 19);
+        User user4 = new User("Jack", 20);
+
+        User[] users = {user1, user2, user3, user4};
+        Arrays.sort(users);
+        System.out.println(Arrays.toString(users));
+    }
+```
+
+1.  List 集合的排序
 
 - `default void sort​(Comparator<? super E> c)`; 对 List 集合中元素排序可以调用此方法。
 - sort 方法需要一个参数: java.util. Comparator。我们把这个参数叫做比较器。这是一个接口。
 - 如何给自定义类型指定比较规则？可以对 Comparator 提供一个实现类，并重写 compare 方法来指定比较规则。
 - 当然，Comparator 接口的实现类也可以采用匿名内部类的方式。
 
+```java
+public class PersonComparator implements Comparator<Person> {
+    @Override
+    public int compare(Person o1, Person o2) { // [!code highlight]
+      return o1.getAge() - o2.getAge(); // [!code highlight]
+      // 或者 调用字符串的compareTo()方法 // [!code highlight]
+      return o1.getName().compareTo(o2.getName()); // [!code highlight]
+    }
+}
+
+public static void main(String[] args) {
+    Person p1 = new Person("Tom", 16);
+    Person p2 = new Person("MaY", 18);
+    Person p3 = new Person("Alice", 19);
+    Person p4 = new Person("Jack", 20);
+
+    List<Person> persons = new ArrayList<>();
+    persons.add(p1);
+    persons.add(p2);
+    persons.add(p3);
+    persons.add(p4);
+
+    persons.sort(new PersonComparator()); // [!code highlight]
+    for (int i = 0; i < persons.size(); i++) {
+        System.out.println(persons.get(i));
+    }
+}
+
+```
+
+::: tip 匿名内部类的写法
+
+```java
+public static void main(String[] args) {
+    Person p1 = new Person("Tom", 16);
+    Person p2 = new Person("MaY", 18);
+    Person p3 = new Person("Alice", 19);
+    Person p4 = new Person("Jack", 20);
+
+    List<Person> persons = new ArrayList<>();
+    persons.add(p1);
+    persons.add(p2);
+    persons.add(p3);
+    persons.add(p4);
+
+    persons.sort(new Comparator<Person>() {
+        @Override
+        public int compare(Person o1, Person o2) {
+            return o1.getAge() - o2.getAge();
+            // 或者
+            return o1.getName().compareTo(o2.getName());
+        }
+    });
+    for (int i = 0; i < persons.size(); i++) {
+        System.out.println(persons.get(i));
+    }
+
+    // Person{name='Tom', age=16}
+    // Person{name='MaY', age=18}
+    // Person{name='Alice', age=19}
+    // Person{name='Jack', age=20}
+}
+```
+
+:::
+
 ## 7.8 ArrayList :white_check_mark:
 
 1.  ArrayList 集合底层采用了数组这种数据结构。
 2.  ArrayList 集合优点：
-    底层是数组，因此根据下标查找元素的时间复杂度是 O(1)。因此检索效率高。
+    底层是数组，因此根据下标查找元素的时间复杂度是 O(1)，因此检索效率高。
 3.  ArrayList 集合缺点：
     随机增删元素效率较低。不过只要数组的容量还没满，对末尾元素进行增删，效率不受影响。
 4.  ArrayList 集合适用场景：
