@@ -2,9 +2,9 @@ import {
   __commonJS
 } from "./chunk-ZS7NZCD4.js";
 
-// node_modules/.pnpm/dayjs@1.11.10/node_modules/dayjs/plugin/relativeTime.js
+// node_modules/dayjs/plugin/relativeTime.js
 var require_relativeTime = __commonJS({
-  "node_modules/.pnpm/dayjs@1.11.10/node_modules/dayjs/plugin/relativeTime.js"(exports, module) {
+  "node_modules/dayjs/plugin/relativeTime.js"(exports, module) {
     !function(r, e) {
       "object" == typeof exports && "undefined" != typeof module ? module.exports = e() : "function" == typeof define && define.amd ? define(e) : (r = "undefined" != typeof globalThis ? globalThis : r || self).dayjs_plugin_relativeTime = e();
     }(exports, function() {
