@@ -22,14 +22,14 @@ next:
 
 ### 语法格式
 
-```java
+```Java
 [修饰符列表] class 类名 {
     // 属性（描述状态）
     // 方法（描述行为动作）
 }
 ```
 
-```java
+```Java
 public class Student {
     // 姓名
     String name; // 实例变量
@@ -59,7 +59,7 @@ public class Student {
 
 ### 对象的创建和使用
 
-```java
+```Java
 Student s = new Student();
 ```
 
@@ -73,7 +73,7 @@ Student s = new Student();
 
 通过一个类可以实例化多个对象:
 
-```java
+```Java
 Student s1 = new Student();
 Student s2 = new Student();
 ```
@@ -128,7 +128,7 @@ new 构造方法名(实参);
 
 **关于构造代码块**：
 
-```java
+```Java
 {
     //...
 }
@@ -258,7 +258,7 @@ HotSpot（Oracle JDK/Open JDK 内部使用的 JVM 就是 HotSpot）。以下是 
 
 - 饿汉式: 类加载时就创建对象。
 
-```java
+```Java
 public class Singleton {
   // 在类加载的时候就创建实例
     private static Singleton instance = new Singleton();
@@ -273,7 +273,7 @@ public class Singleton {
 
 - 懒汉式：第一次调用 get 方法时才会创建对象。
 
-```java
+```Java
 public class Singleton {
     // 声明一个静态的、私有的该类类型的变量，用于存储该类的实例
     private static Singleton instance;
@@ -297,7 +297,7 @@ public class Singleton {
   - 重要作用：有了继承，才有了方法覆盖和多态机制。
 - 继承在 java 中如何实现？
 
-```java
+```Java
 [修饰符列表] class 类名 extends 父类名{}
 // extends翻译为扩展。表示子类继承父类后，子类是对父类的扩展。
 ```
@@ -358,7 +358,7 @@ public class Singleton {
 
 - 父类型引用指向子类对象。
 
-```java
+```Java
 Animal a = new Cat();
 a.move();
 ```
@@ -418,7 +418,7 @@ a.move();
 - final 修饰的实例变量必须在对象初始化时手动赋值。
 - final 修饰的实例变量一般和 static 联合使用，称为**常量**。
 
-```java
+```Java
 static final double MATH_PI = 3.1415926;
 ```
 
@@ -432,14 +432,14 @@ static final double MATH_PI = 3.1415926;
 
 - 抽象类如何定义？
 
-```java
+```Java
 abstract class 类名{}
 ```
 
 - 抽象类有构造方法，但无法实例化。抽象类的构造方法是给子类使用的。
 - 抽象方法如何定义？
 
-```java
+```Java
 abstract 方法返回值类型 方法名(形参);
 ```
 
@@ -454,7 +454,7 @@ abstract 方法返回值类型 方法名(形参);
 - 接口（interface）在 Java 中表示一种规范或契约，它定义了一组抽象方法和常量，用来描述一些实现这个接口的类应该具有哪些行为和属性。接口和类一样，也是一种引用数据类型。
 - 接口怎么定义？
 
-```java
+```Java
 [修饰符列表] interface 接口名{}
 ```
 
@@ -465,7 +465,7 @@ abstract 方法返回值类型 方法名(形参);
 - 一个非抽象的类实现接口**必须将接口中所有的抽象方法全部实现**。
 - 一个类可以实现多个接口。语法：
 
-```java
+```Java
 class 类 implements 接口A, 接口B {}
 ```
 
@@ -484,7 +484,7 @@ class 类 implements 接口A, 接口B {}
 - 例如定义一个 Usb 接口，提供 read() 和 write() 方法，通过 read() 方法读，通过 write() 方法写：
   定义一个电脑类 Computer，它是调用者，面向 Usb 接口来调用。Usb 接口的实现可以有很多，例如：打印机（Printer），硬盘（HardDrive）。
 
-```java
+```Java
 public class Computer {
   public void conn(Usb usb) {
     usb.read();
@@ -565,7 +565,7 @@ public class Computer {
 
 - toString：将 java 对象转换成字符串表示形式。
 
-```java
+```Java
 // 原码内部默认实现
 public String toString() {
   return getClass().getName() + "@" + Integer.toHexString(hashCode());
@@ -580,7 +580,7 @@ println() 输出一个引用时，会自动调用 `引用.toString()`。
 
 - hashCode：返回一个对象的哈希值，通常作为在哈希表中查找该对象的键值。Object 类的默认实现是根据对象的内存地址生成一个哈希码（即将对象的内存地址转换为整数作为哈希值）。hashCode() 方法是为了 HashMap、Hashtable、HashSet 等集合类进行优化而设置的，以便更快地查找和存储对象。
 
-```java
+```Java
 // hashCode() 方法在 Object 类中的默认实现:
 public native int hashCode();
 // 这是一个本地方法，底层调用了 C++ 写的动态链接库程序
@@ -589,7 +589,7 @@ public native int hashCode();
 - finalize：当 java 对象被回收时，由 GC 自动调用被回收对象的 finalize 方法，通常在该方法中完成销毁前的准备。（JDK9 以后废弃）
 - clone：对象的拷贝（浅拷贝，深拷贝）。protected 修饰的只能在同一个包下或者子类中访问。只有实现了 Cloneable 接口的对象才能被克隆。
 
-```java
+```Java
 // 浅拷贝：在子类中对 clone() 方法重写
 @Override
 public Object clone() throws CloneNotSupportedException {
@@ -597,7 +597,7 @@ public Object clone() throws CloneNotSupportedException {
 }
 ```
 
-```java
+```Java
 // 深拷贝
 @Override
 public Object clone() throws CloneNotSupportedException {
@@ -626,7 +626,7 @@ public Object clone() throws CloneNotSupportedException {
 
 - 静态内部类如何实例化：
 
-```java
+```Java
   OuterClass.StaticInnerClass staticInnerClass
       = new OuterClass.StaticInnerClass();
 ```
@@ -637,7 +637,7 @@ public Object clone() throws CloneNotSupportedException {
 
 - 实例内部类如何实例化：
 
-```java
+```Java
   OuterClass.InnerClass innerClass
       = new OuterClass().new InnerClass();
 ```
@@ -652,7 +652,7 @@ public Object clone() throws CloneNotSupportedException {
 
 4. **匿名内部类**：特殊的局部内部类，没有名字，只能用一次。
 
-```java
+```Java
 // Usb 为接口
 computer.conn(new Usb() {
   @Override

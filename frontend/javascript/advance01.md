@@ -2,14 +2,15 @@
 
 **符号说明**
 
-* :white_check_mark: 需要学习者**掌握**的知识点；
-* :heart: 高级开发者需要**重点掌握**的知识点；
-* :rocket: 需要学习者**理解**的知识点；
-* :star: 需要学习者**了解**的知识点；
-* :x: 拓展知识点，可以不用学习；
+- :white_check_mark: 需要学习者**掌握**的知识点；
+- :heart: 高级开发者需要**重点掌握**的知识点；
+- :rocket: 需要学习者**理解**的知识点；
+- :star: 需要学习者**了解**的知识点；
+- :x: 拓展知识点，可以不用学习；
+
 # 1. 作用域 :white_check_mark:
 
-## 1.1 什么是作用域 
+## 1.1 什么是作用域
 
 首先，你需要知道执行上下文一词，每个执行上下文都有一个关联的**变量对象**（variable object），而这个执行上下文中定义的所有变量和函数都存在于这个对象上。**全局上下文**是最外层的上下文。根据 `ECMAScript` 实现的宿主环境，表示全局上下文的对象可能不一样，例如，在浏览器环境中，全局上下文就是我们常说的 `window` 对象，因此所有通过 `var` 定义的全局变量和函数都会成为 `window` 对象的属性和方法。
 
@@ -29,13 +30,13 @@
 
 JavaScript 的作用域分以下三种：
 
-* **全局作用域**：脚本模式运行所有代码的默认作用域；
-* **模块作用域**：模块模式中运行代码的作用域；
-* **函数作用域**：由函数创建的作用域；
+- **全局作用域**：脚本模式运行所有代码的默认作用域；
+- **模块作用域**：模块模式中运行代码的作用域；
+- **函数作用域**：由函数创建的作用域；
 
 此外，用 `let` 或 `const` 声明的变量属于额外的作用域：
 
-* **块级作用域**：用一对花括号（一个代码块）创建出来的作用域。
+- **块级作用域**：用一对花括号（一个代码块）创建出来的作用域。
 
 上下文中的代码在执行的时候，会创建变量对象的一个**作用域链**（scope chain）。这个作用域链决定了各级上下文中的代码在访问变量和函数时的顺序。
 
@@ -69,9 +70,9 @@ JavaScript 的作用域分以下三种：
 
 ```javascript
 for (var i = 1; i <= 5; i++) {
-    setTimeout(function timer() {
-        console.log(i);
-    }, i * 1000);
+  setTimeout(function timer() {
+    console.log(i);
+  }, i * 1000);
 }
 ```
 
@@ -107,11 +108,11 @@ for (var i = 1; i <= 5; i++) {
 
 ```javascript
 for (var i = 1; i <= 5; i++) {
-    (function(j) {
-        setTimeout(function timer() {
-            console.log(j);
-        }, j * 1000);
-    })(i);
+  (function (j) {
+    setTimeout(function timer() {
+      console.log(j);
+    }, j * 1000);
+  })(i);
 }
 
 // 1 2 3 4 5
@@ -121,12 +122,12 @@ for (var i = 1; i <= 5; i++) {
 
 ```javascript
 for (var i = 1; i <= 5; i++) {
-    (function() {
-        var j = i;
-        setTimeout(function timer() {
-            console.log(j);
-        }, j * 1000);
-    })();
+  (function () {
+    var j = i;
+    setTimeout(function timer() {
+      console.log(j);
+    }, j * 1000);
+  })();
 }
 
 // 1 2 3 4 5
@@ -136,9 +137,9 @@ for (var i = 1; i <= 5; i++) {
 
 ```javascript
 for (let i = 1; i <= 5; i++) {
-    setTimeout(function timer() {
-        console.log(i);
-    }, i * 1000);
+  setTimeout(function timer() {
+    console.log(i);
+  }, i * 1000);
 }
 
 // 1 2 3 4 5
@@ -148,11 +149,11 @@ for (let i = 1; i <= 5; i++) {
 
 ```javascript
 for (var i = 1; i <= 5; i++) {
-    (function() {
-        setTimeout(function timer() {
-            console.log(i);
-        }, i * 1000);
-    })();
+  (function () {
+    setTimeout(function timer() {
+      console.log(i);
+    }, i * 1000);
+  })();
 }
 
 // 6 6 6 6 6
@@ -173,16 +174,16 @@ for (var i = 1; i <= 5; i++) {
 
 ```javascript
 function foo() {
-    var a = 2;
+  var a = 2;
 
-    function baz() {
-        console.log(a); // 2
-    }
-    bar(baz);
+  function baz() {
+    console.log(a); // 2
+  }
+  bar(baz);
 }
 
 function bar(fn) {
-    fn(); // 这就是闭包！
+  fn(); // 这就是闭包！
 }
 ```
 
@@ -190,16 +191,16 @@ function bar(fn) {
 var fn;
 
 function foo() {
-    var a = 2;
+  var a = 2;
 
-    function baz() {
-        console.log(a);
-    }
-    fn = baz; // 将baz分配给全局变量
+  function baz() {
+    console.log(a);
+  }
+  fn = baz; // 将baz分配给全局变量
 }
 
 function bar() {
-    fn(); // 这就是闭包！
+  fn(); // 这就是闭包！
 }
 foo();
 bar(); // 2
@@ -209,11 +210,11 @@ bar(); // 2
 
 ```javascript
 for (var i = 1; i <= 5; i++) {
-    (function(j) {
-        setTimeout(function timer() {
-            console.log(j);
-        }, j * 1000);
-    })(i);
+  (function (j) {
+    setTimeout(function timer() {
+      console.log(j);
+    }, j * 1000);
+  })(i);
 }
 
 // 1 2 3 4 5
@@ -223,9 +224,9 @@ for (var i = 1; i <= 5; i++) {
 
 ```javascript
 for (let i = 1; i <= 5; i++) {
-    setTimeout(function timer() {
-        console.log(i);
-    }, i * 1000);
+  setTimeout(function timer() {
+    console.log(i);
+  }, i * 1000);
 }
 
 // 1 2 3 4 5
@@ -235,20 +236,20 @@ for (let i = 1; i <= 5; i++) {
 
 ```javascript
 function CoolModule() {
-    var something = "cool";
-    var another = [1, 2, 3];
+  var something = "cool";
+  var another = [1, 2, 3];
 
-    function doSomething() {
-        console.log(something);
-    }
+  function doSomething() {
+    console.log(something);
+  }
 
-    function doAnother() {
-        console.log(another.join(" ! "));
-    }
-    return {
-        doSomething: doSomething,
-        doAnother: doAnother,
-    };
+  function doAnother() {
+    console.log(another.join(" ! "));
+  }
+  return {
+    doSomething: doSomething,
+    doAnother: doAnother,
+  };
 }
 var foo = CoolModule();
 foo.doSomething(); // cool
@@ -261,23 +262,23 @@ foo.doAnother(); // 1 ! 2 ! 3
 
 ```javascript
 var foo = (function CoolModule(id) {
-    function change() {
-        // 修改公共 API
-        publicAPI.identify = identify2;
-    }
+  function change() {
+    // 修改公共 API
+    publicAPI.identify = identify2;
+  }
 
-    function identify1() {
-        console.log(id);
-    }
+  function identify1() {
+    console.log(id);
+  }
 
-    function identify2() {
-        console.log(id.toUpperCase());
-    }
-    var publicAPI = {
-        change: change,
-        identify: identify1,
-    };
-    return publicAPI;
+  function identify2() {
+    console.log(id.toUpperCase());
+  }
+  var publicAPI = {
+    change: change,
+    identify: identify1,
+  };
+  return publicAPI;
 })("foo module");
 foo.identify(); // foo module
 foo.change();
@@ -293,40 +294,40 @@ foo.identify(); // FOO MODULE
 
 ```javascript
 var MyModules = (function Manager() {
-    var modules = {};
+  var modules = {};
 
-    function define(name, deps, impl) {
-        for (var i = 0; i < deps.length; i++) {
-            deps[i] = modules[deps[i]];
-        }
-        modules[name] = impl.apply(impl, deps);
+  function define(name, deps, impl) {
+    for (var i = 0; i < deps.length; i++) {
+      deps[i] = modules[deps[i]];
     }
+    modules[name] = impl.apply(impl, deps);
+  }
 
-    function get(name) {
-        return modules[name];
-    }
-    return {
-        define: define,
-        get: get,
-    };
+  function get(name) {
+    return modules[name];
+  }
+  return {
+    define: define,
+    get: get,
+  };
 })();
-MyModules.define("bar", [], function() {
-    function hello(who) {
-        return "Let me introduce: " + who;
-    }
-    return {
-        hello: hello,
-    };
+MyModules.define("bar", [], function () {
+  function hello(who) {
+    return "Let me introduce: " + who;
+  }
+  return {
+    hello: hello,
+  };
 });
-MyModules.define("foo", ["bar"], function(bar) {
-    var hungry = "hippo";
+MyModules.define("foo", ["bar"], function (bar) {
+  var hungry = "hippo";
 
-    function awesome() {
-        console.log(bar.hello(hungry).toUpperCase());
-    }
-    return {
-        awesome: awesome,
-    };
+  function awesome() {
+    console.log(bar.hello(hungry).toUpperCase());
+  }
+  return {
+    awesome: awesome,
+  };
 });
 var bar = MyModules.get("bar");
 var foo = MyModules.get("foo");
@@ -340,16 +341,16 @@ foo.awesome(); // LET ME INTRODUCE: HIPPO
 
 ## 3.3 闭包的作用
 
-* **避免全局变量的污染**：通过将变量封装在函数内部，闭包可以防止这些变量被外部访问，从而避免了全局命名冲突。
-* **数据封装和私有变量**：闭包可以创建私有变量，只能通过特定的公开方法进行访问和修改。这是模块模式的基础。
-* **实现回调函数和高阶函数**：闭包常常被用来作为回调函数，因为它们可以记住自己的词法环境，包括 this 和外部变量。
+- **避免全局变量的污染**：通过将变量封装在函数内部，闭包可以防止这些变量被外部访问，从而避免了全局命名冲突。
+- **数据封装和私有变量**：闭包可以创建私有变量，只能通过特定的公开方法进行访问和修改。这是模块模式的基础。
+- **实现回调函数和高阶函数**：闭包常常被用来作为回调函数，因为它们可以记住自己的词法环境，包括 this 和外部变量。
 
 ```javascript
 function outerFunction(outerVariable) {
-    return function innerFunction(innerVariable) {
-        console.log("outerVariable:", outerVariable);
-        console.log("innerVariable:", innerVariable);
-    };
+  return function innerFunction(innerVariable) {
+    console.log("outerVariable:", outerVariable);
+    console.log("innerVariable:", innerVariable);
+  };
 }
 
 const newFunction = outerFunction("I am from outer function!");
@@ -368,16 +369,16 @@ newFunction("I am from inner function!");
 
 闭包的优点主要包括：
 
-* **数据封装和私有变量**：闭包可以创建私有变量和私有方法，只能通过特定的公开方法进行访问和修改。这是模块模式的基础，有助于实现封装和信息的隐藏，提高了代码的安全性和可靠性。
-* **避免全局变量的污染**：通过将变量封装在函数内部，闭包可以防止这些变量被外部访问，从而避免了全局命名冲突，降低了代码的耦合度。
-* **实现回调函数和高阶函数**：闭包常常被用来作为回调函数，因为它们可以记住自己的词法环境，包括 this 和外部变量。这使得闭包在异步编程、事件处理等方面有着广泛的应用。
-* **缓存**：闭包可以保留函数执行过程中的一些状态，使得在多次调用时能够共享这些状态，从而提高性能。
+- **数据封装和私有变量**：闭包可以创建私有变量和私有方法，只能通过特定的公开方法进行访问和修改。这是模块模式的基础，有助于实现封装和信息的隐藏，提高了代码的安全性和可靠性。
+- **避免全局变量的污染**：通过将变量封装在函数内部，闭包可以防止这些变量被外部访问，从而避免了全局命名冲突，降低了代码的耦合度。
+- **实现回调函数和高阶函数**：闭包常常被用来作为回调函数，因为它们可以记住自己的词法环境，包括 this 和外部变量。这使得闭包在异步编程、事件处理等方面有着广泛的应用。
+- **缓存**：闭包可以保留函数执行过程中的一些状态，使得在多次调用时能够共享这些状态，从而提高性能。
 
 然而，闭包也有一些缺点：
 
-* **内存占用**：闭包可能会占用较多的内存空间，因为它需要保存函数及其相关的引用环境。如果闭包过于复杂或引用了大量的变量，可能会导致内存占用过高。
-* **性能影响**：由于闭包需要在函数调用时访问外部环境的变量，它的执行速度可能相对较慢。每次调用闭包都需要查找和访问相关的引用环境，这可能对性能产生一定的影响。
-* **难以理解和维护**：闭包的使用可能会增加代码的复杂性，特别是在多层嵌套的情况下。当闭包与外部环境中的变量交互时，代码的行为可能变得难以预测和理解，从而增加了代码的维护难度。
+- **内存占用**：闭包可能会占用较多的内存空间，因为它需要保存函数及其相关的引用环境。如果闭包过于复杂或引用了大量的变量，可能会导致内存占用过高。
+- **性能影响**：由于闭包需要在函数调用时访问外部环境的变量，它的执行速度可能相对较慢。每次调用闭包都需要查找和访问相关的引用环境，这可能对性能产生一定的影响。
+- **难以理解和维护**：闭包的使用可能会增加代码的复杂性，特别是在多层嵌套的情况下。当闭包与外部环境中的变量交互时，代码的行为可能变得难以预测和理解，从而增加了代码的维护难度。
 
 因此，在使用闭包时需要权衡其优缺点，并根据具体的应用场景和需求来决定是否使用闭包。同时，也需要注意避免过度使用闭包，以免导致内存占用过高和性能下降等问题。
 
@@ -414,8 +415,8 @@ this 到底指向什么？
 
 ```javascript
 function foo() {
-    console.log(this); // window
-    console.log(this.a); // 2
+  console.log(this); // window
+  console.log(this.a); // 2
 }
 
 var a = 2;
@@ -426,10 +427,10 @@ foo();
 
 ```javascript
 var obj = {
-    name: "Tom",
-    bar: function() {
-        console.log("bar:", this);
-    },
+  name: "Tom",
+  bar: function () {
+    console.log("bar:", this);
+  },
 };
 
 obj.bar(); // obj对象
@@ -441,14 +442,14 @@ baz(); // window
 
 ```javascript
 var obj = {
-    name: "Tom",
-    bar: function() {
-        console.log("bar:", this);
-    },
+  name: "Tom",
+  bar: function () {
+    console.log("bar:", this);
+  },
 };
 
 function test(fn) {
-    fn();
+  fn();
 }
 test(obj.bar); // window
 ```
@@ -459,11 +460,11 @@ test(obj.bar); // window
 
 ```javascript
 function foo() {
-    console.log(this.a);
+  console.log(this.a);
 }
 var obj = {
-    a: 2,
-    foo: foo,
+  a: 2,
+  foo: foo,
 };
 obj.foo(); // 2
 ```
@@ -477,15 +478,15 @@ obj.foo(); // 2
 
 ```javascript
 function foo() {
-    console.log(this.a);
+  console.log(this.a);
 }
 var obj2 = {
-    a: 42,
-    foo: foo,
+  a: 42,
+  foo: foo,
 };
 var obj1 = {
-    a: 2,
-    obj2: obj2,
+  a: 2,
+  obj2: obj2,
 };
 obj1.obj2.foo(); // 42
 ```
@@ -511,11 +512,11 @@ obj1.obj2.foo(); // 42
 
 ```javascript
 function foo() {
-    console.log(this.a);
+  console.log(this.a);
 }
 var obj = {
-    a: 2,
-    foo: foo,
+  a: 2,
+  foo: foo,
 };
 var bar = obj.foo; // 函数别名！
 var a = "oops, global"; // a 是全局对象的属性
@@ -526,16 +527,16 @@ bar(); // "oops, global"
 
 ```javascript
 function foo() {
-    console.log(this.a);
+  console.log(this.a);
 }
 
 function doFoo(fn) {
-    // fn 其实引用的是 foo
-    fn(); // <-- 调用位置！
+  // fn 其实引用的是 foo
+  fn(); // <-- 调用位置！
 }
 var obj = {
-    a: 2,
-    foo: foo,
+  a: 2,
+  foo: foo,
 };
 var a = "oops, global"; // a 是全局对象的属性
 doFoo(obj.foo); // "oops, global"
@@ -545,11 +546,11 @@ doFoo(obj.foo); // "oops, global"
 
 ```javascript
 var obj = {
-    a: 2,
+  a: 2,
 };
 
 function foo() {
-    console.log(this.a); // 2
+  console.log(this.a); // 2
 }
 
 foo.call(obj); // 或者foo.apply(obj);
@@ -560,11 +561,11 @@ obj.foo();
 
 `bind()` 、 `call()` 和 `apply()` 都是 JavaScript 中用于改变函数执行上下文（即 this 指向）的方法。它们的主要区别在于执行方式、传参方式以及对 this 的修改方式。
 
-* **执行方式**：`call()`和`apply()`在改变后页面加载之后就立即执行，是同步代码。而`bind()`是异步代码，改变后不会立即执行，而是返回一个新的函数。这意味着你可以稍后再调用这个新函数，而 this 的值已经被绑定到了指定的对象。
+- **执行方式**：`call()`和`apply()`在改变后页面加载之后就立即执行，是同步代码。而`bind()`是异步代码，改变后不会立即执行，而是返回一个新的函数。这意味着你可以稍后再调用这个新函数，而 this 的值已经被绑定到了指定的对象。
 
-* **传参方式**：`call()`和`bind()`传参是一个一个逐一传入，不能使用剩余参数的方式传参。而`apply()`可以使用数组的方式传入参数，只要是数组方式就可以使用剩余参数的方式传入。
+- **传参方式**：`call()`和`bind()`传参是一个一个逐一传入，不能使用剩余参数的方式传参。而`apply()`可以使用数组的方式传入参数，只要是数组方式就可以使用剩余参数的方式传入。
 
-* **修改 this 的性质**：`call()`和`apply()`只是临时修改一次 this 的指向，当再次调用原函数的时候，this 的指向还是原来的指向。而`bind()`是永久修改函数 this 指向，但是它修改的不是原来的函数，而是返回一个新的函数，此函数的 this 永远被改变，绑定后就修改不了。
+- **修改 this 的性质**：`call()`和`apply()`只是临时修改一次 this 的指向，当再次调用原函数的时候，this 的指向还是原来的指向。而`bind()`是永久修改函数 this 指向，但是它修改的不是原来的函数，而是返回一个新的函数，此函数的 this 永远被改变，绑定后就修改不了。
 
 此外，还有一个值得注意的区别是，当 `bind()` 返回的函数使用 new 作为构造函数时，绑定的 this 值会失效，this 指向实例对象，但传入的参数依然生效（new 调用的优先级高于 bind 调用）。
 
@@ -575,8 +576,8 @@ obj.foo();
 
 ```javascript
 function foo() {
-    console.log(this); // foo函数对象（包含name属性）
-    this.name = "Tom";
+  console.log(this); // foo函数对象（包含name属性）
+  this.name = "Tom";
 }
 
 new foo();
@@ -589,36 +590,36 @@ new foo();
 
 ### 内置函数中的 this
 
-* 定时器：
+- 定时器：
 
 ```javascript
-setTimeout(function() {
-    console.log("定时器函数：", this); // window
+setTimeout(function () {
+  console.log("定时器函数：", this); // window
 }, 1000);
 ```
 
-* 按钮的点击监听：
+- 按钮的点击监听：
 
 ```javascript
-< button > 按钮 < /button>;
+<button> 按钮 </button>;
 
 var btnEl = document.querySelector("button");
-btnEl.onclick = function() {
-    // this为btnEl指向的DOM对象（<button>按钮</button>）
-    console.log("btn的点击：", this);
+btnEl.onclick = function () {
+  // this为btnEl指向的DOM对象（<button>按钮</button>）
+  console.log("btn的点击：", this);
 };
 ```
 
-* forEach 函数：
+- forEach 函数：
 
 ```javascript
 var names = ["Tom", "Jack", "Alice"];
-names.forEach(function(item) {
-    console.log("forEach函数:", this); // window
+names.forEach(function (item) {
+  console.log("forEach函数:", this); // window
 });
 
-names.forEach(function(item) {
-    console.log("forEach函数:", this); // Joyce
+names.forEach(function (item) {
+  console.log("forEach函数:", this); // Joyce
 }, "Joyce");
 ```
 
@@ -634,7 +635,7 @@ names.forEach(function(item) {
 
 ```javascript
 function foo() {
-    console.log("foo:", this); // aaa
+  console.log("foo:", this); // aaa
 }
 var bindFn = foo.bind("aaa");
 bindFn.call("bbb");
@@ -646,7 +647,7 @@ bindFn.call("bbb");
 
 ```javascript
 function foo() {
-    console.log(this);
+  console.log(this);
 }
 
 foo.apply("aaa"); // aaa
@@ -660,18 +661,18 @@ foo.apply(undefined); // undefined
 ```
 
 2. 间接函数引用：创建一个函数的间接引用，这种情况使用默认绑定规则。
-`(obj2.foo = obj1.foo)();` 结果为 window。
+   `(obj2.foo = obj1.foo)();` 结果为 window。
 
 ```javascript
 var obj1 = {
-    name: "Tom",
-    foo: function() {
-        console.log("foo:", this);
-    },
+  name: "Tom",
+  foo: function () {
+    console.log("foo:", this);
+  },
 };
 
 var obj2 = {
-    name: "Alice",
+  name: "Alice",
 };
 
 obj2.foo = obj1.foo();
@@ -692,23 +693,23 @@ obj1.foo(); // obj1对象
 ```javascript
 // 多个参数：
 let arrowSum = (a, b) => {
-    return a + b;
+  return a + b;
 };
 
 let arrowSum = (a, b) => a + b;
 
 // 如果返回值为一个对象，需要加上（）
 let fn = () => () => ({
-    name: "Tom"
+  name: "Tom",
 });
 
 // 只有一个参数：
 let double = (x) => {
-    return 2 * x;
+  return 2 * x;
 };
 
 let triple = (x) => {
-    return 3 * x;
+  return 3 * x;
 };
 
 let multiply = (x) => 4 * x;
@@ -736,7 +737,7 @@ let multiply = (x) => 4 * x;
 
 this 总结......
 
-# 5. 对象 :white_check_mark: 
+# 5. 对象 :white_check_mark:
 
 ## 5.1 对象
 
@@ -745,8 +746,8 @@ this 总结......
 ```javascript
 // 文字形式
 var person = {
-    name: "Tom",
-    age: 18,
+  name: "Tom",
+  age: 18,
 };
 ```
 
@@ -766,21 +767,21 @@ person.age = 18;
 
 1. **`for...in` 循环**
 
-for...in循环用于遍历对象的可枚举属性。
+for...in 循环用于遍历对象的可枚举属性。
 
 ```javascript
 let obj = {
-    a: 1,
-    b: 2,
-    c: 3
+  a: 1,
+  b: 2,
+  c: 3,
 };
 
 for (let key in obj) {
-    console.log(key + ": " + obj[key]); // a: 1 b: 2 c: 3
+  console.log(key + ": " + obj[key]); // a: 1 b: 2 c: 3
 }
 ```
 
-注意：for...in循环也会遍历到原型链上的属性，如果只需要遍历对象自身的属性，可以使用hasOwnProperty方法进行判断。
+注意：for...in 循环也会遍历到原型链上的属性，如果只需要遍历对象自身的属性，可以使用 hasOwnProperty 方法进行判断。
 
 2. **`Object.keys()` 方法**
 
@@ -788,13 +789,13 @@ Object.keys()方法返回一个表示给定对象的所有可枚举属性的字�
 
 ```javascript
 let obj = {
-    a: 1,
-    b: 2,
-    c: 3
+  a: 1,
+  b: 2,
+  c: 3,
 };
 
-Object.keys(obj).forEach(function(key) {
-    console.log(key + ": " + obj[key]); // a: 1 b: 2 c: 3
+Object.keys(obj).forEach(function (key) {
+  console.log(key + ": " + obj[key]); // a: 1 b: 2 c: 3
 });
 ```
 
@@ -804,13 +805,13 @@ Object.values()方法返回一个给定对象自身的所有可枚举属性值�
 
 ```javascript
 let obj = {
-    a: 1,
-    b: 2,
-    c: 3
+  a: 1,
+  b: 2,
+  c: 3,
 };
 
-Object.values(obj).forEach(function(value) {
-    console.log(value); // 1 2 3
+Object.values(obj).forEach(function (value) {
+  console.log(value); // 1 2 3
 });
 ```
 
@@ -820,61 +821,63 @@ Object.entries()方法返回一个给定对象自身可枚举属性的键值对�
 
 ```javascript
 let obj = {
-    a: 1,
-    b: 2,
-    c: 3
+  a: 1,
+  b: 2,
+  c: 3,
 };
 
 Object.entries(obj).forEach(([key, value]) => {
-    console.log(key + ": " + value); // a: 1 b: 2 c: 3
+  console.log(key + ": " + value); // a: 1 b: 2 c: 3
 });
 ```
 
 5. **使用 `Object.prototype.hasOwnProperty()`**
 
-如果你只想遍历对象自身的属性，而不是继承的属性，可以使用hasOwnProperty()方法。
+如果你只想遍历对象自身的属性，而不是继承的属性，可以使用 hasOwnProperty()方法。
 
 ```javascript
 let obj = {
-    a: 1,
-    b: 2,
-    c: 3
+  a: 1,
+  b: 2,
+  c: 3,
 };
 
 for (let key in obj) {
-    if (obj.hasOwnProperty(key)) {
-        console.log(key + ": " + obj[key]); // a: 1 b: 2 c: 3
-    }
+  if (obj.hasOwnProperty(key)) {
+    console.log(key + ": " + obj[key]); // a: 1 b: 2 c: 3
+  }
 }
 ```
 
 ## 5.4 对象的方法补充
 
-* `hasOwnProperty`: 对象是否有某一个自己的属性（不是在原型上的属性）；
-* `in` 和 `for in` 操作符：判断某个属性是否在某个对象或者对象的原型上；
-* `instanceof`: 用于检测构造函数的 prototype，是否出现在某个实例对象的原型链上；
-* `isPrototypeOf`: 用于检测某个对象，是否出现在某个实例对象的原型链上；
+- `hasOwnProperty`: 对象是否有某一个自己的属性（不是在原型上的属性）；
+- `in` 和 `for in` 操作符：判断某个属性是否在某个对象或者对象的原型上；
+- `instanceof`: 用于检测构造函数的 prototype，是否出现在某个实例对象的原型链上；
+- `isPrototypeOf`: 用于检测某个对象，是否出现在某个实例对象的原型链上；
 
 ## 5.5 总结
 
-# 6. 对象原型和原型链 :white_check_mark: 
+# 6. 对象原型和原型链 :white_check_mark:
 
 ## 6.1 对象和函数的原型
 
 JavaScript 中每个对象都有一个特殊的内置属性 `[[prototype]]` , 这个特殊的对象可以指向另外一个对象。当我们通过引用对象的属性 key 来获取一个 value 时，它会触发 `[[Get]]` 操作；这个操作会首先检查对象是否有对应的属性，如果有的话就使用它；如果对象中没有该属性，那么会访问对象 `[[prototype]]` 内置属性指向的对象上的属性。
 
 那么如何获取对象的原型：
+
 1. 通过对象的 `__proto__` 属性来获取（早期浏览器自己添加的，存在一定的兼容性问题）；
 2. 通过 `Object.getPrototypeOf()` 方法可以获取到；
    new、constructor
-函数的原型：([[prototype]])。
+   函数的原型：([[prototype]])。
 
 ## 6.2 new、constructor
 
 new 操作符所做的事情：
+
 1. 在内存中创建一个新的对象（空对象）；
 2. **这个对象内部的 `[[prototype]]` 属性会被赋值为该构造函数的 `prototype` 属性（函数的显示原型赋值给对象的隐式原型）**。
-3. 让函数的this指向这个对象，执行构造函数的代码（为这个新对象添加属性）；
+3. 让函数的 this 指向这个对象，执行构造函数的代码（为这个新对象添加属性）；
 4. 判断函数的返回值类型，如果是值类型，返回创建的对象。如果是引用类型，就返回这个引用类型的对象。
 
 constructor 属性：
@@ -889,7 +892,7 @@ console.log(p1.__proto__.constructor); // function Person() {}
 console.log(p1.__proto__.constructor.name); // "Person"
 ```
 
-## 6.3 原型链的查找顺序 
+## 6.3 原型链的查找顺序
 
 1. 当访问一个对象的属性或方法时，首先会查找该对象自身是否拥有该属性或方法。
 2. 如果对象自身没有该属性或方法，那么会查找该对象的原型（即 `__proto__` 属性指向的对象）。
@@ -899,32 +902,32 @@ console.log(p1.__proto__.constructor.name); // "Person"
 ## 6.4 原型链实现的继承
 
 ```javascript
-// 定义一个父类  
+// 定义一个父类
 function Parent() {
-    this.name = 'Parent';
-    this.sayHello = function() {
-        console.log('Hello from Parent!');
-    }
+  this.name = "Parent";
+  this.sayHello = function () {
+    console.log("Hello from Parent!");
+  };
 }
 
-// 定义子类并继承父类  
+// 定义子类并继承父类
 function Child() {
-    this.age = 10;
+  this.age = 10;
 }
 
-// 将父类的实例赋值给子类的原型，实现继承  
+// 将父类的实例赋值给子类的原型，实现继承
 Child.prototype = new Parent();
 
-// 添加子类特有的方法  
-Child.prototype.sayGoodbye = function() {
-    console.log('Goodbye from Child!');
-}
+// 添加子类特有的方法
+Child.prototype.sayGoodbye = function () {
+  console.log("Goodbye from Child!");
+};
 
-// 创建子类的实例并测试  
+// 创建子类的实例并测试
 var child = new Child();
-console.log(child.name); // 输出：Parent  
-child.sayHello(); // 输出：Hello from Parent!  
-console.log(child.age); // 输出：10  
+console.log(child.name); // 输出：Parent
+child.sayHello(); // 输出：Hello from Parent!
+console.log(child.age); // 输出：10
 child.sayGoodbye(); // 输出：Goodbye from Child!
 ```
 
@@ -937,30 +940,30 @@ child.sayGoodbye(); // 输出：Goodbye from Child!
 在 JavaScript 中，除了通过原型链实现继承，还可以使用借用构造函数（也称为伪经典继承或构造函数盗用）的方式来实现继承。这种继承方式的主要思想是在子类的构造函数中调用父类的构造函数，从而继承父类的属性。
 
 ```javascript
-// 父类构造函数  
+// 父类构造函数
 function Parent(name) {
-    this.name = name;
-    this.sayHello = function() {
-        console.log(`Hello from ${this.name}!`);
-    }
+  this.name = name;
+  this.sayHello = function () {
+    console.log(`Hello from ${this.name}!`);
+  };
 }
 
-// 子类构造函数  
+// 子类构造函数
 function Child(name, age) {
-    // 借用父类的构造函数，继承父类的属性  
-    Parent.call(this, name);
+  // 借用父类的构造函数，继承父类的属性
+  Parent.call(this, name);
 
-    this.age = age;
-    this.sayGoodbye = function() {
-        console.log(`Goodbye from ${this.name}!`);
-    }
+  this.age = age;
+  this.sayGoodbye = function () {
+    console.log(`Goodbye from ${this.name}!`);
+  };
 }
 
-// 创建子类的实例并测试  
-var child = new Child('ChildName', 10);
-console.log(child.name); // 输出：ChildName  
-child.sayHello(); // 输出：Hello from ChildName!  
-console.log(child.age); // 输出：10  
+// 创建子类的实例并测试
+var child = new Child("ChildName", 10);
+console.log(child.name); // 输出：ChildName
+child.sayHello(); // 输出：Hello from ChildName!
+console.log(child.age); // 输出：10
 child.sayGoodbye(); // 输出：Goodbye from ChildName!
 ```
 
@@ -976,50 +979,50 @@ child.sayGoodbye(); // 输出：Goodbye from ChildName!
 
 ```javascript
 function inheritPrototype(child, parent) {
-    // 创建父类原型的一个副本  
-    var prototype = Object.create(parent.prototype);
-    // 增强对象，设置constructor属性指向子类  
-    prototype.constructor = child;
-    // 将新创建的对象赋值给子类的原型  
-    child.prototype = prototype;
+  // 创建父类原型的一个副本
+  var prototype = Object.create(parent.prototype);
+  // 增强对象，设置constructor属性指向子类
+  prototype.constructor = child;
+  // 将新创建的对象赋值给子类的原型
+  child.prototype = prototype;
 }
 
-// 父类  
+// 父类
 function Parent(name) {
-    this.name = name;
-    this.colors = ['red', 'blue', 'green'];
+  this.name = name;
+  this.colors = ["red", "blue", "green"];
 }
 
-// 父类的方法  
-Parent.prototype.sayHello = function() {
-    console.log(`Hello from ${this.name}!`);
+// 父类的方法
+Parent.prototype.sayHello = function () {
+  console.log(`Hello from ${this.name}!`);
 };
 
-// 子类  
+// 子类
 function Child(name, age) {
-    // 借用父类的构造函数  
-    Parent.call(this, name);
-    this.age = age;
+  // 借用父类的构造函数
+  Parent.call(this, name);
+  this.age = age;
 }
 
-// 继承父类的原型  
+// 继承父类的原型
 inheritPrototype(Child, Parent);
 
-// 子类特有的方法  
-Child.prototype.sayGoodbye = function() {
-    console.log(`Goodbye from ${this.name}!`);
+// 子类特有的方法
+Child.prototype.sayGoodbye = function () {
+  console.log(`Goodbye from ${this.name}!`);
 };
 
-// 创建子类的实例并测试  
-var child = new Child('ChildName', 10);
-console.log(child.name); // 输出：ChildName  
-child.sayHello(); // 输出：Hello from ChildName!  
-console.log(child.age); // 输出：10  
-child.sayGoodbye(); // 输出：Goodbye from ChildName!  
+// 创建子类的实例并测试
+var child = new Child("ChildName", 10);
+console.log(child.name); // 输出：ChildName
+child.sayHello(); // 输出：Hello from ChildName!
+console.log(child.age); // 输出：10
+child.sayGoodbye(); // 输出：Goodbye from ChildName!
 
-// 修改父类原型中的数组，检查子类实例是否受到影响  
-Parent.prototype.colors.push('purple');
-var anotherChild = new Child('AnotherChild', 12);
+// 修改父类原型中的数组，检查子类实例是否受到影响
+Parent.prototype.colors.push("purple");
+var anotherChild = new Child("AnotherChild", 12);
 console.log(anotherChild.colors); // 输出：['red', 'blue', 'green', 'purple']
 ```
 
@@ -1059,11 +1062,11 @@ const Animal = class {};
 
 ```javascript
 console.log(FunctionExpression); // undefined
-var FunctionExpression = function() {};
+var FunctionExpression = function () {};
 console.log(FunctionExpression); // function () {}
 
 console.log(FunctionDeclaration); // FunctionDeclaration () {}
-function FunctionDeclaration() {};
+function FunctionDeclaration() {}
 console.log(FunctionDeclaration); // FunctionDeclaration () {}
 
 console.log(CLassExpression); // undefined
@@ -1071,7 +1074,7 @@ var CLassExpression = class {};
 console.log(ClassExpression); // class {}
 
 console.log(CLassDeclaration); // ReferenceError: CLassDeclaration is not defined
-class CLassDeclaration {};
+class CLassDeclaration {}
 console.log(CLassDeclaration); // class CLassDeclaration {}
 ```
 
@@ -1079,8 +1082,8 @@ console.log(CLassDeclaration); // class CLassDeclaration {}
 
 ```javascript
 {
-    function FunctionDeclaration() {}
-    class classDeclaration {}
+  function FunctionDeclaration() {}
+  class classDeclaration {}
 }
 console.log(FunctionDeclaration); // FunctionDeclaration() {}
 console.log(classDeclaration); // ReferenceError: CLassDeclaration is not defined
@@ -1090,13 +1093,13 @@ console.log(classDeclaration); // ReferenceError: CLassDeclaration is not define
 
 ```javascript
 class Person {
-    constructor(name) {
-        console.log(arguments.length);
-        this.name = name || null;
-    }
+  constructor(name) {
+    console.log(arguments.length);
+    this.name = name || null;
+  }
 }
 
-let p1 = new Person; // 0
+let p1 = new Person(); // 0
 console.log(p1.name); // null
 
 let p2 = new Person("Tom"); // 1
@@ -1107,14 +1110,14 @@ console.log(p2.name); // Tom
 
 ```javascript
 class Person {
-    constructor(override) {
-        this.foo = "foo";
-        if (override) {
-            return {
-                bar: "bar"
-            }
-        }
+  constructor(override) {
+    this.foo = "foo";
+    if (override) {
+      return {
+        bar: "bar",
+      };
     }
+  }
 }
 
 let p1 = new Person();
@@ -1158,10 +1161,10 @@ console.log(p instanceof Person); // true
 
 ```javascript
 class Person {
-    constructor() {
-        this.name = new String("Jack");
-        this.sayName = () => console.log(this.name);
-    }
+  constructor() {
+    this.name = new String("Jack");
+    this.sayName = () => console.log(this.name);
+  }
 }
 
 let p1 = new Person();
@@ -1180,13 +1183,13 @@ console.log(p1.sayName === p2.sayName); // false
 
 ```javascript
 class Person {
-    constructor() {
-        this.locate = () => console.log("instance");
-    }
+  constructor() {
+    this.locate = () => console.log("instance");
+  }
 
-    locate() {
-        console.log("prototype");
-    }
+  locate() {
+    console.log("prototype");
+  }
 }
 
 let p = new Person();
@@ -1198,13 +1201,13 @@ Person.prototype.locate(); // prototype
 
 ```javascript
 class Person {
-    set name(newName) {
-        this.name_ = newName;
-    }
+  set name(newName) {
+    this.name_ = newName;
+  }
 
-    get name() {
-        return this.name_;
-    }
+  get name() {
+    return this.name_;
+  }
 }
 
 let p = new Person();
@@ -1218,18 +1221,18 @@ console.log(p.name);
 
 ```javascript
 class Person {
-    constructor() {
-        // 添加到 this 的所有内容都会存在于不同的实例上
-        this.locate = () => console.log("instance,", this);
-    }
+  constructor() {
+    // 添加到 this 的所有内容都会存在于不同的实例上
+    this.locate = () => console.log("instance,", this);
+  }
 
-    locate() {
-        console.log("prototype,", this);
-    }
+  locate() {
+    console.log("prototype,", this);
+  }
 
-    static locate() {
-        console.log("class,", this);
-    }
+  static locate() {
+    console.log("class,", this);
+  }
 }
 
 let p = new Person();
@@ -1244,9 +1247,9 @@ Person.locate(); // class, class Person {}
 
 ```javascript
 class Person {
-    sayName() {
-        console.log(`${Person.greeting} ${this.name}`);
-    }
+  sayName() {
+    console.log(`${Person.greeting} ${this.name}`);
+  }
 }
 // 在类上定义数据成员
 Person.greeting = "My name is";
@@ -1299,13 +1302,13 @@ ES6 使用 `extends` 关键字实现单继承。类和原型上定义的方法�
 
 ```javascript
 class Vehicle {
-    identifyPrototype(id) {
-        console.log(id, this);
-    }
+  identifyPrototype(id) {
+    console.log(id, this);
+  }
 
-    static identifyClass(id) {
-        console.log(id, this);
-    }
+  static identifyClass(id) {
+    console.log(id, this);
+  }
 }
 
 class Bus extends Vehicle {}
@@ -1346,11 +1349,11 @@ Vehicle.identifyClass("vehicle"); // vehicle class Vehicle {}
 
 常见的浏览器内核有：
 
-* **Trident**(三叉戟)：IE、360 安全浏览器、搜狗高速浏览器、百度浏览器、UC 浏览器；
-* **Gecko**(壁虎)：Mozilla Firefox；
-* **Presto**(急板乐曲)->**Blink**（眨眼）: Opera; 
-* **Webkit**: Safari、360 极速浏览器、搜狗高速浏览器、移动端浏览器（Android、ios）; 
-* **Webkit->Blink**: Google Chrome、Edge。
+- **Trident**(三叉戟)：IE、360 安全浏览器、搜狗高速浏览器、百度浏览器、UC 浏览器；
+- **Gecko**(壁虎)：Mozilla Firefox；
+- **Presto**(急板乐曲)->**Blink**（眨眼）: Opera;
+- **Webkit**: Safari、360 极速浏览器、搜狗高速浏览器、移动端浏览器（Android、ios）;
+- **Webkit->Blink**: Google Chrome、Edge。
 
 ## 8.2 网页的解析和浏览器渲染过程
 
@@ -1371,16 +1374,16 @@ Vehicle.identifyClass("vehicle"); // vehicle class Vehicle {}
 
 在 HTML 中，每个元素都可以理解成一个盒子，在浏览器解析过程中，会涉及到回流与重绘：
 
-* **回流**：布局引擎会根据各种样式计算每个盒子在页面上的大小与位置；
-* **重绘**：当计算好盒模型的位置、大小及其他属性后，浏览器根据每个盒子特性进行绘制。
+- **回流**：布局引擎会根据各种样式计算每个盒子在页面上的大小与位置；
+- **重绘**：当计算好盒模型的位置、大小及其他属性后，浏览器根据每个盒子特性进行绘制。
 
 具体的浏览器解析渲染机制如下：
 
-* 解析 HTML，生成 DOM 树，解析 CSS，生成 CSSOM 树；
-* 将 DOM 树和 CSSOM 树结合，生成渲染树(Render Tree)；
-* Layout(回流): 根据生成的渲染树，进行回流(Layout)，得到节点的几何信息（位置，大小）；
-* Painting(重绘): 根据渲染树以及回流得到的几何信息，得到节点的绝对像素；
-* Display: 将像素发送给 GPU，展示在页面上；
+- 解析 HTML，生成 DOM 树，解析 CSS，生成 CSSOM 树；
+- 将 DOM 树和 CSSOM 树结合，生成渲染树(Render Tree)；
+- Layout(回流): 根据生成的渲染树，进行回流(Layout)，得到节点的几何信息（位置，大小）；
+- Painting(重绘): 根据渲染树以及回流得到的几何信息，得到节点的绝对像素；
+- Display: 将像素发送给 GPU，展示在页面上；
 
 ### 回流触发时机
 
@@ -1406,9 +1409,9 @@ Vehicle.identifyClass("vehicle"); // vehicle class Vehicle {}
 
 除此之外还有一些其他引起重绘行为：
 
-* 颜色的修改
-* 文本方向的修改
-* 阴影的修改
+- 颜色的修改
+- 文本方向的修改
+- 阴影的修改
 
 总之，<span style="color: red">**回流一定会触发重绘，而重绘不一定会回流**</span>。
 
@@ -1430,20 +1433,20 @@ Vehicle.identifyClass("vehicle"); // vehicle class Vehicle {}
 
 ### 如何避免回流
 
-* 如果想设定元素的样式，通过改变元素的 class 类名 (尽可能在 DOM 树的最里层)；
-* 避免设置多项内联样式；
-* 应用元素的动画，使用 position 属性的 fixed 值或 absolute 值(如前文示例所提)；
-* 避免使用 table 布局，table 中每个元素的大小以及内容的改动，都会导致整个 table 的重新计算；
-* 对于那些复杂的动画，对其设置 position: fixed/absolute，尽可能地使元素脱离文档流，从而减少对其他元素的影响；
-* 使用 css3 硬件加速，可以让 transform、opacity、filters 这些动画不会引起回流重绘；
-* 避免使用 CSS 的 JavaScript 表达式；
+- 如果想设定元素的样式，通过改变元素的 class 类名 (尽可能在 DOM 树的最里层)；
+- 避免设置多项内联样式；
+- 应用元素的动画，使用 position 属性的 fixed 值或 absolute 值(如前文示例所提)；
+- 避免使用 table 布局，table 中每个元素的大小以及内容的改动，都会导致整个 table 的重新计算；
+- 对于那些复杂的动画，对其设置 position: fixed/absolute，尽可能地使元素脱离文档流，从而减少对其他元素的影响；
+- 使用 css3 硬件加速，可以让 transform、opacity、filters 这些动画不会引起回流重绘；
+- 避免使用 CSS 的 JavaScript 表达式；
 
 当我们需要对 DOM 进行一系列修改的时候，可以通过批量修改 DOM 来减少回流重绘次数。
 有三种方式可以让 DOM 脱离文档流：
 
-* 隐藏元素，应用修改，重新显示；
-* 使用文档片段(document fragment)在当前 DOM 之外构建一个子树，再把它拷贝回文档；
-* 将原始元素拷贝到一个脱离文档的节点中，修改节点后，再替换原始的元素。
+- 隐藏元素，应用修改，重新显示；
+- 使用文档片段(document fragment)在当前 DOM 之外构建一个子树，再把它拷贝回文档；
+- 将原始元素拷贝到一个脱离文档的节点中，修改节点后，再替换原始的元素。
 
 关于重绘与回流的进一步介绍，请参考[重绘与回流](https://segmentfault.com/a/1190000017329980)。
 
@@ -1454,12 +1457,12 @@ Vehicle.identifyClass("vehicle"); // vehicle class Vehicle {}
 
 可以行成新的合成层的常见属性：
 
-* 3D transforms
-* video、canvas、iframe
-* opacity 动画转换时
-* position：fixed
-* will-change: 一个实验性的属性，提前告诉浏览器元素可能发生哪些变化
-* animation 或 transition 设置了 opacity、transform
+- 3D transforms
+- video、canvas、iframe
+- opacity 动画转换时
+- position：fixed
+- will-change: 一个实验性的属性，提前告诉浏览器元素可能发生哪些变化
+- animation 或 transition 设置了 opacity、transform
 
 分层确实可以提高性能，但是它以内存管理为代价，因此不应作为 web 性能优化策略的一部分过度使用。
 
@@ -1482,17 +1485,17 @@ Vehicle.identifyClass("vehicle"); // vehicle class Vehicle {}
 脚本会由浏览器来进行下载，但是不会阻塞 DOMTree 的构建过程；
 如果脚本提前下载好了，它会等待 DOM Tree 构建完成，在 DOMContentLoaded 事件之前先执行 defer 中的代码；
 
-* DOMContentLoad 总是会等待 defer 中的代码执行完成；
-* 另外多个带 defer 的脚本可以保持正确的顺序执行；
-* 从某个角度来说，defer 可以提高页面的性能，并且推荐放到 head 元素中；
-* defer 仅适用于外部脚本，对于 script 默认内容会被忽略。
+- DOMContentLoad 总是会等待 defer 中的代码执行完成；
+- 另外多个带 defer 的脚本可以保持正确的顺序执行；
+- 从某个角度来说，defer 可以提高页面的性能，并且推荐放到 head 元素中；
+- defer 仅适用于外部脚本，对于 script 默认内容会被忽略。
   :::
 
 ::: info async 属性
 
-* 浏览器不会因 async 脚本而阻塞；
-* async 脚本不能保证顺序执行，它是独立下载、独立运行，不会等待其他脚本；
-* async 不会保证在 DOMContentLoad 之前或者之后执行；
+- 浏览器不会因 async 脚本而阻塞；
+- async 脚本不能保证顺序执行，它是独立下载、独立运行，不会等待其他脚本；
+- async 不会保证在 DOMContentLoad 之前或者之后执行；
   :::
 
 defer 通常用于需要再文档解析后操作 DOM 的 JavaScript 代码，并且对多个 script 文件有顺序要求的；
@@ -1508,25 +1511,25 @@ JavaScript 是一种解释型语言，这意味着它的代码在执行时会被
 
 1. **解析（Parsing）**：
 
-* 当浏览器加载 JavaScript 代码时，它首先会进行解析。解析是将源代码转换为抽象语法树（AST, Abstract Syntax Tree）的过程。AST 是源代码的抽象语法结构的树状表现形式，它描述了代码的结构，但不包含任何具体的值。
-* 解析过程中，如果代码中存在语法错误，浏览器会抛出错误并停止执行。
+- 当浏览器加载 JavaScript 代码时，它首先会进行解析。解析是将源代码转换为抽象语法树（AST, Abstract Syntax Tree）的过程。AST 是源代码的抽象语法结构的树状表现形式，它描述了代码的结构，但不包含任何具体的值。
+- 解析过程中，如果代码中存在语法错误，浏览器会抛出错误并停止执行。
 
 2. **预编译（Pre-compilation）**：
 
-* 在某些情况下，JavaScript 代码会在执行前进行预编译。这通常涉及到对代码进行某些优化，以便在执行时更快地运行。
-* 预编译阶段会识别出变量和函数声明，并为其分配内存空间。
+- 在某些情况下，JavaScript 代码会在执行前进行预编译。这通常涉及到对代码进行某些优化，以便在执行时更快地运行。
+- 预编译阶段会识别出变量和函数声明，并为其分配内存空间。
 
 3. **执行（Execution）**：
 
-* 一旦代码被解析和预编译，它就可以被执行了。在执行过程中，JavaScript 引擎会逐行读取代码并执行相应的操作。
-* 当遇到函数调用时，JavaScript 引擎会创建一个新的执行上下文（Execution Context），并在该上下文中执行函数代码。执行上下文包含了函数的作用域链、变量对象等信息。
-* JavaScript 是单线程的，这意味着它一次只能执行一个任务。为了处理异步操作（如网络请求、定时器等），JavaScript 使用了事件循环（Event Loop）机制。
+- 一旦代码被解析和预编译，它就可以被执行了。在执行过程中，JavaScript 引擎会逐行读取代码并执行相应的操作。
+- 当遇到函数调用时，JavaScript 引擎会创建一个新的执行上下文（Execution Context），并在该上下文中执行函数代码。执行上下文包含了函数的作用域链、变量对象等信息。
+- JavaScript 是单线程的，这意味着它一次只能执行一个任务。为了处理异步操作（如网络请求、定时器等），JavaScript 使用了事件循环（Event Loop）机制。
 
 4. **事件循环（Event Loop）**：
 
-* 当 JavaScript 代码执行完毕或遇到异步操作时，控制权会交还给事件循环。事件循环会检查事件队列（Event Queue）中是否有待处理的事件。
-* 如果有待处理的事件（如网络请求的响应、定时器的回调等），事件循环会将其取出并放入执行栈（Execution Stack）中执行。执行栈是一个后进先出（LIFO）的数据结构，用于存储待执行的代码。
-* 当执行栈为空时，事件循环会再次检查事件队列，并重复上述过程。这样就形成了一个循环，使得 JavaScript 能够处理异步操作和回调函数。
+- 当 JavaScript 代码执行完毕或遇到异步操作时，控制权会交还给事件循环。事件循环会检查事件队列（Event Queue）中是否有待处理的事件。
+- 如果有待处理的事件（如网络请求的响应、定时器的回调等），事件循环会将其取出并放入执行栈（Execution Stack）中执行。执行栈是一个后进先出（LIFO）的数据结构，用于存储待执行的代码。
+- 当执行栈为空时，事件循环会再次检查事件队列，并重复上述过程。这样就形成了一个循环，使得 JavaScript 能够处理异步操作和回调函数。
 
 通过以上过程，JavaScript 能够在浏览器中执行并处理各种交互和动态内容。
 
@@ -1544,19 +1547,19 @@ V8 是 Google 开源的 JavaScript 和 WebAssembly 引擎，用 C++ 编写。它
 
 总结......
 
-# 9. 函数 :white_check_mark: 
+# 9. 函数 :white_check_mark:
 
 ## 9.1 函数属性和 arguments :white_check_mark:
 
 ### 函数的属性
 
-* name 属性：获取函数的名称；
-* length 属性：获取函数参数的个数；
-* 展开语法 (Spread syntax), 可以在函数调用/数组构造时，将数组表达式或者 string 在语法层面展开；还可以在构造字面量对象时，将对象表达式按 key-value 的方式展开。(字面量一般指 [1, 2, 3] 或者 {name: "mdn"} 这种简洁的构造方式)
+- name 属性：获取函数的名称；
+- length 属性：获取函数参数的个数；
+- 展开语法 (Spread syntax), 可以在函数调用/数组构造时，将数组表达式或者 string 在语法层面展开；还可以在构造字面量对象时，将对象表达式按 key-value 的方式展开。(字面量一般指 [1, 2, 3] 或者 {name: "mdn"} 这种简洁的构造方式)
 
 ```javascript
 function sum(x, y, z) {
-    return x + y + z;
+  return x + y + z;
 }
 
 const numbers = [1, 2, 3];
@@ -1568,15 +1571,15 @@ console.log(sum.apply(null, numbers));
 // Expected output: 6
 ```
 
-* 剩余参数：剩余参数语法允许我们将一个不定数量的参数表示为一个数组。
+- 剩余参数：剩余参数语法允许我们将一个不定数量的参数表示为一个数组。
 
 ```javascript
 function sum(...theArgs) {
-    let total = 0;
-    for (const arg of theArgs) {
-        total += arg;
-    }
-    return total;
+  let total = 0;
+  for (const arg of theArgs) {
+    total += arg;
+  }
+  return total;
 }
 
 console.log(sum(1, 2, 3));
@@ -1607,17 +1610,17 @@ const args = [...arguments];
 
 ::: tip 剩余参数和 arguments 对象的区别
 
-* 剩余参数只包含那些没有对应形参的实参，而 arguments 对象包含了传给函数的所有实参。
-* arguments 对象不是一个真正的数组，而剩余参数是真正的 Array 实例，也就是说你能够在它上面直接使用所有的数组方法，比如 sort，map，forEach 或 pop。
-* arguments 对象还有一些附加的属性（如 callee 属性）。
+- 剩余参数只包含那些没有对应形参的实参，而 arguments 对象包含了传给函数的所有实参。
+- arguments 对象不是一个真正的数组，而剩余参数是真正的 Array 实例，也就是说你能够在它上面直接使用所有的数组方法，比如 sort，map，forEach 或 pop。
+- arguments 对象还有一些附加的属性（如 callee 属性）。
   :::
 
 ## 9.2 纯函数的理解和应用 :rocket:
 
 ### 纯函数的定义
 
-* 确定的输入，一定会产生确定的输出；
-* 函数在执行过程中，不能产生副作用；
+- 确定的输入，一定会产生确定的输出；
+- 函数在执行过程中，不能产生副作用；
 
 > 副作用：在执行一个函数时，除了返回函数值外，还对调用函数产生了附加的影响，比如修改了全局变量，修改参数或者改变外部的存储。
 
@@ -1636,15 +1639,15 @@ const args = [...arguments];
 
 ```javascript
 function curry(fn) {
-    return function curried(...args) {
-        if (args.length >= fn.length) {
-            return fn.apply(this, args);
-        } else {
-            return function(...args2) {
-                return curried.apply(this, args.concat(args2));
-            };
-        }
-    };
+  return function curried(...args) {
+    if (args.length >= fn.length) {
+      return fn.apply(this, args);
+    } else {
+      return function (...args2) {
+        return curried.apply(this, args.concat(args2));
+      };
+    }
+  };
 }
 ```
 
@@ -1659,11 +1662,11 @@ function curry(fn) {
 
 柯里化函数的应用场景：
 
-* **参数复用**：柯里化函数可以将多参数函数转换为一系列单参数函数，从而允许参数的复用。例如，当需要多次调用同一个函数并传递相同的参数时，可以先柯里化这个函数，然后重复使用返回的单参数函数。
-* **延迟计算**：柯里化可以实现延迟计算，即只有在需要结果时才进行计算。这在处理计算密集型任务或需要优化性能的场景中特别有用。
-* **动态创建函数**：柯里化可以用于根据条件动态创建函数。例如，在处理不同浏览器的事件监听时，可以根据浏览器的兼容性动态生成不同的函数。
-* **部分应用的实现**：柯里化允许将一个多参数函数转化为一个只接受部分参数的函数。这使得我们可以更灵活地调用函数，只需要传入必要的参数即可。
-* **便于函数组合和管道操作**：柯里化的函数可以方便地与其他函数进行组合和管道操作，从而构建出更复杂的函数逻辑。
+- **参数复用**：柯里化函数可以将多参数函数转换为一系列单参数函数，从而允许参数的复用。例如，当需要多次调用同一个函数并传递相同的参数时，可以先柯里化这个函数，然后重复使用返回的单参数函数。
+- **延迟计算**：柯里化可以实现延迟计算，即只有在需要结果时才进行计算。这在处理计算密集型任务或需要优化性能的场景中特别有用。
+- **动态创建函数**：柯里化可以用于根据条件动态创建函数。例如，在处理不同浏览器的事件监听时，可以根据浏览器的兼容性动态生成不同的函数。
+- **部分应用的实现**：柯里化允许将一个多参数函数转化为一个只接受部分参数的函数。这使得我们可以更灵活地调用函数，只需要传入必要的参数即可。
+- **便于函数组合和管道操作**：柯里化的函数可以方便地与其他函数进行组合和管道操作，从而构建出更复杂的函数逻辑。
 
 ## 9.4 组合函数理解和应用 :rocket:
 
@@ -1705,19 +1708,19 @@ newFn(100);
 
 ```javascript
 function compose(...fns) {
-    if (fns.length === 0) {
-        return (arg) => arg;
-    }
+  if (fns.length === 0) {
+    return (arg) => arg;
+  }
 
-    if (fns.length === 1) {
-        return fns[0];
-    }
+  if (fns.length === 1) {
+    return fns[0];
+  }
 
-    return fns.reduce(
-        (a, b) =>
-        (...args) =>
+  return fns.reduce(
+    (a, b) =>
+      (...args) =>
         a(b(...args))
-    );
+  );
 }
 // 这个函数接受任意数量的函数作为参数，并返回一个新的函数。
 // 这个新的函数将按照从右到左的顺序调用传入的函数。
@@ -1737,9 +1740,9 @@ console.log(composedFunction(3)); // 输出：16 (因为 (3 + 5) * 2 = 16)
 
 ```javascript
 function f(foo, values) {
-    with(foo) {
-        console.log(values);
-    }
+  with (foo) {
+    console.log(values);
+  }
 }
 ```
 
@@ -1766,11 +1769,13 @@ console.log(eval("2 + 2") === eval(new String("2 + 2")));
 ## 9.6 严格模式的使用 :star:
 
 严格模式("use strict")是一种具有限制性的 JavaScript 模式，从而使代码隐式的脱离了“懒散（sloppy）模式”; 支持严格模式的浏览器在检测到代码中有严格模式时，会以更加严格的方式进行检测和执行。
-* 严格模式通过抛出错误，来消除一些原有的静默错误；
-* 严格模式让 JS 引擎在执行代码时可以进行更多的优化（不需要对一些特殊的语法进行处理）；
-* 严格模式禁用了在 ECMAScript 未来版本中可能会定义的一些语法。
+
+- 严格模式通过抛出错误，来消除一些原有的静默错误；
+- 严格模式让 JS 引擎在执行代码时可以进行更多的优化（不需要对一些特殊的语法进行处理）；
+- 严格模式禁用了在 ECMAScript 未来版本中可能会定义的一些语法。
 
 严格模式的限制：
+
 1. 严格模式下无法再意外创建全局变量。
 
 ```javascript
@@ -1788,16 +1793,16 @@ mistypedVaraible = 17; // 因为变量名拼写错误
 // 给不可写属性赋值
 var obj1 = {};
 Object.defineProperty(obj1, "x", {
-    value: 42,
-    writable: false
+  value: 42,
+  writable: false,
 });
 obj1.x = 9; // 抛出 TypeError 错误
 
 // 给只读属性赋值
 var obj2 = {
-    get x() {
-        return 17;
-    },
+  get x() {
+    return 17;
+  },
 };
 obj2.x = 5; // 抛出 TypeError 错误
 
@@ -1819,8 +1824,8 @@ delete Object.prototype; // 抛出 TypeError 错误
 ```javascript
 "use strict";
 var o = {
-    p: 1,
-    p: 2
+  p: 1,
+  p: 2,
 }; // !!! 语法错误
 ```
 
@@ -1828,9 +1833,9 @@ var o = {
 
 ```javascript
 function sum(a, a, c) {
-    // !!! 语法错误
-    "use strict";
-    return a + a + c; // 代码运行到这里会出错
+  // !!! 语法错误
+  "use strict";
+  return a + a + c; // 代码运行到这里会出错
 }
 ```
 
@@ -1839,12 +1844,12 @@ function sum(a, a, c) {
 ```javascript
 "use strict";
 var sum =
-    015 + // !!! 语法错误
-    197 +
-    142;
+  015 + // !!! 语法错误
+  197 +
+  142;
 ```
 
-7. ECMAScript 6 中的严格模式禁止设置 primitive 值的属性。不采用严格模式，设置属性将会简单忽略 (no-op),采用严格模式，将抛出TypeError错误。
+7. ECMAScript 6 中的严格模式禁止设置 primitive 值的属性。不采用严格模式，设置属性将会简单忽略 (no-op),采用严格模式，将抛出 TypeError 错误。
 
 ```javascript
 "use strict";
@@ -1865,7 +1870,7 @@ false.true = ""; // TypeError
 `Object.defineProperty()` 静态方法会直接在一个对象上定义一个新属性，或修改其现有属性，并返回此对象。
 
 ```javascript
-Object.defineProperty(obj, prop, descriptor)
+Object.defineProperty(obj, prop, descriptor);
 
 // obj: 要定义属性的对象。
 // prop: 一个字符串或 Symbol，指定了要定义或修改的属性键。
@@ -1878,24 +1883,24 @@ Object.defineProperty(obj, prop, descriptor)
 
 数据描述符和访问器描述符都是对象, 它们都有以下可选项：
 
-* **configurable**:
-当设置为 false 时，该属性的类型不能在数据属性和访问器属性之间更改，且该属性不可被删除，且其描述符的其他属性也不能被更改（但是，如果它是一个可写的数据描述符，则 value 可以被更改，writable 可以更改为 false）。默认值为 false。
+- **configurable**:
+  当设置为 false 时，该属性的类型不能在数据属性和访问器属性之间更改，且该属性不可被删除，且其描述符的其他属性也不能被更改（但是，如果它是一个可写的数据描述符，则 value 可以被更改，writable 可以更改为 false）。默认值为 false。
 
-* **enumerable**: 当且仅当该属性在对应对象的属性枚举中出现时，值为 true。默认值为 false。
+- **enumerable**: 当且仅当该属性在对应对象的属性枚举中出现时，值为 true。默认值为 false。
 
 数据描述符还具有以下可选键值：
 
-* **value**: 与属性相关联的值。可以是任何有效的 JavaScript 值（数字、对象、函数等）。默认值为 undefined。
+- **value**: 与属性相关联的值。可以是任何有效的 JavaScript 值（数字、对象、函数等）。默认值为 undefined。
 
-* **writable**: 如果与属性相关联的值可以使用赋值运算符更改，则为 true。默认值为 false。
+- **writable**: 如果与属性相关联的值可以使用赋值运算符更改，则为 true。默认值为 false。
 
 ## 10.3 访问器描述符
 
 访问器描述符还具有以下可选键值：
 
-* **get**：用作属性 getter 的函数，如果没有 getter 则为 undefined。当访问该属性时，将不带参地调用此函数，并将 this 设置为通过该属性访问的对象（因为可能存在继承关系，这可能不是定义该属性的对象）。返回值将被用作该属性的值。默认值为 undefined。
+- **get**：用作属性 getter 的函数，如果没有 getter 则为 undefined。当访问该属性时，将不带参地调用此函数，并将 this 设置为通过该属性访问的对象（因为可能存在继承关系，这可能不是定义该属性的对象）。返回值将被用作该属性的值。默认值为 undefined。
 
-* **set**：用作属性 setter 的函数，如果没有 setter 则为 undefined。当该属性被赋值时，将调用此函数，并带有一个参数（要赋给该属性的值），并将 this 设置为通过该属性分配的对象。默认值为 undefined。
+- **set**：用作属性 setter 的函数，如果没有 setter 则为 undefined。当该属性被赋值时，将调用此函数，并带有一个参数（要赋给该属性的值），并将 this 设置为通过该属性分配的对象。默认值为 undefined。
 
 ## 10.4 Object.defineProperties()
 
@@ -1905,11 +1910,11 @@ Object.defineProperty(obj, prop, descriptor)
 const object1 = {};
 
 Object.defineProperties(object1, {
-    property1: {
-        value: 42,
-        writable: true,
-    },
-    property2: {},
+  property1: {
+    value: 42,
+    writable: true,
+  },
+  property2: {},
 });
 
 console.log(object1.property1);
@@ -1922,10 +1927,10 @@ console.log(object1.property1);
 
 ```javascript
 const object1 = {
-    property1: 42,
+  property1: 42,
 };
 
-const descriptor1 = Object.getOwnPropertyDescriptor(object1, 'property1');
+const descriptor1 = Object.getOwnPropertyDescriptor(object1, "property1");
 
 console.log(descriptor1.configurable);
 // Expected output: true
@@ -1938,7 +1943,7 @@ console.log(descriptor1.value);
 
 ```javascript
 const object1 = {
-    property1: 42,
+  property1: 42,
 };
 
 const descriptors1 = Object.getOwnPropertyDescriptors(object1);
@@ -1951,7 +1956,6 @@ console.log(descriptors1.property1.value);
 ```
 
 3. `Object.preventExtensions()` 静态方法可以防止新属性被添加到对象中（即防止该对象被扩展）。它还可以防止对象的原型被重新指定。
-  
 
 ```javascript
 const object1 = {};
@@ -1959,12 +1963,12 @@ const object1 = {};
 Object.preventExtensions(object1);
 
 try {
-    Object.defineProperty(object1, 'property1', {
-        value: 42,
-    });
+  Object.defineProperty(object1, "property1", {
+    value: 42,
+  });
 } catch (e) {
-    console.log(e);
-    // Expected output: TypeError: Cannot define property property1, object is not extensible
+  console.log(e);
+  // Expected output: TypeError: Cannot define property property1, object is not extensible
 }
 ```
 
@@ -1972,7 +1976,7 @@ try {
 
 ```javascript
 const object1 = {
-    property1: 42,
+  property1: 42,
 };
 
 Object.seal(object1);
@@ -1989,7 +1993,7 @@ console.log(object1.property1);
 
 ```javascript
 const obj = {
-    prop: 42,
+  prop: 42,
 };
 
 Object.freeze(obj);
@@ -2000,3 +2004,5 @@ obj.prop = 33;
 console.log(obj.prop);
 // Expected output: 42
 ```
+
+<a-back-top />

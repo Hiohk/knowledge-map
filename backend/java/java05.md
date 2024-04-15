@@ -46,7 +46,7 @@ next:
 
 第二步：提供一个无参数构造方法，再提供一个带 String msg 参数的构造方法，在构造方法中调用父类的构造方法。
 
-```java
+```Java
 public class IllegalNameException extends Exception {
     public IllegalNameException() {
     }
@@ -57,7 +57,7 @@ public class IllegalNameException extends Exception {
 }
 ```
 
-```java
+```Java
 public class IllegalNameException extends RuntimeException {
     public IllegalNameException() {
     }
@@ -89,13 +89,13 @@ public class IllegalNameException extends RuntimeException {
 
 - 如果一个异常发生后希望调用者来处理的，使用声明异常（俗话说：交给上级处理）
 
-```java
+```Java
 public void m() throws AException, BException... {}
 ```
 
 - 如果 AException 和 BException 都继承了 XException，那么也可以这样写：
 
-```java
+```Java
 public void m() throws XException{}
 ```
 
@@ -107,7 +107,7 @@ public void m() throws XException{}
 
 - 如果一个异常发生后，不需要调用者知道，也不需要调用者来处理，选择使用捕捉方式处理。
 
-```java
+```Java
 try {
   // 尝试执行可能会出现异常的代码
   // try块中的代码如果执行出现异常，
@@ -153,7 +153,7 @@ try {
 
 面试题 1：
 
-```java
+```Java
 public static void m1() {
   try {
     System.out.println("try111");
@@ -170,7 +170,7 @@ public static void m1() {
 
 面试题 2：
 
-```java
+```Java
 public static void m2() {
   int i = 100;
   try {

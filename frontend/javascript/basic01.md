@@ -240,3 +240,5 @@ if (typeof DEBUG !== "undefined") {
  console.log( "Debugging is starting" );
 }
 ```
+
+<a-back-top />

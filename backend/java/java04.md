@@ -77,7 +77,7 @@ next:
 
 1. 方法在调用时如何给方法传一个数组对象？
 
-```java
+```Java
   // 方式一：
   int[] arr = {1,2,3,4};
   display(arr);
@@ -110,7 +110,7 @@ next:
 - 可变长参数只能出现在形参列表中的最后一个位置。
 - 可变长参数可以当做数组来处理。
 
-```java
+```Java
 public static void sum(int... nums) {
   // ...
 }
@@ -126,7 +126,7 @@ public static void sum(int... nums) {
 - 只能创建一个更大的数组将原数组中的数据全部拷贝到新数组中;
 - 可以使用 `System.arraycopy()` 方法完成数组的拷贝。
 
-```java{3}
+```Java{3}
 int[] sourceArr = {1, 3, 5, 6, 7, 24, 66, 78, 99};
 int[] newArr = new int[sourceArr.length * 2];
 System.arraycopy(sourceArr, 0,newArr,0, sourceArr.length);
@@ -143,19 +143,19 @@ for (int i = 0; i < newArr.length; i++) {
 2. 二维数组的静态初始化
 
    ```java
-   int[][] arr = new int[][]{{},{},{}};
+   inJ[][] arr = new int[][]{{},{},{}};
    int[][] arr = {{},{},{}};
    ```
 
 3. 二维数组的动态初始化(等长)
 
-```java
+```Java
    int[][] arr = new int[3][4];
 ```
 
 4. 二维数组的动态初始化（不等长）
 
-```java
+```Java
 int[][] arr = new int[3][];
 ```
 

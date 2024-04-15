@@ -17,7 +17,7 @@ next:
 1. Java 中的 String 属于引用数据类型，代表字符串。
 2. Java 专门在堆中为字符串准备了一个字符串常量池。因为字符串使用比较频繁，放在字符串常量池中省去了对象的创建过程，从而提高程序的执行效率。（常量池属于一种缓存技术，缓存技术是提高程序执行效率的重要手段。）
 
-```java
+```Java
 String s1 = "hello";
 String s2 = "hello";
 System.out.println(s1 == s2); // true
@@ -43,7 +43,7 @@ System.out.println(s3 == s4); // false
 
 1. 动态拼接之后的新字符串不会自动放到字符串常量池中：
 
-```java
+```Java
 String s1 = "abc";
 String s2 = "def";
 String s3 = s1 + s2;
@@ -54,7 +54,7 @@ System.out.println(s3 == s4); // false
 
 s3 指向的对象没有在字符串常量池中，而是在堆中；在底层进行 `+` 操作时，加符号两边至少有一个是变量的时候，会创建一个 `StringBuilder` 对象，进行字符串的拼接。
 
-```java
+```Java
 String s1 = "abc" + "def";
 String s2 = "abcdef";
 System.out.println(s1 == s2); // true
@@ -64,7 +64,7 @@ System.out.println(s1 == s2); // true
 ::: tip 扩展知识-`intern()`
 将堆中的字符串变量放到字符串常量池中：
 
-```java
+```Java
 String s1 = "abc";
 String s2 = "def";
 String s3 = s1 + s2;
@@ -80,7 +80,7 @@ System.out.println(s5 == s4); // true // [!code highlight]
 
 1. 两个字符串字面量拼接会做编译阶段的优化，在编译阶段就会进行字符串的拼接。
 
-```java
+```Java
 String s1 = "aaa" + "bbb";
 ```
 
@@ -142,7 +142,7 @@ String s1 = "aaa" + "bbb";
 - `String toString();` new String(original) 默认重写了 toString() 方法。
 - `String intern();` 获取字符串常量池中的字符串，如果常量池中没有，则将字符串加入常量池并返回。
 
-```java
+```Java
 byte[] bytes = {97,98,99,100};
 String s = new String(bytes);
 String s2 = s.intern();
@@ -278,7 +278,7 @@ String s2 = s.intern();
 
 以下这种写法尽量避免，效率太低：
 
-```java
+```Java
 String s = “”;
 for(int i = 0; i < 100000; i++){
     // 优化策略：底层会新建一个StringBuilder对象
@@ -292,7 +292,7 @@ for(int i = 0; i < 100000; i++){
 
 因此建议使用下面的方式，只创建一个 StringBuilder 对象。
 
-```java
+```Java
 long begin = System.currentTimeMillis();
 StringBuilder s = new StringBuilder();
 for (int i = 0; i < 100000; i++) {
@@ -398,14 +398,14 @@ Java5 之后为了开发方便，引入了新特性：自动拆箱和自动装�
 
 - 自动装箱：auto boxing:
 
-```java
+```Java
 Integer a = 10000;
 // 底层实际上的操作：Integer a = new Integer(10000);
 ```
 
 - 自动拆箱：auto unboxing:
 
-```java
+```Java
 Integer a = 10000;
 int b = a; // 底层实际上的操作：int b = a.intValue();
 System.out.println(a + 1); // 这里的 a 也会做自动拆箱。
@@ -413,7 +413,7 @@ System.out.println(a + 1); // 这里的 a 也会做自动拆箱。
 
 注意空指针异常：
 
-```java
+```Java
 Integer a = null;
 System.out.println(a + 1);
 ```
@@ -428,7 +428,7 @@ System.out.println(a + 1);
 
 以下是一个面试题：请说出它的输出结果：
 
-```java
+```Java
 Integer x = 128;
 Integer y = 128;
 System.out.println(x == y); // false
@@ -494,7 +494,7 @@ System.out.println(a == b); // true
 3. java.util.SimpleDateFormat 日期格式化类
    - 日期转换成字符串（java.util.Date -> java.lang.String）
 
-```java
+```Java
 Date now = new Date();
 SimpleDateFormat simpleDateFormat =
       new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSS");
@@ -543,20 +543,20 @@ System.out.println(str);
 
 1. 获取当前时间（精确到纳秒，1 秒=1000 毫秒，1 毫秒=1000 微秒，1 微秒=1000 纳秒）
 
-```java
+```Java
 LocalDateTime now = LocalDateTime.now();
 ```
 
 2. 获取指定日期时间
 
-```java
+```Java
 LocalDateTime ldt = LocalDateTime.of(2008,8,8,8,8,8,8);
 // 获取指定的日期时间
 ```
 
 3. 加日期和加时间
 
-```java
+```Java
 LocalDateTime localDateTime =
       ldt.plusYears(1).plusMonths(1).plusDays(1).plusHours(1)
          .plusMinutes(1).plusSeconds(1).plusNanos(1);
@@ -564,7 +564,7 @@ LocalDateTime localDateTime =
 
 4. 减日期和减时间
 
-```java
+```Java
 LocalDateTime localDateTime =
       ldt.minusYears(1).minusMonths(1).minusDays(1).minusHours(1)
          .minusMinutes(1).minusSeconds(1).minusNanos(1);
@@ -572,7 +572,7 @@ LocalDateTime localDateTime =
 
 5. 获取年月日时分秒
 
-```java
+```Java
 int year = now.getYear(); // 年
 int month = now.getMonth().getValue(); // 月
 int dayOfMonth = now.getDayOfMonth(); // 一个月的第几天
@@ -590,13 +590,13 @@ Instant 时间戳——获取 1970 年 1 月 1 日 0 时 0 分 0 秒到某个时
 
 1. 获取系统当前时间（UTC：全球标准时间）
 
-```java
+```Java
 Instant instant = Instant.now();
 ```
 
 2. 获取时间戳
 
-```java
+```Java
 long epochMilli = instant.toEpochMilli();
 ```
 
@@ -604,7 +604,7 @@ long epochMilli = instant.toEpochMilli();
 
 计算两个时间相差时间间隔:
 
-```java
+```Java
 LocalDateTime now1 = LocalDateTime.of(2008,8,8,8,8,8);
 LocalDateTime now2 = LocalDateTime.of(2009,9,9,9,9,9);
 Duration between = Duration.between(now1, now2);
@@ -618,7 +618,7 @@ System.out.println(between.toDays());
 
 计算两个日期间隔:
 
-```java
+```Java
 LocalDate now1 = LocalDate.of(2007,7,7);
 LocalDate now2 = LocalDate.of(2008,8,8);
 Period between = Period.between(now1, now2);
@@ -632,7 +632,7 @@ System.out.println(between.getDays());
 
 #### TemporalAdjusters 时间矫正器
 
-```java
+```Java
 LocalDateTime now = LocalDateTime.now(); // 获取系统当前时间
 now.with(TemporalAdjusters.firstDayOfMonth()); // 当前月的第一天
 now.with(TemporalAdjusters.firstDayOfNextYear()); // 下一年的第一天
@@ -646,7 +646,7 @@ now.with(TemporalAdjusters.next(DayOfWeek.MONDAY)); // 下周一
 
 1. 日期格式化 （LocalDateTime --> String）
 
-```java
+```Java
 LocalDateTime now = LocalDateTime.now();
 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 String s = dtf.format(now);
@@ -654,7 +654,7 @@ String s = dtf.format(now);
 
 1. 将字符串转换成日期（String --> LocalDateTime）
 
-```java
+```Java
 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 LocalDateTime localDateTime = LocalDateTime.parse("2008-08-08 08:08:08", dtf);
 System.out.println(localDateTime);
@@ -692,7 +692,7 @@ java.lang.Math 数学工具类，都是静态方法。
 
 4. 枚举如何定义？以下是最基本的格式：
 
-```java
+```Java
 enum 枚举类型名 {
     枚举值1, 枚举值2, 枚举值3, 枚举值4
 }

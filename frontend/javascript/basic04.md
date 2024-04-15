@@ -319,26 +319,23 @@ Number(["abc"]); // NaN
 所有的对象都是真值，即使是包装了假值的封装对象仍然为真值。
 
 ```javascript
-var a = new Boolean( false );
-var b = new Number( 0 );
-var c = new String( "" );
+var a = new Boolean(false);
+var b = new Number(0);
+var c = new String("");
 
-var d = Boolean( a && b && c );
+var d = Boolean(a && b && c);
 console.log(d); // true
-console.log( a && b && c); // String { "" }
+console.log(a && b && c); // String { "" }
 ```
 
 ## 4.3 显式强制类型转换
 
-
 ## 4.4 隐式强制类型转换
-
 
 ## 4.5 宽松相等（==）和严格相等（===）
 
-
 ## 4.6 抽象关系比较
-
 
 ## 4.7 总结
 
+<a-back-top />

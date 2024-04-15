@@ -14,7 +14,7 @@ next:
 
 ### 数组的定义
 
-01. 和其他强类型语言不同，在 JavaScript 中，数组可以容纳任何类型的值；
+1.  和其他强类型语言不同，在 JavaScript 中，数组可以容纳任何类型的值；
 
 ```javascript
 var a = [1, "2", [3]];
@@ -23,7 +23,7 @@ a[0] === 1; // true
 a[2][0] === 3; // true
 ```
 
-02. 对数组声明后即可向其中加入值，不需要预先设定大小；
+2.  对数组声明后即可向其中加入值，不需要预先设定大小；
 
 ```javascript
 var a = [];
@@ -34,9 +34,9 @@ a[2] = [3];
 a.length; // 3
 ```
 
-03. 使用 delete 运算符可以将单元从数组中删除，但是请注意，单元删除后，数组的 length 属性并不会发生变化；
+3.  使用 delete 运算符可以将单元从数组中删除，但是请注意，单元删除后，数组的 length 属性并不会发生变化；
 
-04. 数组通过数字进行索引，但有趣的是它们也是对象，所以也可以包含字符串键值和属性（但这些并不计算在数组长度内）；
+4.  数组通过数字进行索引，但有趣的是它们也是对象，所以也可以包含字符串键值和属性（但这些并不计算在数组长度内）；
 
 ```javascript
 var a = [];
@@ -47,7 +47,7 @@ a["foobar"]; // 2
 a.foobar; // 2
 ```
 
-05. 如果字符串键值能够被强制类型转换为十进制数字的话，它就会被当作数字索引来处理；
+5.  如果字符串键值能够被强制类型转换为十进制数字的话，它就会被当作数字索引来处理；
 
 ```javascript
 var a = [];
@@ -113,10 +113,10 @@ a.join; // undefined
 a.map; // undefined
 var c = Array.prototype.join.call(a, "-");
 var d = Array.prototype.map
-    .call(a, function(v) {
-        return v.toUpperCase() + ".";
-    })
-    .join("");
+  .call(a, function (v) {
+    return v.toUpperCase() + ".";
+  })
+  .join("");
 c; // "f-o-o"
 d; // "F.O.O."
 ```
@@ -140,12 +140,12 @@ Array.prototype.reverse.call(a);
 ```javascript
 var a = "foo";
 var c = a
-    // 将a的值转换为字符数组
-    .split("")
-    // 将数组中的字符进行倒转
-    .reverse()
-    // 将数组中的字符拼接回字符串
-    .join("");
+  // 将a的值转换为字符数组
+  .split("")
+  // 将数组中的字符进行倒转
+  .reverse()
+  // 将数组中的字符拼接回字符串
+  .join("");
 console.log(c); // "oof"
 ```
 
@@ -261,12 +261,12 @@ var onemilliononehundredthousand = 1.1e6; // 即 1.1 * 10^6
 ```javascript
 // ES6 之前的版本写 polyfill：
 if (!Number.EPSILON) {
-    Number.EPSILON = Math.pow(2, -52);
+  Number.EPSILON = Math.pow(2, -52);
 }
 
 // ES6:
 function numbersCloseEnoughToEqual(n1, n2) {
-    return Math.abs(n1 - n2) < Number.EPSILON;
+  return Math.abs(n1 - n2) < Number.EPSILON;
 }
 var a = 0.1 + 0.2;
 var b = 0.3;
@@ -315,9 +315,9 @@ Number.isInteger(42.3); // false
 
 ```javascript
 if (!Number.isInteger) {
-    Number.isInteger = function(num) {
-        return typeof num == "number" && num % 1 == 0;
-    };
+  Number.isInteger = function (num) {
+    return typeof num == "number" && num % 1 == 0;
+  };
 }
 ```
 
@@ -333,9 +333,9 @@ Number.isSafeInteger(Math.pow(2, 53) - 1); // true
 
 ```javascript
 if (!Number.isSafeInteger) {
-    Number.isSafeInteger = function(num) {
-        return Number.isInteger(num) && Math.abs(num) <= Number.MAX_SAFE_INTEGER;
-    };
+  Number.isSafeInteger = function (num) {
+    return Number.isInteger(num) && Math.abs(num) <= Number.MAX_SAFE_INTEGER;
+  };
 }
 ```
 
@@ -355,13 +355,13 @@ undefined 类型只有一个值，即 `undefined` 。null 类型也只有一个�
 
 undefined 和 null 常被用来表示“空的”值或“不是值”的值。二者之间有一些细微的差别。例如：
 
-* `null` 指空值（empty value）
-* `undefined` 指没有值（missing value）
+- `null` 指空值（empty value）
+- `undefined` 指没有值（missing value）
 
 或者：
 
-* `undefined` 指从未赋值
-* `null` 指曾赋过值，但是目前没有值
+- `undefined` 指从未赋值
+- `null` 指曾赋过值，但是目前没有值
 
 null 是一个特殊关键字，不是标识符，我们不能将其当作变量来使用和赋值。然而 undefined 却是一个标识符，可以被当作变量来使用和赋值。
 
@@ -371,20 +371,20 @@ null 是一个特殊关键字，不是标识符，我们不能将其当作变量
 
 ```javascript
 function foo() {
-    undefined = 2; // 非常糟糕的做法！
+  undefined = 2; // 非常糟糕的做法！
 }
 foo();
 
 function foo() {
-    "use strict";
-    undefined = 2; // TypeError!
+  "use strict";
+  undefined = 2; // TypeError!
 }
 foo();
 
 function foo() {
-    "use strict";
-    var undefined = 2;
-    console.log(undefined); // 2
+  "use strict";
+  var undefined = 2;
+  console.log(undefined); // 2
 }
 foo();
 ```
@@ -393,18 +393,18 @@ foo();
 
 ```javascript
 function doSomething() {
-    // 注： APP.ready 由程序自己定义
-    if (!APP.ready) {
-        // 稍后再试
-        return void setTimeout(doSomething, 100);
-    }
-    var result;
-    // 其他
-    return result;
+  // 注： APP.ready 由程序自己定义
+  if (!APP.ready) {
+    // 稍后再试
+    return void setTimeout(doSomething, 100);
+  }
+  var result;
+  // 其他
+  return result;
 }
 // 现在可以了吗？
 if (doSomething()) {
-    // 立即执行下一个任务
+  // 立即执行下一个任务
 }
 ```
 
@@ -412,21 +412,21 @@ if (doSomething()) {
 
 ### 特殊的数字
 
-01. **NaN**
+1.  **NaN**
 
 全局属性 NaN 是一个表示非数字（not a number）的值。NaN 是全局对象的一个属性。换句话说，它是全局作用域中的一个变量。NaN 的初始值不是数字——与 Number. NaN 的值相同。在现代浏览器中，NaN 是一个不可配置、不可写的属性。即使不是这样，也要避免重写它。在程序中很少使用 NaN。
 
 有五种不同类型的操作返回 NaN：
 
-* 失败的数字转换（例如，显式转换，如 `parseInt("abc")`、`Number(undefined)`，或隐式转换，如 `Math.abs(undefined)）`; 
+- 失败的数字转换（例如，显式转换，如 `parseInt("abc")`、`Number(undefined)`，或隐式转换，如 `Math.abs(undefined)）`;
 
-* 计算结果不是实数的数学运算（例如，`Math.sqrt(-1)`）; 
+- 计算结果不是实数的数学运算（例如，`Math.sqrt(-1)`）;
 
-* 不定式（例如，`0 * Infinity`、`1 ** Infinity`、`Infinity / Infinity`、`Infinity - Infinity`）; 
+- 不定式（例如，`0 * Infinity`、`1 ** Infinity`、`Infinity / Infinity`、`Infinity - Infinity`）;
 
-* 一个操作数被强制转换为 `NaN` 的方法或表达式（例如，`7 ** NaN`、`7 * "abc"`）——这意味着 `NaN` 具有传染性; 
+- 一个操作数被强制转换为 `NaN` 的方法或表达式（例如，`7 ** NaN`、`7 * "abc"`）——这意味着 `NaN` 具有传染性;
 
-* 将无效值表示为数字的其他情况（例如，`new Date("blabla").getTime()`、`"".charCodeAt(1)）`。
+- 将无效值表示为数字的其他情况（例如，`new Date("blabla").getTime()`、`"".charCodeAt(1)）`。
 
 ```javascript
 var a = 2 / "foo"; // NaN
@@ -460,9 +460,9 @@ ES6 之前的浏览器的 polyfill:
 
 ```javascript
 if (!Number.isNaN) {
-    Number.isNaN = function(n) {
-        return typeof n === "number" && window.isNaN(n);
-    };
+  Number.isNaN = function (n) {
+    return typeof n === "number" && window.isNaN(n);
+  };
 }
 var a = 2 / "foo";
 var b = "foo";
@@ -474,13 +474,13 @@ Number.isNaN(b); // false
 
 ```javascript
 if (!Number.isNaN) {
-    Number.isNaN = function(n) {
-        return n !== n;
-    };
+  Number.isNaN = function (n) {
+    return n !== n;
+  };
 }
 ```
 
-02. **无穷数**
+2.  **无穷数**
 
 ```javascript
 var a = 1 / 0; // Infinity (即 Number.POSITIVE_INfiNITY)
@@ -494,7 +494,7 @@ a + Math.pow(2, 969); // 1.7976931348623157e+308
 
 规范规定，如果数学运算（如加法）的结果超出处理范围，则由 IEEE 754 规范中的“就近取整”（round-to-nearest）模式来决定最后的结果。例如，相对于 Infinity，Number. MAX_VALUE + Math.pow(2, 969) 与 Number. MAX_VALUE 更为接近，因此它被“向下取整”（round down）；而 Number. MAX_VALUE + Math.pow(2, 970) 与 Infinity 更为接近，所以它被“向上取整”（round up）。
 
-03. **零值**
+3.  **零值**
 
 ```javascript
 var a = 0 / -3; // -0
@@ -508,8 +508,7 @@ String(a); // "0"
 JSON.stringify(a); // "0"
 
 // 有意思的是，如果反过来将其从字符串转换为数字，得到的结果是准确的：
-+
-"-0"; // -0
++"-0"; // -0
 Number("-0"); // -0
 JSON.parse("-0"); // -0
 ```
@@ -522,12 +521,10 @@ JSON.parse("-0"); // -0
 var a = 0;
 var b = 0 / -3;
 a == b; // true
--
-0 == 0; // true
+-0 == 0; // true
 a === b; // true
--
-0 === 0; // true
-0 > -0; // false 
+-0 === 0; // true
+0 > -0; // false
 a > b; // false
 ```
 
@@ -535,8 +532,8 @@ a > b; // false
 
 ```javascript
 function isNegZero(n) {
-    n = Number(n);
-    return (n === 0) && (1 / n === -Infinity);
+  n = Number(n);
+  return n === 0 && 1 / n === -Infinity;
 }
 isNegZero(-0); // true
 isNegZero(0 / -3); // true
@@ -559,18 +556,18 @@ Object.is(b, 0); // false
 
 ```javascript
 if (!Object.is) {
-    Object.is = function(v1, v2) {
-        // 判断是否是-0
-        if (v1 === 0 && v2 === 0) {
-            return 1 / v1 === 1 / v2;
-        }
-        // 判断是否是NaN
-        if (v1 !== v1) {
-            return v2 !== v2;
-        }
-        // 其他情况
-        return v1 === v2;
-    };
+  Object.is = function (v1, v2) {
+    // 判断是否是-0
+    if (v1 === 0 && v2 === 0) {
+      return 1 / v1 === 1 / v2;
+    }
+    // 判断是否是NaN
+    if (v1 !== v1) {
+      return v2 !== v2;
+    }
+    // 其他情况
+    return v1 === v2;
+  };
 }
 ```
 
@@ -608,12 +605,12 @@ b; // [4,5,6]
 
 ```javascript
 function foo(x) {
-    x.push(4);
-    x; // [1,2,3,4]
-    // 然后
-    x = [4, 5, 6];
-    x.push(7);
-    x; // [4,5,6,7]
+  x.push(4);
+  x; // [1,2,3,4]
+  // 然后
+  x = [4, 5, 6];
+  x.push(7);
+  x; // [4,5,6,7]
 }
 var a = [1, 2, 3];
 foo(a);
@@ -624,12 +621,12 @@ a; // 是[1,2,3,4]，不是[4,5,6,7]
 
 ```javascript
 function foo(x) {
-    x.push(4);
-    x; // [1,2,3,4]
-    // 然后
-    x.length = 0; // 清空数组
-    x.push(4, 5, 6, 7);
-    x; // [4,5,6,7]
+  x.push(4);
+  x; // [1,2,3,4]
+  // 然后
+  x.length = 0; // 清空数组
+  x.push(4, 5, 6, 7);
+  x; // [4,5,6,7]
 }
 var a = [1, 2, 3];
 foo(a);
@@ -642,8 +639,8 @@ a; // 是[4,5,6,7]，不是[1,2,3,4]
 
 ```javascript
 function foo(x) {
-    x = x + 1;
-    x; // 3 
+  x = x + 1;
+  x; // 3
 }
 var a = 2;
 var b = new Number(a); // Object(a)也一样
@@ -656,3 +653,5 @@ x = x + 1 中，x 中的标量基本类型值 2 从数字对象中拆封（或�
 ## 2.6 总结
 
 这一章是学习者必须掌握的 JavaScript 基础知识。
+
+<a-back-top />
