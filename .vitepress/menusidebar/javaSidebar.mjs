@@ -38,23 +38,27 @@ export default [
         link: `${commonPath}/java09`
     },
     {
-        text: '反射机制与注解',
+        text: '反射机制',
         link: `${commonPath}/java10`
     },
     {
-        text: '网络编程',
+        text: '注解',
         link: `${commonPath}/java11`
     },
     {
-        text: 'Lambda 表达式',
+        text: '网络编程',
         link: `${commonPath}/java12`
     },
     {
-        text: 'Stream 流',
+        text: 'Lambda 表达式',
         link: `${commonPath}/java13`
     },
     {
-        text: 'Java8 ~ Java21 重要新特性',
+        text: 'Stream 流',
         link: `${commonPath}/java14`
+    },
+    {
+        text: 'Java8 ~ Java21 重要新特性',
+        link: `${commonPath}/java15`
     }
 ]

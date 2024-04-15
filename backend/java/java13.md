@@ -1,3 +1,3 @@
-# 13. Stream 流
+# 13. Lambda 表达式
 
 <a-back-top />
