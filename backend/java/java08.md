@@ -144,7 +144,7 @@ try {
 ```
 
 ::: tip try-with-resources
-采用try-with-resources写法，当try中代码执行结束（正常结束/异常结束）之后就会调用try()括号中对象的close()方法来关闭资源，虽然表面上来看try-with-resources写法更加优雅，如果我们对try-with-resources语法代码进行反编译，可以看到里面仍然是try-catch-finally写法，所以说try-with-resources写法是一种语法糖写法。
+采用 try-with-resources 写法，当 try 中代码执行结束（正常结束/异常结束）之后就会调用 try() 括号中对象的 close() 方法来关闭资源，虽然表面上来看 try-with-resources 写法更加优雅，如果我们对 try-with-resources 语法代码进行反编译，可以看到里面仍然是 try-catch-finally 写法，所以说 try-with-resources 写法是一种语法糖写法。
 
 ```Java
 try (FileInputStream in = new FileInputStream("");
