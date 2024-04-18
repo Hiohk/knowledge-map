@@ -11,8 +11,8 @@ import 'ant-design-vue/dist/reset.css';
 import HomeContent from "./components/HomeContent.vue";
 import NotFound from "./components/NotFound.vue";
 
+// 网站访问数据分析
 import VueMatomo from 'vue-matomo';
-
 
 /** @type {import('vitepress').Theme} */
 export default {
@@ -25,12 +25,16 @@ export default {
   },
   enhanceApp({ app, router, siteData }) {
     app.use(Antd);
-    app.use(VueMatomo,{
+    app.use(VueMatomo, {
       host: 'https://hiohk.matomo.cloud/',
-      siteId: 3,
+      siteId: 1,
       router: router,
       enableLinkTracking: true,
       requireConsent: true,
     });
+  
+    // 如果需要在加载页面时自动触发页面浏览事件，可以在这里添加
+    window._paq = window._paq || [];
+    window._paq.push(['trackPageView']);
   }
 }
