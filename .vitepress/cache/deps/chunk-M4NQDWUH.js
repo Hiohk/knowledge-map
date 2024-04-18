@@ -33,7 +33,7 @@ import {
   version,
   watch,
   watchEffect
-} from "./chunk-REZKGHM3.js";
+} from "./chunk-Z6B2QTD3.js";
 
 // node_modules/.pnpm/vitepress@1.0.1_@algolia+client-search@4.23.2_less@4.2.0_markdown-it-mathjax3@4.3.2_postcss@8_7ciqf65d5g4vcs4s5m2rm4es4i/node_modules/vitepress/lib/vue-demi.mjs
 var isVue2 = false;
@@ -9085,4 +9085,4 @@ vitepress/lib/vue-demi.mjs:
    * @license MIT
    *)
 */
-//# sourceMappingURL=chunk-WFVAKOQ2.js.map
+//# sourceMappingURL=chunk-M4NQDWUH.js.map

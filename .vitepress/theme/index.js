@@ -11,6 +11,9 @@ import 'ant-design-vue/dist/reset.css';
 import HomeContent from "./components/HomeContent.vue";
 import NotFound from "./components/NotFound.vue";
 
+import VueMatomo from 'vue-matomo';
+
+
 /** @type {import('vitepress').Theme} */
 export default {
   extends: DefaultTheme,
@@ -22,5 +25,12 @@ export default {
   },
   enhanceApp({ app, router, siteData }) {
     app.use(Antd);
+    app.use(VueMatomo,{
+      host: 'https://hiohk.matomo.cloud/',
+      siteId: 3,
+      router: router,
+      enableLinkTracking: true,
+      requireConsent: true,
+    });
   }
 }
