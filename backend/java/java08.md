@@ -378,13 +378,13 @@ Writer writer =
 1.  通过这两个流，可以完成对象的序列化和反序列化。
 2.  序列化(Serial)：将 Java 对象转换为字节序列。（为了方便在网络中传输），使用 ObjectOutputStream 序列化。
 3.  反序列化(DeSerial)：将字节序列转换为 Java 对象。使用 ObjectInputStream 进行反序列化。
-4.  参与序列化和反序列化的 java 对象必须实现一个标志性接口：java.io.Serializable
+4.  参与序列化和反序列化的 java 对象必须实现一个标志性接口：`java.io.Serializable`
 5.  实现了 Serializable 接口的类，编译器会自动给该类添加序列化版本号的属性：serialVersionUID
 6.  在 java 中，是通过“类名 + 序列化版本号”来进行类的区分的。
 7.  serialVersionUID 实际上是一种安全机制。在反序列化的时候，JVM 会去检查存储 Java 对象的文件中的 class 的序列化版本号是否和当前 Java 程序中的 class 的序列化版本号是否一致。如果一致则可以反序列化。如果不一致则报错。
-8.  如果一个类实现了 Serializable 接口，还是建议将序列化版本号固定死，建议显示的定义出来，原因是：类有可能在开发中升级(改动)，升级后会重新编译，如果没有固定死，编译器会重新分配一个新的序列化版本号，导致之前序列化的对象无法反序列化。显示定义序列化版本号的语法：private static final long serialVersionUID = XXL;
-9.  为了保证显示定义的序列化版本号不会写错，建议使用 @java.io.Serial 注解进行标注。并且使用它还可以帮助我们随机生成序列化版本号。
-10. 不参与序列化的属性需要使用瞬时关键字修饰：transient
+8.  如果一个类实现了 Serializable 接口，还是建议将序列化版本号固定死，建议显示的定义出来，原因是：类有可能在开发中升级(改动)，升级后会重新编译，如果没有固定死，编译器会重新分配一个新的序列化版本号，导致之前序列化的对象无法反序列化。显示定义序列化版本号的语法：`private static final long serialVersionUID = XXL`;
+9.  为了保证显示定义的序列化版本号不会写错，建议使用 `@java.io.Serial` 注解进行标注。并且使用它还可以帮助我们随机生成序列化版本号。
+10. 不参与序列化的属性需要使用瞬时关键字修饰：`transient`
 
 ## 8.11 打印流
 
@@ -404,18 +404,18 @@ Writer writer =
 - 支持字符串转义
 - 自动编码（自动根据环境选择合适的编码方式）
 
-5.  格式化输出？调用 printf 方法。
+5.  格式化输出？调用 `printf()` 方法。
 
 - `%s` 表示字符串
 - `%d` 表示整数
-- `%f` 表示小数（%.2f 这个格式就代表保留两位小数的数字。）
+- `%f` 表示小数（%.2f 这个格式就代表保留两位小数的数字）
 - `%c` 表示字符
 
 ### PrintWriter
 
 1.  打印流（字符形式）注意 PrintWriter 使用时需要手动调用 flush()方法进行刷新。
 2.  比 PrintStream 多一个构造方法，PrintStream 参数只能是 OutputStream 类型，但 PrintWriter 参数可以是 OutputStream，也可以是 Writer。
-    3, 常用方法：
+3.  常用方法：
 
 - `print(Type x)`
 - `println(Type x)`
@@ -436,6 +436,18 @@ Writer writer =
 
 5.  当然，你也可以修改输入流的方向（System.setIn()）。让其指向文件。
 
+```Java
+InputStream in = System.in;
+
+byte[] bytes = new byte[1024];
+int readCount = in.read(bytes);
+for (int i = 0; i < readCount; i++) {
+    System.out.println(bytes[i]);
+    // 输入 abcd
+    // 输出 97 98 99 100 10 （10为换行符的ASCII码）
+}
+```
+
 ### 标准输出流
 
 1.  System.out 获取到的 PrintStream 就是一个标准输出流。
@@ -443,59 +455,129 @@ Writer writer =
 3.  标准输出流不需要关闭（它是一个系统级的全局的流，JVM 负责最后的关闭。）也不需要手动刷新。
 4.  当然，你也可以修改输出流的方向（System.setOut()）。让其指向文件。
 
-## 8.13 File 类
+```Java
+PrintStream out = System.out;
+out.println("11122");
+out.println(true);
+out.println(12);
+out.println(43.75);
+
+// 修改输出流的方向
+System.setOut(new PrintStream("file"));
+System.out.println("22222");
+```
+
+## 8.13 File 类 :white_check_mark:
 
 1.  File 类不是 IO 流，和 IO 的四个头领没有关系。因此通过 File 是无法读写文件。
 2.  File 类是路径的抽象表示形式，这个路径可能是目录，也可能是文件。因此 File 代表了某个文件或某个目录。
-3.  File 类常用的构造方法：File(String pathname);
+3.  File 类常用的构造方法：`File(String pathname)`;
 4.  File 类的常用方法：
 
-- `boolean createNewFile()`;
-- `boolean delete()`;
-- `boolean exists()`;
-- `String getAbsolutePath()`;
-- `String getName()`;
-- `String getParent()`;
-- `boolean isAbsolute()`;
-- `boolean isDirectory()`;
-- `boolean isFile()`;
-- `boolean isHidden()`;
-- `long lastModified()`;
-- `long length()`;
-- `File[] listFiles()`;
-- `File[] listFiles(FilenameFilter filter)`;
-- `boolean mkdir()`;
-- `boolean mkdirs()`;
-- `boolean renameTo(File dest)`;
-- `boolean setReadOnly()`;
-- `boolean setWritable(boolean writable)`;
+- `boolean createNewFile()`：创建一个新的空文件。如果文件已存在，则不执行任何操作。
+- `boolean delete()`： 删除此抽象路径名表示的文件或目录。如果此路径名表示一个目录，则必须为空才能删除。
+- `boolean exists()`：检查此抽象路径名表示的文件或目录是否存在。
+- `String getAbsolutePath()`：返回此抽象路径名的绝对路径名字符串。
+- `String getName()`：返回由此抽象路径名表示的文件或目录的名称。
+- `String getParent()`：返回此抽象路径名的父路径名字符串，如果此路径名没有指定父目录，则返回 null。
+- `boolean isAbsolute()`：测试此抽象路径名是否为绝对路径名。
+- `boolean isDirectory()`：测试此抽象路径名表示的是否是一个目录。
+- `boolean isFile()`：测试此抽象路径名表示的是否是一个标准文件。
+- `boolean isHidden()`：测试此抽象路径名表示的文件是否是一个隐藏文件。
+- `long lastModified()`：返回此抽象路径名表示的文件最后一次被修改的时间。
+- `long length()`：返回由此抽象路径名表示的文件的长度。
+- `File[] listFiles()`：返回一个抽象路径名数组，这些路径名表示此抽象路径名表示的目录中的文件和目录。
+- `File[] listFiles(FilenameFilter filter)`：返回一个抽象路径名数组，这些路径名表示此抽象路径名表示的目录中满足指定过滤器的文件和目录。
+- `boolean mkdir()`：创建由此抽象路径名命名的单级目录。
+- `boolean mkdirs()`：创建由此抽象路径名命名的目录，包括创建必需但不存在的父目录。
+- `boolean renameTo(File dest)`：重命名此抽象路径名表示的文件。
+- `boolean setReadOnly()`：将此抽象路径名标记为只读。
+- `boolean setWritable(boolean writable)`：设置此抽象路径名的可写性。如果参数为 true，则确保文件是可写的；如果为 false，则在文件系统中尝试使文件只读。
 
 编写程序要求可以完成目录的拷贝。
+::: details 目录（文件夹）拷贝
+
+```Java
+public class CopyDir {
+    public static void main(String[] args) {
+        File src = new File("D:\\...\\src");
+        File dest = new File("D:\\...\\javatest07");
+        copy(src, dest);
+    }
+
+    private static void copy(File src, File dest) {
+        if (src.isFile()) {
+            try (FileInputStream in = new FileInputStream(src);
+                 FileOutputStream out =
+                    new FileOutputStream(dest.getAbsolutePath() + src.getAbsolutePath().substring(2));) {
+                byte[] bytes = new byte[1024 * 1024];
+                int readCount = 0;
+                while ((readCount = in.read(bytes)) != -1) {
+                    out.write(bytes, 0, readCount);
+                }
+                out.flush();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return;
+        }
+        File newDir =
+            new File(dest.getAbsolutePath() + src.getAbsolutePath().substring(2));
+        if (!newDir.exists()) {
+            newDir.mkdirs();
+        }
+
+        File[] files = src.listFiles();
+        for (File file : files) {
+            System.out.println(file.getAbsoluteFile());
+            copy(file, dest);
+        }
+    }
+}
+```
+
+:::
 
 ## 8.14 读取属性配置文件
 
 ### Properties + IO
 
-1.  xxx.properties 文件称为属性配置文件。
-2.  属性配置文件可以配置一些简单的信息，例如连接数据库的信息通常配置到属性文件中。这样可以做到在不修改 java 代码的前提下，切换数据库。
-3.  属性配置文件的格式：
+1. xxx.properties 文件称为属性配置文件。
+2. 属性配置文件可以配置一些简单的信息，例如连接数据库的信息通常配置到属性文件中。这样可以做到在不修改 java 代码的前提下，切换数据库。
+3. 属性配置文件的格式：
 
 - `key1=value1`
 - `key2=value2`
 - `key3=value3`
 
-注意：使用 # 进行注释。key 不能重复，key 重复则 value 覆盖。key 和 value 之间用等号分割。等号两边不要有空格。 4. Java 中如何读取属性配置文件？ 5. 当然，也可以使用 Java 中的工具类快速获取配置信息：ResourceBundle
+注意：使用 # 进行注释。key 不能重复，key 重复则 value 覆盖。key 和 value 之间用等号分割。等号两边不要有空格。 
 
+4. Java 中如何读取属性配置文件？ 
+5. 当然，也可以使用 Java 中的工具类快速获取配置信息：ResourceBundle
 - 这种方式要求文件必须是 xxx.properties
 - 属性配置文件必须放在类路径当中
 
+```Java
+try (FileReader reader = new FileReader("D:\\...\\jdbc.properties");) {
+    Properties pro = new Properties();
+    pro.load(reader);
+    Enumeration<?> names = pro.propertyNames();
+    while (names.hasMoreElements()) {
+        String name = (String) names.nextElement();
+        String value = pro.getProperty(name);
+        System.out.println(name + "---" + value);
+    }
+} catch (Exception e) {
+    e.printStackTrace();
+}
+```
 ## 8.15 装饰器设计模式
 
 装饰器设计模式（Decorator Pattern）
 
 1.  思考：如何扩展一个类的功能？继承确实也可以扩展对象的功能，但是接口下的实现类很多，每一个子类都需要提供一个子类。就需要编写大量的子类来重写父类的方法。会导致子类数量至少翻倍，会导致类爆炸问题。
 2.  装饰器设计模式是 GoF23 种设计模式之一，属于结构型设计模式。（结构型设计模式通常处理对象和类之间的关系，使程序员能够更好地组织代码并更好地利用现有代码。）
-3.  IO 流中使用了大量的装饰器设计模式。
+3.  **IO 流中使用了大量的装饰器设计模式**。
 4.  装饰器设计模式作用：装饰器模式可以做到在不修改原有代码的基础之上，完成功能扩展，符合 OCP 原则。并且避免了使用继承带来的类爆炸问题。
 5.  装饰器设计模式中涉及到的角色包括：
 
@@ -512,7 +594,7 @@ Writer writer =
 2.  核心代码：
 
 ```Java
- // 被压缩的文件：test.txt
+// 被压缩的文件：test.txt
 FileInputStream fis = new FileInputStream("d:/test.txt");
 // 压缩后的文件
 GZIPOutputStream gzos =
@@ -565,5 +647,23 @@ while((readCount = gzip.read(bytes)) != -1){
 - 调用 Object 的 clone 方法，默认是浅克隆，需要深克隆的话，就需要重写 clone 方法。
 - 可以通过序列化和反序列化完成对象的克隆。
 - 也可以通过 ByteArrayInputStream 和 ByteArrayOutputStream 完成深克隆。
+
+```Java
+Address addr = new Address("beijing", "dong");
+User user = new User("Tom", 18, addr);
+// 将对象写入到byte数组中
+ByteArrayOutputStream baos = new ByteArrayOutputStream();
+ObjectOutputStream oos = new ObjectOutputStream(baos);
+
+oos.writeObject(user);
+oos.flush();
+// 从byte数组中读取对象
+ByteArrayInputStream bais = 
+    new ByteArrayInputStream(baos.toByteArray());
+ObjectInputStream ois = new ObjectInputStream(bais);
+
+User newUser = (User) ois.readObject();
+System.out.println(newUser);
+```
 
 <a-back-top />
