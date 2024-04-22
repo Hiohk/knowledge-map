@@ -11,6 +11,8 @@ import 'ant-design-vue/dist/reset.css';
 import HomeContent from "./components/HomeContent.vue";
 import NotFound from "./components/NotFound.vue";
 
+import 'animate.css';
+
 /** @type {import('vitepress').Theme} */
 export default {
   extends: DefaultTheme,

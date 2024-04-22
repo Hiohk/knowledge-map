@@ -1,35 +1,27 @@
-<script setup></script>
+<script setup>
+import { ref } from "vue";
+
+const activeKey = ref("1");
+
+</script>
 
 <template>
   <div class="sponsor">
     <a-tabs v-model:activeKey="activeKey" tab-position="left" animated>
       <a-tab-pane key="1" tab="夏天舞曲">
-        <div class="artistic-text">Have fun！前奏一响，夏天到来~</div>
-        <iframe
-          class="fun-video"
-          src="//player.bilibili.com/player.html?aid=1552289000&bvid=BV1K1421D7gL&cid=1485997962&p=1"
-          scrolling="no"
-          border="0"
-          frameborder="no"
-          framespacing="0"
-          allowfullscreen="true"
-          autoplay="0"
-        >
+        <div class="artistic-text animate__animated animate__bounceInRight">Have fun！前奏一响，夏天到来~</div>
+        <iframe class="fun-video"
+          src="//player.bilibili.com/player.html?aid=1552289000&bvid=BV1K1421D7gL&cid=1485997962&p=1" scrolling="no"
+          border="0" frameborder="no" framespacing="0" allowfullscreen="true" autoplay="0">
         </iframe>
       </a-tab-pane>
       <a-tab-pane key="2" tab="漠河往事">
-        <div class="artistic-text">
+        <div class="artistic-text animate__animated animate__bounceInRight">
           坐绿皮火车去中国最北，一个人在小城漠河的日与夜
         </div>
-        <iframe
-          class="fun-video"
-          src="//player.bilibili.com/player.html?aid=918553148&bvid=BV1Yu4y1L7rL&cid=1336607197&p=1"
-          scrolling="no"
-          border="0"
-          frameborder="no"
-          framespacing="0"
-          allowfullscreen="true"
-        >
+        <iframe class="fun-video"
+          src="//player.bilibili.com/player.html?aid=918553148&bvid=BV1Yu4y1L7rL&cid=1336607197&p=1" scrolling="no"
+          border="0" frameborder="no" framespacing="0" allowfullscreen="true">
         </iframe>
       </a-tab-pane>
     </a-tabs>

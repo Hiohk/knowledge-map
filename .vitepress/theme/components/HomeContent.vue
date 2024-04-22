@@ -34,13 +34,14 @@ const layout = ref([
     { "w": 2, "h": 5, "i": "11", "name": "Future", "imgName": waiting, "address": "/knowledge-graph/", "content": "敬请期待..." },
 ]);
 
-
 const cardImgStyle = (width, height) => {
     return {
         "height": height * 20 + "px",
         "margin": "10px auto"
     }
 };
+
+const onLoadMore = () => {};
 </script>
 
 <template>
@@ -51,9 +52,9 @@ const cardImgStyle = (width, height) => {
         <div>
             <a-row :gutter="[16, 20]">
                 <template v-for="(item, index) in layout" :key="item.i">
-                    <a-col :xs="12" :sm="12" :md="6" :lg="4" :xl="4">
-                        <a-card class="grid-item small-card" bordered hoverable size="small"
-                            style="width: 100%;height: 100%;overflow: hidden;">
+                    <a-col class="template-card" :xs="12" :sm="12" :md="6" :lg="4" :xl="4">
+                        <a-card class="grid-item small-card animate__animated animate__backInLeft" bordered hoverable
+                            size="small" style="width: 100%;height: 100%;overflow: hidden;">
                             <template #cover>
                                 <img :style="cardImgStyle(item.w, item.h)" alt="example" :src="item.imgName" />
                             </template>
@@ -69,6 +70,11 @@ const cardImgStyle = (width, height) => {
                         </a-card>
                     </a-col>
                 </template>
+                <a-col :span="24">
+                    <div class="loading-more">
+                        <a-button @click="onLoadMore">loading more</a-button>
+                    </div>
+                </a-col>
             </a-row>
         </div>
 
@@ -170,5 +176,13 @@ const cardImgStyle = (width, height) => {
 
 .time-line-event {
     margin-top: 50px;
+}
+
+.loading-more {
+    text-align: center;
+}
+
+.template-card {
+    height: 50%;
 }
 </style>
