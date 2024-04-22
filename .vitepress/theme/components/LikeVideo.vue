@@ -2,8 +2,8 @@
 
 <template>
   <div class="sponsor">
-    <a-row :gutter="[16, 16]">
-      <a-col :span="24">
+    <a-tabs v-model:activeKey="activeKey" tab-position="left" animated>
+      <a-tab-pane key="1" tab="夏天舞曲">
         <div class="artistic-text">Have fun！前奏一响，夏天到来~</div>
         <iframe
           class="fun-video"
@@ -13,10 +13,11 @@
           frameborder="no"
           framespacing="0"
           allowfullscreen="true"
+          autoplay="0"
         >
         </iframe>
-      </a-col>
-      <a-col :span="24">
+      </a-tab-pane>
+      <a-tab-pane key="2" tab="漠河往事">
         <div class="artistic-text">
           坐绿皮火车去中国最北，一个人在小城漠河的日与夜
         </div>
@@ -29,9 +30,9 @@
           framespacing="0"
           allowfullscreen="true"
         >
-        </iframe
-      ></a-col>
-    </a-row>
+        </iframe>
+      </a-tab-pane>
+    </a-tabs>
   </div>
 </template>
 
@@ -52,7 +53,7 @@
   font-size: 28px;
   line-height: 1.2;
   letter-spacing: 0.05em;
-  text-align: center;
+  text-align: left;
   transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
@@ -61,8 +62,8 @@
 }
 
 .fun-video {
-  margin: 10px auto;
-  width: 80%;
+  margin: 10px 0;
+  width: 95%;
   height: 500px;
 }
 </style>
