@@ -64,6 +64,6 @@
 .fun-video {
   margin: 10px 0;
   width: 95%;
-  height: 500px;
+  height: 480px;
 }
 </style>
