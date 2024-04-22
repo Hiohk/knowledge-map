@@ -4,6 +4,7 @@ import SponsorList from "./SponsorList.vue";
 import RightFloatButton from './RightFloatButton.vue';
 import TimeLineEvent from './TimeLineEvent.vue';
 import RecommendationBlog from './RecommendationBlog.vue';
+import LikeVideo from './LikeVideo.vue';
 
 import HTML5 from "/HTML5.svg";
 import CSS from "/CSS.svg";
@@ -82,6 +83,10 @@ const cardImgStyle = (width, height) => {
                     <recommendation-blog></recommendation-blog>
                 </a-col>
             </a-row>
+        </div>
+
+        <div class="like-video">
+            <like-video></like-video>
         </div>
 
         <div>
