@@ -44,8 +44,8 @@ Java 从诞生之日起就一直倡导“一切皆对象”，在 Java 语言中
 
 JDK1.8 引入 Lambda 表达式之后，Java 语言也开始支持函数式编程，但是 Lambda 表达式不是 Java 语言最早使用的，目前 C++、C#、Python、Scala 等语言都支持 Lambda 表示。
 
-- 面向对象的思想: 做一件事情，找一个能解决这个事情的对象，然后调用对象的方法，最终完成事情。
-- 函数式编程思想: 只要能获得结果，谁去做的，怎么做的都不重要，重视的是结果，不重视实现过程。
+* 面向对象的思想: 做一件事情，找一个能解决这个事情的对象，然后调用对象的方法，最终完成事情。
+* 函数式编程思想: 只要能获得结果，谁去做的，怎么做的都不重要，重视的是结果，不重视实现过程。
 
 在函数式编程语言中，函数被当成一等公民对待。在将函数当成一等公民的编程语言中，Lambda 表达式的类型是函数，但是 Lambda 表达式却是一个对象，而不是函数，它们必须依附于一类特别的对象类型，也就是所谓的函数式接口。
 
@@ -57,7 +57,7 @@ JDK1.8 引入 Lambda 表达式之后，Java 语言也开始支持函数式编程
 
 如果我们在接口上声明了 `@FunctionalInterface` 注解，那么编译器就会按照函数式接口的定义来要求该接口，也就是该接口中有且只能定义一个抽象方法，如果该接口中定义了多个或 0 个抽象方法，则程序编译时就会报错。
 
-`example`: 定义一个函数式接口
+`example` : 定义一个函数式接口
 
 ```Java
 @FunctionalInterface
@@ -99,18 +99,18 @@ public class Test01 {
 
 ### Lambda 和匿名内部类区别
 
-- 所需类型不同
+* 所需类型不同
 
   ○ 匿名内部类：可以是接口，抽象类，具体类。
 
   ○ Lambda 表达式：只能是接口。
 
-- 使用限制不同
+* 使用限制不同
   ○ 如果接口中有且仅有一个抽象方法，可以使用 Lambda 表达式，也可以使用匿名内部类。
 
   ○ 如果接口中有多个抽象方法，则就只能使用匿名内部类，而不能使用 Lambda 表达式。
 
-- 实现原理不同
+* 实现原理不同
 
   ○ 匿名内部类：编译之后，会生成一个单独的.class 字节码文件。
 
@@ -327,6 +327,7 @@ public class Test01 {
 #### Lambda 表达式的语法精简
 
 在以上代码中，虽然 Lambda 表达式的语法已经很简洁了，但是 Lambda 表达式的语法格式还可以更加的精简，从而写出更加优雅的代码，但是相应的代码可读性也会变差。
+
 在以下的应用场景中，我们就可以对 Lambda 表达式的语法进行精简，场景如下：
 
 1. 形参类型可以省略，如果需要省略，则每个形参的类型都要省略。
@@ -391,12 +392,12 @@ public class Test01 {
 四个基本的函数式接口
 |名字 | 接口名 | 对应的抽象方法 |
 |---|-------|---------------|
-|消费| Consumer| void accept(T t);|
-|生产| Supplier| T get();|
-|转换| Function<T, R>| R apply(T t);|
-|判断| Predicate| boolean test(T t);|
+|消费| `Consumer` | `void accept(T t);` |
+|生产| `Supplier` | `T get();` |
+|转换| `Function<T, R>` | `R apply(T t);` |
+|判断| `Predicate` | `boolean test(T t);` |
 
-以上的函数式接口都在 java.util.function 包中，通常函数接口出现的地方都可以使用 Lambda 表达式，所以不必记忆函数接口的名字，这些函数式接口及子接口在后续学习中很常用。
+以上的函数式接口都在 `java.util.function` 包中，通常函数接口出现的地方都可以使用 Lambda 表达式，所以不必记忆函数接口的名字，这些函数式接口及子接口在后续学习中很常用。
 
 ## 13.3 Lambda 表达式的方法引用 :white_check_mark:
 
@@ -404,7 +405,7 @@ public class Test01 {
 
 我们在使用 Lambda 表达式的时候，如果 Lambda 表达式的方法体中除了调用现有方法之外什么都不做，满足这样的条件就有机会使用方法引用来实现。
 
-在以下的代码中，在重写的 apply()方法中仅仅只调用了现有 Math 类 round()方法，也就意味着 Lambda 表达式中仅仅只调用了现有 Math 类 round()方法，那么该 Lambda 表达式就可以升级为方法引用，案例如下：
+在以下的代码中，在重写的 apply() 方法中仅仅只调用了现有 Math 类 round() 方法，也就意味着 Lambda 表达式中仅仅只调用了现有 Math 类 round() 方法，那么该 Lambda 表达式就可以升级为方法引用，案例如下：
 
 ```Java
 // 需求：实现小数取整的操作
@@ -432,13 +433,13 @@ System.out.println(function3.apply(3.14));
 
 ### 实例方法引用
 
-语法：对象 :: 实例方法
+语法： `对象::实例方法`
 
 特点：在 Lambda 表达式的方法体中，通过“对象”来调用指定的某个“实例方法”。
 
 要求：函数式接口中抽象方法的返回值类型和形参列表与内部通过对象调用某个实例方法的返回值类型和形参列表保持一致。
 
-【示例】实例化 Consumer 接口的实现类对象，并在重写的 accept()方法中输出形参的值
+`example` : 实例化 Consumer 接口的实现类对象，并在重写的 accept()方法中输出形参的值
 
 ```Java
 // 方式一：使用匿名内部类来实现
@@ -459,7 +460,7 @@ Consumer<String> consumer3 = System.out :: println;
 consumer3.accept("hello world");
 ```
 
-【示例】实例化 Supplier 接口的实现类对象，并在重写方法中返回 Teacher 对象的姓名
+`example` : 实例化 Supplier 接口的实现类对象，并在重写方法中返回 Teacher 对象的姓名
 
 ```Java
 Teacher teacher = new Teacher("ande", 18);
@@ -483,13 +484,13 @@ System.out.println(supplier3.get());
 
 ### 静态方法引用
 
-语法：类 :: 静态方法
+语法： `类::静态方法`
 
 特点：在 Lambda 表达式的方法体中，通过“类名”来调用指定的某个“静态方法”。
 
 要求：函数式接口中抽象方法的返回值类型和形参列表与内部通过类名调用某个静态方法的返回值类型和形参列表保持一致。
 
-【示例】实例化 Function 接口的实现类对象，并在重写的方法中返回小数取整的结果
+`example` : 实例化 Function 接口的实现类对象，并在重写的方法中返回小数取整的结果
 
 ```Java
 // 方式一：使用匿名内部类来实现
@@ -512,13 +513,13 @@ System.out.println(function3.apply(3.14));
 
 ### 特殊方法引用
 
-语法：类名 :: 实例方法
+语法： `类名::实例方法`
 
 特点：在 Lambda 表达式的方法体中，通过方法的第一个形参来调用指定的某个“实例方法”。
 
 要求：把函数式接口中抽象方法的第一个形参作为方法的调用者对象，并且从第二个形参开始（或无参）可以对应到被调用实例方法的参数列表中，并且返回值类型保持一致。
 
-【示例】使用 Comparator 比较器，来判断两个小数的大小
+`example` : 使用 Comparator 比较器，来判断两个小数的大小
 
 ```Java
 // 方式一：使用匿名内部类来实现
@@ -563,13 +564,13 @@ System.out.println(function3.apply(teacher));
 
 ### 构造方法引用
 
-语法：类名 :: new
+语法： `类名::new`
 
 特点：在 Lambda 表达式的方法体中，返回指定“类名”来创建出来的对象。
 
 要求：创建对象所调用构造方法形参列表和函数式接口中的方法的形参列表保持一致，并且方法的返回值类型和创建对象的类型保持一致。
 
-【示例】实例化 Supplier 接口的实现类对象，然后调用重写方法返回 Teacher 对象
+`example` : 实例化 Supplier 接口的实现类对象，然后调用重写方法返回 Teacher 对象
 
 ```Java
 // 方式一：使用匿名内部类来实现
@@ -591,7 +592,7 @@ Supplier<Teacher> supplier3 = Teacher :: new;
 System.out.println(supplier3.get());
 ```
 
-【示例】实例化 Function 接口的实现类对象，然后调用重写方法返回 Teacher 对象
+`example` : 实例化 Function 接口的实现类对象，然后调用重写方法返回 Teacher 对象
 
 ```Java
 // 方式一：使用匿名内部类来实现
@@ -615,13 +616,13 @@ System.out.println(function3.apply("ande"));
 
 ### 数组引用
 
-语法：数组类型 :: new
+语法： `数组类型::new`
 
 特点：在 Lambda 表达式的方法体中，创建并返回指定类型的“数组”。
 
 要求：重写的方法有且只有一个整数型的参数，并且该参数就是用于设置数组的空间长度，并且重写方法的返回值类型和创建数组的类型保持一致。
 
-【示例】实例化 Function 接口的实现类对象，并在重写方法中返回指定长度的 int 类型数组
+`example` : 实例化 Function 接口的实现类对象，并在重写方法中返回指定长度的 int 类型数组
 
 ```Java
 // 方式一：使用匿名内部类来实
@@ -642,7 +643,7 @@ Function<Integer, int[]> function3 = int[] :: new;
 System.out.println(Arrays.toString(function3.apply(30)));
 ```
 
-## 13.4 Lambda 表达式在集合中的使用 :rocket:
+## 13.4 Lambda 表达式在集合中的使用 :white_check_mark:
 
 为了能够让 Lambda 和 Java 的集合类集更好的一起使用，集合当中也新增了部分方法，以便与 Lambda 表达式对接，要用 Lambda 操作集合就一定要看懂源码。
 
@@ -652,7 +653,7 @@ System.out.println(Arrays.toString(function3.apply(30)));
 
 在 Collection 集合中，提供的 forEach()方法的形参为 Consumer 接口（消费型接口），通过该方法再配合 Lambda 表达式就可以遍历 List 和 Set 集合中的元素。
 
-【示例】遍历 List 集合中的元素
+`example` : 遍历 List 集合中的元素
 
 ```Java
 List<Integer> list = Arrays.asList(11, 22, 33, 44, 55);
@@ -675,7 +676,7 @@ list.forEach(element -> System.out.println(element));
 list.forEach(System.out :: println);
 ```
 
-【示例】遍历 Set 集合中的元素
+`example` : 遍历 Set 集合中的元素
 
 ```Java
 List<String> list = Arrays.asList("aa", "bb", "cc", "dd");
@@ -700,7 +701,7 @@ hashSet.forEach(System.out :: println);
 
 在 Map 集合中，提供的 forEach()方法的形参为 BiConsumer 接口，而 BiConsumer 接口属于两个参数的消费型接口，通过该方法再配合 Lambda 表达式就可以遍历 Map 集合中的元素。
 
-【示例】遍历 Map 集合中的元素
+`example` : 遍历 Map 集合中的元素
 
 ```Java
 // 实例化Map集合并添加键值对
@@ -728,7 +729,7 @@ map.forEach((k, v) -> System.out.println("key：" + k + "，value：" + v));
 
 在 Collection 集合中，提供的 removeIf()方法的形参为 Predicate 接口（判断型接口），通过该方法再配合 Lambda 表达式就可以遍历 List 和 Set 集合中的元素。
 
-【示例】删除 List 集合中的某个元素
+`example` : 删除 List 集合中的某个元素
 
 ```Java
 // 创建List集合并添加元素
@@ -752,7 +753,7 @@ list.removeIf("cc" :: equals);
 System.out.println(list); // 输出：[aa, dd]
 ```
 
-【示例】删除 Set 集合中的某个元素
+`example` : 删除 Set 集合中的某个元素
 
 ```Java
 List<String> list = Arrays.asList("aa", "bb", "cc", "dd");
