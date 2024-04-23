@@ -22,6 +22,7 @@ const blogData = ref([
       "在JavaScript中，Object.assign() 是一个用于合并对象属性的常见方法。然而，对于许多开发者来说，关于它是否执行深拷贝的认识可能存在一些混淆。先说答案Object.assign()",
     date: "2024-02-28 22:12:23",
     pageViews: 123,
+    collections: 5,
     likes: 45,
     comments: 3,
     showComment: false,
@@ -35,6 +36,7 @@ const blogData = ref([
       "防抖和节流是前端开发中常用的函数优化手段，它们可以限制函数的执行频率，提升性能和用户体验。在我们的日常开发中，经常会遇到一些需要对函数进行优化的场景，比如防止表单的重复提交。",
     date: "2024-02-29 12:30:01",
     pageViews: 12,
+    collections: 5,
     likes: 4,
     comments: 2,
     showComment: false,
@@ -48,6 +50,7 @@ const blogData = ref([
       "nextTick 是 Vue 的一个核心实现，$nextTick方法将回调延迟到下次DOM更新循环之后执行。Vue 的 nextTick 其本质是对 JavaScript 执行原理 EventLoop 的一种应用。",
     date: "2024-02-29 12:30:01",
     pageViews: 12,
+    collections: 5,
     likes: 4,
     comments: 2,
     showComment: false,
@@ -60,7 +63,8 @@ const blogData = ref([
     content:
       "在js中，对象类型是非常重要的类型之一，也是项目中数据处理常用的类型之一，虽然这种类型我们经常使用，但是它的方法却不怎么用的到或者很少用到，",
     date: "2024-02-29 12:30:01",
-    pageViews: 12,
+    pageViews: 18,
+    collections: 7,
     likes: 4,
     comments: 2,
     showComment: false,
@@ -68,9 +72,6 @@ const blogData = ref([
 ]);
 const emit = defineEmits(["getPaperDetail"]);
 const keywords = ref("");
-const currentPage = ref(1);
-const pageSize = ref(5);
-const pageSizeOptions = ref(["5", "10", "20", "30", "50", "100"]);
 const showTips = ref(true);
 
 const searchBlog = (data) => {};
@@ -85,6 +86,10 @@ const toggleComment = (item) => {
 
 const toDetailPage = (item) => {
   emit("getPaperDetail", item);
+};
+
+const addCollections = (item) => {
+  item.collections += 1;
 };
 
 const foldComment = (item) => {
@@ -152,9 +157,26 @@ const actions = [
       <template #renderItem="{ item }">
         <a-list-item key="item.title">
           <template #actions>
-            <span v-for="{ icon, text } in actions" :key="icon">
-              <component :is="icon" style="margin-right: 8px" />
-              {{ text }}
+            <span>
+              <span>
+                <component :is="EyeOutlined" style="margin-right: 8px" />
+                {{ item.pageViews }}
+              </span>
+              <a-divider type="vertical" />
+              <span @click.once="addCollections(item)">
+                <component :is="StarOutlined" style="margin-right: 8px" />
+                {{ item.collections }}
+              </span>
+              <a-divider type="vertical" />
+              <span>
+                <component :is="LikeOutlined" style="margin-right: 8px" />
+                {{ item.likes }}
+              </span>
+              <a-divider type="vertical" />
+              <span>
+                <component :is="MessageOutlined" style="margin-right: 8px" />
+                {{ item.comments }}
+              </span>
             </span>
           </template>
           <template #extra>
