@@ -6,5 +6,5 @@ next: false
 ---
 
 # 15. Java8 ~ Java21 重要新特性
-
+Java 新特性...
 <a-back-top />
