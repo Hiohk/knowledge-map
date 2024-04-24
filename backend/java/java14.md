@@ -76,7 +76,7 @@ double[] arr4 = {1.0, 2.0, 3.0};
 DoubleStream doubleStream = Arrays.stream(arr4);
 ```
 
-注意：Stream、IntStream、LongStream 和 DoubleStream 都继承于 BaseStream 接口。
+注意： `Stream` 、 `IntStream` 、 `LongStream` 和 `DoubleStream` 都继承于 `BaseStream` 接口。
 
 ### 使用 Stream 接口提供的方法
 
@@ -95,7 +95,7 @@ Stream<Integer> integerStream = Stream.of(11, 22, 33, 44);
 
 一个普通 Stream 转换为可以并行处理的 Stream 非常简单，只需要用调用 Stream 提供的 parallel()方法进行转换即可，这样就可以并行的处理 Stream 的元素。那么，我们不需要编写任何多线程代码就可以享受到并行处理带来的执行效率的提升。
 
-【示例】把顺序流转化为并行流
+`example` : 把顺序流转化为并行流
 
 ```Java
 // 创建一个“顺序流”Stream对象
@@ -112,7 +112,7 @@ System.out.println(stream.isParallel());         // 输出：true
 
 在 Collection 接口中，还专门提供了一个 parallelStream()方法，用于获得一个并行流。
 
-【示例】使用 parallelStream()方法获得一个并行流
+`example` : 使用 parallelStream()方法获得一个并行流
 
 ```Java
 List<String> list = Arrays.asList("aa", "bb", "cc");
@@ -171,9 +171,9 @@ public class StudentData {
 
 ### 筛选（filter）
 
-筛选（filter），按照一定的规则校验流中的元素，将符合条件的元素提取到新的流中的操作。该操作使用了 Stream 接口提供的“Stream filter(Predicate<? super T> predicate);”方法来实现。
+筛选（filter），按照一定的规则校验流中的元素，将符合条件的元素提取到新的流中的操作。该操作使用了 Stream 接口提供的 `Stream filter(Predicate<? super T> predicate)` 方法来实现。
 
-【示例】使用筛选的案例
+`example` : 使用筛选的案例
 
 ```Java
 // 需求：筛选出年龄大于20的学生对象
@@ -186,9 +186,9 @@ stream2.filter(str -> str.length() > 3).forEach(System.out :: println);
 
 ### 映射（map）
 
-映射（map），将一个流的元素按照一定的映射规则映射到另一个流中。该操作使用了 Stream 接口提供的“ Stream map(Function<? super T, ? extends R> mapper);”方法来实现。
+映射（map），将一个流的元素按照一定的映射规则映射到另一个流中。该操作使用了 Stream 接口提供的 `Stream map(Function<? super T, ? extends R> mapper)` 方法来实现。
 
-【示例】使用映射的案例
+`example` : 使用映射的案例
 
 ```Java
 // 需求：把字符串中的字母全部转化为大写
@@ -207,9 +207,9 @@ Stream<Student> stream3 = StudentData.getStudentList().stream();
 stream3.filter(stu -> stu.getSex().equals("男")).map(Student :: getName).forEach(System.out :: println);
 ```
 
-在 Stream 接口中，可以实现“将多个集合中的元素映射到同一个流中”，该操作使用了 Stream 接口提供的“ Stream flatMap(Function<? super T, ? extends Stream<? extends R>> mapper);”方法来实现。
+在 Stream 接口中，可以实现“将多个集合中的元素映射到同一个流中”，该操作使用了 Stream 接口提供的 `Stream flatMap(Function<? super T, ? extends Stream<? extends R>> mapper)` 方法来实现。
 
-【示例】将多个集合中的元素映射到同一个流中
+`example` : 将多个集合中的元素映射到同一个流中
 
 ```Java
 // 需求：将两个集合中的元素映射到同一个流中
@@ -229,9 +229,9 @@ stream.flatMap(List<String>::stream).forEach(System.out::println);
 
 ### 除重（distinct）
 
-除重（distinct），也就是除去重复的元素，底层使用了 hashCode()和 equals(Object obj)方法来判断元素是否相等。该操作使用了 Stream 接口提供的“Stream distinct();”方法来实现。
+除重（distinct），也就是除去重复的元素，底层使用了 `hashCode()` 和 `equals(Object obj)` 方法来判断元素是否相等。该操作使用了 Stream 接口提供的 `Stream distinct()` 方法来实现。
 
-【示例】演示除重的操作
+`example` : 演示除重的操作
 
 ```Java
 // 需求：除去重复的元素
@@ -247,9 +247,9 @@ StudentData.getStudentList().stream().map(Student :: getAge).distinct().forEach(
 
 ### 排序（sorted）
 
-排序（sorted），也就是对元素执行“升序”或“降序”的排列操作。在 Stream 接口中提供了“Stream sorted();”方法，专门用于对元素执行“自然排序”，使用该方法则元素对应的类就必须实现 Comparable 接口。
+排序（sorted），也就是对元素执行“升序”或“降序”的排列操作。在 Stream 接口中提供了 `Stream sorted()` 方法，专门用于对元素执行“自然排序”，使用该方法则元素对应的类就必须实现 Comparable 接口。
 
-【示例】使用自然排序的案例
+`example` : 使用自然排序的案例
 
 ```Java
 // 需求：对元素执行“升序”排序
@@ -262,9 +262,9 @@ StudentData.getStudentList().stream().sorted().forEach(System.out :: println);
 StudentData.getStudentList().stream().map(Student :: getAge).sorted().forEach(System.out :: println);
 ```
 
-在 Stream 接口中还提供了“Stream sorted(Comparator<? super T> comparator);”方法，专门用于对元素执行“指定排序”，这样就能对某一个类设置多种排序规则。
+在 Stream 接口中还提供了 `Stream sorted(Comparator<? super T> comparator)` 方法，专门用于对元素执行“指定排序”，这样就能对某一个类设置多种排序规则。
 
-【示例】使用指定排序的案例
+`example` : 使用指定排序的案例
 
 ```Java
 // 需求：对元素执行“升序”排序
@@ -279,9 +279,9 @@ StudentData.getStudentList().stream().map(Student :: getAge).sorted(Integer :: c
 
 ### 合并（concat）
 
-合并（concat），也就是将两个 Stream 合并为一个 Stream，此处使用 Stream 接口提供的“public static  Stream concat(Stream<? extends T> a, Stream<? extends T> b)”静态方法来实现。
+合并（concat），也就是将两个 Stream 合并为一个 Stream，此处使用 Stream 接口提供的 `public static  Stream concat(Stream<? extends T> a, Stream<? extends T> b)` 静态方法来实现。
 
-【示例】将两个 Stream 合并为一个 Stream。
+`example` : 将两个 Stream 合并为一个 Stream。
 
 ```Java
 Stream<String> stream1 = Stream.of("aa", "bb", "cc");
@@ -291,11 +291,11 @@ Stream.concat(stream1, stream2).forEach(System.out :: println);
 
 ### 截断和跳过
 
-跳过（skip），指的就是跳过 n 个元素开始操作，此处使用 Stream 接口提供的“Stream skip(long n);”方法来实现。
+跳过（skip），指的就是跳过 n 个元素开始操作，此处使用 Stream 接口提供的 `Stream skip(long n)` 方法来实现。
 
-截断（limit），指的是截取 n 个元素的操作，此处使用 Stream 接口提供的“Stream limit(long maxSize);”方法来实现。
+截断（limit），指的是截取 n 个元素的操作，此处使用 Stream 接口提供的 `Stream limit(long maxSize)` 方法来实现。
 
-【示例】从指定位置开始截取 n 个元素
+`example` : 从指定位置开始截取 n 个元素
 
 ```Java
 // 需求：从索引为2的位置开始截取3个元素
@@ -308,9 +308,9 @@ Stream.of(11, 22, 33, 44, 55, 66).skip(2).limit(3).forEach(System.out :: println
 
 ### 遍历（forEach）
 
-遍历（forEach），使用 Stream 接口提供的“void forEach(Consumer<? super T> action);”方法来遍历计算的结果。
+遍历（forEach），使用 Stream 接口提供的 `void forEach(Consumer<? super T> action)` 方法来遍历计算的结果。
 
-【示例】遍历操作的案例
+`example` : 遍历操作的案例
 
 ```Java
 List<Student> list = StudentData.getStudentList();
@@ -324,14 +324,14 @@ list.stream().filter(stu -> stu.getAge() > 20).forEach(System.out :: println);
 
 匹配（match），就是判断 Stream 中是否存在某些元素，Stream 接口提供的匹配方法如下：
 
-1. boolean allMatch(Predicate<? super T> predicate);   检查是否匹配所有的元素
-2. boolean anyMatch(Predicate<? super T> predicate);   检查是否至少匹配一个元素
-3. boolean noneMatch(Predicate<? super T> predicate); 检查是否一个元素都不匹配
-4. Optional findFirst(); 获得第一个元素
+* `boolean allMatch(Predicate<? super T> predicate)`:   检查是否匹配所有的元素
+* `boolean anyMatch(Predicate<? super T> predicate)`:   检查是否至少匹配一个元素
+* `boolean noneMatch(Predicate<? super T> predicate)`: 检查是否一个元素都不匹配
+* `Optional findFirst()`: 获得第一个元素
 
 注意：此处的 Optional 是一个值的容器，可以通过 get()方法获得容器的值。
 
-【示例】匹配操作的案例
+`example` : 匹配操作的案例
 
 ```Java
 List<Student> list = StudentData.getStudentList();
@@ -357,10 +357,10 @@ System.out.println(skipStu);
 
 归约（reduce），将所有元素按照指定的规则合并成一个结果。在 Stream 接口中，常用的归约方法如下：
 
-1. Optional reduce(BinaryOperator accumulator);
-2. T reduce(T identity, BinaryOperator accumulator);
+- `Optional reduce(BinaryOperator accumulator)`;
+- `T reduce(T identity, BinaryOperator accumulator)`;
 
-【示例】归约操作的案例
+`example` : 归约操作的案例
 
 ```Java
 List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
@@ -384,13 +384,11 @@ System.out.println(sum1);
 
 reduce 操作可以实现从一组元素中生成一个值，而 max()、min()、count()等方法都属于 reduce 操作，将它们单独设为方法只是因为常用，在 Stream 接口中这些方法如下：
 
-long count(); 获得元素的个数
+* `long count()`: 获得元素的个数
+* `Optional max(Comparator<? super T> comparator)`: 获得最大的元素
+* `Optional min(Comparator<? super T> comparator)`: 获得最小的元素
 
-Optional max(Comparator<? super T> comparator); 获得最大的元素
-
-Optional min(Comparator<? super T> comparator); 获得最小的元素
-
-【示例】获得最大、最小和元素的个数
+`example` : 获得最大、最小和元素的个数
 
 ```Java
 List<Student> list = StudentData.getStudentList();
@@ -417,13 +415,13 @@ System.out.println(minAge);
 
 收集（collect），可以说是内容最繁多、功能最丰富的部分了。从字面上去理解，就是把一个流收集起来，最终可以是收集成一个值也可以收集成一个新的集合。
 
-调用 Stream 接口提供的“<R, A> R collect(Collector<? super T, A, R> collector);”方法来实现收集操作，并且参数中的 Collector 对象大都是直接通过 Collectors 工具类获得，实际上传入的 Collector 决定了 collect()的行为。
+调用 Stream 接口提供的 `<R, A> R collect(Collector<? super T, A, R> collector)` 方法来实现收集操作，并且参数中的 Collector 对象大都是直接通过 Collectors 工具类获得，实际上传入的 Collector 决定了 collect()的行为。
 
 #### 归集（toList/toSet/toMap）
 
 因为 Stream 流不存储数据，那么在 Stream 流中的数据完成处理后，如果需要把 Stream 流的数据存入到集合中，那么就需要使用归集的操作。在 Collectors 提供的 toList、toSet 和 toMap 比较常用，另外还有 Collectors 提供的 toCollection 等比较复杂一些的用法。
 
-【示例】演示 toList、toSet 和 toMap 的实现
+`example` : 演示 toList、toSet 和 toMap 的实现
 
 ```Java
 List<String> stringList = Arrays.asList("I", "love", "you", "too");
@@ -442,7 +440,7 @@ map.forEach((k, v) -> System.out.println("key：" + k + "，value：" + v));
 
 在以上的代码中，我们将 Stream 流中计算的数据转化为 List 和 Set 集合时，此时并没有明确存储数据对应集合的具体类型，想要明确存储数据对应集合的具体类型，则就需要使用 toCollection 来实现。
 
-【示例】演示 toCollection 的实现
+`example` : 演示 toCollection 的实现
 
 ```Java
 List<String> list = Arrays.asList("I", "love", "you", "too");
@@ -460,7 +458,7 @@ TreeSet<String> treeSet = list.stream().collect(Collectors.toCollection(TreeSet:
 System.out.println(treeSet);
 ```
 
-【示例】获得年龄大于 20 岁的女同学，然后返回按照年龄进行升序排序后的 List 集合
+`example` : 获得年龄大于 20 岁的女同学，然后返回按照年龄进行升序排序后的 List 集合
 
 ```Java
 List<Student> list = StudentData.getStudentList();
@@ -474,7 +472,7 @@ arrayList.forEach(System.out :: println);
 
 在归集的知识点中，我们实现了将 Stream 中计算的数据转化为集合或 Map，那么能否将 Stream 中计算的数据转化为数组呢？答案是可以的，我们可以使用 Stream 提供的 toArray 静态方法来实现。
 
-【示例】将 Stream 中计算的数据转化为数组
+`example` : 将 Stream 中计算的数据转化为数组
 
 ```Java
 List<String> list = Arrays.asList("aa", "bb", "cc", "dd");
@@ -496,7 +494,7 @@ Collectors 提供了一系列用于数据统计的静态方法：
 4. 求和：summingInt、summingLong、summingDouble
 5. 统计以上所有：summarizingInt、summarizingLong、summarizingDouble
 
-【示例】对学生的年龄进行统计
+`example` : 对学生的年龄进行统计
 
 ```Java
 List<Student> list = StudentData.getStudentList();
@@ -521,7 +519,7 @@ System.out.println(collect);
 
 分组（groupingBy），将 Stream 按条件分为两个 Map，比如按照学生年龄分为两个 Map 集合。
 
-【示例】按照学生年龄分为两个 Map 集合
+`example` : 按照学生年龄分为两个 Map 集合
 
 ```Java
 List<Student> list = StudentData.getStudentList();
@@ -534,7 +532,7 @@ map.forEach((k, v) -> System.out.println("key：" + k + "，value：" + v));
 
 接合（joining），把 Stream 计算的数据按照一定的规则进行拼接。
 
-【示例】获得所有学生的名字拼接成一个字符
+`example` : 获得所有学生的名字拼接成一个字符
 
 ```Java
 List<Student> list = StudentData.getStudentList();
