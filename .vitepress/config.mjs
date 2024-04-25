@@ -89,7 +89,8 @@ export default defineConfig({
       { text: "技术博客", link: '/blog/' },
       {
         text: "探索", items: [
-          { text: "方法论", link: '/methodology/' },
+          { text: "方法论", link: '/exploration/methodology/' },
+          { text: "资源导航", link: '/exploration/resource/' },
         ]
       },
       { text: '交流社区', link: '/community' }

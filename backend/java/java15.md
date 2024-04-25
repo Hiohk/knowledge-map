@@ -25,216 +25,216 @@ next: false
 
 Java 9 经过 4 次推迟，历经曲折的 Java 9 最终在 2017 年 9 月 21 日发布，提供了超过 150 项新功能特性。
 
-- JEP 261: Module System
-  - JDK 9 开始引入的一种全新的模块化编程方式。JPMS 的目的是为了更好地支持大型应用程序的开发和维护，同时也可以使 Java 程序在更为动态、可移植和安全的环境下运行。
-- JEP 222: jshell: The Java Shell (Read-Eval-Print Loop)
-  - 一种交互式的 Java Shell，可以在命令行上快速地进行 Java 代码的编写、验证和执行，从而提高开发者的生产力。
-- JEP 213: Milling Project Coin（细化工程改进，该计划旨在引入小型语言特性来提高代码的简洁性和可读性）
-  - 在 Java 9 中，@SafeVarargs 注解可以用于一个私有实例方法上。在 Java 7 和 Java 8 中，@SafeVarargs 注解只能用于静态方法、final 实例方法和构造函数。
-  - 在 Java 9 中，可以将效果等同于 final 变量作为 try-with-resources 语句块中的资源来使用。在 Java 7/8 中，try-with-resources 语句块中的资源必须是显式的 final 或事实上的 final（即变量在初始化后未被修改），否则编译器会报错。这个限制限制了 Java 程序员使用 try-with-resources 语句块的能力，特别是在涉及 lambda 表达式、匿名类或其他读取外部变量的代码段时。
-  - Java 9 允许在匿名类实例化时使用钻石操作符(<>)来简化代码，但参数类型必须是具体的、可推导的类型。
-  - 从 Java 9 开始，不能使用一个单一的“\_”作为标识符了。
-  - 从 Java 9 开始，接口中支持定义私有方法。
-- JEP 224: HTML5 Javadoc
-  - 从 Java 9 开始，javadoc 开始支持 HTML5 的语法。
-- JEP 254: Compact Strings
+* JEP 261: Module System
+  + JDK 9 开始引入的一种全新的模块化编程方式。JPMS 的目的是为了更好地支持大型应用程序的开发和维护，同时也可以使 Java 程序在更为动态、可移植和安全的环境下运行。
+* JEP 222: jshell: The Java Shell (Read-Eval-Print Loop)
+  + 一种交互式的 Java Shell，可以在命令行上快速地进行 Java 代码的编写、验证和执行，从而提高开发者的生产力。
+* JEP 213: Milling Project Coin（细化工程改进，该计划旨在引入小型语言特性来提高代码的简洁性和可读性）
+  + 在 Java 9 中，@SafeVarargs 注解可以用于一个私有实例方法上。在 Java 7 和 Java 8 中，@SafeVarargs 注解只能用于静态方法、final 实例方法和构造函数。
+  + 在 Java 9 中，可以将效果等同于 final 变量作为 try-with-resources 语句块中的资源来使用。在 Java 7/8 中，try-with-resources 语句块中的资源必须是显式的 final 或事实上的 final（即变量在初始化后未被修改），否则编译器会报错。这个限制限制了 Java 程序员使用 try-with-resources 语句块的能力，特别是在涉及 lambda 表达式、匿名类或其他读取外部变量的代码段时。
+  + Java 9 允许在匿名类实例化时使用钻石操作符(<>)来简化代码，但参数类型必须是具体的、可推导的类型。
+  + 从 Java 9 开始，不能使用一个单一的“\_”作为标识符了。
+  + 从 Java 9 开始，接口中支持定义私有方法。
+* JEP 224: HTML5 Javadoc
+  + 从 Java 9 开始，javadoc 开始支持 HTML5 的语法。
+* JEP 254: Compact Strings
 
 ### Java 10 新特性
 
 2018 年 3 月 21 日，Oracle 官方宣布 JAVA 10 正式发布。JAVA 10 一共定义了 109 个新特性，其中包含 JEP，对开发人员来说，真正的新特性也就一个，还有一些新的 API 和 JVM 规范以及 JAVA 语言规范上的改动。
 
-- JEP 286：局部变量类型推断
-- JEP 296：将 JDK 森林合并到单个存储库中
-- JEP 304：垃圾收集器接口
-- JEP 307：G1 的并行完整 GC
-- JEP 310：应用程序类数据共享
-- JEP 312：线程局部握手
-- JEP 313：删除本机头生成工具 (javah)
-- JEP 314：附加 Unicode 语言标签扩展
-- JEP 316：替代内存设备上的堆分配
-- JEP 317：基于 Java 的实验性 JIT 编译器
-- JEP 319：根证书
-- JEP 322：基于时间的发布版本控制
+* JEP 286：局部变量类型推断
+* JEP 296：将 JDK 森林合并到单个存储库中
+* JEP 304：垃圾收集器接口
+* JEP 307：G1 的并行完整 GC
+* JEP 310：应用程序类数据共享
+* JEP 312：线程局部握手
+* JEP 313：删除本机头生成工具 (javah)
+* JEP 314：附加 Unicode 语言标签扩展
+* JEP 316：替代内存设备上的堆分配
+* JEP 317：基于 Java 的实验性 JIT 编译器
+* JEP 319：根证书
+* JEP 322：基于时间的发布版本控制
 
 ### Java 11 新特性
 
 2018 年 9 月 26 日，Oracle 官方发布 JAVA 11。这是 JAVA 大版本周期变化后的第一个长期支持版本，官方支持到 2026 年。
 
-- JEP 181：基于 Nest 的访问控制
-- JEP 309：动态类文件常量
-- JEP 315：改进 Aarch64 内部函数
-- JEP 318：Epsilon：无操作垃圾收集器
-- JEP 320：删除 Java EE 和 CORBA 模块
-- JEP 321：HTTP 客户端（标准）
-- JEP 323：本地变量语法 LAMBDA 参数
-- JEP 324：与 Curve25519 密钥协商和 Curve448
-- JEP 327：Unicode 的 10
-- JEP 328：飞行记录器
-- JEP 329：ChaCha20 和 Poly1305 加密算法
-- JEP 330：启动单文件源代码程序
-- JEP 331：低开销堆纹
-- JEP 332：传输层安全性 (TLS) 1.3
-- JEP 333：ZGC：可扩展的低延迟垃圾收集器（实验性）
-- JEP 335：弃用 Nashorn JavaScript 引擎
-- JEP 336：弃用 Pack200 工具和 API
+* JEP 181：基于 Nest 的访问控制
+* JEP 309：动态类文件常量
+* JEP 315：改进 Aarch64 内部函数
+* JEP 318：Epsilon：无操作垃圾收集器
+* JEP 320：删除 Java EE 和 CORBA 模块
+* JEP 321：HTTP 客户端（标准）
+* JEP 323：本地变量语法 LAMBDA 参数
+* JEP 324：与 Curve25519 密钥协商和 Curve448
+* JEP 327：Unicode 的 10
+* JEP 328：飞行记录器
+* JEP 329：ChaCha20 和 Poly1305 加密算法
+* JEP 330：启动单文件源代码程序
+* JEP 331：低开销堆纹
+* JEP 332：传输层安全性 (TLS) 1.3
+* JEP 333：ZGC：可扩展的低延迟垃圾收集器（实验性）
+* JEP 335：弃用 Nashorn JavaScript 引擎
+* JEP 336：弃用 Pack200 工具和 API
 
 ### Java 12 新特性
 
 2019 年 3 月 19 日，java12 正式发布。
 
-- JEP 189：Shenandoah：一个低暂停时间的垃圾收集器（实验性）
-- JEP 230：微基准套件
-- JEP 325：switch 表达式（预览）
-- JEP 334：JVM 常量 API
-- JEP 340：一个 AArch64 端口
-- JEP 341：默认 CDS 档案
-- JEP 344：G1 支持可中断的 Mixed GC
-- JEP 346：及时从 G1 返回未使用的已提交内存
+* JEP 189：Shenandoah：一个低暂停时间的垃圾收集器（实验性）
+* JEP 230：微基准套件
+* JEP 325：switch 表达式（预览）
+* JEP 334：JVM 常量 API
+* JEP 340：一个 AArch64 端口
+* JEP 341：默认 CDS 档案
+* JEP 344：G1 支持可中断的 Mixed GC
+* JEP 346：及时从 G1 返回未使用的已提交内存
 
 ### Java 13 新特性
 
-- JEP 350：动态 CDS 档案
-- JEP 351：ZGC：取消提交未使用的内存
-- JEP 353：重新实现旧的 Socket API
-- JEP 354：开关表达式（预览）
-- JEP 355：文本块（预览）
+* JEP 350：动态 CDS 档案
+* JEP 351：ZGC：取消提交未使用的内存
+* JEP 353：重新实现旧的 Socket API
+* JEP 354：开关表达式（预览）
+* JEP 355：文本块（预览）
 
 ### Java 14 新特性
 
-- JEP 305：instanceof 的模式匹配（预览）
-- JEP 343：包装工具（孵化器）
-- JEP 345：G1 的 NUMA 感知内存分配
-- JEP 349：JFR 事件流
-- JEP 352：非易失性映射字节缓冲区
-- JEP 358：有用的空指针异常
-- JEP 359：记录（预览）
-- JEP 361： switch 表达式（标准）
-- JEP 362：弃用 Solaris 和 SPARC 端口
-- JEP 363：删除并发标记清除 (CMS) 垃圾收集器
-- JEP 364：macOS 上的 ZGC
-- JEP 365：Windows 上的 ZGC
-- JEP 366：弃用 ParallelScavenge + SerialOld GC 组合
-- JEP 367：删除 Pack200 工具和 API
-- JEP 368：文本块（第二次预览）
-- JEP 370：外部内存访问 API（孵化器）
+* JEP 305：instanceof 的模式匹配（预览）
+* JEP 343：包装工具（孵化器）
+* JEP 345：G1 的 NUMA 感知内存分配
+* JEP 349：JFR 事件流
+* JEP 352：非易失性映射字节缓冲区
+* JEP 358：有用的空指针异常
+* JEP 359：记录（预览）
+* JEP 361： switch 表达式（标准）
+* JEP 362：弃用 Solaris 和 SPARC 端口
+* JEP 363：删除并发标记清除 (CMS) 垃圾收集器
+* JEP 364：macOS 上的 ZGC
+* JEP 365：Windows 上的 ZGC
+* JEP 366：弃用 ParallelScavenge + SerialOld GC 组合
+* JEP 367：删除 Pack200 工具和 API
+* JEP 368：文本块（第二次预览）
+* JEP 370：外部内存访问 API（孵化器）
 
 ### Java 15 新特性
 
-- JEP 339：爱德华兹曲线数字签名算法 (EdDSA)
-- JEP 360：密封类（预览）
-- JEP 371：隐藏类
-- JEP 372：删除 Nashorn JavaScript 引擎
-- JEP 373：重新实现旧版 DatagramSocket API
-- JEP 374：禁用和弃用偏向锁定
-- JEP 375：instanceof 的模式匹配（第二次预览，无改动）
-- JEP 377：ZGC：可扩展的低延迟垃圾收集器（确定正式版）
-- JEP 378：文本块（确定正式版）
-- JEP 379：Shenandoah：一个低暂停时间的垃圾收集器（确定正式版）
-- JEP 381：删除 Solaris 和 SPARC 端口
-- JEP 383：外内存访问 API（第二孵化器）
-- JEP 384：记录（第二次预览）
-- JEP 385：弃用 RMI 激活以进行删除
+* JEP 339：爱德华兹曲线数字签名算法 (EdDSA)
+* JEP 360：密封类（预览）
+* JEP 371：隐藏类
+* JEP 372：删除 Nashorn JavaScript 引擎
+* JEP 373：重新实现旧版 DatagramSocket API
+* JEP 374：禁用和弃用偏向锁定
+* JEP 375：instanceof 的模式匹配（第二次预览，无改动）
+* JEP 377：ZGC：可扩展的低延迟垃圾收集器（确定正式版）
+* JEP 378：文本块（确定正式版）
+* JEP 379：Shenandoah：一个低暂停时间的垃圾收集器（确定正式版）
+* JEP 381：删除 Solaris 和 SPARC 端口
+* JEP 383：外内存访问 API（第二孵化器）
+* JEP 384：记录（第二次预览）
+* JEP 385：弃用 RMI 激活以进行删除
 
 ### Java 16 新特性
 
-- JEP 338：Vector API（孵化器）
-- JEP 347：启用 C++14 语言功能
-- JEP 357：从 Mercurial 迁移到 Git
-- JEP 369：迁移到 GitHub
-- JEP 376：ZGC：并发线程栈处理
-- JEP 380：Unix 域套接字通道
-- JEP 386：Alpine Linux 端口
-- JEP 387：弹性元空间
-- JEP 388：Windows/AArch64 端口
-- JEP 389：外链 API（孵化器）
-- JEP 390：基于值的类的警告
-- JEP 392：打包工具
-- JEP 393：外内存访问 API（第三孵化器）
-- JEP 394：instanceof 的模式匹配
-- JEP 395：记录
-- JEP 396：默认情况下强封装 JDK 内部
-- JEP 397：密封类（第二次预览）
+* JEP 338：Vector API（孵化器）
+* JEP 347：启用 C++14 语言功能
+* JEP 357：从 Mercurial 迁移到 Git
+* JEP 369：迁移到 GitHub
+* JEP 376：ZGC：并发线程栈处理
+* JEP 380：Unix 域套接字通道
+* JEP 386：Alpine Linux 端口
+* JEP 387：弹性元空间
+* JEP 388：Windows/AArch64 端口
+* JEP 389：外链 API（孵化器）
+* JEP 390：基于值的类的警告
+* JEP 392：打包工具
+* JEP 393：外内存访问 API（第三孵化器）
+* JEP 394：instanceof 的模式匹配
+* JEP 395：记录
+* JEP 396：默认情况下强封装 JDK 内部
+* JEP 397：密封类（第二次预览）
 
 ### Java 17 新特性
 
 2021 年 9 月 14 日，java 17 正式发布（LTS）。长期支持版，支持到 2029 年。Oracle 宣布，从 JDK 17 开始，后面的 JDK 都全部免费提供。
 
-- JEP 306：恢复始终严格的浮点语义
-- JEP 356：增强型伪随机数发生器
-- JEP 382：新的 macOS 渲染管线
-- JEP 391：macOS/AArch64 端口
-- JEP 398：弃用 Applet API 以进行删除
-- JEP 403：强封装 JDK 内部
-- JEP 406：switch 模式匹配（预览）
-- JEP 407：删除 RMI 激活
-- JEP 409：密封类（正式确定）
-- JEP 410：删除实验性 AOT 和 JIT 编译器
-- JEP 411：弃用安全管理器以进行删除
-- JEP 412：外部函数和内存 API（孵化器）
-- JEP 414：Vector API（第二孵化器）
-- JEP 415：上下文特定的反序列化过滤器
+* JEP 306：恢复始终严格的浮点语义
+* JEP 356：增强型伪随机数发生器
+* JEP 382：新的 macOS 渲染管线
+* JEP 391：macOS/AArch64 端口
+* JEP 398：弃用 Applet API 以进行删除
+* JEP 403：强封装 JDK 内部
+* JEP 406：switch 模式匹配（预览）
+* JEP 407：删除 RMI 激活
+* JEP 409：密封类（正式确定）
+* JEP 410：删除实验性 AOT 和 JIT 编译器
+* JEP 411：弃用安全管理器以进行删除
+* JEP 412：外部函数和内存 API（孵化器）
+* JEP 414：Vector API（第二孵化器）
+* JEP 415：上下文特定的反序列化过滤器
 
 ### Java 18 新特性
 
 2022 年 3 月 22 日发布。非长期支持版本。
 
-- JEP 400：从 JDK18 开始，UTF-8 是 Java SE API 的默认字符集。
-- JEP 408：从 JDK18 开始，引入了 jwebserver 这样一个简单的 WEB 服务器，它是一个命令工具。
-- JEP 416：使用方法句柄重新实现核心反射
-- JEP 418：互联网地址解析 SPI
-- JEP 413：Java API 文档中的代码段（javadoc 注释中使用）
-- JEP 417：Vector API（第三孵化器）
-- JEP 419：Foreign Function & Memory API（第二孵化器）
-- JEP 420：switch 的模式匹配（第二次预览）
-- JEP 421：Object 中的 finalize()方法被移除
+* JEP 400：从 JDK18 开始，UTF-8 是 Java SE API 的默认字符集。
+* JEP 408：从 JDK18 开始，引入了 jwebserver 这样一个简单的 WEB 服务器，它是一个命令工具。
+* JEP 416：使用方法句柄重新实现核心反射
+* JEP 418：互联网地址解析 SPI
+* JEP 413：Java API 文档中的代码段（javadoc 注释中使用）
+* JEP 417：Vector API（第三孵化器）
+* JEP 419：Foreign Function & Memory API（第二孵化器）
+* JEP 420：switch 的模式匹配（第二次预览）
+* JEP 421：Object 中的 finalize()方法被移除
 
 ### Java 19 新特性
 
 2022 年 9 月 20 日发布。非长期支持的版本。直到 2023 年 3 月它将被 JDK 20 取代。
 
-- JEP 425：虚拟线程（预览版）
-  - 一种新的线程模型，即虚拟线程；"虚拟线程" 指的是一种轻量级线程，可以通过 JVM 进行管理和调度，而不需要操作系统进行支持
-- JEP 428：结构化并发（孵化器）
-  - 一组新的 API 和规范，用于优化并简化 Java 程序的并发编程
-- JEP 405：Record 模式 (预览版)
-- JEP 427：switch 语句中的模式匹配（第三次预览版）
-  - "switch 语句中的模式匹配"表示该特性是针对 switch 语句的改进，可以使用模式匹配的方式处理 switch 语句中的分支
-- JEP 424：外部函数和内存 API（预览版）
-  - “外部函数”指的是在 Java 程序中调用非 Java 语言编写的函数，比如 C/C++函数
-  - “内存 API”指的是在 Java 程序中直接操作内存的 API
-- JEP 426：向量 API（第四版孵化器）
-  - 一组专用于向量化处理的 API，允许在 Java 程序中轻松高效地执行向量化计算
+* JEP 425：虚拟线程（预览版）
+  + 一种新的线程模型，即虚拟线程；"虚拟线程" 指的是一种轻量级线程，可以通过 JVM 进行管理和调度，而不需要操作系统进行支持
+* JEP 428：结构化并发（孵化器）
+  + 一组新的 API 和规范，用于优化并简化 Java 程序的并发编程
+* JEP 405：Record 模式 (预览版)
+* JEP 427：switch 语句中的模式匹配（第三次预览版）
+  + "switch 语句中的模式匹配"表示该特性是针对 switch 语句的改进，可以使用模式匹配的方式处理 switch 语句中的分支
+* JEP 424：外部函数和内存 API（预览版）
+  + “外部函数”指的是在 Java 程序中调用非 Java 语言编写的函数，比如 C/C++函数
+  + “内存 API”指的是在 Java 程序中直接操作内存的 API
+* JEP 426：向量 API（第四版孵化器）
+  + 一组专用于向量化处理的 API，允许在 Java 程序中轻松高效地执行向量化计算
 
 ### Java 20 新特性
 
 2023 年 3 月 21 日发布。非长期支持版本。直到 2023 年 9 月它将被 JDK 21 取代。
 
-- JEP 432： Record 模式(第二次预览版)
-- JEP 433： switch 的模式匹配 (第四次预览版)
-- JEP 434： 外部函数和内存 API（第二次预览版）
-- JEP 438： 向量 API (第五版孵化器)
-- JEP 429： Scoped Values (Incubator)
-- JEP 436： 虚拟线程(第二次预览版)
-- JEP 437： 结构化并发（第二版孵化器）
+* JEP 432： Record 模式(第二次预览版)
+* JEP 433： switch 的模式匹配 (第四次预览版)
+* JEP 434： 外部函数和内存 API（第二次预览版）
+* JEP 438： 向量 API (第五版孵化器)
+* JEP 429： Scoped Values (Incubator)
+* JEP 436： 虚拟线程(第二次预览版)
+* JEP 437： 结构化并发（第二版孵化器）
 
 ### Java 21 新特性
 
 2023 年 9 月 19 日发布。长期支持版本。
 
-- JEP 440：Record 模式（正式确定）
-- JEP 441：switch 的模式匹配（正式确定）
-- JEP 430：String Templates (Preview)
-- JEP 443：Unnamed Patterns and Variables (Preview)
-- JEP 445：Unnamed Classes and Instance Main Methods (Preview)
-- JEP 444：Virtual Threads（正式确定）
-- JEP 431：Sequenced Collections（正式确定）
-- JEP 452：Key Encapsulation Mechanism API
-- JEP 442：Foreign Function & Memory API (Third Preview)
-- JEP 453：Structured Concurrency (Preview)
-- JEP 446：Scoped Values (Preview)
-- JEP 448：Vector API (Sixth Incubator)
-- JEP 439：Generational ZGC
-- JEP 451：Prepare to Disallow the Dynamic Loading of Agents
+* JEP 440：Record 模式（正式确定）
+* JEP 441：switch 的模式匹配（正式确定）
+* JEP 430：String Templates (Preview)
+* JEP 443：Unnamed Patterns and Variables (Preview)
+* JEP 445：Unnamed Classes and Instance Main Methods (Preview)
+* JEP 444：Virtual Threads（正式确定）
+* JEP 431：Sequenced Collections（正式确定）
+* JEP 452：Key Encapsulation Mechanism API
+* JEP 442：Foreign Function & Memory API (Third Preview)
+* JEP 453：Structured Concurrency (Preview)
+* JEP 446：Scoped Values (Preview)
+* JEP 448：Vector API (Sixth Incubator)
+* JEP 439：Generational ZGC
+* JEP 451：Prepare to Disallow the Dynamic Loading of Agents
 
 ## 15.2 新语法方面的变化 :rocket:
 
@@ -246,7 +246,7 @@ jShell 命令是 Java9 引进的新特性，像 Python 和 Scala 之类的语言
 
 众所周知，所有被打开的系统资源，比如流、文件、Socket 连接等，都需要被开发者手动关闭，否则随着程序的不断运行，资源泄露将会累积成重大的生产事故。在 Java7 以前，我们想要关闭资源就必须的 finally 代码块中完成。
 
-`example`: Java7 之前资源的关闭的方式
+`example` : Java7 之前资源的关闭的方式
 
 ```Java
 public void copyFile1(File srcFile, File destFile) {
@@ -296,9 +296,9 @@ try(/*实例化需要关闭资源的对象或引用需要关闭资源的对象*/
 }
 ```
 
-**使用 try-with-resource 来自动关闭资源，则需要关闭资源的对象对应的类就必须实现 `java.lang.AutoCloseable` 接口**，该接口中提供了一个 close()的抽象方法，而自动关闭资源默认调用的就是实现于 java.lang.AutoCloseable 接口中的 close()方法。因为 FileInputStream 类和 FileOutputStream 类都属于 java.lang.AutoCloseable 接口的实现类，因此此处文件拷贝的操作就可以使用 try-with-resource 来自动关闭资源。
+**使用 try-with-resource 来自动关闭资源，则需要关闭资源的对象对应的类就必须实现 `java.lang.AutoCloseable` 接口**，该接口中提供了一个 close()的抽象方法，而自动关闭资源默认调用的就是实现于 java.lang. AutoCloseable 接口中的 close()方法。因为 FileInputStream 类和 FileOutputStream 类都属于 java.lang. AutoCloseable 接口的实现类，因此此处文件拷贝的操作就可以使用 try-with-resource 来自动关闭资源。
 
-`example`: Java7 之后资源的关闭的方式
+`example` : Java7 之后资源的关闭的方式
 
 ```Java
 public void copyFile(File srcFile, File destFile) {
@@ -323,7 +323,7 @@ public void copyFile(File srcFile, File destFile) {
 
 在 Java9 之后，为了避免在 try 后面的小括号中去实例化很多需要关闭资源的对象（复杂），则就可以把需要关闭资源的多个对象在 try 之前实例化，然后在 try 后面的小括号中引用需要关闭资源的对象即可，从而提高了代码的可读性。
 
-`example`: Java 9 之后的使用方式
+`example` : Java 9 之后的使用方式
 
 ```Java
 public void copyFile(File srcFile, File destFile) throws FileNotFoundException {
@@ -349,7 +349,7 @@ public void copyFile(File srcFile, File destFile) throws FileNotFoundException {
 
 在 Java 10 中，新增了局部变量类型判断。在方法体或代码块中，对于可以在编译期确定的类型，可以使用 var 来定义。这个特性并不意味着 java 是弱类型的语言，仅是提供了更简洁的书写方式。对于编译期无法确定的类型，依然要写清楚类型。
 
-`example`: 局部变量类型判断案例
+`example` : 局部变量类型判断案例
 
 ```Java
 // 使用var来作为变量的引用声明
@@ -377,7 +377,7 @@ var calendar = Calendar.getInstance();
 
 在 JDK 14 中新增 instanceof 模式匹配增强(预览)，在 JDK 16 中转正。通过 instanceof 模式匹配增强，我们就可以直接在模式匹配的括号内声明对应类型的局部变量。
 
-`example`: 执行向下转型的操作，从而调用 show()方法
+`example` : 执行向下转型的操作，从而调用 show()方法
 
 ```Java
 /**
@@ -409,7 +409,7 @@ public void testNew() {
 }
 ```
 
-`example`: 重写 equals()，判断成员变量是否相等
+`example` : 重写 equals()，判断成员变量是否相等
 
 ```Java
 public class Tiger {
@@ -462,7 +462,7 @@ public class Tiger {
 
 在 Java12 中对 switch 表达式做了增强（预览），能够使用更加简洁的代码来解决这些问题。
 
-`example`: switch 表达式使用的案例
+`example` : switch 表达式使用的案例
 
 ```Java
 /**
@@ -521,7 +521,7 @@ public static void newSwitch(int month) {
 
 在 Java 13 中，增加关键字 yield 关键字（预览）， 用于在 switch 表达式中返回结果。到 Java14 版本中，Java12 和 Java 13 中关于 switch 的新特性都确定为正式版本。
 
-`example`: switch 表达式中的 yield 关键字
+`example` : switch 表达式中的 yield 关键字
 
 ```Java
 /**
@@ -553,7 +553,7 @@ public static void yieldSwitch1(int month) {
 
 在 Java 12 版本中，新增了文本块（预览）。文本块就是指多行字符串，例如一段格式化后的 xml、json 等。而有了文本块以后，用户不需要转义，Java 能自动搞定。因此，文本块将提高 Java 程序的可读性和可写性。
 
-`example`:演示文本块的使用
+`example` : 演示文本块的使用
 
 ```Java
 // 使用以前拼接的方式
@@ -579,7 +579,7 @@ System.out.println(html2);
 1. 在一行的结尾增加“\”可以取消改行的换行符；
 2. 可以通过“\s”增加空格。
 
-`example`: 演示文本块新增特性
+`example` : 演示文本块新增特性
 
 ```Java
 // 取消换行（\）
@@ -654,12 +654,12 @@ public final class Tiger {
 
 Record 类的特点：
 
-- 状态声明中的每个属性，都是默认采用了 private 和 final 修饰，则属性值就不可修改.
-- 在 Record 类中，默认已经重写了 Object 类提供的 equals()，hashcode()，toString()方法.
-- 在 Record 类中，默认提供全参的构造方法，并且提供的 getter 方法名和属性名保持一致。
-- Record 类采用了 final 修饰，并且显示的继承于 java.lang.Record 类，因此就不能继承别的父类。
+* 状态声明中的每个属性，都是默认采用了 private 和 final 修饰，则属性值就不可修改.
+* 在 Record 类中，默认已经重写了 Object 类提供的 equals()，hashcode()，toString()方法.
+* 在 Record 类中，默认提供全参的构造方法，并且提供的 getter 方法名和属性名保持一致。
+* Record 类采用了 final 修饰，并且显示的继承于 java.lang. Record 类，因此就不能继承别的父类。
 
-`example`: 将以上的 Tiger 类转化为 Record 类
+`example` : 将以上的 Tiger 类转化为 Record 类
 
 ```Java
 public record Tiger(String name, int age)  {
@@ -667,11 +667,11 @@ public record Tiger(String name, int age)  {
 }
 ```
 
-在以上的 Record 类中，Tiger 类默认采用了 final 修饰，并且显示的继承于 java.lang.Record 抽象类，因此 Tiger 类就不能继承于别的父类。在 Tiger 类中，提供了 name 和 age 两个私有常量，并且还提供了一个 public 修饰的全参构造方法，提供的 getter 方法的名字和属性名保持一致，但是并没有提供 setter 方法。并且，在 Tiger 类中还重写了 Object 类提供的 equals()，hashcode()，toString()方法。
+在以上的 Record 类中，Tiger 类默认采用了 final 修饰，并且显示的继承于 java.lang. Record 抽象类，因此 Tiger 类就不能继承于别的父类。在 Tiger 类中，提供了 name 和 age 两个私有常量，并且还提供了一个 public 修饰的全参构造方法，提供的 getter 方法的名字和属性名保持一致，但是并没有提供 setter 方法。并且，在 Tiger 类中还重写了 Object 类提供的 equals()，hashcode()，toString()方法。
 
 在 Record 类中，我们还可以新增静态属性、无参构造方法、成员方法和静态方法，但是创建对象时不能调用无参构造方法，而是通过全参构造方法创建对象的时候，默认就会调用 Record 类中的无参构造方法。
 
-`example`: 在 Record 类中添加的内容
+`example` : 在 Record 类中添加的内容
 
 ```Java
 public record Tiger(String name, int age)  {
@@ -712,7 +712,7 @@ Java 中的密封类是一种新的类修饰符，它可以修饰类和接口，
 
 在 Java15 版本中，新增了密封类和密封接口（预览）。使用 sealed 关键字修饰的类，我们就称之为密封类。密封类必须是一个父类，我们可以使用 permits 关键字来指定哪些子类可以继承于密封类，并且密封类的子类必须使用 sealed、final 或 non-sealed 来修饰。
 
-`example`: 密封类的演示
+`example` : 密封类的演示
 
 ```Java
 // 密封类必须被继承，并且使用permits来指定哪些子类可以被继承
@@ -729,7 +729,7 @@ non-sealed class SmallDog extends Dog {}
 
 使用 sealed 关键字修饰的接口，我们就称之为密封接口。密封接口必须使用 permits 关键字来指定实现类或子接口。针对密封接口的实现类，则必须使用 sealed、final 或 non-sealed 来修饰；针对密封接口的子接口，则必须使用 sealed 或 non-sealed 来修饰。
 
-`example`: 密封接口的演示
+`example` : 密封接口的演示
 
 ```Java
 // 使用sealed修饰的接口，则必须使用permits来指定实现类或子接口。
@@ -744,7 +744,7 @@ sealed 与 record：
 
 因为 Record 类默认采用了 final 关键字修饰，因此 Record 类就可以作为密封接口的实现类。
 
-`example`: 密封接口和 Record 类
+`example` : 密封接口和 Record 类
 
 ```Java
 // 密封接口
@@ -797,7 +797,7 @@ System.out.println(result2);
 
 在 Java 8 版本中，接口中支持“公开”的静态方法和公开的默认方法；在 Java 9 版本中，接口中还允许定义“私有”的静态方法和成员方法，但是不能定义私有的默认方法。
 
-`example`: 演示接口中的私有静态方法和成员方法
+`example` : 演示接口中的私有静态方法和成员方法
 
 ```Java
 /**
@@ -838,13 +838,13 @@ public class HelloWorld {
 }
 ```
 
-执行 java 命令进行运行: `java HelloWorld.java`;
+执行 java 命令进行运行: `java HelloWorld.java` ; 
 
 ### 创建不可变集合
 
 在 Java 9 版本中，我们可以通过 List、Set 和 Map 接口提供的 of(E... elements)静态方法来创建不可变集合。通过此方式创建的不可变集合，我们不但不能添加或删除元素，并且还不能修改元素。
 
-`example`: 创建不可变集合
+`example` : 创建不可变集合
 
 ```Java
 // 创建不可变List集合
@@ -861,10 +861,10 @@ System.out.println(map);
 
 Arrays.asList 与 List.of 的区别：
 
-- List.of：不能向集合中添加或删除元素，也不能修改集合中的元素。
-- Arrays.asList：不能向集合中添加或删除元素，但是可以修改集合中的元素。
+* List.of：不能向集合中添加或删除元素，也不能修改集合中的元素。
+* Arrays.asList：不能向集合中添加或删除元素，但是可以修改集合中的元素。
 
-`example`: Arrays.asList 与 List.of 的区别
+`example` : Arrays.asList 与 List.of 的区别
 
 ```Java
 // 通过Arrays.asList()方法创建不可变集合
@@ -883,7 +883,7 @@ List<Integer> list2 = List.of(1, 2, 3, 4, 5);
 
 ### Optional API
 
-在 Java8 以前，Java 程序员操作对象时，为了避免错误引用 null 造成的空指针异常，往往需要一系列繁杂冗余的判空操作，增加了许多重复代码，降低了代码可读性，于是 Java 8 引入 Optional 类，优雅简洁的对 null 值进行处理，从而避免出现空指针异常（NullPointerException）。
+在 Java 8 以前，Java 程序员操作对象时，为了避免错误引用 null 造成的空指针异常，往往需要一系列繁杂冗余的判空操作，增加了许多重复代码，降低了代码可读性，于是 Java 8 引入 Optional 类，优雅简洁的对 null 值进行处理，从而避免出现空指针异常（NullPointerException）。
 
 本质上，Optional 类是一个包含有可选值的包装类，这意味着 Optional 类中既可以含有对象也可以为 null。
 
@@ -894,7 +894,7 @@ List<Integer> list2 = List.of(1, 2, 3, 4, 5);
 
 因此当对象可能存在或者不存在，应该使用 ofNullable()方法来创建 Optional 实例。
 
-`example`: 创建一个 Optional 实例
+`example` : 创建一个 Optional 实例
 
 ```Java
 // 创建一个包含“null”的Optional示例
@@ -914,7 +914,7 @@ Optional<String> optional2 = Optional.ofNullable("hello");
 
 开发中，我们获取 Optional 中存储的值，一般都是采用 orElse(T other)方法来实现。
 
-`example`: 演示 get()方法
+`example` : 演示 get()方法
 
 ```Java
 // 创建一个包含“null”的Optional示例
@@ -926,7 +926,7 @@ String str = optional2.get();
 System.out.println(str); // 输出：hello
 ```
 
-`example`: 演示 orElse(T other)方法
+`example` : 演示 orElse(T other)方法
 
 ```Java
 // 创建一个包含“null”的Optional示例
