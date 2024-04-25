@@ -3,6 +3,7 @@ import vueSidebar from "./menusidebar/vueSidebar.mjs";
 import conventionSidebar from "./menusidebar/conventionSidebar.mjs";
 import javascriptSidebar from "./menusidebar/javascriptSidebar.mjs";
 import javaSidebar from './menusidebar/javaSidebar.mjs';
+import javaWebSidebar from "./menusidebar/javaWebSidebar.mjs";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -70,12 +71,12 @@ export default defineConfig({
       },
       {
         text: "后端", items: [
-          { text: 'Java', link: '/backend/java/java01', activeMatch: "/backend/java/java01" },
-          { text: 'JavaWeb', link: '/backend/javaweb/', activeMatch: "/backend/javaweb/" },
+          { text: 'Java', link: '/backend/java/java01', activeMatch: "/backend/java/*" },
+          { text: 'JavaWeb', link: '/backend/javaweb/javaweb01', activeMatch: "/backend/javaweb/" },
           { text: 'Maven(暂未开放)', link: '/backend/maven' },
+          { text: 'MyBatis(暂未开放)', link: '/backend/mybatis' },
           { text: 'Spring(暂未开放)', link: '/backend/spring' },
           { text: 'SpringMVC(暂未开放)', link: '/backend/springmvc' },
-          { text: 'MyBatis(暂未开放)', link: '/backend/mybatis' },
           { text: 'SpringBoot(暂未开放)', link: '/backend/springBoot' },
           { text: 'SpringCloud(暂未开放)', link: '/backend/springCloud' },
           { text: 'MySQL(暂未开放)', link: '/backend/mysql' },
@@ -97,7 +98,8 @@ export default defineConfig({
       "/frontend/vue/": vueSidebar,
       "/frontend/convention/": conventionSidebar,
       "/frontend/javascript/": javascriptSidebar,
-      "/backend/java/": javaSidebar
+      "/backend/java/": javaSidebar,
+      "/backend/javaweb/": javaWebSidebar
     },
     socialLinks: [
       { icon: 'github', link: 'https://github.com/Hiohk' }
