@@ -9,14 +9,14 @@ const activeKey = ref("1");
   <div class="sponsor">
     <a-tabs v-model:activeKey="activeKey" tab-position="left" animated>
       <a-tab-pane key="1" tab="夏天舞曲">
-        <div class="artistic-text animate__animated animate__bounceInRight">Have fun！前奏一响，夏天到来~</div>
+        <div class="artistic-text animate__animated animate__slideInDown">Have fun！前奏一响，夏天到来~</div>
         <iframe class="fun-video"
           src="//player.bilibili.com/player.html?aid=1552289000&bvid=BV1K1421D7gL&cid=1485997962&p=1" scrolling="no"
           border="0" frameborder="no" framespacing="0" allowfullscreen="true" autoplay="0">
         </iframe>
       </a-tab-pane>
       <a-tab-pane key="2" tab="漠河往事">
-        <div class="artistic-text animate__animated animate__bounceInRight">
+        <div class="artistic-text animate__animated animate__slideInDown">
           坐绿皮火车去中国最北，一个人在小城漠河的日与夜
         </div>
         <iframe class="fun-video"
