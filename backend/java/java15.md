@@ -296,7 +296,7 @@ try(/*实例化需要关闭资源的对象或引用需要关闭资源的对象*/
 }
 ```
 
-使用 try-with-resource 来自动关闭资源，则需要关闭资源的对象对应的类就必须实现 java.lang.AutoCloseable 接口，该接口中提供了一个 close()的抽象方法，而自动关闭资源默认调用的就是实现于 java.lang.AutoCloseable 接口中的 close()方法。因为 FileInputStream 类和 FileOutputStream 类都属于 java.lang.AutoCloseable 接口的实现类，因此此处文件拷贝的操作就可以使用 try-with-resource 来自动关闭资源。
+**使用 try-with-resource 来自动关闭资源，则需要关闭资源的对象对应的类就必须实现 `java.lang.AutoCloseable` 接口**，该接口中提供了一个 close()的抽象方法，而自动关闭资源默认调用的就是实现于 java.lang.AutoCloseable 接口中的 close()方法。因为 FileInputStream 类和 FileOutputStream 类都属于 java.lang.AutoCloseable 接口的实现类，因此此处文件拷贝的操作就可以使用 try-with-resource 来自动关闭资源。
 
 `example`: Java7 之后资源的关闭的方式
 
@@ -663,7 +663,7 @@ Record 类的特点：
 
 ```Java
 public record Tiger(String name, int age)  {
-  // ...
+
 }
 ```
 
