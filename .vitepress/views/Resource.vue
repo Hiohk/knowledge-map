@@ -1,8 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import {
-  PicCenterOutlined,
-  ExclamationCircleOutlined,
+  PicCenterOutlined
 } from "@ant-design/icons-vue";
 
 const activeKey = ref("frontend");
