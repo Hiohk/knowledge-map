@@ -4,7 +4,7 @@ prev:
   link: "/backend/java/java13"
 
 next:
-  text: "Java8 ~ Java21 重要新特性"
+  text: "Java 新特性"
   link: "/backend/java/java15"
 ---
 
