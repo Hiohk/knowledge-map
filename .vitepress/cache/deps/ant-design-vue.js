@@ -59,7 +59,10 @@ import {
   generate,
   gold,
   presetPrimaryColors
-} from "./chunk-EV5KZNH4.js";
+} from "./chunk-MMNIVNA3.js";
+import {
+  require_dayjs_min
+} from "./chunk-P4NF5NST.js";
 import {
   Comment,
   Fragment,
@@ -107,9 +110,6 @@ import {
   withDirectives,
   withModifiers
 } from "./chunk-FHTSK7OC.js";
-import {
-  require_dayjs_min
-} from "./chunk-P4NF5NST.js";
 import {
   __commonJS,
   __export,

@@ -7,7 +7,7 @@ layout: page
 
 <script setup>
 import {ref} from "vue"; 
-import Resource from "../../.vitepress/views/Resource.vue"; 
+import Resource from "../../.vitepress/views/Resource.vue";
 
 </script>
 

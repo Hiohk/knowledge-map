@@ -6,7 +6,7 @@ import { Icon } from "@iconify/vue";
 const activeKey = ref("frontend");
 const jumpTipDialog = ref(false);
 const loading = ref(false);
-const targetLink = ref("");
+const targetData = ref("");
 
 const headStyle = ref({
   color: "#D1802B",
@@ -33,7 +33,7 @@ const docsData = ref([
   {
     title: "Vue3.0",
     href: "https://v3.cn.vuejs.org/",
-    desc: "Vue3.0中文文档",
+    desc: "易学易用，性能出色，适用场景丰富的 Web 前端框架",
     icon: "vscode-icons:file-type-vue",
   },
   {
@@ -115,6 +115,88 @@ const docsData = ref([
     desc: "Redis中文文档",
     icon: "devicon:redis-wordmark",
   },
+  {
+    title: "uni-app",
+    href: "https://uniapp.dcloud.net.cn/",
+    desc: "uni-app 是一个使用 Vue.js 开发所有前端应用的框架",
+    icon: "carbon:app",
+    color: "color: #2B9939",
+  },
+  {
+    title: "W3School",
+    href: "https://www.w3school.com.cn/",
+    desc: "W3School",
+    icon: "simple-icons:w3schools",
+    color: "color: #BD2D2F"
+  },
+]);
+
+const communityData = ref([
+  {
+    title: "stack overflow",
+    href: "https://stackoverflow.com/",
+    desc: "Stack Overflow是最受程序员欢迎的IT技术问答网站",
+    icon: "devicon:stackoverflow",
+  },
+  {
+    title: "稀土掘金",
+    href: "https://juejin.cn/",
+    desc: "开发者社区",
+    icon: "simple-icons:juejin",
+    color: "color: #1F80FF"
+  },
+  {
+    title: "开源中国",
+    href: "https://www.oschina.net/",
+    desc: "中国版的Github，国内最大的开源技术社区",
+    icon: "arcticons:china-construction-bank",
+    color: "color: #3CA054"
+  },
+  {
+    title: "CSDN",
+    href: "https://www.csdn.net/",
+    desc: "国内开发者社区",
+    icon: "logos:zulip-icon"
+  },
+  {
+    title: "SegmentFault",
+    href: "https://segmentfault.com/",
+    desc: "开放式协作的问答社区",
+    icon: "logos:segment",
+  },
+  {
+    title: "Github",
+    href: "https://github.com/",
+    desc: "Github",
+    icon: "logos:github-icon",
+  },
+  {
+    title: "阿里云开发者社区",
+    href: "https://developer.aliyun.com/",
+    desc: "阿里云开发者社区",
+    icon: "ant-design:aliyun-outlined",
+    color: "color: #ef6400",
+  },
+  {
+    title: "腾讯云开发者社区",
+    href: "https://cloud.tencent.com/developer",
+    desc: "腾讯云开发者社区",
+    icon: "emojione:cloud"
+  },
+  {
+    title: "Gitee",
+    href: "https://gitee.com/",
+    desc: "国内代码托管平台",
+    icon: "simple-icons:gitee",
+    color: "color: #C71D23"
+  },
+  {
+    title: "GitLab",
+    href: "https://gitlab.cn/",
+    desc: "一站式DevOps平台",
+    icon: "logos:gitlab",
+    color: "color: #C71D23"
+  },
 ]);
 
 const componentData = ref([
@@ -135,7 +217,8 @@ const componentData = ref([
     title: "TDesign",
     href: "https://tdesign.tencent.com/",
     desc: "TDesign 企业级设计体系",
-    icon: "logos:tdesign",
+    icon: "icon-park-outline:bydesign",
+    color: "color: #00B8F6"
   },
   {
     title: "Arco Design",
@@ -150,6 +233,25 @@ const componentData = ref([
     desc: "轻量、可定制的移动端 Vue 组件库",
     icon: "logos:uikit",
   },
+  {
+    title: "Vuetify",
+    href: "https://vuetifyjs.com/zh-Hans/",
+    desc: "Vuetify is a no design skills required Open Source UI Library with beautifully handcrafted Vue Components.",
+    icon: "devicon:vuetify"
+  },
+  {
+    title: "Bootstrap",
+    href: "https://www.bootcss.com/",
+    desc: "简洁、直观、强悍的前端开发框架，让web开发更迅速、简单",
+    icon: "devicon:bootstrap"
+  },
+  {
+    title: "Swiper",
+    href: "https://www.swiper.com.cn/",
+    desc: "Swiper是纯javascript打造的滑动特效插件",
+    icon: "simple-icons:swiper",
+    color: "color: #194DE0"
+  }
 ]);
 
 const learningPlatformData = ref([
@@ -164,19 +266,7 @@ const learningPlatformData = ref([
     title: "菜鸟教程",
     href: "https://www.runoob.com/",
     desc: "菜鸟教程",
-    icon: "arcticons:angry-birds",
-  },
-  {
-    title: "W3School",
-    href: "https://www.w3school.com.cn/",
-    desc: "W3School",
-    icon: "simple-icons:w3schools",
-  },
-  {
-    title: "Github",
-    href: "https://github.com/",
-    desc: "Github",
-    icon: "logos:github-icon",
+    icon: "noto:bird",
   },
   {
     title: "阿里云",
@@ -190,12 +280,13 @@ const learningPlatformData = ref([
     href: "https://cloud.tencent.com/",
     desc: "腾讯云",
     icon: "material-symbols:cloud-outline",
+    color: "color: #01A4FF"
   },
 ]);
 
 const jumpToTarget = (data) => {
   jumpTipDialog.value = true;
-  targetLink.value = data.href;
+  targetData.value = data;
 };
 
 const confirmJump = () => {
@@ -203,7 +294,7 @@ const confirmJump = () => {
   setTimeout(() => {
     loading.value = false;
     jumpTipDialog.value = false;
-    window.open(targetLink.value, "_blank");
+    window.open(targetData.value.href, "_blank");
   }, 1000);
 };
 
@@ -219,63 +310,36 @@ const anchorData = ref([
   },
   {
     key: "2",
+    href: "#anchor-community",
+    title: "技术社区",
+  },
+  {
+    key: "3",
     href: "#anchor-components",
     title: "UI 组件",
   },
   {
-    key: "3",
+    key: "4",
     href: "#anchor-learning-platform",
     title: "学习平台",
   },
   {
-    key: "4",
-    href: "#anchor-book",
+    key: "5",
+    href: "#anchor-books",
     title: "书籍推荐",
   },
 ]);
-
-const handleAnchorChange = (anchorName) => {
-  // 获取目标元素
-  const targetElement = document.getElementById(anchorName);
-  if (targetElement) {
-    // 获取目标元素距离页面顶部的距离，考虑滚动条宽度和窗口大小
-    const offsetTop =
-      targetElement.getBoundingClientRect().top + window.scrollY;
-    // 考虑到20px的外边距，手动调整滚动位置
-    const adjustedOffset = offsetTop + 40;
-
-    // 执行滚动
-    window.scrollTo({
-      top: adjustedOffset,
-      behavior: "smooth", // 保持平滑滚动效果
-    });
-  }
-};
 </script>
 
 <template>
   <div>
     <a-row :gutter="16">
-      <a-col :span="20">
-        <a-card
-          class="card-item"
-          id="anchor-docs"
-          title="技术文档"
-          :headStyle="headStyle"
-          :bodyStyle="bodyStyle"
-        >
-          <a-card-grid
-            class="card-grid-item"
-            v-for="(item, index) in docsData"
-            :key="index"
-            @click="jumpToTarget(item)"
-          >
+      <a-col :span="22">
+        <a-card class="card-item" id="anchor-docs" title="技术文档" :headStyle="headStyle" :bodyStyle="bodyStyle">
+          <a-card-grid class="card-grid-item" v-for="(item, index) in docsData" :key="index"
+            @click="jumpToTarget(item)">
             <div class="card-grid-icon">
-              <Icon
-                :icon="item.icon"
-                style="width: 40px; height: 40px"
-                :style="item.color"
-              ></Icon>
+              <Icon :icon="item.icon" style="width: 40px; height: 40px" :style="item.color"></Icon>
             </div>
             <div class="card-grid-container">
               <span class="card-grid-title">{{ item.title }}</span>
@@ -284,25 +348,11 @@ const handleAnchorChange = (anchorName) => {
           </a-card-grid>
         </a-card>
 
-        <a-card
-          class="card-item"
-          id="anchor-components"
-          title="UI 组件"
-          :headStyle="headStyle"
-          :bodyStyle="bodyStyle"
-        >
-          <a-card-grid
-            class="card-grid-item"
-            v-for="(item, index) in componentData"
-            :key="index"
-            @click="jumpToTarget(item)"
-          >
+        <a-card class="card-item" id="anchor-community" title="技术社区" :headStyle="headStyle" :bodyStyle="bodyStyle">
+          <a-card-grid class="card-grid-item" v-for="(item, index) in communityData" :key="index"
+            @click="jumpToTarget(item)">
             <div class="card-grid-icon">
-              <Icon
-                :icon="item.icon"
-                style="width: 40px; height: 40px"
-                :style="item.color"
-              ></Icon>
+              <Icon :icon="item.icon" style="width: 40px; height: 40px" :style="item.color"></Icon>
             </div>
             <div class="card-grid-container">
               <span class="card-grid-title">{{ item.title }}</span>
@@ -311,25 +361,11 @@ const handleAnchorChange = (anchorName) => {
           </a-card-grid>
         </a-card>
 
-        <a-card
-          class="card-item"
-          id="anchor-learning-platform"
-          title="学习平台"
-          :headStyle="headStyle"
-          :bodyStyle="bodyStyle"
-        >
-          <a-card-grid
-            class="card-grid-item"
-            v-for="(item, index) in learningPlatformData"
-            :key="index"
-            @click="jumpToTarget(item)"
-          >
+        <a-card class="card-item" id="anchor-components" title="UI 组件" :headStyle="headStyle" :bodyStyle="bodyStyle">
+          <a-card-grid class="card-grid-item" v-for="(item, index) in componentData" :key="index"
+            @click="jumpToTarget(item)">
             <div class="card-grid-icon">
-              <Icon
-                :icon="item.icon"
-                style="width: 40px; height: 40px"
-                :style="item.color"
-              ></Icon>
+              <Icon :icon="item.icon" style="width: 40px; height: 40px" :style="item.color"></Icon>
             </div>
             <div class="card-grid-container">
               <span class="card-grid-title">{{ item.title }}</span>
@@ -338,14 +374,22 @@ const handleAnchorChange = (anchorName) => {
           </a-card-grid>
         </a-card>
 
-        <a-card
-          class="card-item"
-          id="anchor-books"
-          title="书籍推荐"
-          hoverable
-          :headStyle="headStyle"
-          :bodyStyle="bookBodyStyle"
-        >
+        <a-card class="card-item" id="anchor-learning-platform" title="学习平台" :headStyle="headStyle"
+          :bodyStyle="bodyStyle">
+          <a-card-grid class="card-grid-item" v-for="(item, index) in learningPlatformData" :key="index"
+            @click="jumpToTarget(item)">
+            <div class="card-grid-icon">
+              <Icon :icon="item.icon" style="width: 40px; height: 40px" :style="item.color"></Icon>
+            </div>
+            <div class="card-grid-container">
+              <span class="card-grid-title">{{ item.title }}</span>
+              <span class="card-grid-desc">{{ item.desc }}</span>
+            </div>
+          </a-card-grid>
+        </a-card>
+
+        <a-card class="card-item" id="anchor-books" title="书籍推荐" hoverable :headStyle="headStyle"
+          :bodyStyle="bookBodyStyle">
           <a-tabs v-model:activeKey="activeKey">
             <a-tab-pane key="frontend">
               <template #tab>
@@ -368,37 +412,25 @@ const handleAnchorChange = (anchorName) => {
           </a-tabs>
         </a-card>
 
-        <a-modal
-          v-model:open="jumpTipDialog"
-          title="即将离开该平台"
-          @ok="confirmJump"
-          centered
-          keyboard
-          :maskClosable="false"
-          :closable="false"
-        >
+        <a-modal v-model:open="jumpTipDialog" title="即将离开该平台" @ok="confirmJump" centered keyboard :maskClosable="false"
+          :closable="false">
           <template #footer>
             <a-button key="back" @click="handleCancel">取消</a-button>
-            <a-button
-              key="submit"
-              type="primary"
-              :loading="loading"
-              @click="confirmJump"
-              >继续访问</a-button
-            >
+            <a-button key="submit" type="primary" :loading="loading" @click="confirmJump">继续访问</a-button>
           </template>
-          <p>您即将离开该平台，请注意您的帐号和财产安全。</p>
-          <p>{{ targetLink }}</p>
+          <a-alert message="您即将离开该平台，请注意您的帐号和财产安全" type="warning" show-icon />
+          <div class="tip-content">
+            <div>{{ targetData.desc }}</div>
+            <a-button type="link" class="link-btn" @click="confirmJump">{{ targetData.href }}</a-button>
+          </div>
         </a-modal>
       </a-col>
 
-      <a-col :span="4">
+      <a-col :span="2">
         <div class="anchor">
-          <a-anchor
-            :affix="true"
-            :items="anchorData"
-            @change="handleAnchorChange"
-          ></a-anchor>
+          <a-affix :offset-top="74">
+            <a-anchor :offsetTop="64" :affix="false" :showInkInFixed="true" :items="anchorData"></a-anchor>
+          </a-affix>
         </div>
       </a-col>
     </a-row>
@@ -407,7 +439,7 @@ const handleAnchorChange = (anchorName) => {
 
 <style scoped>
 .card-item {
-  margin: 20px auto;
+  margin: 0 20px 20px;
 }
 
 .card-grid-item {
@@ -418,6 +450,7 @@ const handleAnchorChange = (anchorName) => {
   width: 23%;
   max-height: 90px;
 }
+
 .card-grid-item:hover {
   cursor: pointer;
   background: linear-gradient(to bottom, #ead9c0, #fcf8ed, #fefbf5);
@@ -429,6 +462,7 @@ const handleAnchorChange = (anchorName) => {
   flex-direction: column;
   align-items: flex-start;
 }
+
 .card-grid-title {
   font-size: 16px;
   font-weight: 600;
@@ -441,5 +475,20 @@ const handleAnchorChange = (anchorName) => {
 .card-grid-desc {
   color: #a2a2a2;
   font-size: 14px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.5em;
+  max-height: 3em;
+}
+
+.tip-content {
+  margin-top: 10px;
+}
+
+.link-btn {
+  padding-left: 0px;
 }
 </style>
