@@ -59,7 +59,7 @@ import {
   generate,
   gold,
   presetPrimaryColors
-} from "./chunk-MMNIVNA3.js";
+} from "./chunk-EV5KZNH4.js";
 import {
   require_dayjs_min
 } from "./chunk-P4NF5NST.js";
