@@ -264,6 +264,19 @@ const componentData = ref([
     icon: "simple-icons:swiper",
     color: "color: #194DE0"
   },
+  {
+    title: "iconify",
+    href: "https://iconify.design/",
+    desc: "Freedom to choose icons. All popular icon sets, one framework. Over 200,000 open source vector icons.",
+    icon: "simple-icons:iconify",
+    color: "color: #1769AA"
+  },
+  {
+    title: "iconfont",
+    href: "https://www.iconfont.cn/",
+    desc: "阿里巴巴矢量图标库",
+    icon: "logos:godot-icon"
+  },
 ]);
 
 const learningPlatformData = ref([

@@ -2,27 +2,31 @@ const commonPath = '/backend/javaweb/';
 
 export default [
     {
-        text: 'Servlet',
+        text: 'JavaWeb 概述',
         link: `${commonPath}/javaweb01`
     },
     {
-        text: 'JSP',
+        text: 'Servlet',
         link: `${commonPath}/javaweb02`
     },
     {
-        text: 'EL 表达式',
+        text: 'JSP',
         link: `${commonPath}/javaweb03`
     },
     {
-        text: 'JSTL 标签库',
+        text: 'EL 表达式',
         link: `${commonPath}/javaweb04`
     },
     {
-        text: 'Filter 过滤器',
+        text: 'JSTL 标签库',
         link: `${commonPath}/javaweb05`
     },
     {
-        text: 'Listener 监听器',
+        text: 'Filter 过滤器',
         link: `${commonPath}/javaweb06`
+    },
+    {
+        text: 'Listener 监听器',
+        link: `${commonPath}/javaweb07`
     }
 ]
