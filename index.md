@@ -5,7 +5,7 @@
 layout: home
 
 hero:
-  name: "Knowledge Graph"
+  name: "Knowledge Map"
   text: "For frontend and backend."
   tagline: "机遇稍纵即逝，不要因为眼界而失去把握机会的能力"
   image: 

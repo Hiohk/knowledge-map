@@ -4,7 +4,7 @@ This is a knowledge summary website for front-end and back-end.
 
 ## 访问地址
 
-[https://hiohk.github.io/knowledge-graph/](https://hiohk.github.io/knowledge-graph/)
+[https://hiohk.github.io/knowledge-map/](https://hiohk.github.io/knowledge-graph/)
 
 ## 预览
 
@@ -22,6 +22,6 @@ npm run docs:dev
 npm run docs:build
 ```
 
-Note: If you have deployed your project failed, you may run `pnpm install --no-frozen-lockfile`.
+Note: If you have deployed your project failed, you may run `pnpm install --no-frozen-lockfile` .
 
 #### Copyright © 2024

@@ -7,12 +7,12 @@ import javaWebSidebar from "./menusidebar/javaWebSidebar.mjs";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  base: "/knowledge-graph/",
+  base: "/knowledge-map/",
   lang: 'zh-CN',
-  title: "Knowledge Graph",
+  title: "Knowledge Map",
   description: "A knowledge summary for frontend and backend.",
   lastUpdated: true,
-  head: [['link', { rel: 'icon', href: '/knowledge-graph/logo.svg' }]],
+  head: [['link', { rel: 'icon', href: '/knowledge-map/logo.svg' }]],
   markdown: {
     math: true,
     image: {
