@@ -77,7 +77,7 @@ next:
 
   ■ 可以。需要使用 URL 重写机制。
 
-  ■ http://localhost:8080/servlet12/test/session;jsessionid=19D1C99560DCBF84839FA43D58F56E16
+  ■ `http://localhost:8080/servlet12/test/session;jsessionid=19D1C99560DCBF84839FA43D58F56E16`
 
   ■ URL 重写机制会提高开发者的成本。开发人员在编写任何请求路径的时候，后面都要添加一个 sessionid，给开发带来了很大的难度，很大的成本。所以大部分的网站都是这样设计的：你要是禁用 cookie，你就别用了。
 
