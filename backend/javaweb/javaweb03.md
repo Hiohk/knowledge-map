@@ -346,17 +346,71 @@ if(cookies != null){
 
 6.  **JSP 的指令**
 
-    - 指令的作用：指导 JSP 的翻译引擎如何工作（指导当前的 JSP 翻译引擎如何翻译 JSP 文件。）
-    - 指令包括哪些呢？
+- 指令的作用：指导 JSP 的翻译引擎如何工作（指导当前的 JSP 翻译引擎如何翻译 JSP 文件。）
+- 指令包括哪些呢？
 
-      ■ include 指令：包含指令，在 JSP 中完成静态包含，很少用了。（这里不讲）
+  ■ include 指令：包含指令，在 JSP 中完成静态包含，很少用了。（这里不讲）
 
-      ■ taglib 指令：引入标签库的指令。这\*\*个到 JJSTL 标签库的时候再学习。现在先不管。
+  ■ taglib 指令：引入标签库的指令。这\*\*个到 JJSTL 标签库的时候再学习。现在先不管。
 
-      ■ page 指令：目前重点学习一个 page 指令。
+  ■ page 指令：目前重点学习一个 page 指令。
 
-    - 指令的使用语法是什么？
+- 指令的使用语法是什么？
 
-      ■ <%@指令名 属性名=属性值 属性名=属性值 属性名=属性值....%>
+  ■ <%@指令名 属性名=属性值 属性名=属性值 属性名=属性值....%>
 
-    - 关于 page 指令当中都有哪些常用的属性呢？
+- 关于 page 指令当中都有哪些常用的属性呢？
+
+```Java
+<%@page session="true|false" %>
+// true 表示启用 JSP 的内置对象 session，
+// 表示一定启动 session 对象。没有 session 对象会创建。
+// 如果没有设置，默认值就是 session="true"
+// session="false" 表示不启动内置对象 session。
+// 当前 JSP 页面中无法使用内置对象 session。
+```
+
+```Java
+<%@page contentType="text/json" %>
+// contentType 属性用来设置响应的内容类型
+// 但同时也可以设置字符集。
+<%@page contentType="text/json;charset=UTF-8" %>
+```
+
+```Java
+<%@page pageEncoding="UTF-8" %>
+// pageEncoding="UTF-8" 表示设置响应时采用的字符集。
+```
+
+```Java
+<%@page import="java.util.List, java.util.Date, java.util.ArrayList" %>
+<%@page import="java.util.*" %>
+// import语句，导包
+```
+
+```Java
+<%@page errorPage="/error.jsp" %>
+// 当前页面出现异常之后，跳转到error.jsp页面。
+// errorPage属性用来指定出错之后的跳转位置。
+```
+
+```Java
+<%@page isErrorPage="true" %>
+// 表示启用JSP九大内置对象之一：exception
+// 默认值是false。
+```
+
+7. **JSP 的九大内置对象**
+
+- `jakarta.servlet.jsp.PageContext` pageContext 页面作用域
+- `jakarta.servlet.http.HttpServletRequest` request 请求作用域
+- `jakarta.servlet.http.HttpSession` session 会话作用域
+- `jakarta.servlet.ServletContext` application 应用作用域
+  - pageContext < request < session < application
+  - 以上四个作用域都有：setAttribute、getAttribute、removeAttribute 方法。
+  - 以上作用域的使用原则：尽可能使用小的域。
+- `java.lang.Throwable` exception
+- `jakarta.servlet.ServletConfig` config
+- `java.lang.Object` page （其实是 this，当前的 servlet 对象）
+- `jakarta.servlet.jsp.JspWriter` out （负责输出）
+- `jakarta.servlet.http.HttpServletResponse` response （负责响应）
