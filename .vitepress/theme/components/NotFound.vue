@@ -6,7 +6,7 @@
     <div>
         <a-result status="404" title="404" sub-title="Sorry, the page you visited does not exist.">
             <template #extra>
-                <a-button type="link" href="/knowledge-graph/" target="_self">返回首页</a-button>
+                <a-button type="link" href="/knowledge-map/" target="_self">返回首页</a-button>
             </template>
         </a-result>
     </div>
