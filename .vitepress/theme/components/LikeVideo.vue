@@ -2,27 +2,40 @@
 import { ref } from "vue";
 
 const activeKey = ref("1");
-
 </script>
 
 <template>
   <div class="sponsor">
     <a-tabs v-model:activeKey="activeKey" tab-position="left" animated>
       <a-tab-pane key="1" tab="夏天舞曲">
-        <div class="artistic-text animate__animated animate__slideInDown">Have fun！前奏一响，夏天到来~</div>
-        <iframe class="fun-video"
-          src="//player.bilibili.com/player.html?aid=1552289000&bvid=BV1K1421D7gL&cid=1485997962&p=1" scrolling="no"
-          border="0" frameborder="no" framespacing="0" allowfullscreen="true" autoplay="0">
+        <div class="artistic-text animate__animated animate__slideInDown">
+          Have fun！前奏一响，夏天到来~
+        </div>
+        <iframe
+          class="fun-video"
+          src="//player.bilibili.com/player.html?aid=1552289000&bvid=BV1K1421D7gL&cid=1485997962&p=1"
+          scrolling="no"
+          border="0"
+          frameborder="no"
+          framespacing="0"
+          allowfullscreen="true"
+          autoplay="0"
+        >
         </iframe>
       </a-tab-pane>
-      <a-tab-pane key="2" tab="漠河往事">
+      <a-tab-pane key="2" tab="大美新疆">
         <div class="artistic-text animate__animated animate__slideInDown">
-          坐绿皮火车去中国最北，一个人在小城漠河的日与夜
+          一个人去新疆随机旅行，四处辗转却又因果相连
         </div>
-        <iframe class="fun-video"
-          src="//player.bilibili.com/player.html?aid=918553148&bvid=BV1Yu4y1L7rL&cid=1336607197&p=1" scrolling="no"
-          border="0" frameborder="no" framespacing="0" allowfullscreen="true">
-        </iframe>
+        <iframe
+          class="fun-video"
+          src="//player.bilibili.com/player.html?isOutside=true&aid=1253926073&bvid=BV1WJ4m1E7h4&cid=1522898894&p=1"
+          scrolling="no"
+          border="0"
+          frameborder="no"
+          framespacing="0"
+          allowfullscreen="true"
+        ></iframe>
       </a-tab-pane>
     </a-tabs>
   </div>
