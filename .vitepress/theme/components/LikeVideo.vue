@@ -7,23 +7,37 @@ const activeKey = ref("1");
 <template>
   <div class="sponsor">
     <a-tabs v-model:activeKey="activeKey" tab-position="left" animated>
-      <a-tab-pane key="1" tab="夏天舞曲">
+      <a-tab-pane key="1" tab="循环阿勒泰">
         <div class="artistic-text animate__animated animate__slideInDown">
-          Have fun！前奏一响，夏天到来~
+          《我的阿勒泰》|“少女的雀跃，自由自在”
         </div>
         <iframe
           class="fun-video"
-          src="//player.bilibili.com/player.html?aid=1552289000&bvid=BV1K1421D7gL&cid=1485997962&p=1"
+          src="//player.bilibili.com/player.html?isOutside=true&aid=1904325435&bvid=BV1US411F72E&cid=1547364335&p=1"
           scrolling="no"
           border="0"
           frameborder="no"
           framespacing="0"
           allowfullscreen="true"
-          autoplay="0"
-        >
-        </iframe>
+        ></iframe>
       </a-tab-pane>
-      <a-tab-pane key="2" tab="大美新疆">
+
+      <a-tab-pane key="2" tab="我的阿勒泰">
+        <div class="artistic-text animate__animated animate__slideInDown">
+          CCTV6评《我的阿勒泰》
+        </div>
+        <iframe
+          class="fun-video"
+          src="//player.bilibili.com/player.html?isOutside=true&aid=1954601750&bvid=BV1py411Y7hf&cid=1543125808&p=1"
+          scrolling="no"
+          border="0"
+          frameborder="no"
+          framespacing="0"
+          allowfullscreen="true"
+        ></iframe>
+      </a-tab-pane>
+
+      <a-tab-pane key="3" tab="大美新疆">
         <div class="artistic-text animate__animated animate__slideInDown">
           一个人去新疆随机旅行，四处辗转却又因果相连
         </div>

@@ -250,7 +250,7 @@ Content-Length: 123
 
   - 301 Moved Permanently: 资源永久移动到新位置。
   - 302 Found: 资源临时移动到新位置。
-  -
+
 
 - **4xx 客户端错误**
 
