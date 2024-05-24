@@ -82,6 +82,7 @@ export default defineConfig({
           { text: 'MySQL(暂未开放)', link: '/backend/mysql' },
           { text: 'Redis(暂未开放)', link: '/backend/redis' },
           { text: 'Git(暂未开放)', link: '/git' },
+          { text: 'Linux(暂未开放)', link: '/linux' },
           { text: 'TCP/IP(暂未开放)', link: '/backend/tcp' },
         ]
       },

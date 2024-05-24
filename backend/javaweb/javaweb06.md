@@ -105,6 +105,6 @@ DeptServlet、EmpServlet、OrderServlet。每一个 Servlet 都是处理自己�
 
 - 责任链设计模式最大的核心思想：
 
-  在程序运行阶段，动态的组合程序的调用顺序。
+  在程序运行阶段，动态的组合程序的调用顺序。 
 
 <a-back-top />
