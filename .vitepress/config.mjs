@@ -73,8 +73,8 @@ export default defineConfig({
         text: "后端", items: [
           { text: 'Java', link: '/backend/java/java01', activeMatch: "/backend/java/*" },
           { text: 'JavaWeb', link: '/backend/javaweb/javaweb01', activeMatch: "/backend/javaweb/" },
-          { text: 'Maven(暂未开放)', link: '/backend/maven' },
-          { text: 'MyBatis(暂未开放)', link: '/backend/mybatis' },
+          { text: 'Maven', link: '/backend/maven/' },
+          { text: 'MyBatis', link: '/backend/mybatis/' },
           { text: 'Spring(暂未开放)', link: '/backend/spring' },
           { text: 'SpringMVC(暂未开放)', link: '/backend/springmvc' },
           { text: 'SpringBoot(暂未开放)', link: '/backend/springBoot' },
