@@ -1073,13 +1073,13 @@ Maven 私服是一种特殊的 Maven 远程仓库，它是架设在局域网内�
 
 ### 2. Nexus 下载安装
 
-下载地址：https://help.sonatype.com/repomanager3/product-information/download
+下载地址：`https://help.sonatype.com/repomanager3/product-information/download`
 
 解压，以管理员身份打开 CMD，进入 bin 目录下，执行./nexus /run 命令启动
 
 访问 Nexus 首页
 
-首页地址：http://localhost:8081/，8081 为默认端口号
+首页地址：`http://localhost:8081/`，8081 为默认端口号
 
 ![images](image/img001.612496a3.png)
 
@@ -1219,14 +1219,6 @@ maven 工程中配置：
 ```sh
 mvn deploy
 ```
-
-> Uploading to nexus-mine: http://localhost:8081/repository/maven-snapshots/com/atguigu/demo/demo07-redis-data-provider/1.0-SNAPSHOT/maven-metadata.xml
-> Uploaded to nexus-mine: http://localhost:8081/repository/maven-snapshots/com/atguigu/demo/demo07-redis-data-provider/1.0-SNAPSHOT/maven-metadata.xml (786 B at 19 kB/s)
-> Uploading to nexus-mine: http://localhost:8081/repository/maven-snapshots/com/atguigu/demo/demo07-redis-data-provider/maven-metadata.xml
-> Uploaded to nexus-mine: http://localhost:8081/repository/maven-snapshots/com/atguigu/demo/demo07-redis-data-provider/maven-metadata.xml (300 B at 6.5 kB/s)
-> [INFO] ------------------------------------------------------------------------
-> [INFO] Reactor Summary:
-> [INFO] > [INFO] demo-imperial-court-ms-show 1.0-SNAPSHOT ........... SUCCESS [ 1.875 s] > [INFO] demo09-base-entity ................................. SUCCESS [ 21.883 s] > [INFO] demo10-base-util ................................... SUCCESS [ 0.324 s] > [INFO] demo08-base-api .................................... SUCCESS [ 1.171 s] > [INFO] demo01-imperial-court-gateway ...................... SUCCESS [ 0.403 s] > [INFO] demo02-user-auth-center ............................ SUCCESS [ 2.932 s] > [INFO] demo03-emp-manager-center .......................... SUCCESS [ 0.312 s] > [INFO] demo04-memorials-manager-center .................... SUCCESS [ 0.362 s] > [INFO] demo05-working-manager-center ...................... SUCCESS [ 0.371 s] > [INFO] demo06-mysql-data-provider ......................... SUCCESS [ 6.779 s] > [INFO] demo07-redis-data-provider 1.0-SNAPSHOT ............ SUCCESS [ 0.273 s]
 
 ![images](image/img015.b413af9d.png)
 
