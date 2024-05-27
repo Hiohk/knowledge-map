@@ -8,9 +8,13 @@
 - :star: 需要学习者**了解**的知识点；
 - :x: 拓展知识点，可以不用学习；
 
-注：本文内容来自于尚硅谷 Maven 教程
+::: warning 备注
+本文内容来自于尚硅谷 Maven 教程；
 
-## 一、Maven 简介
+此外，还可以参考动力节点的 [Maven 笔记](https://www.yuque.com/dujubin/java/hp5bllxqf7g9gmn5?singleDoc#%20%E3%80%8AMaven%E5%B7%A5%E5%85%B7%E3%80%8B)。
+:::
+
+## 一、Maven 简介 :star:
 
 ### 1、为什么学习 Maven
 
@@ -29,9 +33,9 @@
 最终却导入了 106 个 jar 包：
 
 > `org.springframework.security:spring-security-rsa:jar:1.0.9.RELEASE:compile`
-> 
+>
 > `com.netflix.ribbon: ribbon:jar:2.3.0:compile`
-> 
+>
 > ...
 
 而如果使用 Maven 来引入这些 jar 包只需要配置三个『**依赖**』：
@@ -1177,14 +1181,7 @@ mvn clean compile
 
 下载过程日志：
 
-> `Downloading from nexus-mine: http://localhost:8081/repository/maven-public/com/jayway/jsonpath/json-path/2.4.0/json-path-2.4.0.pom`
-> `Downloaded from nexus-mine: http://localhost:8081/repository/maven-public/com/jayway/jsonpath/json-path/2.4.0/json-path-2.4.0.pom (2.6 kB at 110 kB/s)`
-> `Downloading from nexus-mine: http://localhost:8081/repository/maven-public/net/minidev/json-smart/2.3/json-smart-2.3.pom`
-> `Downloaded from nexus-mine: http://localhost:8081/repository/maven-public/net/minidev/json-smart/2.3/json-smart-2.3.pom (9.0 kB at 376 kB/s)`
-> `Downloading from nexus-mine: http://localhost:8081/repository/maven-public/net/minidev/minidev-parent/2.3/minidev-parent-2.3.pom`
-> `Downloaded from nexus-mine: http://localhost:8081/repository/maven-public/net/minidev/minidev-parent/2.3/minidev-parent-2.3.pom (8.5 kB at 404 kB/s)`
-> `Downloading from nexus-mine: http://localhost:8081/repository/maven-public/net/minidev/accessors-smart/1.2/accessors-smart-1.2.pom`
-> `Downloaded from nexus-mine: http://localhost:8081/repository/maven-public/net/minidev/accessors-smart/1.2/accessors-smart-1.2.pom (12 kB at 463 kB/s)`
+> `Downloading from nexus-mine: http://localhost:8081/repository/maven-public/com/jayway/jsonpath/json-path/2.4.0/json-path-2.4.0.pom` > `Downloaded from nexus-mine: http://localhost:8081/repository/maven-public/com/jayway/jsonpath/json-path/2.4.0/json-path-2.4.0.pom (2.6 kB at 110 kB/s)` > `Downloading from nexus-mine: http://localhost:8081/repository/maven-public/net/minidev/json-smart/2.3/json-smart-2.3.pom` > `Downloaded from nexus-mine: http://localhost:8081/repository/maven-public/net/minidev/json-smart/2.3/json-smart-2.3.pom (9.0 kB at 376 kB/s)` > `Downloading from nexus-mine: http://localhost:8081/repository/maven-public/net/minidev/minidev-parent/2.3/minidev-parent-2.3.pom` > `Downloaded from nexus-mine: http://localhost:8081/repository/maven-public/net/minidev/minidev-parent/2.3/minidev-parent-2.3.pom (8.5 kB at 404 kB/s)` > `Downloading from nexus-mine: http://localhost:8081/repository/maven-public/net/minidev/accessors-smart/1.2/accessors-smart-1.2.pom` > `Downloaded from nexus-mine: http://localhost:8081/repository/maven-public/net/minidev/accessors-smart/1.2/accessors-smart-1.2.pom (12 kB at 463 kB/s)`
 
 下载后，Nexus 服务器上就有了 jar 包：
 
