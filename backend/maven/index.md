@@ -9,10 +9,13 @@
 - :x: 拓展知识点，可以不用学习；
 
 ::: warning 备注
-本文内容来自于尚硅谷 Maven 教程；
 
-此外，还可以参考动力节点的 [Maven 笔记](https://www.yuque.com/dujubin/java/hp5bllxqf7g9gmn5?singleDoc#%20%E3%80%8AMaven%E5%B7%A5%E5%85%B7%E3%80%8B)。
-:::
+- 本文内容来自于尚硅谷 Maven 教程
+- 此外，还可以参考动力节点的 [Maven 笔记](https://www.yuque.com/dujubin/java/hp5bllxqf7g9gmn5?singleDoc#%20%E3%80%8AMaven%E5%B7%A5%E5%85%B7%E3%80%8B)
+
+- Maven 官方文档：[Apache Maven Guide](https://maven.apache.org/guides/getting-started/)
+- Maven 实战教程: [Maven](https://www.baeldung.com/maven-guide)
+  :::
 
 ## 一、Maven 简介 :star:
 
