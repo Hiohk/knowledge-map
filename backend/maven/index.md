@@ -139,7 +139,7 @@ Maven 就是一个软件，掌握安装、配置、以及基本功能 **（项�
 
 ![](image/image_6AVFQbaXLj.png)
 
-## 二、Maven 安装和配置
+## 二、Maven 安装和配置 :x:
 
 ### 1. Maven 安装
 
@@ -249,7 +249,7 @@ LICENSE、NOTICE、README.txt：针对 Maven 版本，第三方软件等简要�
 
 2、一定保证 User settings file 对应之前修改的 settings.xml 的路径，若 不一致，选中 Override 复选框，手动选择配置文件
 
-## 三、基于 IDEA 创建 Maven 工程
+## 三、基于 IDEA 创建 Maven 工程 :white_check_mark:
 
 ### 1. 概念梳理 Maven 工程的 GAVP
 
@@ -393,7 +393,7 @@ Maven 是一个强大的构建工具，它提供一种标准化的项目结构�
 - src/test/java：存放项目的测试代码。
 - src/test/resources：存放测试相关的资源文件，如测试配置文件等。
 
-## 四、基于 IDEA 进行 Maven 工程构建
+## 四、基于 IDEA 进行 Maven 工程构建 :white_check_mark:
 
 ### 1. 构建概念和构建过程
 
@@ -503,7 +503,7 @@ mvn test
 
   最终进行构建的是插件！
 
-## 五、基于 IDEA 进行 Maven 依赖管理
+## 五、基于 IDEA 进行 Maven 依赖管理 :white_check_mark:
 
 ### 1. 依赖管理概念
 
@@ -761,9 +761,9 @@ dependencies 标签下引入开发需要的 jar 包！我们可以在 build/plug
 </build>
 ```
 
-## 六、Maven 依赖传递和依赖冲突
+## 六、Maven 依赖传递和依赖冲突 :white_check_mark:
 
-### 1. Maven 依赖传递特性
+### 1. Maven 依赖传递特性 
 
 **概念**
 
@@ -883,7 +883,7 @@ maven 自动解决依赖冲突问题能力，会按照自己的原则，进行�
 
     请问最终会导入哪些依赖和对应版本？
 
-## 七、Maven 工程继承和聚合关系
+## 七、Maven 工程继承和聚合关系 :white_check_mark:
 
 ### 1. Maven 工程继承关系
 
@@ -1035,7 +1035,7 @@ maven 自动解决依赖冲突问题能力，会按照自己的原则，进行�
 
     通过触发父工程构建命令、引发所有子模块构建！产生反应堆！
 
-## 八、Maven 私服
+## 八、Maven 私服 :star:
 
 ### 1. Maven 私服简介
 
