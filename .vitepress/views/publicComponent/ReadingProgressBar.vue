@@ -1,10 +1,16 @@
+div
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
+import "animate.css";
 
 const scrollProgress = ref(0); // 用于存储滚动进度
 
 onMounted(() => {
   window.addEventListener("scroll", handleScroll);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("scroll", handleScroll);
 });
 
 const handleScroll = () => {
@@ -19,17 +25,22 @@ const handleScroll = () => {
 
 <template>
   <div class="progress-bar">
-    <a-progress
-      v-if="scrollProgress > 0"
-      :size="40"
-      type="circle"
-      :stroke-color="{
-        '0%': '#108ee9',
-        '100%': '#87d068',
-      }"
-      :percent="scrollProgress"
-      :showInfo="true"
-    />
+    <transition
+      name="fade"
+      enter-active-class="animate__animated animate__fadeInUp"
+      leave-active-class="animate__animated animate__fadeOutDown"
+    >
+      <a-progress
+        v-if="scrollProgress > 0"
+        :size="40"
+        type="circle"
+        :stroke-color="{
+          '0%': '#108ee9',
+          '100%': '#87d068',
+        }"
+        :percent="scrollProgress"
+      />
+    </transition>
   </div>
 </template>
 
@@ -38,5 +49,9 @@ const handleScroll = () => {
   position: fixed;
   bottom: 100px;
   right: 25px;
+}
+
+.progress-bar-line {
+  width: 100px;
 }
 </style>
