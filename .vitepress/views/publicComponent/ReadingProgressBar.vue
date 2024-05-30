@@ -49,6 +49,7 @@ const handleScroll = () => {
   position: fixed;
   bottom: 100px;
   right: 25px;
+  z-index: 9999;
 }
 
 .progress-bar-line {
