@@ -1,3 +1,7 @@
+---
+aside: false
+---
+
 # Web Open API For developers
 
 This is a collection of useful links and resources for developers who want to use the Web Open API.

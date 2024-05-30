@@ -173,3 +173,5 @@ user.getAddr222().getZipcode()
      `${!empty param.password}`
 
 <a-back-top />
+
+<reading-progress-bar/>

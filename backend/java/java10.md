@@ -558,7 +558,7 @@ public class UserService {
 - 扩展类加载器：`ext/*.jar`
 - 系统类加载器：`classpath`
 
-![alt text](image-20.png)
+![alt text](image/image-21.png)
 
 ### 类加载器
 
@@ -596,7 +596,7 @@ public class ReflectTest09 {
 - 保护程序的安全。
 - 防止类加载重复。
 
-![alt text](image-21.png)
+![alt text](image/image-22.png)
 
 ## 10.9 反射泛型 :star:
 
@@ -844,3 +844,5 @@ public class User {
 :::
 
 <a-back-top />
+
+<reading-progress-bar/>

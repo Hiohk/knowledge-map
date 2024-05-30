@@ -388,7 +388,7 @@ Boolean 的拆箱方法：`booleanValue()`; Character 的拆箱方法：`charVal
 ### 三种类型之间的互相转换
 
 String、int、Integer 三种类型之间的互相转换（String,double,Double 转换原理相同）:
-![alt text](image-11.png)
+![alt text](image/image-12.png)
 
 注：Integer ——> int: `Integer A = new Integer(5); int a = A.intValue();`
 
@@ -777,3 +777,5 @@ Java 中的 java.util.UUID 类提供对 UUID 的支持:
 - 将 UUID 转换为字符串：`String toString()`
 
 <a-back-top />
+
+<reading-progress-bar/>

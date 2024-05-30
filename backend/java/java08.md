@@ -49,7 +49,7 @@ Java 中已经将 IO 流实现了，在 java.io 包下，可以直接使用。
 
 下图是常用的 IO 流：
 
-![alt text](image-15.png)
+![alt text](image/image-16.png)
 
 ## 8.3 FileInputStream
 
@@ -668,3 +668,5 @@ System.out.println(newUser);
 ```
 
 <a-back-top />
+
+<reading-progress-bar/>

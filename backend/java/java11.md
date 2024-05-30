@@ -249,3 +249,5 @@ AnnotationTest02 an = method.getAnnotation(AnnotationTest02.class);
 ```
 
 <a-back-top />
+
+<reading-progress-bar/>

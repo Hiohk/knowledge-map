@@ -379,3 +379,5 @@ JavaWeb 技术广泛应用于企业级应用开发，如 ERP（企业资源规�
 前后端分离架构将前端和后端开发解耦，前端使用现代化的 JavaScript 框架（如 React、Angular、Vue.js）进行开发，后端使用 JavaWeb 技术提供 RESTful API 或 GraphQL 服务。这种架构使得开发更加灵活，前后端团队可以并行工作，提高开发效率。
 
 <a-back-top />
+
+<reading-progress-bar/>

@@ -20,7 +20,7 @@ next:
 - 数组是一种引用数据类型，隐式继承 Object。因此数组也可以调用 Object 类中的方法。
 - 数组对象存储在堆内存中。
 
-![alt text](image-8.png)
+![alt text](image/image-9.png)
 
 ### 数组的分类？
 
@@ -88,7 +88,7 @@ next:
 ```
 
 2. 当一维数组中存储引用时的内存图
-   ![alt text](image-9.png)
+   ![alt text](image/image-10.png)
 3. 如何获取数组中的最大值？
 
 - 假设首元素是最大的，然后遍历数组中所有元素，只要有更大的，就将其作为最大值。
@@ -231,3 +231,5 @@ int[][] arr = new int[3][];
 - `Arrays.asList(T... data)` 方法：将一组数据转换成 List 集合
 
 <a-back-top />
+
+<reading-progress-bar/>

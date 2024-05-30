@@ -1512,3 +1512,5 @@ pom.xml 配置：
 ```
 
 <a-back-top />
+
+<reading-progress-bar/>

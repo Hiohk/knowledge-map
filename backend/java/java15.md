@@ -957,3 +957,5 @@ System.out.println(finalName);
 ```
 
 <a-back-top />
+
+<reading-progress-bar/>

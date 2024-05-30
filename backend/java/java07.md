@@ -47,7 +47,7 @@ next:
 
 5.  List 集合中存储的元素可重复。Set 集合中存储的元素不可重复。
 
-![alt text](image-12.png)
+![alt text](image/image-13.png)
 
 ## 7.3 Collection 接口 :white_check_mark:
 
@@ -216,7 +216,7 @@ while(it.hasNext()) {
 
 想象一下，有两个线程：A 和 B。A 线程负责迭代遍历集合，B 线程负责删除集合中的某个元素。当这两个线程同时执行时会有什么问题？
 
-![alt text](image-13.png)
+![alt text](image/image-14.png)
 
 3.  如何解决并发修改问题：**fail-fast 机制**
 
@@ -522,7 +522,7 @@ public static void main(String[] args) {
 9.  LinkedHashSet 集合底层是 new 了一个 LinkedHashMap。LinkedHashMap 集合只是为了保证元素的插入顺序，效率比 HashSet 低，底层采用的哈希表+双向链表实现。
 10. 根据源码可以看到向 Set 集合中 add 时，底层会向 Map 中 put。value 只是一个固定不变的常量，只是起到一个占位符的作用。主要是 key。
 
-![alt text](image-14.png)
+![alt text](image/image-15.png)
 
 ## 7.15 Map 接口常用方法
 
@@ -1055,3 +1055,5 @@ public class TreeMapTest {
 - ......
 
 <a-back-top />
+
+<reading-progress-bar/>

@@ -328,7 +328,7 @@ double y = 123.34E-2; // 123.34 / 10 的平方
 * 尾数位：浮点数的小数部分的有效数字。例如：0.00123，那么尾数位存储 123 对应的二进制。
 * 从浮点型数据存储原理上可以看到，二进制中的指数位决定了数字呈指数级增大。因此 float 虽然是 4 个字节，但却可以表示比 long 更大的数值。因此 float 容量比 long 的容量大。
 
-![alt text](image.png)
+![alt text](image/image-1.png)
 
 **浮点型数据使用注意事项**：
 
@@ -902,7 +902,7 @@ continue:
 * 栈帧中主要包括：局部变量表，操作数栈等。
 * 方法执行结束时，该栈帧弹栈，方法内存空间释放。
 
-![alt text](image-1.png)
+![alt text](image/image-2.png)
 
 ### 方法重载
 
@@ -939,7 +939,7 @@ continue:
 * 实际开发中，使用递归时，发生栈内存溢出，你该怎么办？
   + 首先可以调整栈内存的大小，扩大栈内存；
 
-![alt text](image-2.png)
+![alt text](image/image-3.png)
 
 ## 2.11 package 和 import :white_check_mark:
 
@@ -1104,3 +1104,5 @@ continue:
 * `Command + Option + P` 提取参数
 
 <a-back-top />
+
+<reading-progress-bar/>

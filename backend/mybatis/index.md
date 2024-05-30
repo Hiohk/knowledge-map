@@ -1415,3 +1415,5 @@ c. 分页相关数据
 > navigatepageNums：导航分页的页码，[1,2,3,4,5]
 
 <a-back-top />
+
+<reading-progress-bar/>

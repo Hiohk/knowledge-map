@@ -542,3 +542,5 @@ System.out.println(allName);
 ```
 
 <a-back-top />
+
+<reading-progress-bar/>

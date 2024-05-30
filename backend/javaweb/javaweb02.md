@@ -452,4 +452,7 @@ request.getRequestDispatcher("/display.jsp").forward(request, response);
 ## 2.11 总结
 
 Servlet 是 Java Web 开发的重要技术，适合处理请求和响应、管理会话以及生成动态内容。通过结合 JSP，可以实现功能强大且灵活的 Web 应用程序。掌握 Servlet 技术是成为 Java Web 开发人员的基础之一。尽管现代开发更多依赖高级框架，但理解和掌握 Servlet 的工作原理和用法，能够帮助开发者更深入地理解 Web 应用的底层机制，从而在实际项目中做出更好的技术选择。
+
 <a-back-top />
+
+<reading-progress-bar/>

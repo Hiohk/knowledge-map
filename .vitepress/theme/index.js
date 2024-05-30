@@ -10,6 +10,7 @@ import 'ant-design-vue/dist/reset.css';
 // 导入组件
 import HomeContent from "./components/HomeContent.vue";
 import NotFound from "./components/NotFound.vue";
+import ReadingProgressBar from "../views/publicComponent/ReadingProgressBar.vue";
 
 import 'animate.css';
 
@@ -24,5 +25,7 @@ export default {
   },
   enhanceApp({ app, router, siteData }) {
     app.use(Antd);
+    // 注册组件
+    app.component('ReadingProgressBar', ReadingProgressBar);
   }
 }

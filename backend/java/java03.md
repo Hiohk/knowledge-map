@@ -199,7 +199,7 @@ JVM 对应了一套规范（Java 虚拟机规范），它可以有不同的实�
 
 ### JVM 体系结构图（JVM 规范）
 
-![alt text](image-3.png)
+![alt text](image/image-4.png)
 
 ### JVM 规范的实现
 
@@ -211,7 +211,7 @@ HotSpot（Oracle JDK/Open JDK 内部使用的 JVM 就是 HotSpot）。以下是 
 - 这个时期的永久代和堆是相邻的，使用连续的物理内存，但是内存空间是隔离的。
 - 永久代的垃圾收集是和老年代捆绑在一起的，因此无论谁满了，都会触发永久代和老年代的垃圾收集。
 
-![alt text](image-4.png)
+![alt text](image/image-5.png)
 
 以下是 JDK7 的 HotSpot，这是一个过渡的版本，该版本相对于 JDK6 来说，变化如下：
 
@@ -219,7 +219,7 @@ HotSpot（Oracle JDK/Open JDK 内部使用的 JVM 就是 HotSpot）。以下是 
 - 字符串常量池转移到堆中了
 - 运行时常量池中的符号引用转移到本地内存了
 
-![alt text](image-5.png)
+![alt text](image/image-6.png)
 
 以下是 JDK8 及更高版本的 HotSpot，相对于 JDK7 来说发生了如下变化：
 
@@ -227,7 +227,7 @@ HotSpot（Oracle JDK/Open JDK 内部使用的 JVM 就是 HotSpot）。以下是 
 - 将方法区的实现转移到本地内存
 - 将符号引用重新放回运行时常量池
 
-![alt text](image-6.png)
+![alt text](image/image-7.png)
 
 ## 3.8 单例模式 :white_check_mark:
 
@@ -537,7 +537,7 @@ public class Computer {
 
 依赖关系是一种临时性的关系，当一个类使用另一个类的功能时，就会产生依赖关系。如果一个类的改变会影响到另一个类的功能，那么这两个类之间就存在依赖关系。依赖关系是一种较弱的关系，可以存在多个依赖于同一个类的对象。例如 A 类中使用了 B 类，但是 B 类作为 A 类的方法参数或者局部变量等。
 
-![alt text](image-7.png)
+![alt text](image/image-8.png)
 
 ## 3.17 访问控制权限 :white_check_mark:
 
@@ -668,3 +668,5 @@ computer.conn(new Usb() {
 ```
 
 <a-back-top />
+
+<reading-progress-bar/>

@@ -9,5 +9,7 @@
 - :x: 拓展知识点，可以不用学习；
 
 即将开始 MyBatis Plus...
+
 <a-back-top />
-<a-back-top />
+
+<reading-progress-bar/>

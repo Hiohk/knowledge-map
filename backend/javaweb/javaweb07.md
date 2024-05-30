@@ -79,3 +79,5 @@ void contextDestroyed(ServletContextEvent event)
 注意：所有监听器中的方法都是不需要 javaweb 程序员调用的，由服务器来负责调用？什么时候被调用呢？当某个特殊的事件发生（特殊的事件发生其实就是某个时机到了）之后，被 web 服务器自动调用。
 
 <a-back-top />
+
+<reading-progress-bar/>

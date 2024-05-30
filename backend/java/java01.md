@@ -128,3 +128,5 @@ javadoc -d docs -author -version -encoding utf-8 HelloWorld.java
 ```
 
 <a-back-top />
+
+<reading-progress-bar/>

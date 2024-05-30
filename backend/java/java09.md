@@ -35,7 +35,7 @@ next:
 - 除了主线程之外，还启动了一个垃圾回收线程。因此启动 JVM，至少启动了两个线程。
 - 在 main 方法的执行过程中，程序员可以手动创建其他线程对象并启动。
 
-![alt text](image-16.png)
+![alt text](image/image-17.png)
 
 ## 9.2 并发与并行
 
@@ -46,13 +46,13 @@ next:
 2. 如上图所示，假设只有一个 CPU 资源，线程之间要竞争得到执行机会。图中的第一个阶段，在 A 执行的过程中，B、C 不会执行，因为这段时间内这个 CPU 资源被 A 竞争到了，同理，第二阶段只有 B 在执行，第三阶段只有 C 在执行。其实，并发过程中，A、B、C 并不是同时进行的（微观角度），但又是同时进行的（宏观角度）。
 3. 在同一个时间点上，一个 CPU 只能支持一个线程在执行。因为 CPU 运行的速度很快，CPU 使用抢占式调度模式在多个线程间进行着高速的切换，因此我们看起来的感觉就像是多线程一样，也就是看上去就是在同一时刻运行。
 
-![alt text](image-17.png)
+![alt text](image/image-18.png)
 
 ### 并行（parallellism）
 
 使用多核 CPU 的时候，同一时刻，有多条指令在多个 CPU 上同时执行。如图所示，在同一时刻，ABC 都是同时执行（微观、宏观）。
 
-![alt text](image-18.png)
+![alt text](image/image-19.png)
 
 ### 并发编程与并行编程
 
@@ -116,7 +116,7 @@ next:
 - 阻塞状态（BLOCKED）
 - 死亡状态（TERMINATED）
 
-![alt text](image-19.png)
+![alt text](image/image-20.png)
 
 ## 9.6 线程的休眠与终止
 
@@ -832,3 +832,5 @@ executorService.shutdown();
 ```
 
 <a-back-top />
+
+<reading-progress-bar/>
