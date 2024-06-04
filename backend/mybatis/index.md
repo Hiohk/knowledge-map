@@ -12,6 +12,8 @@
 
 - 本文内容来自于尚硅谷 MyBatis 教程
 
+- 动力节点 MyBatis 笔记：[MyBatis](https://www.yuque.com/dujubin/ltckqu/pozck9?singleDoc#《MyBatis》) (password: rs4n)
+  
 - MyBatis 官方文档：[MyBatis](https://mybatis.org/mybatis-3/zh_CN/index.html)
   :::
 
