@@ -4,6 +4,7 @@ import conventionSidebar from "./menusidebar/conventionSidebar.mjs";
 import javascriptSidebar from "./menusidebar/javascriptSidebar.mjs";
 import javaSidebar from './menusidebar/javaSidebar.mjs';
 import javaWebSidebar from "./menusidebar/javaWebSidebar.mjs";
+import mysqlSidebar from "./menusidebar/mysqlSidebar.mjs";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -65,22 +66,30 @@ export default defineConfig({
           { text: 'Promise(暂未开放)', link: '/promise' },
           { text: 'Ajax/Axios(暂未开放)', link: '/axios' },
           { text: 'Node.js(暂未开放)', link: '/node' },
+          { text: 'Express/KOA/Egg/Nest(暂未开放)', link: '/express' },
           { text: 'HTTP(暂未开放)', link: '/http' },
           { text: 'TypeScript(暂未开放)', link: '/typescript' },
+          { text: 'Webpack/vite(暂未开放)', link: '/webpack' },
+          { text: 'React(暂未开放)', link: '/react' },
+          { text: 'Three.js/D3.js(暂未开放)', link: '/three' },
+          { text: 'Next.js(React)(暂未开放)', link: '/next' },
+          { text: 'Nuxt.js(Vue)(暂未开放)', link: '/nuxt' }, 
+          { text: 'Less/Sass/SCSS/PostCSS(暂未开放)', link: '/less' }, 
+          { text: 'npm/npx/yarn(暂未开放)', link: '/npm' }, 
         ]
       },
       {
         text: "后端", items: [
           { text: 'Java', link: '/backend/java/java01', activeMatch: "/backend/java/*" },
-          { text: 'JavaWeb', link: '/backend/javaweb/javaweb01', activeMatch: "/backend/javaweb/" },
-          { text: 'Maven', link: '/backend/maven/' },
-          { text: 'MyBatis', link: '/backend/mybatis/' },
+          { text: 'JavaWeb', link: '/backend/javaweb/javaweb01', activeMatch: "/backend/javaweb/*" },
+          { text: 'Maven', link: '/backend/maven/', activeMatch: "/backend/maven/" },
+          { text: 'MySQL', link: '/backend/mysql/basic01', activeMatch: "/backend/mysql/*" },
+          { text: 'MyBatis', link: '/backend/mybatis/', activeMatch: "/backend/mybatis/" },
           { text: 'MyBatis Plus', link: '/backend/mybatisPlus/' },
           { text: 'Spring(暂未开放)', link: '/backend/spring' },
           { text: 'SpringMVC(暂未开放)', link: '/backend/springmvc' },
           { text: 'SpringBoot(暂未开放)', link: '/backend/springBoot' },
           { text: 'SpringCloud(暂未开放)', link: '/backend/springCloud' },
-          { text: 'MySQL(暂未开放)', link: '/backend/mysql' },
           { text: 'Redis(暂未开放)', link: '/backend/redis' },
           { text: 'Git/SVN(暂未开放)', link: '/git' },
           { text: 'Linux(暂未开放)', link: '/linux' },
@@ -103,7 +112,8 @@ export default defineConfig({
       "/frontend/convention/": conventionSidebar,
       "/frontend/javascript/": javascriptSidebar,
       "/backend/java/": javaSidebar,
-      "/backend/javaweb/": javaWebSidebar
+      "/backend/javaweb/": javaWebSidebar,
+      "/backend/mysql/": mysqlSidebar,
     },
     socialLinks: [
       { icon: 'github', link: 'https://github.com/Hiohk' }
