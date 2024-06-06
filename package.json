@@ -20,6 +20,7 @@
     "animate.css": "^4.1.1",
     "ant-design-vue": "^4.1.2",
     "dayjs": "^1.11.10",
+    "mind-elixir": "^4.0.2",
     "vue-i18n": "^9.9.1",
     "vue-router": "^4.3.0"
   }
