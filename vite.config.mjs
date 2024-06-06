@@ -1,9 +1,12 @@
 import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
   plugins: [
-    //...
   ],
+  define: {
+    'process.env': { ...process.env }
+  },
   build: {
     chunkSizeWarningLimit: 1500,
     rollupOptions: {

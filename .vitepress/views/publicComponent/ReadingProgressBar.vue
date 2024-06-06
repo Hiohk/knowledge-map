@@ -1,4 +1,3 @@
-div
 <script setup>
 import { ref, onMounted, onUnmounted } from "vue";
 import "animate.css";
@@ -25,21 +24,12 @@ const handleScroll = () => {
 
 <template>
   <div class="progress-bar">
-    <transition
-      name="fade"
-      enter-active-class="animate__animated animate__fadeInUp"
-      leave-active-class="animate__animated animate__fadeOutDown"
-    >
-      <a-progress
-        v-if="scrollProgress > 0"
-        :size="40"
-        type="circle"
-        :stroke-color="{
-          '0%': '#108ee9',
-          '100%': '#87d068',
-        }"
-        :percent="scrollProgress"
-      />
+    <transition name="fade" enter-active-class="animate__animated animate__fadeInUp"
+      leave-active-class="animate__animated animate__fadeOutDown">
+      <a-progress v-if="scrollProgress > 0" :size="40" type="circle" :stroke-color="{
+        '0%': '#108ee9',
+        '100%': '#87d068',
+      }" :percent="scrollProgress" />
     </transition>
   </div>
 </template>
