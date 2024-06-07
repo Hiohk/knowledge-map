@@ -1,5 +1,5 @@
 <script setup type="module">
-import { ref, toValue, toRefs } from "vue";
+import { ref } from "vue";
 import { frontEndData } from "../../routeData/frontEndData.mjs";
 import { RedoOutlined, DownloadOutlined } from "@ant-design/icons-vue";
 import { message } from "ant-design-vue";
@@ -35,7 +35,7 @@ const initMindMap = () => {
         {
           name: "编辑节点",
           onclick: () => {
-            alert("暂时不可编辑");
+            message.warning("暂时不可编辑");
           },
         },
       ],
