@@ -5,6 +5,7 @@
     "autoprefixer": "^10.4.17",
     "less": "^4.2.0",
     "markdown-it-mathjax3": "^4.3.2",
+    "mind-elixir": "^4.0.2",
     "postcss": "^8.4.33",
     "tailwindcss": "^3.4.1",
     "vite": "^5.0.12",

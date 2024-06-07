@@ -1,61 +1,67 @@
 {
-  "hash": "94402e89",
+  "hash": "41bb4bcf",
   "configHash": "1b416b59",
-  "lockfileHash": "c70534da",
-  "browserHash": "5908d8a7",
+  "lockfileHash": "4c30b622",
+  "browserHash": "1718de39",
   "optimized": {
     "vue": {
       "src": "../../../node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "3704dc42",
+      "fileHash": "2206d22f",
       "needsInterop": false
     },
     "vitepress > @vue/devtools-api": {
       "src": "../../../node_modules/@vue/devtools-api/dist/index.js",
       "file": "vitepress___@vue_devtools-api.js",
-      "fileHash": "c3d24bd9",
+      "fileHash": "58b54e41",
       "needsInterop": false
     },
     "vitepress > @vueuse/core": {
       "src": "../../../node_modules/@vueuse/core/index.mjs",
       "file": "vitepress___@vueuse_core.js",
-      "fileHash": "e5c05603",
+      "fileHash": "f57da5fb",
       "needsInterop": false
     },
     "vitepress > @vueuse/integrations/useFocusTrap": {
       "src": "../../../node_modules/@vueuse/integrations/useFocusTrap.mjs",
       "file": "vitepress___@vueuse_integrations_useFocusTrap.js",
-      "fileHash": "5aed9f38",
+      "fileHash": "ae0bcbdf",
       "needsInterop": false
     },
     "vitepress > mark.js/src/vanilla.js": {
       "src": "../../../node_modules/mark.js/src/vanilla.js",
       "file": "vitepress___mark__js_src_vanilla__js.js",
-      "fileHash": "450e919b",
+      "fileHash": "6c8f4a10",
       "needsInterop": false
     },
     "vitepress > minisearch": {
       "src": "../../../node_modules/minisearch/dist/es/index.js",
       "file": "vitepress___minisearch.js",
-      "fileHash": "6f2e12e8",
+      "fileHash": "7c3c432f",
       "needsInterop": false
     },
     "ant-design-vue": {
       "src": "../../../node_modules/ant-design-vue/es/index.js",
       "file": "ant-design-vue.js",
-      "fileHash": "a5e8a61a",
+      "fileHash": "5b8ad6a2",
       "needsInterop": false
     },
     "@iconify/vue": {
       "src": "../../../node_modules/@iconify/vue/dist/iconify.mjs",
       "file": "@iconify_vue.js",
-      "fileHash": "b2b56213",
+      "fileHash": "46804584",
       "needsInterop": false
     },
     "@ant-design/icons-vue": {
       "src": "../../../node_modules/@ant-design/icons-vue/es/index.js",
       "file": "@ant-design_icons-vue.js",
-      "fileHash": "781d7b28",
+      "fileHash": "54304845",
+      "needsInterop": false
+    },
+    "mind-elixir": {
+      "src": "../../../node_modules/mind-elixir/dist/MindElixir.js",
+      "file": "mind-elixir.js",
+      "fileHash": "73614970",
       "needsInterop": false
     }
   },
