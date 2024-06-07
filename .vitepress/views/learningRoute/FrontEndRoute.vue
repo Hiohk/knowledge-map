@@ -1,8 +1,11 @@
 <script setup type="module">
-import { onMounted } from "vue";
+import { ref, toValue, toRefs } from "vue";
 import { frontEndData } from "../../routeData/frontEndData.mjs";
+import { RedoOutlined, DownloadOutlined } from "@ant-design/icons-vue";
+import { message } from "ant-design-vue";
 
 let MindElixir = null;
+let mind = null;
 import("mind-elixir")
   .then((module) => {
     MindElixir = module.default;
@@ -10,11 +13,7 @@ import("mind-elixir")
   })
   .catch((error) => {});
 
-onMounted(() => {
-  if (MindElixir != null) {
-    initMindMap();
-  }
-});
+let exportData = ref(null);
 
 const initMindMap = () => {
   let options = {
@@ -52,18 +51,99 @@ const initMindMap = () => {
     },
   };
 
-  let mind = new MindElixir(options);
+  mind = new MindElixir(options);
   mind.init(frontEndData);
+};
+
+// 刷新数据
+const refreshMindData = () => {
+  initMindMap();
+};
+
+// 下载为png或svg
+const downloadFile = async (type) => {
+  try {
+    let blob = null;
+    if (type === "js") {
+      // 将对象转换为JavaScript代码字符串
+      const jsCode = `${JSON.stringify(exportData.value, null, 2)};\n`;
+      blob = new Blob([jsCode], { type: "text/javascript" });
+    }
+    if (type === "png") {
+      blob = await mind.exportPng(false);
+    }
+    if (type === "svg") {
+      blob = await mind.exportSvg(false);
+    }
+
+    if (!blob) return;
+
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "front-end." + type;
+    a.click();
+    URL.revokeObjectURL(url);
+  } catch (error) {
+    message.error(error);
+  }
+};
+
+const exportMindMap = async (e) => {
+  switch (e.key) {
+    case "javascript":
+      exportData.value = mind.getData();
+      downloadFile("js");
+      break;
+    case "png":
+      downloadFile("png");
+      break;
+    case "svg":
+      downloadFile("svg");
+      break;
+  }
 };
 </script>
 
 <template>
-  <div id="map"></div>
+  <div>
+    <div class="operation-btn">
+      <a-flex gap="small" wrap="wrap">
+        <a-button @click="refreshMindData">
+          <template #icon>
+            <RedoOutlined />
+          </template>
+          刷新数据
+        </a-button>
+
+        <a-dropdown>
+          <template #overlay>
+            <a-menu @click="exportMindMap">
+              <a-menu-item key="javascript"> 导出为JS</a-menu-item>
+              <a-menu-item key="png"> 导出为PNG </a-menu-item>
+              <a-menu-item key="svg"> 导出为SVG </a-menu-item>
+            </a-menu>
+          </template>
+          <a-button>
+            <template #icon>
+              <DownloadOutlined />
+            </template>
+            导出
+          </a-button>
+        </a-dropdown>
+      </a-flex>
+    </div>
+    <div id="map"></div>
+  </div>
 </template>
 
 <style scoped>
 #map {
   height: 500px;
   width: 100%;
+}
+
+.operation-btn {
+  margin-bottom: 15px;
 }
 </style>

@@ -3,7 +3,7 @@ export const frontEndData = {
         id: '1',
         topic: '前端技术栈',
         expanded: true,
-        // tags: ['Supported By mind-elixir'],
+        tags: ['2024-06-06'],
         style: { background: '#107AFF' },
         root: true,
         children: [
@@ -111,22 +111,6 @@ export const frontEndData = {
             }
         ],
     },
-    // arrows: [
-    //     {
-    //         id: 'd451a9149a1e3a15',
-    //         label: 'Custom Link',
-    //         from: 'd451a77ca7348eae',
-    //         to: 'd451a78e1ec7181c',
-    //         delta1: {
-    //             x: -230,
-    //             y: -9,
-    //         },
-    //         delta2: {
-    //             x: -236,
-    //             y: 14,
-    //         },
-    //     },
-    // ],
     summaries: [
         {
             id: 'd451a84c2e77cc2f',

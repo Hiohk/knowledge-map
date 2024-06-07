@@ -1,6 +1,6 @@
 import "./chunk-ZS7NZCD4.js";
 
-// node_modules/.pnpm/mind-elixir@4.0.2/node_modules/mind-elixir/dist/MindElixir.js
+// node_modules/mind-elixir/dist/MindElixir.js
 (function() {
   "use strict";
   try {
