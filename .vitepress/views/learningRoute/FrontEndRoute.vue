@@ -1,7 +1,6 @@
 <script setup type="module">
 import { onMounted } from "vue";
 import { frontEndData } from "../../routeData/frontEndData.mjs";
-import { message } from 'ant-design-vue';
 
 let MindElixir = null;
 import("mind-elixir")
@@ -9,9 +8,7 @@ import("mind-elixir")
     MindElixir = module.default;
     initMindMap();
   })
-  .catch((error) => {
-    message.error("mind-elixir加载出错!");
-  });
+  .catch((error) => {});
 
 onMounted(() => {
   if (MindElixir != null) {
