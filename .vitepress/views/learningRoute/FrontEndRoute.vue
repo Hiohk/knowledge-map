@@ -1,7 +1,7 @@
 <script setup type="module">
 import { ref } from "vue";
 import { frontEndData } from "../../routeData/frontEndData.mjs";
-import { RedoOutlined, DownloadOutlined } from "@ant-design/icons-vue";
+import { RedoOutlined, DownloadOutlined, BellOutlined } from "@ant-design/icons-vue";
 import { message } from "ant-design-vue";
 
 let MindElixir = null;
@@ -11,7 +11,7 @@ import("mind-elixir")
     MindElixir = module.default;
     initMindMap();
   })
-  .catch((error) => {});
+  .catch((error) => { });
 
 let exportData = ref(null);
 
@@ -131,6 +131,18 @@ const exportMindMap = async (e) => {
             导出
           </a-button>
         </a-dropdown>
+
+        <a-tooltip placement="right" color="orange">
+          <template #title>
+            <span>在空白处按住右键拖动浏览！</span>
+          </template>
+          <a-button>
+            <template #icon>
+              <BellOutlined />
+            </template>
+            操作提示
+          </a-button>
+        </a-tooltip>
       </a-flex>
     </div>
     <div id="map"></div>
