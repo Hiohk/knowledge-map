@@ -13,7 +13,18 @@ export default defineConfig({
   title: "Knowledge Map",
   description: "A knowledge summary for frontend and backend.",
   lastUpdated: true,
-  head: [['link', { rel: 'icon', href: '/knowledge-map/logo.svg' }]],
+  head: [['link', { rel: 'icon', href: '/knowledge-map/logo.svg' }], [
+    'script',
+    { async: '', src: 'https://www.googletagmanager.com/gtag/js?id=G-9QSPNM0JWD' }
+  ],
+  [
+    'script',
+    {},
+    `window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'TAG_ID');`
+  ]],
   markdown: {
     math: true,
     image: {
@@ -58,6 +69,7 @@ export default defineConfig({
       { text: '首页', link: '/' },
       {
         text: "前端", items: [
+          { text: '前端学习路线', link: '/frontend/frontEndRoute', activeMatch: "/frontend/frontEndRoute" },
           { text: 'HTML', link: '/frontend/html', activeMatch: "/frontend/html" },
           { text: 'CSS', link: '/frontend/css', activeMatch: "/frontend/css" },
           { text: 'JavaScript', link: '/frontend/javascript/', activeMatch: "/frontend/javascript/" },
@@ -73,20 +85,21 @@ export default defineConfig({
           { text: 'React(暂未开放)', link: '/react' },
           { text: 'Three.js/D3.js(暂未开放)', link: '/three' },
           { text: 'Next.js(React)(暂未开放)', link: '/next' },
-          { text: 'Nuxt.js(Vue)(暂未开放)', link: '/nuxt' }, 
-          { text: 'Less/Sass/SCSS/PostCSS(暂未开放)', link: '/less' }, 
-          { text: 'npm/npx/yarn(暂未开放)', link: '/npm' }, 
+          { text: 'Nuxt.js(Vue)(暂未开放)', link: '/nuxt' },
+          { text: 'Less/Sass/SCSS/PostCSS(暂未开放)', link: '/less' },
+          { text: 'npm/npx/yarn(暂未开放)', link: '/npm' },
         ]
       },
       {
         text: "后端", items: [
+          { text: 'Java 学习路线', link: '/backend/javaRoute', activeMatch: "/backend/javaRoute" },
           { text: 'Java', link: '/backend/java/java01', activeMatch: "/backend/java/*" },
           { text: 'JavaWeb', link: '/backend/javaweb/javaweb01', activeMatch: "/backend/javaweb/*" },
           { text: 'Maven', link: '/backend/maven/', activeMatch: "/backend/maven/" },
           { text: 'MySQL', link: '/backend/mysql/basic01', activeMatch: "/backend/mysql/*" },
           { text: 'MyBatis', link: '/backend/mybatis/', activeMatch: "/backend/mybatis/" },
           { text: 'MyBatis Plus', link: '/backend/mybatisPlus/' },
-          { text: 'Spring(暂未开放)', link: '/backend/spring' },
+          { text: 'Spring', link: '/backend/spring' },
           { text: 'SpringMVC(暂未开放)', link: '/backend/springmvc' },
           { text: 'SpringBoot(暂未开放)', link: '/backend/springBoot' },
           { text: 'SpringCloud(暂未开放)', link: '/backend/springCloud' },
