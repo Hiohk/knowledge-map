@@ -116,6 +116,7 @@ export default defineConfig({
           { text: 'Git/SVN(暂未开放)', link: '/git' },
           { text: 'Linux(暂未开放)', link: '/linux' },
           { text: 'TCP/IP(暂未开放)', link: '/backend/tcp' },
+          { text: '数据结构与算法(暂未开放)', link: '/backend/algorithm' },
         ]
       },
       { text: "刷题", link: '/coding/' },
