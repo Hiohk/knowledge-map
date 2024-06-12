@@ -24,7 +24,16 @@ export default defineConfig({
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-9QSPNM0JWD');`
-  ]],
+  ],
+  ['script', {}, `  
+    var _hmt = _hmt || [];  
+    (function() {  
+      var hm = document.createElement("script");  
+      hm.src = "https://hm.baidu.com/hm.js?3b176f31b4bbac2dfe254b62d02d79f4";  
+      var s = document.getElementsByTagName("script")[0];   
+      s.parentNode.insertBefore(hm, s);  
+    })();  
+  `]],
   markdown: {
     math: true,
     image: {
