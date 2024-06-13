@@ -300,7 +300,7 @@ create table student(
 
 6、查看一个表的数据
 
-```shell
+```sql
 select * from 数据库表名称;
 #查看学生表的数据
 select * from student;
@@ -308,7 +308,7 @@ select * from student;
 
 7、添加一条记录
 
-```shell
+```sql
 insert into 表名称 values(值列表);
 #添加两条记录到student表中
 insert into student values(1,'张三');
@@ -317,7 +317,7 @@ insert into student values(2,'李四');
 
 报错：
 
-```shell
+```sql
 mysql> insert into student values(1,'张三');
 ERROR 1366 (HY000): Incorrect string value: '\xD5\xC5\xC8\xFD' for column 'name' at row 1
 mysql> insert into student values(2,'李四');
@@ -329,7 +329,7 @@ mysql> show create table student;
 
 8、查看表的创建信息
 
-```shell
+```sql
 show create table 表名称\G
 #查看student表的详细创建信息
 show create table student\G
@@ -347,7 +347,7 @@ Create Table: CREATE TABLE `student` (
 
 9、查看数据库的创建信息
 
-```shell
+```sql
 show create database 数据库名\G
 #查看atguigudb数据库的详细创建信息
 show create database atguigudb\G
@@ -362,22 +362,22 @@ Create Database: CREATE DATABASE `atguigudb` /*!40100 DEFAULT CHARACTER SET lati
 
 10、删除表格
 
-```shell
+```sql
 drop table 表名称;
 ```
 
-```shell
+```sql
 #删除学生表
 drop table student;
 ```
 
 11、删除数据库
 
-```shell
+```sql
 drop database 数据库名;
 ```
 
-```shell
+```sql
 #删除atguigudb数据库
 drop database atguigudb;
 ```
@@ -388,7 +388,7 @@ drop database atguigudb;
 
 **问题再现：命令行操作 sql 乱码问题**
 
-```shell
+```sql
 mysql> INSERT INTO t_stu VALUES(1,'张三','男');
 ERROR 1366 (HY000): Incorrect string value: '\xD5\xC5\xC8\xFD' for column 'sname' at
 row 1
@@ -398,7 +398,7 @@ row 1
 
 步骤 1：查看编码命令
 
-```shell
+```sql
 show variables like 'character_%';
 show variables like 'collation_%';
 ```
@@ -428,7 +428,7 @@ collation-server=utf8_general_ci
 
 步骤 4：查看编码命令
 
-```shell
+```sql
 show variables like 'character_%';
 show variables like 'collation_%';
 ```
@@ -496,7 +496,7 @@ Presto 等。DBeaver 比大多数的 SQL 管理工具要轻量，而且支持中
 户密码，这里修改用户名为“root@localhost”的用户密码规则为“mysql_native_password”，密码值为
 “123456”。
 
-```shell
+```sql
 #使用mysql数据库
 USE mysql;
 #修改'root'@'localhost'用户的密码规则和密码
@@ -572,7 +572,7 @@ mysql-8.0.22 目录下的各个子目录，包含了 MySQL 各部分组件的源
 
 ### 问题 4：命令行客户端的字符集问题
 
-```shell
+```sql
 mysql> INSERT INTO t_stu VALUES(1,'张三','男');
 ERROR 1366 (HY000): Incorrect string value: '\xD5\xC5\xC8\xFD' for column 'sname' at
 row 1
@@ -595,17 +595,17 @@ row 1
 如果是在修改 my.ini 之前建的库和表，那么库和表的编码还是原来的 Latin1，要么删了重建，要么使用
 alter 语句修改编码。
 
-```shell
+```sql
 mysql> create database 0728db charset Latin1;
 Query OK, 1 row affected (0.00 sec)
 ```
 
-```shell
+```sql
 mysql> use 0728db;
 Database changed
 ```
 
-```shell
+```sql
 mysql> create table student (id int , name varchar(20)) charset Latin1;
 Query OK, 0 rows affected (0.02 sec)
 mysql> show create table student\G
@@ -619,7 +619,7 @@ Create Table: CREATE TABLE `student` (
 1 row in set (0.00 sec)
 ```
 
-```shell
+```sql
 mysql> alter table student charset utf8; #修改表字符编码为UTF8
 Query OK, 0 rows affected (0.01 sec)
 Records: 0 Duplicates: 0 Warnings: 0
@@ -649,7 +649,7 @@ Create Table: CREATE TABLE `student` (
 1 row in set (0.00 sec)
 ```
 
-```shell
+```sql
 mysql> show create database 0728db;;
 +--------+-----------------------------------------------------------------+
 |Database| Create Database |
@@ -662,7 +662,7 @@ mysql> alter database 0728db charset utf8; #修改数据库的字符编码为utf
 Query OK, 1 row affected (0.00 sec)
 ```
 
-```shell
+```sql
 mysql> show create database 0728db;
 +--------+-----------------------------------------------------------------+
 |Database| Create Database |

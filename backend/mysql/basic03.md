@@ -93,26 +93,26 @@ SQL 语言在功能上主要分为如下 3 大类：
 
 举例：
 
-```shell
-#以下两句是一样的，不区分大小写
+```sql
+-- 以下两句是一样的，不区分大小写
 show databases;
 SHOW DATABASES;
-#创建表格
-#create table student info(...); #表名错误，因为表名有空格
+-- 创建表格
+-- create table student info(...); #表名错误，因为表名有空格
 create table student_info(...);
-#其中order使用``飘号，因为order和系统关键字或系统函数名等预定义标识符重名了
+-- 其中order使用``飘号，因为order和系统关键字或系统函数名等预定义标识符重名了
 CREATE TABLE `order`(
   id INT,
   lname VARCHAR(20)
 );
 
-#起别名时，as都可以省略
+-- 起别名时，as都可以省略
 select id as "编号", `name` as "姓名" from t_stu;
 
-#如果字段别名中没有空格，那么可以省略""
+-- 如果字段别名中没有空格，那么可以省略""
 select id as 编号, `name` as 姓名 from t_stu;
 
-#错误，如果字段别名中有空格，那么不能省略""
+-- 错误，如果字段别名中有空格，那么不能省略""
 select id as 编 号, `name` as 姓 名 from t_stu;
 ```
 
@@ -124,7 +124,7 @@ select id as 编 号, `name` as 姓 名 from t_stu;
 mysql> source d:\mysqldb.sql
 ```
 
-```shell
+```sql
 mysql> desc employees;
 +----------------+-------------+------+-----+---------+-------+
 | Field | Type | Null | Key | Default | Extra |
@@ -148,7 +148,7 @@ mysql> desc employees;
 
 ### 3.1 SELECT...
 
-```shell
+```sql
 SELECT 1; #没有任何子句
 SELECT 9/2; #没有任何子句
 ```
@@ -157,14 +157,14 @@ SELECT 9/2; #没有任何子句
 
 - 语法：
 
-```shell
+```sql
 SELECT 标识选择哪些列
 FROM 标识从哪个表中选择
 ```
 
 - 选择全部列：
 
-```shell
+```sql
 SELECT *
 FROM departments;
 ```
@@ -179,7 +179,7 @@ FROM departments;
 
 - 选择特定的列：
 
-```shell
+```sql
 SELECT department_id, location_id
 FROM departments;
 ```
@@ -200,12 +200,12 @@ FROM departments;
 - 建议别名简短，见名知意
 - 举例：
 
-```shell
+```sql
 SELECT last_name AS name, commission_pct comm
 FROM employees;
 ```
 
-```shell
+```sql
 SELECT last_name "Name", salary*12 "Annual Salary"
 FROM employees;
 ```
@@ -214,21 +214,21 @@ FROM employees;
 
 默认情况下，查询会返回全部行，包括重复行。
 
-```shell
+```sql
 SELECT department_id
 FROM employees;
 ```
 
 在 SELECT 语句中使用关键字 DISTINCT 去除重复行:
 
-```shell
+```sql
 SELECT DISTINCT department_id
 FROM employees;
 ```
 
 针对于：
 
-```shell
+```sql
 SELECT DISTINCT department_id,salary
 FROM employees;
 ```
@@ -246,7 +246,7 @@ FROM employees;
 
 所有运算符或列值遇到 null 值，运算的结果都为 null
 
-```shell
+```sql
 SELECT employee_id,salary,commission_pct,
 12 * salary * (1 + commission_pct) "annual_sal"
 FROM employees;
@@ -259,7 +259,7 @@ FROM employees;
 
 - 错误的
 
-```shell
+```sql
 mysql> SELECT * FROM ORDER;
 ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that
 corresponds to your MySQL server version for the right syntax to use near 'ORDER' at
@@ -268,7 +268,7 @@ line 1
 
 - 正确的
 
-```shell
+```sql
 mysql> SELECT * FROM `ORDER`;
 +----------+------------+
 | order_id | order_name |
@@ -304,7 +304,7 @@ SQL 中的 SELECT 语法的确提供了这个功能，一般来说我们只从�
 
 比如说，我们想对 employees 数据表中的员工姓名进行查询，同时增加一列字段 corporation ，这个字段固定值为“尚硅谷”，可以这样写：
 
-```shell
+```sql
 SELECT '尚硅谷' as corporation, last_name FROM employees;
 ```
 
@@ -312,13 +312,13 @@ SELECT '尚硅谷' as corporation, last_name FROM employees;
 
 使用 DESCRIBE 或 DESC 命令，表示表结构。
 
-```shell
+```sql
 DESCRIBE employees;
-# 或
+--  或
 DESC employees;
 ```
 
-```shell
+```sql
 mysql> desc employees;
 +----------------+-------------+------+-----+---------+-------+
 | Field | Type | Null | Key | Default | Extra |
@@ -356,7 +356,7 @@ mysql> desc employees;
 
 - 语法：
 
-```shell
+```sql
 SELECT 字段1,字段2
 FROM 表名
 WHERE 过滤条件
@@ -366,7 +366,7 @@ WHERE 过滤条件
 
 - 举例
 
-```shell
+```sql
 SELECT employee_id, last_name, job_id, department_id
 FROM employees
 WHERE department_id = 90 ;
