@@ -120,7 +120,6 @@ export default defineConfig({
         ]
       },
       { text: "刷题", link: '/coding/' },
-      { text: "技术博客", link: '/blog/' },
       {
         text: "探索", items: [
           { text: "方法论", link: '/exploration/methodology/' },
