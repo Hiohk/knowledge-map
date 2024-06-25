@@ -949,14 +949,126 @@ MySQL 8.0 将自增主键的计数器持久化到 重做日志 中。每次计�
 ## 6. FOREIGN KEY 约束
 
 ### 6.1 作用
+限定某个表的某个字段的引用完整性。
+
+比如：员工表的员工所在部门的选择，必须在部门表能找到对应的部分。
+
+![alt text](image01/image96.png)
 
 ### 6.2 关键字
 
+FOREIGN KEY
+
 ### 6.3 主表和从表/父表和子表
+主表（父表）：被引用的表，被参考的表
+
+从表（子表）：引用别人的表，参考别人的表
+
+例如：员工表的员工所在部门这个字段的值要参考部门表：部门表是主表，员工表是从表。
+
+例如：学生表、课程表、选课表：选课表的学生和课程要分别参考学生表和课程表，学生表和课程表是主表，选课表是从表。
 
 ### 6.4 特点
+（1）从表的外键列，必须引用/参考主表的主键或唯一约束的列
+
+为什么？因为被依赖/被参考的值必须是唯一的
+
+（2）在创建外键约束时，如果不给外键约束命名，**默认名不是列名，而是自动产生一个外键名**（例如student_ibfk_1;），也可以指定外键约束名。
+
+（3）创建(CREATE)表时就指定外键约束的话，先创建主表，再创建从表
+
+（4）删表时，先删从表（或先删除外键约束），再删除主表
+
+（5）当主表的记录被从表参照时，主表的记录将不允许删除，如果要删除数据，需要先删除从表中依赖该记录的数据，然后才可以删除主表的数据
+
+（6）在“从表”中指定外键约束，并且一个表可以建立多个外键约束
+
+（7）从表的外键列与主表被参照的列名字可以不相同，但是数据类型必须一样，逻辑意义一致。如果类型不一样，创建子表时，就会出现错误“ERROR 1005 (HY000): Can't create table'database.tablename'(errno: 150)”。
+
+例如：都是表示部门编号，都是int类型。
+
+（8）当创建外键约束时，系统默认会在所在的列上建立对应的普通索引。但是索引名是外键的约束名。（根据外键查询效率很高）
+
+（9）删除外键约束后，必须手动删除对应的索引
 
 ### 6.5 添加外键约束
+
+（1）建表时
+
+```sql
+create table 主表名称(
+    字段1 数据类型 primary key,
+    字段2 数据类型
+);
+
+create table 从表名称(
+    字段1 数据类型 primary key,
+    字段2 数据类型,
+    [CONSTRAINT <外键约束名称>] FOREIGN KEY（从表的某个字段) references 主表名(被参考字段)
+);
+-- (从表的某个字段)的数据类型必须与主表名(被参考字段)的数据类型一致，逻辑意义也一样
+-- (从表的某个字段)的字段名可以与主表名(被参考字段)的字段名一样，也可以不一样
+
+-- FOREIGN KEY: 在表级指定子表中的列
+-- REFERENCES: 标示在父表中的列
+```
+
+```sql
+create table dept( #主表
+    did int primary key, -- 部门编号
+    dname varchar(50) -- 部门名称
+);
+create table emp(#从表
+    id int primary key, --员工编号
+    name varchar(5), --员工姓名
+    eptid int, --员工所在的部门
+    foreign key (deptid) references dept(did) -- 在从表中指定外键约束
+    -- emp表的deptid和和dept表的did的数据类型一致，意义都是表示部门的编号
+);
+
+-- 说明：
+-- （1）主表dept必须先创建成功，然后才能创建emp表，指定外键成功。
+-- （2）删除表时，先删除从表emp，再删除主表dept
+```
+
+（2）建表后
+
+一般情况下，表与表的关联都是提前设计好了的，因此，会在创建表的时候就把外键约束定义好。不
+过，如果需要修改表的设计（比如添加新的字段，增加新的关联关系），但没有预先定义外键约束，那么，就要用修改表的方式来补充定义。
+
+格式：
+
+```sql
+ALTER TABLE 从表名 ADD [CONSTRAINT 约束名] FOREIGN KEY (从表的字段) REFERENCES 主表名(被引用
+字段) [on update xx][on delete xx];
+```
+
+举例：
+
+```sql
+ALTER TABLE emp1
+ADD [CONSTRAINT emp_dept_id_fk] FOREIGN KEY(dept_id) REFERENCES dept(dept_id);
+```
+
+举例：
+
+```sql
+create table dept(
+    did int primary key, -- 部门编号
+    dname varchar(50) -- 部门名称
+);
+
+create table emp(
+    eid int primary key, --员工编号
+    ename varchar(5), --员工姓名
+    deptid int --员工所在的部门
+);
+-- 这两个表创建时，没有指定外键的话，那么创建顺序是随意
+```
+
+```sql
+alter table emp add foreign key (deptid) references dept(did);
+```
 
 ### 6.6 演示问题
 
