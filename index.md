@@ -16,7 +16,7 @@ hero:
   actions:
     - theme: brand
       text: 开始探索
-      link: /blog/
+      link: /frontend/frontEndRoute/
 
     - theme: alt
       text: 前端知识

@@ -7,11 +7,9 @@ import RecommendationBlog from "./RecommendationBlog.vue";
 import LikeVideo from "./LikeVideo.vue";
 import { Icon } from "@iconify/vue";
 
-
 import ajax from "/ajax.svg";
 import waiting from "/waiting.svg";
 import mybatis from "/mybatis.svg";
-
 
 const layout = ref([
   {
@@ -120,7 +118,7 @@ const layout = ref([
     name: "MySQL",
     imgName: "",
     icon: "logos:mysql",
-    address: "/knowledge-map/backend/mysql",
+    address: "/knowledge-map/backend/mysql/basic01",
     content:
       "MySQL是一个关系型数据库管理系统（RDBMS），由瑞典MySQL AB公司开发，并随后被Oracle公司收购。MySQL是最流行的关系型数据库管理系统之一，尤其在WEB应用方面，它被视为最佳的RDBMS应用软件之一。",
   },
@@ -154,6 +152,7 @@ const cardImgStyle = (width, height) => {
   };
 };
 
+// 加载更多
 const onLoadMore = () => {};
 </script>
 
@@ -174,11 +173,15 @@ const onLoadMore = () => {};
             :xl="4"
           >
             <a-card
-              class="grid-item small-card animate__animated animate__backInLeft"
+              class="grid-item small-card"
               bordered
               hoverable
               size="small"
               style="width: 100%; height: 100%; overflow: hidden"
+              v-intersect="{
+                enter: 'animate__fadeInUp',
+                duration: 'animate__duration-2s',
+              }"
             >
               <template #cover>
                 <img
@@ -222,12 +225,24 @@ const onLoadMore = () => {};
     <div class="time-line-event">
       <a-row :gutter="16">
         <a-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
-          <div>
+          <div
+            v-intersect="{
+              enter: 'animate__fadeIn',
+              duration: 'animate__duration-2s',
+            }"
+          >
             <time-line-event></time-line-event>
           </div>
         </a-col>
         <a-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
-          <recommendation-blog></recommendation-blog>
+          <div
+            v-intersect="{
+              enter: 'animate__fadeInUp',
+              duration: 'animate__duration-2s',
+            }"
+          >
+            <recommendation-blog></recommendation-blog>
+          </div>
         </a-col>
       </a-row>
     </div>

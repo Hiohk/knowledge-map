@@ -949,6 +949,7 @@ MySQL 8.0 将自增主键的计数器持久化到 重做日志 中。每次计�
 ## 6. FOREIGN KEY 约束
 
 ### 6.1 作用
+
 限定某个表的某个字段的引用完整性。
 
 比如：员工表的员工所在部门的选择，必须在部门表能找到对应的部分。
@@ -960,6 +961,7 @@ MySQL 8.0 将自增主键的计数器持久化到 重做日志 中。每次计�
 FOREIGN KEY
 
 ### 6.3 主表和从表/父表和子表
+
 主表（父表）：被引用的表，被参考的表
 
 从表（子表）：引用别人的表，参考别人的表
@@ -969,11 +971,12 @@ FOREIGN KEY
 例如：学生表、课程表、选课表：选课表的学生和课程要分别参考学生表和课程表，学生表和课程表是主表，选课表是从表。
 
 ### 6.4 特点
+
 （1）从表的外键列，必须引用/参考主表的主键或唯一约束的列
 
 为什么？因为被依赖/被参考的值必须是唯一的
 
-（2）在创建外键约束时，如果不给外键约束命名，**默认名不是列名，而是自动产生一个外键名**（例如student_ibfk_1;），也可以指定外键约束名。
+（2）在创建外键约束时，如果不给外键约束命名，**默认名不是列名，而是自动产生一个外键名**（例如 student_ibfk_1;），也可以指定外键约束名。
 
 （3）创建(CREATE)表时就指定外键约束的话，先创建主表，再创建从表
 
@@ -985,7 +988,7 @@ FOREIGN KEY
 
 （7）从表的外键列与主表被参照的列名字可以不相同，但是数据类型必须一样，逻辑意义一致。如果类型不一样，创建子表时，就会出现错误“ERROR 1005 (HY000): Can't create table'database.tablename'(errno: 150)”。
 
-例如：都是表示部门编号，都是int类型。
+例如：都是表示部门编号，都是 int 类型。
 
 （8）当创建外键约束时，系统默认会在所在的列上建立对应的普通索引。但是索引名是外键的约束名。（根据外键查询效率很高）
 
@@ -1072,33 +1075,788 @@ alter table emp add foreign key (deptid) references dept(did);
 
 ### 6.6 演示问题
 
+（1）失败：不是键列
+
+```sql
+create table dept(
+    did int , -- 部门编号
+    dname varchar(50) -- 部门名称
+);
+
+create table emp(
+    eid int primary key, -- 员工编号
+    ename varchar(5), -- 员工姓名
+    deptid int, -- 员工所在的部门
+    foreign key (deptid) references dept(did)
+);
+-- ERROR 1215 (HY000): Cannot add foreign key constraint
+-- 原因是dept的did不是键列
+```
+
+（2）失败：数据类型不一致
+
+```sql
+create table dept(
+    did int primary key, -- 部门编号
+    dname varchar(50) -- 部门名称
+);
+create table emp(
+    eid int primary key, -- 员工编号
+    ename varchar(5), -- 员工姓名
+    deptid char, -- 员工所在的部门
+    foreign key (deptid) references dept(did)
+);
+-- ERROR 1215 (HY000): Cannot add foreign key constraint
+-- 原因是从表的deptid字段和主表的did字
+-- 段的数据类型不一致，并且要它俩的逻辑意义一致
+```
+
+（3）成功，两个表字段名一样
+
+```sql
+create table dept(
+    did int primary key, -- 部门编号
+    dname varchar(50) -- 部门名称
+);
+create table emp(
+    eid int primary key, -- 员工编号
+    ename varchar(5), -- 员工姓名
+    did int, -- 员工所在的部门
+    foreign key (did) references dept(did)
+    -- emp表的deptid和和dept表的did的数据类型一致，意义都是表示部门的编号
+    -- 是否重名没问题，因为两个did在不同的表中
+);
+```
+
+（4）添加、删除、修改问题
+
+```sql
+create table dept(
+    did int primary key, -- 部门编号
+    dname varchar(50) -- 部门名称
+);
+create table emp(
+    eid int primary key, -- 员工编号
+    ename varchar(5), -- 员工姓名
+    deptid int, -- 员工所在的部门
+    foreign key (deptid) references dept(did)
+    -- emp表的deptid和和dept表的did的数据类型一致，意义都是表示部门的编号
+);
+```
+
+```sql
+insert into dept values(1001,'教学部');
+insert into dept values(1003, '财务部');
+
+-- 添加从表记录成功，在添加这条记录时，要求部门表有1001部门
+insert into emp values(1,'张三',1001);
+
+insert into emp values(2,'李四',1005);-- 添加从表记录失败
+ERROR 1452 (23000): Cannot add（添加） or update（修改） a child row: a foreign key
+constraint fails (`atguigudb`.`emp`, CONSTRAINT `emp_ibfk_1` FOREIGN KEY (`deptid`)
+REFERENCES `dept` (`did`)) 从表emp添加记录失败，因为主表dept没有1005部门
+```
+
+```sql
+mysql> select * from dept;
++------+--------+
+| did | dname |
++------+--------+
+| 1001 | 教学部 |
+| 1003 | 财务部 |
++------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select * from emp;
++-----+-------+--------+
+| eid | ename | deptid |
++-----+-------+--------+
+| 1 | 张三 | 1001 |
++-----+-------+--------+
+1 row in set (0.00 sec)
+```
+
+```sql
+update emp set deptid = 1002 where eid = 1;-- 修改从表失败
+ERROR 1452 (23000): Cannot add（添加） or update（修改） a child row（子表的记录）: a
+foreign key constraint fails（外键约束失败） (`atguigudb`.`emp`, CONSTRAINT `emp_ibfk_1`
+FOREIGN KEY (`deptid`) REFERENCES `dept` (`did`))
+-- 部门表did字段现在没有1002的值，所以员工表中不能修改员工所在部门deptid为1002
+
+update dept set did = 1002 where did = 1001;-- 修改主表失败
+ERROR 1451 (23000): Cannot delete（删除） or update（修改） a parent row（父表的记录）: a
+foreign key constraint fails (`atguigudb`.`emp`, CONSTRAINT `emp_ibfk_1` FOREIGN KEY
+(`deptid`) REFERENCES `dept` (`did`))
+-- 部门表did的1001字段已经被emp引用了，所以部门表的1001字段就不能修改了。
+
+update dept set did = 1002 where did = 1003;
+-- 修改主表成功 因为部门表的1003部门没有被emp表引用，所以可以修改
+```
+
+```sql
+delete from dept where did=1001; -- 删除主表失败
+ERROR 1451 (23000): Cannot delete（删除） or update（修改） a parent row（父表记录）: a
+foreign key constraint fails (`atguigudb`.`emp`, CONSTRAINT `emp_ibfk_1` FOREIGN KEY
+(`deptid`) REFERENCES `dept` (`did`))
+-- 因为部门表did的1001字段已经被emp引用了，所以部门表的1001字段对应的记录就不能被删除
+```
+
+总结：约束关系是针对双方的
+
+- 添加了外键约束后，主表的修改和删除数据受约束
+- 添加了外键约束后，从表的添加和修改数据受约束
+- 在从表上建立外键，要求主表必须存在
+- 删除主表时，要求从表从表先删除，或将从表中外键引用该主表的关系先删除
+
 ### 6.7 约束等级
+
+- `Cascade方式`：在父表上 update/delete 记录时，同步 update/delete 掉子表的匹配记录
+- `Set null方式`：在父表上 update/delete 记录时，将子表上匹配记录的列设为 null，但是要注意子表的外键列不能为 not null
+- `No action方式`：如果子表中有匹配的记录，则不允许对父表对应候选键进行 update/delete 操作
+- `Restrict方式`：同 no action， 都是立即检查外键约束
+- `Set default方式`（在可视化工具 SQLyog 中可能显示空白）：父表有变更时，子表将外键列设置成一个默认的值，但 Innodb 不能识别
+
+如果没有指定等级，就相当于 Restrict 方式。
+
+对于外键约束，最好是采用: `ON UPDATE CASCADE ON DELETE RESTRICT` 的方式。
+
+（1）演示 1：on update cascade on delete set null
+
+```sql
+create table dept(
+    did int primary key, -- 部门编号
+    dname varchar(50) -- 部门名称
+);
+create table emp(
+    eid int primary key, --员工编号
+    ename varchar(5), -- 员工姓名
+    deptid int, -- 员工所在的部门
+    foreign key (deptid) references dept(did) on update cascade on delete set null
+    -- 把修改操作设置为级联修改等级，把删除操作设置为set null等级
+);
+```
+
+```sql
+insert into dept values(1001,'教学部');
+insert into dept values(1002, '财务部');
+insert into dept values(1003, '咨询部');
+
+#在添加这条记录时，要求部门表有1001部门
+insert into emp values(1,'张三',1001);
+insert into emp values(2,'李四',1001);
+insert into emp values(3,'王五',1002);
+```
+
+```sql
+mysql> select * from dept;
+mysql> select * from emp;
+```
+
+```sql
+-- 修改主表成功，从表也跟着修改，修改了主表被引用的字段1002为1004，
+-- 从表的引用字段就跟着修改为1004了
+mysql> update dept set did = 1004 where did = 1002;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1 Changed: 1 Warnings: 0
+
+mysql> select * from dept;
++------+--------+
+| did | dname |
++------+--------+
+| 1001 | 教学部 |
+| 1003 | 咨询部 |
+| 1004 | 财务部 | -- 原来是1002，修改为1004
++------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from emp;
++-----+-------+--------+
+| eid | ename | deptid |
++-----+-------+--------+
+| 1 | 张三 | 1001 |
+| 2 | 李四 | 1001 |
+| 3 | 王五 | 1004 | -- 原来是1002，跟着修改为1004
++-----+-------+--------+
+3 rows in set (0.00 sec)
+```
+
+```sql
+-- 删除主表的记录成功，从表对应的字段的值被修改为null
+mysql> delete from dept where did = 1001;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from dept;
++------+--------+
+| did | dname | -- 记录1001部门被删除了
++------+--------+
+| 1003 | 咨询部 |
+| 1004 | 财务部 |
++------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select * from emp;
++-----+-------+--------+
+| eid | ename | deptid |
++-----+-------+--------+
+| 1 | 张三 | NULL | -- 原来引用1001部门的员工，deptid字段变为null
+| 2 | 李四 | NULL |
+| 3 | 王五 | 1004 |
++-----+-------+--------+
+3 rows in set (0.00 sec)
+```
+
+（2）演示 2：on update set null on delete cascade
+
+```sql
+create table dept(
+    did int primary key, -- 部门编号
+    dname varchar(50) -- 部门名称
+);
+
+create table emp(
+    eid int primary key, -- 员工编号
+    ename varchar(5), -- 员工姓名
+    deptid int, -- 员工所在的部门
+    foreign key (deptid) references dept(did) on update set null on delete cascade
+    -- 把修改操作设置为set null等级，把删除操作设置为级联删除等级
+);
+```
+
+```sql
+insert into dept values(1001,'教学部');
+insert into dept values(1002, '财务部');
+insert into dept values(1003, '咨询部');
+
+-- 在添加这条记录时，要求部门表有1001部门
+insert into emp values(1,'张三',1001);
+insert into emp values(2,'李四',1001);
+insert into emp values(3,'王五',1002);
+```
+
+```sql
+mysql> select * from dept;
++------+--------+
+| did | dname |
++------+--------+
+| 1001 | 教学部 |
+| 1002 | 财务部 |
+| 1003 | 咨询部 |
++------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from emp;
++-----+-------+--------+
+| eid | ename | deptid |
++-----+-------+--------+
+| 1 | 张三 | 1001 |
+| 2 | 李四 | 1001 |
+| 3 | 王五 | 1002 |
++-----+-------+--------+
+3 rows in set (0.00 sec)
+```
+
+```sql
+-- 修改主表，从表对应的字段设置为null
+mysql> update dept set did = 1004 where did = 1002;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1 Changed: 1 Warnings: 0
+
+mysql> select * from dept;
++------+--------+
+| did | dname |
++------+--------+
+| 1001 | 教学部 |
+| 1003 | 咨询部 |
+| 1004 | 财务部 | -- 原来did是1002
++------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from emp;
++-----+-------+--------+
+| eid | ename | deptid |
++-----+-------+--------+
+| 1 | 张三 | 1001 |
+| 2 | 李四 | 1001 |
+| 3 | 王五 | NULL |
+-- 原来deptid是1002，因为部门表1002被修改了，1002没有对应的了，就设置为null
++-----+-------+--------+
+3 rows in set (0.00 sec)
+```
+
+```sql
+-- 删除主表的记录成功，主表的1001行被删除了，从表相应的记录也被删除了
+mysql> delete from dept where did=1001;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from dept;
++------+--------+
+| did | dname | -- 部门表中1001部门被删除
++------+--------+
+| 1003 | 咨询部 |
+| 1004 | 财务部 |
++------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select * from emp;
++-----+-------+--------+
+| eid | ename | deptid |-- 原来1001部门的员工也被删除了
++-----+-------+--------+
+| 3 | 王五 | NULL |
++-----+-------+--------+
+1 row in set (0.00 sec)
+```
+
+（3）演示：on update cascade on delete cascade
+
+```sql
+create table dept(
+    did int primary key, -- 部门编号
+    dname varchar(50) -- 部门名称
+);
+
+create table emp(
+    eid int primary key, -- 员工编号
+    ename varchar(5), -- 员工姓名
+    deptid int, -- 员工所在的部门
+    foreign key (deptid) references dept(did) on update cascade on delete cascade
+    -- 把修改操作设置为级联修改等级，把删除操作也设置为级联删除等级
+);
+```
+
+```sql
+insert into dept values(1001,'教学部');
+insert into dept values(1002, '财务部');
+insert into dept values(1003, '咨询部');
+
+-- 在添加这条记录时，要求部门表有1001部门
+insert into emp values(1,'张三',1001);
+insert into emp values(2,'李四',1001);
+insert into emp values(3,'王五',1002);
+```
+
+```sql
+mysql> select * from dept;
++------+--------+
+| did | dname |
++------+--------+
+| 1001 | 教学部 |
+| 1002 | 财务部 |
+| 1003 | 咨询部 |
++------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from emp;
++-----+-------+--------+
+| eid | ename | deptid |
++-----+-------+--------+
+| 1 | 张三 | 1001 |
+| 2 | 李四 | 1001 |
+| 3 | 王五 | 1002 |
++-----+-------+--------+
+3 rows in set (0.00 sec)
+```
+
+```sql
+-- 修改主表，从表对应的字段自动修改
+mysql> update dept set did = 1004 where did = 1002;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1 Changed: 1 Warnings: 0
+
+mysql> select * from dept;
++------+--------+
+| did | dname |
++------+--------+
+| 1001 | 教学部 |
+| 1003 | 咨询部 |
+| 1004 | 财务部 | -- 部门1002修改为1004
++------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from emp;
++-----+-------+--------+
+| eid | ename | deptid |
++-----+-------+--------+
+| 1 | 张三 | 1001 |
+| 2 | 李四 | 1001 |
+| 3 | 王五 | 1004 | -- 级联修改
++-----+-------+--------+
+3 rows in set (0.00 sec)
+```
+
+```sql
+-- 删除主表的记录成功，主表的1001行被删除了，从表相应的记录也被删除了
+mysql> delete from dept where did=1001;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from dept;
++------+--------+
+| did | dname | -- 1001部门被删除了
++------+--------+
+| 1003 | 咨询部 |
+| 1004 | 财务部 |
++------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select * from emp;
++-----+-------+--------+
+| eid | ename | deptid | -- 1001部门的员工也被删除了
++-----+-------+--------+
+| 3 | 王五 | 1004 |
++-----+-------+--------+
+1 row in set (0.00 sec)
+```
 
 ### 6.8 删除外键约束
 
+流程如下：
+
+```sql
+-- (1)第一步先查看约束名和删除外键约束
+-- 查看某个表的约束名
+SELECT * FROM information_schema.table_constraints WHERE table_name = '表名称';
+
+ALTER TABLE 从表名 DROP FOREIGN KEY 外键约束名;
+
+-- （2）第二步查看索引名和删除索引。（注意，只能手动删除）
+SHOW INDEX FROM 表名称; #查看某个表的索引名
+
+ALTER TABLE 从表名 DROP INDEX 索引名;
+```
+
+举例：
+
+```sql
+mysql> SELECT * FROM information_schema.table_constraints WHERE table_name = 'emp';
+mysql> alter table emp drop foreign key emp_ibfk_1;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0 Duplicates: 0 Warnings: 0
+```
+
+```sql
+mysql> show index from emp;
+
+mysql> alter table emp drop index deptid;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0 Duplicates: 0 Warnings: 0
+
+mysql> show index from emp;
+```
+
 ### 6.9 开发场景
 
+**问题 1：如果两个表之间有关系（一对一、一对多），比如：员工表和部门表（一对多），它们之间是否一定要建外键约束？**
+
+答：不是的
+
+**问题 2：建和不建外键约束有什么区别？**
+
+答：建外键约束，你的操作（创建表、删除表、添加、修改、删除）会受到限制，从语法层面受到限
+制。例如：在员工表中不可能添加一个员工信息，它的部门的值在部门表中找不到。
+
+不建外键约束，你的操作（创建表、删除表、添加、修改、删除）不受限制，要保证数据的 引用完整
+性 ，只能依 靠程序员的自觉 ，或者是 在 Java 程序中进行限定 。例如：在员工表中，可以添加一个员工的
+信息，它的部门指定为一个完全不存在的部门。
+
+**问题 3：那么建和不建外键约束和查询有没有关系？**
+
+答：没有
+
+> 在 MySQL 里，外键约束是有成本的，需要消耗系统资源。对于大并发的 SQL 操作，有可能会不适
+> 合。比如大型网站的中央数据库，可能会 因为外键约束的系统开销而变得非常慢 。所以， MySQL 允
+> 许你不使用系统自带的外键约束，在 应用层面 完成检查数据一致性的逻辑。也就是说，即使你不
+> 用外键约束，也要想办法通过应用层面的附加逻辑，来实现外键约束的功能，确保数据的一致性。
+
 ### 6.10 阿里开发规范
+
+【**强制**】不得使用外键与级联，一切外键概念必须在应用层解决。
+
+说明：（概念解释）学生表中的 student_id 是主键，那么成绩表中的 student_id 则为外键。如果更新学
+生表中的 student_id，同时触发成绩表中的 student_id 更新，即为级联更新。外键与级联更新适用于 单
+机低并发 ，不适合 分布式 、 高并发集群 ；级联更新是强阻塞，存在数据库 更新风暴 的风险；外键影响数据库的 插入速度 。
 
 ## 7. CHECK 约束
 
 ### 7.1 作用
 
+检查某个字段的值是否符号 xx 要求，一般指的是值的范围
+
 ### 7.2 关键字
 
+CHECK
+
 ### 7.3 说明：MySQL 5.7 不支持
+
+MySQL5.7 可以使用 check 约束，但 check 约束对数据验证没有任何作用。添加数据时，没有任何错误或警
+告，但是 **MySQL 8.0 中可以使用 check 约束了**。
+
+```sql
+create table employee(
+    eid int primary key,
+    ename varchar(5),
+    gender char check ('男' or '女')
+);
+```
+
+```sql
+insert into employee values(1,'张三','妖');
+```
+
+```sql
+mysql> select * from employee;
++-----+-------+--------+
+| eid | ename | gender |
++-----+-------+--------+
+| 1 | 张三 | 妖 |
++-----+-------+--------+
+1 row in set (0.00 sec)
+```
+
+- 再举例
+
+```sql
+CREATE TABLE temp(
+    id INT AUTO_INCREMENT,
+    NAME VARCHAR(20),
+    age INT CHECK(age > 20),
+    PRIMARY KEY(id)
+);
+```
+
+- 再举例
+
+```sql
+age tinyint check(age >20) 或 sex char(2) check(sex in('男','女'))
+```
+
+- 再举例
+
+```sql
+CHECK(height>=0 AND height<3)
+```
 
 ## 8. DEFAULT 约束
 
 ### 8.1 作用
 
+给某个字段/某列指定默认值，一旦设置默认值，在插入数据时，如果此字段没有显式赋值，则赋值为默认值。
+
 ### 8.2 关键字
+
+DEFAULT
 
 ### 8.3 如何给字段加默认值
 
+（1）建表时
+
+```sql
+create table 表名称(
+    字段名 数据类型 primary key,
+    字段名 数据类型 unique key not null,
+    字段名 数据类型 unique key,
+    字段名 数据类型 not null default 默认值,
+);
+create table 表名称(
+    字段名 数据类型 default 默认值 ,
+    字段名 数据类型 not null default 默认值,
+    字段名 数据类型 not null default 默认值,
+    primary key(字段名),
+    unique key(字段名)
+);
+
+-- 说明：默认值约束一般不在唯一键和主键列上加
+```
+
+```sql
+create table employee(
+    eid int primary key,
+    ename varchar(20) not null,
+    gender char default '男',
+    tel char(11) not null default '' -- 默认是空字符串
+);
+```
+
+```sql
+mysql> desc employee;
++--------+-------------+------+-----+---------+-------+
+| Field | Type | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| eid | int(11) | NO | PRI | NULL | |
+| ename | varchar(20) | NO | | NULL | |
+| gender | char(1) | YES | | 男 | |
+| tel | char(11) | NO | | | |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+```
+
+```sql
+insert into employee values(1,'汪飞','男','13700102535'); -- 成功
+```
+
+```sql
+mysql> select * from employee;
++-----+-------+--------+-------------+
+| eid | ename | gender | tel |
++-----+-------+--------+-------------+
+| 1 | 汪飞 | 男 | 13700102535 |
++-----+-------+--------+-------------+
+1 row in set (0.00 sec)
+```
+
+```sql
+insert into employee(eid,ename) values(2,'天琪'); -- 成功
+```
+
+```sql
+mysql> select * from employee;
++-----+-------+--------+-------------+
+| eid | ename | gender | tel |
++-----+-------+--------+-------------+
+| 1 | 汪飞 | 男 | 13700102535 |
+| 2 | 天琪 | 男 | |
++-----+-------+--------+-------------+
+2 rows in set (0.00 sec)
+```
+
+```sql
+insert into employee(eid,ename) values(3,'二虎');
+#ERROR 1062 (23000): Duplicate entry '' for key 'tel'
+-- 如果tel有唯一性约束的话会报错，如果tel没有唯一性约束，可以添加成功
+```
+
+再举例：
+
+```sql
+CREATE TABLE myemp(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    NAME VARCHAR(15),
+    salary DOUBLE(10,2) DEFAULT 2000
+);
+```
+
+（2）建表后
+
+```sql
+alter table 表名称 modify 字段名 数据类型 default 默认值;
+-- 如果这个字段原来有非空约束，你还保留非空约束，那么在加默认值约束时，
+-- 还得保留非空约束，否则非空约束就被删除了
+-- 同理，在给某个字段加非空约束也一样，如果这个字段原来有默认值约束，
+-- 你想保留，也要在modify语句中保留默认值约束，否则就删除了
+alter table 表名称 modify 字段名 数据类型 default 默认值 not null;
+```
+
+```sql
+create table employee(
+    eid int primary key,
+    ename varchar(20),
+    gender char,
+    tel char(11) not null
+);
+```
+
+```sql
+mysql> desc employee;
++--------+-------------+------+-----+---------+-------+
+| Field | Type | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| eid | int(11) | NO | PRI | NULL | |
+| ename | varchar(20) | YES | | NULL | |
+| gender | char(1) | YES | | NULL | |
+| tel | char(11) | NO | | NULL | |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+```
+
+```sql
+-- 给gender字段增加默认值约束
+alter table employee modify gender char default '男';
+-- 给tel字段增加默认值约束
+alter table employee modify tel char(11) default '';
+```
+
+```sql
+mysql> desc employee;
++--------+-------------+------+-----+---------+-------+
+| Field | Type | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| eid | int(11) | NO | PRI | NULL | |
+| ename | varchar(20) | YES | | NULL | |
+| gender | char(1) | YES | | 男 | |
+| tel | char(11) | YES | | | |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+```
+
+```sql
+-- 给tel字段增加默认值约束，并保留非空约束
+alter table employee modify tel char(11) default '' not null;#
+```
+
+```sql
+mysql> desc employee;
++--------+-------------+------+-----+---------+-------+
+| Field | Type | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| eid | int(11) | NO | PRI | NULL | |
+| ename | varchar(20) | YES | | NULL | |
+| gender | char(1) | YES | | 男 | |
+| tel | char(11) | NO | | | |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+```
+
 ### 8.4 如何删除默认值约束
 
+```sql
+-- 删除默认值约束，也不保留非空约束
+alter table 表名称 modify 字段名 数据类型;
+
+-- 删除默认值约束，保留非空约束
+alter table 表名称 modify 字段名 数据类型 not null;
+```
+
+```sql
+-- 删除gender字段默认值约束，如果有非空约束，也一并删除
+alter table employee modify gender char;
+-- 删除tel字段默认值约束，保留非空约束
+alter table employee modify tel char(11) not null;
+```
+
+```sql
+mysql> desc employee;
++--------+-------------+------+-----+---------+-------+
+| Field | Type | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| eid | int(11) | NO | PRI | NULL | |
+| ename | varchar(20) | YES | | NULL | |
+| gender | char(1) | YES | | NULL | |
+| tel | char(11) | NO | | NULL | |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+```
+
 ## 9. 面试
+
+**面试 1、为什么建表时，加 not null default '' 或 default 0**
+
+不想让表中出现 null 值。
+
+**面试 2、为什么不想要 null 的值**
+
+（1）不好比较。null 是一种特殊值，比较时只能用专门的 is null 和 is not null 来比较。碰到运算符，通常返回 null。
+
+（2）效率不高。影响提高索引效果。因此，我们往往在建表时 not null default '' 或 default 0
+
+**面试 3、带 AUTO_INCREMENT 约束的字段值是从 1 开始的吗？**
+
+在 MySQL 中，默认 AUTO_INCREMENT 的初始值是 1，每新增一条记录，字段值自动加 1。设置自增属性（AUTO_INCREMENT）的时候，还可以指定第
+一条插入记录的自增字段的值，这样新插入的记录的自增字段值从初始值开始递增，如在表中插入第一
+条记录，同时指定 id 值为 5，则以后插入的记录的 id 值就会从 6 开始往上增加。添加主键约束时，往往需要设置字段自动增加属性。
+
+**面试 4、并不是每个表都可以任意选择存储引擎？**
+
+外键约束（FOREIGN KEY）不能跨引擎使用。MySQL 支持多种存储引擎，每一个表都可以指定一个不同的存储引擎，需要注意的是：外键约束是用来
+保证数据的参照完整性的，如果表之间需要关联外键，却指定了不同的存储引擎，那么这些表之间是不
+能创建外键约束的。所以说，存储引擎的选择也不完全是随意的。
 
 <a-back-top />
 

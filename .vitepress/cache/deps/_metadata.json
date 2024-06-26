@@ -1,61 +1,67 @@
 {
-  "hash": "ca7db4e3",
-  "configHash": "233d6e22",
-  "lockfileHash": "f0c6e8e9",
-  "browserHash": "d4440cde",
+  "hash": "bb4b6df1",
+  "configHash": "ac432997",
+  "lockfileHash": "930bc6f5",
+  "browserHash": "4d7043c1",
   "optimized": {
     "vue": {
       "src": "../../../node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "d5453e8a",
+      "fileHash": "32a37a09",
       "needsInterop": false
     },
     "vitepress > @vue/devtools-api": {
       "src": "../../../node_modules/.pnpm/@vue+devtools-api@7.2.1_vue@3.4.27/node_modules/@vue/devtools-api/dist/index.js",
       "file": "vitepress___@vue_devtools-api.js",
-      "fileHash": "acc1d4bf",
+      "fileHash": "d181b55f",
       "needsInterop": false
     },
     "vitepress > @vueuse/core": {
       "src": "../../../node_modules/.pnpm/@vueuse+core@10.10.0_vue@3.4.27/node_modules/@vueuse/core/index.mjs",
       "file": "vitepress___@vueuse_core.js",
-      "fileHash": "c3ae3ba1",
+      "fileHash": "1490d4aa",
       "needsInterop": false
     },
     "vitepress > @vueuse/integrations/useFocusTrap": {
       "src": "../../../node_modules/.pnpm/@vueuse+integrations@10.10.0_focus-trap@7.5.4_vue@3.4.27/node_modules/@vueuse/integrations/useFocusTrap.mjs",
       "file": "vitepress___@vueuse_integrations_useFocusTrap.js",
-      "fileHash": "df5b00d9",
+      "fileHash": "3dc317ad",
       "needsInterop": false
     },
     "vitepress > mark.js/src/vanilla.js": {
       "src": "../../../node_modules/.pnpm/mark.js@8.11.1/node_modules/mark.js/src/vanilla.js",
       "file": "vitepress___mark__js_src_vanilla__js.js",
-      "fileHash": "9e263ea7",
+      "fileHash": "dfd0827b",
       "needsInterop": false
     },
     "vitepress > minisearch": {
       "src": "../../../node_modules/.pnpm/minisearch@6.3.0/node_modules/minisearch/dist/es/index.js",
       "file": "vitepress___minisearch.js",
-      "fileHash": "5c67eb91",
+      "fileHash": "a06f4958",
       "needsInterop": false
     },
     "ant-design-vue": {
       "src": "../../../node_modules/.pnpm/ant-design-vue@4.2.2_vue@3.4.27/node_modules/ant-design-vue/es/index.js",
       "file": "ant-design-vue.js",
-      "fileHash": "702c4b44",
+      "fileHash": "4d1b4671",
       "needsInterop": false
     },
     "@iconify/vue": {
       "src": "../../../node_modules/.pnpm/@iconify+vue@4.1.2_vue@3.4.27/node_modules/@iconify/vue/dist/iconify.mjs",
       "file": "@iconify_vue.js",
-      "fileHash": "24255b56",
+      "fileHash": "395c703d",
       "needsInterop": false
     },
     "@ant-design/icons-vue": {
       "src": "../../../node_modules/.pnpm/@ant-design+icons-vue@7.0.1_vue@3.4.27/node_modules/@ant-design/icons-vue/es/index.js",
       "file": "@ant-design_icons-vue.js",
-      "fileHash": "c1e4fd96",
+      "fileHash": "55b6fef8",
+      "needsInterop": false
+    },
+    "mind-elixir": {
+      "src": "../../../node_modules/.pnpm/mind-elixir@4.0.2/node_modules/mind-elixir/dist/MindElixir.js",
+      "file": "mind-elixir.js",
+      "fileHash": "3362f073",
       "needsInterop": false
     }
   },

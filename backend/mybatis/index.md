@@ -30,7 +30,7 @@ iBatis 一词来源于“internet”和“abatis”的组合，是一个基于 J
 
 2） MyBatis 避免了几乎所有的 JDBC 代码和手动设置参数以及获取结果集
 
-3） MyBatis 可以使用简单的 XML 或注解用于配置和原始映射，将接口和 Java 的 POJO（Plain Old JavaObjects，普通的 Java 对象）映射成数据库中的记录
+3） MyBatis 可以使用简单的 XML 或注解用于配置和原始映射，将接口和 Java 的 POJO（Plain Old Java Objects，普通的 Java 对象）映射成数据库中的记录
 
 4） MyBatis 是一个 半自动的 ORM（Object Relation Mapping）框架
 
