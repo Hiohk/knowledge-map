@@ -21,6 +21,7 @@
     "animate.css": "^4.1.1",
     "ant-design-vue": "^4.2.2",
     "dayjs": "^1.11.10",
+    "gitalk": "^1.8.0",
     "vue-i18n": "^9.9.1",
     "vue-router": "^4.3.0"
   }

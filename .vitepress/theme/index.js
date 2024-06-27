@@ -15,6 +15,9 @@ import ReadingProgressBar from "../views/publicComponent/ReadingProgressBar.vue"
 import 'animate.css';
 import intersect from "../utils/directives/intersect";
 
+// Gitalk组件
+import Gitalk from "./tools/Gitalk.vue";
+
 
 /** @type {import('vitepress').Theme} */
 export default {
@@ -29,6 +32,7 @@ export default {
     app.use(Antd);
     // 注册组件
     app.component('ReadingProgressBar', ReadingProgressBar);
+    app.component('Gitalk', Gitalk);
     // 注册全局指令
     app.directive('intersect', intersect);
   }

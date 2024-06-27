@@ -319,39 +319,963 @@ SELECT @diff_sal;
 
 ### 2.1 案例分析
 
+**案例分析**：创建一个名称为“UpdateDataNoCondition”的存储过程。代码如下：
+
+```sql
+DELIMITER //
+
+CREATE PROCEDURE UpdateDataNoCondition()
+    BEGIN
+        SET @x = 1;
+        UPDATE employees SET email = NULL WHERE last_name = 'Abel';
+        SET @x = 2;
+        UPDATE employees SET email = 'aabbel' WHERE last_name = 'Abel';
+        SET @x = 3;
+    END //
+
+DELIMITER ;
+```
+
+调用存储过程：
+
+```sql
+mysql> CALL UpdateDataNoCondition();
+ERROR 1048 (23000): Column 'email' cannot be null
+mysql> SELECT @x;
++------+
+| @x |
++------+
+| 1 |
++------+
+1 row in set (0.00 sec)
+```
+
+可以看到，此时@x 变量的值为 1。结合创建存储过程的 SQL 语句代码可以得出：在存储过程中未定义条件
+和处理程序，且当存储过程中执行的 SQL 语句报错时，MySQL 数据库会抛出错误，并退出当前 SQL 逻辑，不再向下继续执行。
+
 ### 2.2 定义条件
+
+定义条件就是给 MySQL 中的错误码命名，这有助于存储的程序代码更清晰。它将一个**错误名字**和**指定的错误条件**关联起来。这个名字可以随后被用在定义处理程序的 DECLARE HANDLER 语句中。
+
+定义条件使用 DECLARE 语句，语法格式如下：
+
+```sql
+DECLARE 错误名称 CONDITION FOR 错误码（或错误条件）
+```
+
+错误码的说明：
+
+- `MySQL_error_code` 和 `sqlstate_value` 都可以表示 MySQL 的错误。
+
+  - MySQL_error_code 是数值类型错误代码。
+  - sqlstate_value 是长度为 5 的字符串类型错误代码。
+
+- 例如，在 ERROR 1418 (HY000)中，1418 是 MySQL_error_code，'HY000'是 sqlstate_value。
+- 例如，在 ERROR 1142（42000）中，1142 是 MySQL_error_code，'42000'是 sqlstate_value。
+
+**举例 1**：定义“Field_Not_Be_NULL”错误名与 MySQL 中违反非空约束的错误类型是“ERROR 1048 (23000)”对应。
+
+```sql
+-- 使用MySQL_error_code
+DECLARE Field_Not_Be_NULL CONDITION FOR 1048;
+
+-- 使用sqlstate_value
+DECLARE Field_Not_Be_NULL CONDITION FOR SQLSTATE '23000';
+```
+
+**举例 2**：定义"ERROR 1148(42000)"错误，名称为 command_not_allowed。
+
+```sql
+-- 使用MySQL_error_code
+DECLARE command_not_allowed CONDITION FOR 1148;
+
+-- 使用sqlstate_value
+DECLARE command_not_allowed CONDITION FOR SQLSTATE '42000';
+```
 
 ### 2.3 定义处理程序
 
+可以为 SQL 执行过程中发生的某种类型的错误定义特殊的处理程序。定义处理程序时，使用 DECLARE 语句的语法如下：
+
+```sql
+DECLARE 处理方式 HANDLER FOR 错误类型 处理语句
+```
+
+- **处理方式**：处理方式有 3 个取值：CONTINUE、EXIT、UNDO。
+  - `CONTINUE`：表示遇到错误不处理，继续执行。
+  - `EXIT`：表示遇到错误马上退出。
+  - `UNDO`：表示遇到错误后撤回之前的操作。MySQL 中暂时不支持这样的操作。
+- **错误类型**（即条件）可以有如下取值：
+  - `SQLSTATE '字符串错误码'`：表示长度为 5 的 sqlstate_value 类型的错误代码；
+  - `MySQL_error_code`：匹配数值类型错误代码；
+  - `错误名称`：表示 DECLARE ... CONDITION 定义的错误条件名称。
+  - `SQLWARNING`：匹配所有以 01 开头的 SQLSTATE 错误代码；
+  - `NOT FOUND`：匹配所有以 02 开头的 SQLSTATE 错误代码；
+  - `SQLEXCEPTION`：匹配所有没有被 SQLWARNING 或 NOT FOUND 捕获的 SQLSTATE 错误代码；
+- **处理语句**：如果出现上述条件之一，则采用对应的处理方式，并执行指定的处理语句。语句可以是
+  像 `SET 变量 = 值` 这样的简单语句，也可以是使用 `BEGIN ... END` 编写的复合语句。
+
+定义处理程序的几种方式，代码如下：
+
+```sql
+-- 方法1：捕获sqlstate_value
+DECLARE CONTINUE HANDLER FOR SQLSTATE '42S02' SET @info = 'NO_SUCH_TABLE';
+
+-- 方法2：捕获mysql_error_value
+DECLARE CONTINUE HANDLER FOR 1146 SET @info = 'NO_SUCH_TABLE';
+
+-- 方法3：先定义条件，再调用
+DECLARE no_such_table CONDITION FOR 1146;
+DECLARE CONTINUE HANDLER FOR NO_SUCH_TABLE SET @info = 'NO_SUCH_TABLE';
+
+-- 方法4：使用SQLWARNING
+DECLARE EXIT HANDLER FOR SQLWARNING SET @info = 'ERROR';
+
+-- 方法5：使用NOT FOUND
+DECLARE EXIT HANDLER FOR NOT FOUND SET @info = 'NO_SUCH_TABLE';
+
+-- 方法6：使用SQLEXCEPTION
+DECLARE EXIT HANDLER FOR SQLEXCEPTION SET @info = 'ERROR';
+```
+
 ### 2.4 案例解决
+
+在存储过程中，定义处理程序，捕获 sqlstate_value 值，当遇到 MySQL_error_code 值为 1048 时，执行 CONTINUE 操作，并且将@proc_value 的值设置为-1。
+
+```sql
+DELIMITER //
+CREATE PROCEDURE UpdateDataNoCondition()
+    BEGIN
+        -- 定义处理程序
+        DECLARE CONTINUE HANDLER FOR 1048 SET @proc_value = -1;
+
+        SET @x = 1;
+        UPDATE employees SET email = NULL WHERE last_name = 'Abel';
+        SET @x = 2;
+        UPDATE employees SET email = 'aabbel' WHERE last_name = 'Abel';
+        SET @x = 3;
+    END //
+
+DELIMITER ;
+```
+
+调用过程：
+
+```sql
+mysql> CALL UpdateDataWithCondition();
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> SELECT @x,@proc_value;
++------+-------------+
+| @x | @proc_value |
++------+-------------+
+| 3 | -1 |
++------+-------------+
+1 row in set (0.00 sec)
+```
+
+**举例：**
+
+创建一个名称为“InsertDataWithCondition”的存储过程，代码如下。
+
+在存储过程中，定义处理程序，捕获 sqlstate_value 值，当遇到 sqlstate_value 值为 23000 时，执行 EXIT 操作，并且将@proc_value 的值设置为-1。
+
+```sql
+-- 准备工作
+CREATE TABLE departments
+AS
+SELECT * FROM atguigudb.`departments`;
+ALTER TABLE departments
+ADD CONSTRAINT uk_dept_name UNIQUE(department_id);
+```
+
+```sql
+DELIMITER //
+
+CREATE PROCEDURE InsertDataWithCondition()
+    BEGIN
+        DECLARE duplicate_entry CONDITION FOR SQLSTATE '23000' ;
+        DECLARE EXIT HANDLER FOR duplicate_entry SET @proc_value = -1;
+        SET @x = 1;
+        INSERT INTO departments(department_name) VALUES('测试');
+        SET @x = 2;
+        INSERT INTO departments(department_name) VALUES('测试');
+        SET @x = 3;
+    END //
+
+DELIMITER ;
+```
+
+调用存储过程：
+
+```sql
+mysql> CALL InsertDataWithCondition();
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> SELECT @x,@proc_value;
++------+-------------+
+| @x | @proc_value |
++------+-------------+
+| 2 | -1 |
++------+-------------+
+1 row in set (0.00 sec)
+```
 
 ## 3. 流程控制
 
+解决复杂问题不可能通过一个 SQL 语句完成，我们需要执行多个 SQL 操作。流程控制语句的作用就是控
+制存储过程中 SQL 语句的执行顺序，是我们完成复杂操作必不可少的一部分。只要是执行的程序，流程就分为三大类：
+
+- `顺序结构`：程序从上往下依次执行
+- `分支结构`：程序按条件进行选择执行，从两条或多条路径中选择一条执行
+- `循环结构`：程序满足一定条件下，重复执行一组语句
+
+针对于 MySQL 的流程控制语句主要有 3 类。注意：只能用于存储程序。
+
+- `条件判断语句`：IF 语句和 CASE 语句
+- `循环语句`：LOOP、WHILE 和 REPEAT 语句
+- `跳转语句`：ITERATE 和 LEAVE 语句
+
 ### 3.1 分支结构之 IF
+
+- IF 语句的语法结构是：
+
+```sql
+IF 表达式1 THEN 操作1
+[ELSEIF 表达式2 THEN 操作2]……
+[ELSE 操作N]
+END IF
+```
+
+根据表达式的结果为 TRUE 或 FALSE 执行相应的语句。这里“[]”中的内容是可选的。
+
+- 特点：① 不同的表达式对应不同的操作 ② 使用在 begin end 中
+- **举例 1：**
+
+```sql
+IF val IS NULL
+    THEN SELECT 'val is null';
+ELSE SELECT 'val is not null';
+
+END IF;
+```
+
+- **举例 2**：声明存储过程“update_salary_by_eid1”，定义 IN 参数 emp_id，输入员工编号。判断该员工
+  薪资如果低于 8000 元并且入职时间超过 5 年，就涨薪 500 元；否则就不变。
+
+```sql
+DELIMITER //
+
+CREATE PROCEDURE update_salary_by_eid1(IN emp_id INT)
+BEGIN
+    DECLARE emp_salary DOUBLE;
+    DECLARE hire_year DOUBLE;
+    SELECT salary INTO emp_salary FROM employees WHERE employee_id = emp_id;
+    SELECT DATEDIFF(CURDATE(),hire_date)/365 INTO hire_year
+    FROM employees WHERE employee_id = emp_id;
+    IF emp_salary < 8000 AND hire_year > 5
+    THEN UPDATE employees SET salary = salary + 500 WHERE employee_id = emp_id;
+    END IF;
+END //
+
+DELIMITER ;
+```
+
+- **举例 3**：声明存储过程“update_salary_by_eid2”，定义 IN 参数 emp_id，输入员工编号。判断该员工
+  薪资如果低于 9000 元并且入职时间超过 5 年，就涨薪 500 元；否则就涨薪 100 元。
+
+```sql
+DELIMITER //
+
+CREATE PROCEDURE update_salary_by_eid2(IN emp_id INT)
+BEGIN
+    DECLARE emp_salary DOUBLE;
+    DECLARE hire_year DOUBLE;
+
+    SELECT salary INTO emp_salary FROM employees WHERE employee_id = emp_id;
+
+    SELECT DATEDIFF(CURDATE(),hire_date)/365 INTO hire_year
+    FROM employees WHERE employee_id = emp_id;
+
+    IF emp_salary < 8000 AND hire_year > 5
+        THEN UPDATE employees SET salary = salary + 500 WHERE employee_id =
+emp_id;
+    ELSE
+        UPDATE employees SET salary = salary + 100 WHERE employee_id = emp_id;
+    END IF;
+END //
+
+DELIMITER ;
+```
+
+- **举例 4**：声明存储过程“update_salary_by_eid3”，定义 IN 参数 emp_id，输入员工编号。判断该员工
+  薪资如果低于 9000 元，就更新薪资为 9000 元；薪资如果大于等于 9000 元且低于 10000 的，但是奖金
+  比例为 NULL 的，就更新奖金比例为 0.01；其他的涨薪 100 元。
+
+```sql
+DELIMITER //
+
+CREATE PROCEDURE update_salary_by_eid3(IN emp_id INT)
+BEGIN
+    DECLARE emp_salary DOUBLE;
+    DECLARE bonus DECIMAL(3,2);
+
+    SELECT salary INTO emp_salary FROM employees WHERE employee_id = emp_id;
+    SELECT commission_pct INTO bonus FROM employees WHERE employee_id = emp_id;
+
+    IF emp_salary < 9000
+        THEN UPDATE employees SET salary = 9000 WHERE employee_id = emp_id;
+    ELSEIF emp_salary < 10000 AND bonus IS NULL
+        THEN UPDATE employees SET commission_pct = 0.01 WHERE employee_id =
+emp_id;
+    ELSE
+        UPDATE employees SET salary = salary + 100 WHERE employee_id = emp_id;
+    END IF;
+END //
+
+DELIMITER ;
+```
 
 ### 3.2 分支结构之 CASE
 
+CASE 语句的语法结构 1：
+
+```sql
+-- 情况一：类似于switch
+CASE 表达式
+WHEN 值1 THEN 结果1或语句1(如果是语句，需要加分号)
+WHEN 值2 THEN 结果2或语句2(如果是语句，需要加分号)
+...
+ELSE 结果n或语句n(如果是语句，需要加分号)
+END [case]（如果是放在begin end中需要加上case，如果放在select后面不需要）
+```
+
+CASE 语句的语法结构 2：
+
+```sql
+-- 情况二：类似于多重if
+CASE
+WHEN 条件1 THEN 结果1或语句1(如果是语句，需要加分号)
+WHEN 条件2 THEN 结果2或语句2(如果是语句，需要加分号)
+...
+ELSE 结果n或语句n(如果是语句，需要加分号)
+END [case]（如果是放在begin end中需要加上case，如果放在select后面不需要）
+```
+
+- **举例 1：**
+
+使用 CASE 流程控制语句的第 1 种格式，判断 val 值等于 1、等于 2，或者两者都不等。
+
+```sql
+CASE val
+    WHEN 1 THEN SELECT 'val is 1';
+    WHEN 2 THEN SELECT 'val is 2';
+    ELSE SELECT 'val is not 1 or 2';
+END CASE;
+```
+
+- **举例 2：**
+
+使用 CASE 流程控制语句的第 2 种格式，判断 val 是否为空、小于 0、大于 0 或者等于 0。
+
+```sql
+CASE
+    WHEN val IS NULL THEN SELECT 'val is null';
+    WHEN val < 0 THEN SELECT 'val is less than 0';
+    WHEN val > 0 THEN SELECT 'val is greater than 0';
+    ELSE SELECT 'val is 0';
+END CASE;
+```
+
+- **举例 3**：声明存储过程“update_salary_by_eid4”，定义 IN 参数 emp_id，输入员工编号。判断该员工
+  薪资如果低于 9000 元，就更新薪资为 9000 元；薪资大于等于 9000 元且低于 10000 的，但是奖金比例
+  为 NULL 的，就更新奖金比例为 0.01；其他的涨薪 100 元。
+
+```sql
+DELIMITER //
+
+CREATE PROCEDURE update_salary_by_eid4(IN emp_id INT)
+BEGIN
+    DECLARE emp_sal DOUBLE;
+    DECLARE bonus DECIMAL(3,2);
+
+    SELECT salary INTO emp_sal FROM employees WHERE employee_id = emp_id;
+    SELECT commission_pct INTO bonus FROM employees WHERE employee_id = emp_id;
+
+    CASE
+    WHEN emp_sal<9000
+        THEN UPDATE employees SET salary=9000 WHERE employee_id = emp_id;
+    WHEN emp_sal<10000 AND bonus IS NULL
+        THEN UPDATE employees SET commission_pct=0.01 WHERE employee_id = emp_id;
+    ELSE
+        UPDATE employees SET salary=salary+100 WHERE employee_id = emp_id;
+    END CASE;
+END //
+
+DELIMITER ;
+```
+
+- **举例 4**：声明存储过程 update_salary_by_eid5，定义 IN 参数 emp_id，输入员工编号。判断该员工的
+  入职年限，如果是 0 年，薪资涨 50；如果是 1 年，薪资涨 100；如果是 2 年，薪资涨 200；如果是 3 年，
+  薪资涨 300；如果是 4 年，薪资涨 400；其他的涨薪 500。
+
+```sql
+DELIMITER //
+
+CREATE PROCEDURE update_salary_by_eid5(IN emp_id INT)
+BEGIN
+    DECLARE emp_sal DOUBLE;
+    DECLARE hire_year DOUBLE;
+
+    SELECT salary INTO emp_sal FROM employees WHERE employee_id = emp_id;
+    SELECT ROUND(DATEDIFF(CURDATE(),hire_date)/365) INTO hire_year FROM employees
+WHERE employee_id = emp_id;
+
+    CASE hire_year
+        WHEN 0 THEN UPDATE employees SET salary=salary+50 WHERE employee_id = emp_id;
+        WHEN 1 THEN UPDATE employees SET salary=salary+100 WHERE employee_id = emp_id;
+        WHEN 2 THEN UPDATE employees SET salary=salary+200 WHERE employee_id = emp_id;
+        WHEN 3 THEN UPDATE employees SET salary=salary+300 WHERE employee_id = emp_id;
+        WHEN 4 THEN UPDATE employees SET salary=salary+400 WHERE employee_id = emp_id;
+        ELSE UPDATE employees SET salary=salary+500 WHERE employee_id = emp_id;
+    END CASE;
+END //
+
+DELIMITER ;
+```
+
 ### 3.3 循环结构之 LOOP
+
+LOOP 循环语句用来重复执行某些语句。LOOP 内的语句一直重复执行直到循环被退出（使用 LEAVE 子句），跳出循环过程。
+
+LOOP 语句的基本格式如下
+
+```sql
+[loop_label:] LOOP
+循环执行的语句
+END LOOP [loop_label]
+```
+
+其中，loop_label 表示 LOOP 语句的标注名称，该参数可以省略。
+
+**举例 1:**
+
+使用 LOOP 语句进行循环操作，id 值小于 10 时将重复执行循环过程。
+
+```sql
+DECLARE id INT DEFAULT 0;
+add_loop:LOOP
+    SET id = id +1;
+    IF id >= 10 THEN LEAVE add_loop;
+    END IF;
+
+END LOOP add_loop;
+```
+
+**举例 2：**当市场环境变好时，公司为了奖励大家，决定给大家涨工资。声明存储过程
+“update_salary_loop()”，声明 OUT 参数 num，输出循环次数。存储过程中实现循环给大家涨薪，薪资涨为
+原来的 1.1 倍。直到全公司的平均薪资达到 12000 结束。并统计循环次数。
+
+```sql
+DELIMITER //
+
+CREATE PROCEDURE update_salary_loop(OUT num INT)
+BEGIN
+    DECLARE avg_salary DOUBLE;
+    DECLARE loop_count INT DEFAULT 0;
+
+    SELECT AVG(salary) INTO avg_salary FROM employees;
+
+    label_loop:LOOP
+        IF avg_salary >= 12000 THEN LEAVE label_loop;
+        END IF;
+
+        UPDATE employees SET salary = salary * 1.1;
+        SET loop_count = loop_count + 1;
+        SELECT AVG(salary) INTO avg_salary FROM employees;
+    END LOOP label_loop;
+
+    SET num = loop_count;
+
+END //
+
+DELIMITER;
+```
 
 ### 3.4 循环结构之 WHILE
 
+WHILE 语句创建一个带条件判断的循环过程。WHILE 在执行语句执行时，先对指定的表达式进行判断，如
+果为真，就执行循环内的语句，否则退出循环。WHILE 语句的基本格式如下：
+
+```sql
+[while_label:] WHILE 循环条件 DO
+    循环体
+END WHILE [while_label];
+```
+
+while_label 为 WHILE 语句的标注名称；如果循环条件结果为真，WHILE 语句内的语句或语句群被执行，直至循环条件为假，退出循环。
+
+**举例 1：**
+
+WHILE 语句示例，i 值小于 10 时，将重复执行循环过程，代码如下：
+
+```sql
+DELIMITER //
+
+CREATE PROCEDURE test_while()
+BEGIN
+    DECLARE i INT DEFAULT 0;
+
+    WHILE i < 10 DO
+        SET i = i + 1;
+    END WHILE;
+
+    SELECT i;
+END //
+
+DELIMITER;
+-- 调用
+CALL test_while();
+```
+
+**举例 2：**市场环境不好时，公司为了渡过难关，决定暂时降低大家的薪资。声明存储过程
+“update_salary_while()”，声明 OUT 参数 num，输出循环次数。存储过程中实现循环给大家降薪，薪资降
+为原来的 90%。直到全公司的平均薪资达到 5000 结束。并统计循环次数。
+
+```sql
+DELIMITER //
+
+CREATE PROCEDURE update_salary_while(OUT num INT)
+BEGIN
+    DECLARE avg_sal DOUBLE ;
+    DECLARE while_count INT DEFAULT 0;
+
+    SELECT AVG(salary) INTO avg_sal FROM employees;
+
+    WHILE avg_sal > 5000 DO
+        UPDATE employees SET salary = salary * 0.9;
+
+        SET while_count = while_count + 1;
+
+        SELECT AVG(salary) INTO avg_sal FROM employees;
+    END WHILE;
+
+    SET num = while_count;
+
+END //
+
+DELIMITER;
+```
+
 ### 3.5 循环结构之 REPEAT
+
+REPEAT 语句创建一个带条件判断的循环过程。与 WHILE 循环不同的是，REPEAT 循环首先会执行一次循
+环，然后在 UNTIL 中进行表达式的判断，如果满足条件就退出，即 END REPEAT；如果条件不满足，则会就继续执行循环，直到满足退出条件为止。
+
+REPEAT 语句的基本格式如下：
+
+```sql
+[repeat_label:] REPEAT
+    循环体的语句
+UNTIL 结束循环的条件表达式
+END REPEAT [repeat_label]
+```
+
+repeat_label 为 REPEAT 语句的标注名称，该参数可以省略；REPEAT 语句内的语句或语句群被重复，直至 expr_condition 为真。
+
+**举例 1：**
+
+```sql
+DELIMITER //
+
+CREATE PROCEDURE test_repeat()
+BEGIN
+    DECLARE i INT DEFAULT 0;
+
+    REPEAT
+        SET i = i + 1;
+    UNTIL i >= 10
+    END REPEAT;
+
+    SELECT i;
+END //
+
+DELIMITER ;
+```
+
+**举例 2：**当市场环境变好时，公司为了奖励大家，决定给大家涨工资。声明存储过程
+“update_salary_repeat()”，声明 OUT 参数 num，输出循环次数。存储过程中实现循环给大家涨薪，薪资涨
+为原来的 1.15 倍。直到全公司的平均薪资达到 13000 结束。并统计循环次数。
+
+```sql
+DELIMITER //
+
+CREATE PROCEDURE update_salary_repeat(OUT num INT)
+BEGIN
+    DECLARE avg_sal DOUBLE ;
+    DECLARE repeat_count INT DEFAULT 0;
+
+    SELECT AVG(salary) INTO avg_sal FROM employees;
+
+    REPEAT
+        UPDATE employees SET salary = salary * 1.15;
+
+        SET repeat_count = repeat_count + 1;
+
+        SELECT AVG(salary) INTO avg_sal FROM employees;
+    UNTIL avg_sal >= 13000
+    END REPEAT;
+
+    SET num = repeat_count;
+
+END //
+
+DELIMITER;
+```
+
+**对比三种循环结构：**
+
+1、这三种循环都可以省略名称，但如果循环中添加了循环控制语句（LEAVE 或 ITERATE）则必须添加名称。
+
+2、LOOP：一般用于实现简单的"死"循环 WHILE：先判断后执行 REPEAT：先执行后判断，无条件至少执行一次
 
 ### 3.6 跳转语句之 LEAVE 语句
 
+LEAVE 语句：可以用在循环语句内，或者以 BEGIN 和 END 包裹起来的程序体内，表示跳出循环或者跳出
+程序体的操作。如果你有面向过程的编程语言的使用经验，你可以把 LEAVE 理解为 break。
+
+基本格式如下：
+
+```sql
+LEAVE 标记名
+```
+
+其中，label 参数表示循环的标志。LEAVE 和 BEGIN ... END 或循环一起被使用。
+
+**举例 1：**创建存储过程 “leave_begin()”，声明 INT 类型的 IN 参数 num。给 BEGIN...END 加标记名，并在
+BEGIN...END 中使用 IF 语句判断 num 参数的值。
+
+- 如果 num<=0，则使用 LEAVE 语句退出 BEGIN...END；
+- 如果 num=1，则查询“employees”表的平均薪资；
+- 如果 num=2，则查询“employees”表的最低薪资；
+- 如果 num>2，则查询“employees”表的最高薪资。
+
+IF 语句结束后查询“employees”表的总人数。
+
+```sql
+DELIMITER //
+
+CREATE PROCEDURE leave_begin(IN num INT)
+
+    begin_label: BEGIN
+        IF num<=0
+            THEN LEAVE begin_label;
+        ELSEIF num=1
+            THEN SELECT AVG(salary) FROM employees;
+        ELSEIF num=2
+            THEN SELECT MIN(salary) FROM employees;
+        ELSE
+            SELECT MAX(salary) FROM employees;
+        END IF;
+
+        SELECT COUNT(*) FROM employees;
+    END //
+
+DELIMITER;
+```
+
+**举例 2：**
+
+当市场环境不好时，公司为了渡过难关，决定暂时降低大家的薪资。声明存储过程“leave_while()”，声明
+OUT 参数 num，输出循环次数，存储过程中使用 WHILE 循环给大家降低薪资为原来薪资的 90%，直到全公
+司的平均薪资小于等于 10000，并统计循环次数。
+
+```sql
+DELIMITER //
+CREATE PROCEDURE leave_while(OUT num INT)
+
+BEGIN
+    DECLARE avg_sal DOUBLE;-- 记录平均工资
+
+    DECLARE while_count INT DEFAULT 0; -- 记录循环次数
+
+    SELECT AVG(salary) INTO avg_sal FROM employees; -- ① 初始化条件
+
+    while_label:WHILE TRUE DO -- ② 循环条件
+
+        -- ③ 循环体
+        IF avg_sal <= 10000 THEN
+            LEAVE while_label;
+        END IF;
+
+        UPDATE employees SET salary = salary * 0.9;
+        SET while_count = while_count + 1;
+
+        -- ④ 迭代条件
+        SELECT AVG(salary) INTO avg_sal FROM employees;
+
+    END WHILE;
+
+    -- 赋值
+    SET num = while_count;
+END //
+
+DELIMITER;
+```
+
 ### 3.7 跳转语句之 ITERATE 语句
+
+ITERATE 语句：只能用在循环语句（LOOP、REPEAT 和 WHILE 语句）内，表示重新开始循环，将执行顺序
+转到语句段开头处。如果你有面向过程的编程语言的使用经验，你可以把 ITERATE 理解为 continue，意思为“再次循环”。
+
+语句基本格式如下：
+
+```sql
+ITERATE label
+```
+
+label 参数表示循环的标志。ITERATE 语句必须跟在循环标志前面。
+
+**举例：**定义局部变量 num，初始值为 0。循环结构中执行 num + 1 操作。
+
+- 如果 num < 10，则继续执行循环；
+- 如果 num > 15，则退出循环结构；
+
+```sql
+DELIMITER //
+
+CREATE PROCEDURE test_iterate()
+
+BEGIN
+    DECLARE num INT DEFAULT 0;
+
+    my_loop:LOOP
+        SET num = num + 1;
+
+        IF num < 10
+            THEN ITERATE my_loop;
+        ELSEIF num > 15
+            THEN LEAVE my_loop;
+        END IF;
+
+        SELECT '让天下没有难学的技术';
+    END LOOP my_loop;
+
+END //
+
+DELIMITER;
+```
 
 ## 4. 游标
 
 ### 4.1 什么是游标（或光标）
 
+虽然我们也可以通过筛选条件 WHERE 和 HAVING，或者是限定返回记录的关键字 LIMIT 返回一条记录，
+但是，却无法在结果集中像指针一样，向前定位一条记录、向后定位一条记录，或者是随意定位到某一
+条记录，并对记录的数据进行处理。
+
+这个时候，就可以用到游标。游标，提供了一种灵活的操作方式，让我们能够对结果集中的每一条记录
+进行定位，并对指向的记录中的数据进行操作的数据结构。**游标让 SQL 这种面向集合的语言有了面向过程开发的能力**。
+
+在 SQL 中，游标是一种临时的数据库对象，可以指向存储在数据库表中的数据行指针。这里游标充当了
+指针的作用，我们可以通过操作游标来对数据行进行操作。
+
+MySQL 中游标可以在存储过程和函数中使用。
+
+比如，我们查询了 employees 数据表中工资高于 15000 的员工都有哪些：
+
+```sql
+SELECT employee_id,last_name,salary FROM employees
+WHERE salary > 15000;
+```
+
+![alt text](image01/image102.png)
+
+这里我们就可以通过游标来操作数据行，如图所示此时游标所在的行是“108”的记录，我们也可以在结果集上滚动游标，指向结果集中的任意一行。
+
 ### 4.2 使用游标步骤
+
+游标必须在声明处理程序之前被声明，并且变量和条件还必须在声明游标或处理程序之前被声明。
+
+如果我们想要使用游标，一般需要经历四个步骤。不同的 DBMS 中，使用游标的语法可能略有不
+
+**第一步，声明游标**
+
+在 MySQL 中，使用 DECLARE 关键字来声明游标，其语法的基本形式如下：
+
+```sql
+DECLARE cursor_name CURSOR FOR select_statement;
+```
+
+这个语法适用于 MySQL，SQL Server，DB2 和 MariaDB。如果是用 Oracle 或者 PostgreSQL，需要写成：
+
+```sql
+DECLARE cursor_name CURSOR IS select_statement;
+```
+
+要使用 SELECT 语句来获取数据结果集，而此时还没有开始遍历数据，这里 select_statement 代表的是 SELECT 语句，返回一个用于创建游标的结果集。
+
+比如：
+
+```sql
+DECLARE cur_emp CURSOR FOR
+SELECT employee_id,salary FROM employees;
+```
+
+```sql
+DECLARE cursor_fruit CURSOR FOR
+SELECT f_name, f_price FROM fruits ;
+```
+
+**第二步，打开游标**
+
+打开游标的语法如下：
+
+```sql
+OPEN cursor_name
+```
+
+当我们定义好游标之后，如果想要使用游标，必须先打开游标。打开游标的时候 SELECT 语句的查询结果集就会送到游标工作区，为后面游标的 逐条读取 结果集中的记录做准备。
+
+```sql
+OPEN cur_emp;
+```
+
+**第三步，使用游标（从游标中取得数据）**
+
+语法如下：
+
+```sql
+FETCH cursor_name INTO var_name [, var_name] ...
+```
+
+这句的作用是使用 cursor_name 这个游标来读取当前行，并且将数据保存到 var_name 这个变量中，游
+标指针指到下一行。如果游标读取的数据行有多个列名，则在 INTO 关键字后面赋值给多个变量名即可。
+
+注意：var_name 必须在声明游标之前就定义好。
+
+```sql
+FETCH cur_emp INTO emp_id, emp_sal ;
+```
+
+注意：**游标的查询结果集中的字段数，必须跟 INTO 后面的变量数一致**，否则，在存储过程执行的时候，MySQL 会提示错误。
+
+**第四步，关闭游标**
+
+```sql
+CLOSE cursor_name
+```
+
+有 OPEN 就会有 CLOSE，也就是打开和关闭游标。当我们使用完游标后需要关闭掉该游标。因为游标会
+占用系统资源，如果不及时关闭，**游标会一直保持到存储过程结束**，影响系统运行的效率。而关闭游标的操作，会释放游标占用的系统资源。
+
+关闭游标之后，我们就不能再检索查询结果中的数据行，如果需要检索只能再次打开游标。
+
+```sql
+CLOSE cur_emp;
+```
 
 ### 4.3 举例
 
+创建存储过程“get_count_by_limit_total_salary()”，声明 IN 参数 limit_total_salary，DOUBLE 类型；声明
+OUT 参数 total_count，INT 类型。函数的功能可以实现累加薪资最高的几个员工的薪资值，直到薪资总和
+达到 limit_total_salary 参数的值，返回累加的人数给 total_count。
+
+```sql
+DELIMITER //
+
+CREATE PROCEDURE get_count_by_limit_total_salary(IN limit_total_salary DOUBLE,OUT
+total_count INT)
+
+BEGIN
+    DECLARE sum_salary DOUBLE DEFAULT 0; -- 记录累加的总工资
+    DECLARE cursor_salary DOUBLE DEFAULT 0; -- 记录某一个工资值
+    DECLARE emp_count INT DEFAULT 0; -- 记录循环个数
+    -- 定义游标
+    DECLARE emp_cursor CURSOR FOR SELECT salary FROM employees ORDER BY salary DESC;
+    -- 打开游标
+    OPEN emp_cursor;
+
+    REPEAT
+        -- 使用游标（从游标中获取数据）
+        FETCH emp_cursor INTO cursor_salary;
+        SET sum_salary = sum_salary + cursor_salary;
+        SET emp_count = emp_count + 1;
+
+        UNTIL sum_salary >= limit_total_salary
+    END REPEAT;
+
+    SET total_count = emp_count;
+    -- 关闭游标
+    CLOSE emp_cursor;
+
+END //
+
+DELIMITER ;
+```
+
 ### 4.4 小结
 
+游标是 MySQL 的一个重要的功能，为逐条读取结果集中的数据，提供了完美的解决方案。跟在应用层
+面实现相同的功能相比，游标可以在存储程序中使用，效率高，程序也更加简洁。
+
+但同时也会带来一些性能问题，比如在使用游标的过程中，会对数据行进行加锁，这样在业务并发量大
+的时候，不仅会影响业务之间的效率，还会消耗系统资源，造成内存不足，这是因为游标是在内存中进行的处理。
+
+建议：养成用完之后就关闭的习惯，这样才能提高系统的整体效率。
+
 ## 5. 补充：MySQL 8.0 的新特性—全局变量的持久化
+
+在 MySQL 数据库中，全局变量可以通过 SET GLOBAL 语句来设置。例如，设置服务器语句超时的限制，可
+以通过设置系统变量 max_execution_time 来实现：
+
+```sql
+SET GLOBAL MAX_EXECUTION_TIME=2000;
+```
+
+使用 SET GLOBAL 语句设置的变量值只会临时生效。 数据库重启后，服务器又会从 MySQL 配置文件中读取
+变量的默认值。MySQL 8.0 版本新增了 SET PERSIST 命令。例如，设置服务器的最大连接数为 1000：
+
+```sql
+SET PERSIST global max_connections = 1000;
+```
+
+MySQL 会将该命令的配置保存到数据目录下的 mysqld-auto.cnf 文件中，下次启动时会读取该文件，用其中的配置来覆盖默认的配置文件。
+
+举例：
+
+查看全局变量 max_connections 的值，结果如下：
+
+```sql
+mysql> show variables like '%max_connections%';
++------------------------+-------+
+| Variable_name | Value |
++------------------------+-------+
+| max_connections | 151 |
+| mysqlx_max_connections | 100 |
++------------------------+-------+
+2 rows in set, 1 warning (0.00 sec)
+```
+
+设置全局变量 max_connections 的值：
+
+```sql
+mysql> set persist max_connections=1000;
+Query OK, 0 rows affected (0.00 sec)
+```
+
+重启 MySQL 服务器 ，再次查询 max_connections 的值：
+
+```sql
+mysql> show variables like '%max_connections%';
++------------------------+-------+
+| Variable_name | Value |
++------------------------+-------+
+| max_connections | 1000 |
+| mysqlx_max_connections | 100 |
++------------------------+-------+
+2 rows in set, 1 warning (0.00 sec)
+```
 
 <a-back-top />
 
