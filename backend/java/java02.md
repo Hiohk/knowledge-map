@@ -1103,8 +1103,6 @@ continue:
 * `Command + Option + C` 提取常量
 * `Command + Option + P` 提取参数
 
-<Gitalk />
-
 <a-back-top />
 
 <reading-progress-bar/>
