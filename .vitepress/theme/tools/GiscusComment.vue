@@ -8,10 +8,16 @@ const commentsContainer = ref(null);
 const props = defineProps({
   category: {
     type: String,
-    default: "General"
-    // Announcements General Ideas Polls Q&A Show and tell
-  }
+    default: "General",
+    // Announcements -> DIC_kwDOMOwWHM4Cga2z
+    // General -> DIC_kwDOMOwWHM4Cga20
+    // Ideas -> DIC_kwDOMOwWHM4Cga22
+    // Polls -> DIC_kwDOMOwWHM4Cga24
+    // Q&A -> DIC_kwDOMOwWHM4Cga21
+    // Show and tell -> DIC_kwDOMOwWHM4Cga23
+  },
 });
+
 
 // 使用 onMounted 钩子确保组件加载后执行逻辑
 onMounted(() => {
@@ -21,12 +27,11 @@ onMounted(() => {
     commentsContainer.value.innerHTML = `
       <giscus-widget
       id="comments"
-      repo="giscus-comments"
+      repo="Hiohk/giscus-comments"
       repoid="R_kgDOMOwWHA"
       category=${props.category}
-      categoryid="DIC_kwDOMOwWHM4Cga2z"
+      categoryid="DIC_kwDOMOwWHM4Cga20"
       mapping="pathname"
-      term="Welcome to Knowledge Map!"
       reactionsenabled="1"
       emitmetadata="0"
       inputposition="top"
