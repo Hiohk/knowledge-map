@@ -8,4 +8,4 @@ This is a collection of useful links and resources for developers who want to us
 
 更多内容请参考： [`public-apis`](https://github.com/public-apis/public-apis)。
 
-<giscus-comment />
+<giscus-comment class="comment" />

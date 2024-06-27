@@ -558,10 +558,10 @@ const anchorData = ref([
         </div>
       </a-col>
     </a-row>
-    
+
     <a-row :gutter="16">
       <a-col :xs="19" :sm="19" :md="20" :lg="20" :xl="21">
-        <giscus-comment class="giscus-comment" />
+        <giscus-comment class="comment"/>
       </a-col>
       <a-col :xs="5" :sm="5" :md="4" :lg="4" :xl="3"> </a-col>
     </a-row>
@@ -622,7 +622,7 @@ const anchorData = ref([
   padding-left: 0px;
 }
 
-.giscus-comment {
+.comment {
   margin: 0 20px 20px;
 }
 </style>
