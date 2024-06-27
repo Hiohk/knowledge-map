@@ -7,6 +7,7 @@ aside: false
 <div :class="$style.container">
     <div :class="$style.title">Java 学习路线</div>
     <learning-route :route-data="backEndData"></learning-route>
+    <giscus-comment />
 </div>
 
 <script setup>

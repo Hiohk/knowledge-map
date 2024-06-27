@@ -127,7 +127,7 @@ del *.java
 javadoc -d docs -author -version -encoding utf-8 HelloWorld.java
 ```
 
-<gitalk />
+<Gitalk />
 
 <a-back-top />
 

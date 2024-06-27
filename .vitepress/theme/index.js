@@ -17,6 +17,7 @@ import intersect from "../utils/directives/intersect";
 
 // Gitalk组件
 import Gitalk from "./tools/Gitalk.vue";
+import GiscusComment from "./tools/GiscusComment.vue";
 
 
 /** @type {import('vitepress').Theme} */
@@ -33,6 +34,7 @@ export default {
     // 注册组件
     app.component('ReadingProgressBar', ReadingProgressBar);
     app.component('Gitalk', Gitalk);
+    app.component('GiscusComment', GiscusComment);
     // 注册全局指令
     app.directive('intersect', intersect);
   }
