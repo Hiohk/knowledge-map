@@ -21,7 +21,7 @@ onMounted(() => {
     commentsContainer.value.innerHTML = `
       <giscus-widget
       id="comments"
-      repo="Hiohk/giscus-comments"
+      repo="giscus-comments"
       repoid="R_kgDOMOwWHA"
       category=${props.category}
       categoryid="DIC_kwDOMOwWHM4Cga2z"
