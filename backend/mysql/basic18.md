@@ -136,9 +136,67 @@ MySQL 8 复制支持对 JSON 文档 进行部分更新的 二进制日志记录 
 
 ### 1.2 MySQL8.0 移除的旧特性
 
+在MySQL 5.7版本上开发的应用程序如果使用了MySQL8.0 移除的特性，语句可能会失败，或者产生不同
+的执行结果。为了避免这些问题，对于使用了移除特性的应用，应当尽力修正避免使用这些特性，并尽可能使用替代方法。
+
+1. **查询缓存** 查询缓存已被移除，删除的项有： 
+
+（1）语句：FLUSH QUERY CACHE和RESET QUERY CACHE。 
+
+（2）系统变量：query_cache_limit、query_cache_min_res_unit、query_cache_size、query_cache_type、query_cache_wlock_invalidate。 
+
+（3）状态变量：Qcache_free_blocks、Qcache_free_memory、Qcache_hits、Qcache_inserts、Qcache_lowmem_prunes、Qcache_not_cached、Qcache_queries_in_cache、Qcache_total_blocks。 
+
+（4）线程状态：checking privileges on cached query、checking query cache for query、invalidating query cache entries、sending cached result to client、storing result in query cache、waiting for query cache lock。
+
+2. **加密相关** 删除的加密相关的内容有：ENCODE()、DECODE()、ENCRYPT()、DES_ENCRYPT()和
+DES_DECRYPT()函数，配置项des-key-file，系统变量have_crypt，FLUSH语句的DES_KEY_FILE选项，
+HAVE_CRYPT CMake选项。 对于移除的ENCRYPT()函数，考虑使用SHA2()替代，对于其他移除的函数，使
+用AES_ENCRYPT()和AES_DECRYPT()替代。
+
+3. **空间函数相关** 在MySQL 5.7版本中，多个空间函数已被标记为过时。这些过时函数在MySQL 8中都已被
+移除，只保留了对应的ST_和MBR函数。
+
+4. **\N和NULL** 在SQL语句中，解析器不再将\N视为NULL，所以在SQL语句中应使用NULL代替\N。这项变化
+不会影响使用LOAD DATA INFILE或者SELECT...INTO OUTFILE操作文件的导入和导出。在这类操作中，NULL
+仍等同于\N。
+
+5. **mysql_install_db** 在MySQL分布中，已移除了mysql_install_db程序，数据字典初始化需要调用带着--
+initialize或者--initialize-insecure选项的mysqld来代替实现。另外，--bootstrap和INSTALL_SCRIPTDIR
+CMake也已被删除。
+
+6. **通用分区处理程序** 通用分区处理程序已从MySQL服务中被移除。为了实现给定表分区，表所使用的存
+储引擎需要自有的分区处理程序。 提供本地分区支持的MySQL存储引擎有两个，即InnoDB和NDB，而在
+MySQL 8中只支持InnoDB。
+
+7. **系统和状态变量信息** 在INFORMATION_SCHEMA数据库中，对系统和状态变量信息不再进行维护。
+GLOBAL_VARIABLES、SESSION_VARIABLES、GLOBAL_STATUS、SESSION_STATUS表都已被删除。另外，系
+统变量show_compatibility_56也已被删除。被删除的状态变量有Slave_heartbeat_period、Slave_last_heartbeat,Slave_received_heartbeats、Slave_retried_transactions、Slave_running。以上被删除的内容都可使用性能模式中对应的内容进行替代。
+
+8. **mysql_plugin工具** mysql_plugin工具用来配置MySQL服务器插件，现已被删除，可使用--plugin-load或-
+-plugin-load-add选项在服务器启动时加载插件或者在运行时使用INSTALL PLUGIN语句加载插件来替代该工具。
+
 ## 2. 新特性 1：窗口函数
 
 ### 2.1 使用窗口函数前后对比
+
+假设我现在有这样一个数据表，它显示了某购物网站在每个城市每个区的销售额：
+
+```sql
+CREATE TABLE sales(
+id INT PRIMARY KEY AUTO_INCREMENT,
+city VARCHAR(15),
+county VARCHAR(15),
+sales_value DECIMAL
+);
+
+INSERT INTO sales(city,county,sales_value)
+VALUES
+('北京','海淀',10.00),
+('北京','朝阳',20.00),
+('上海','黄埔',30.00),
+('上海','长宁',10.00);
+```
 
 ### 2.2 窗口函数分类
 
