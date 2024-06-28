@@ -47,7 +47,7 @@ import {
         <template #content>
           <div>
             <p>
-              1. 2024年中旬，上线注册和登录功能；开放评论功能
+              1. 2024年中旬，上线评论功能 <a-tag color="orange">已发布</a-tag>
             </p>
             <p>2. 2024年下旬，发布集成Gemini API的智能问答系统模块</p>
             <p>3. 2024年底，发布交流社区模块</p>

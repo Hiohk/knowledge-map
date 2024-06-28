@@ -15,7 +15,7 @@ import {
           <CheckOutlined style="font-size: 16px" />
         </template>
         <span class="date-time">2024-01-31</span>
-        创建 Knowledge Graph
+        创建 Knowledge Map
       </a-timeline-item>
 
       <a-timeline-item>
@@ -25,7 +25,7 @@ import {
 
       <a-timeline-item>
         <a-badge-ribbon text="部署" color="green">
-          <a-card title="Knowledge Graph" size="small">
+          <a-card title="Knowledge Map" size="small">
             <span class="date-time">2024-02-03</span>
             项目成功部署
           </a-card>
@@ -42,7 +42,7 @@ import {
           <CheckCircleOutlined style="font-size: 16px; color: #52c41a" />
         </template>
         <a-badge-ribbon text="正式发布" color="green">
-          <a-card title="Knowledge Graph" size="small">
+          <a-card title="Knowledge Map" size="small">
             <span class="date-time">2024-03-10</span>
             网站对外发布
           </a-card>
@@ -65,21 +65,29 @@ import {
         首页改版
       </a-timeline-item>
 
-      <a-timeline-item>
+      <!-- <a-timeline-item>
         <template #dot>
           <TagOutlined style="font-size: 16px" />
         </template>
         <span class="date-time">2024-04-02</span>
         搭建<span style="font-weight: 600">Chatbot-Gemini</span>
         https://chatbot-gemini-seven.vercel.app/
-      </a-timeline-item>
+      </a-timeline-item> -->
 
       <a-timeline-item>
         <template #dot>
           <TagOutlined style="font-size: 16px" />
         </template>
         <span class="date-time">2024-05-26</span>
-        上线 Java、JavaWeb、Maven、MyBatis
+        添加 Java、JavaWeb、Maven、MyBatis
+      </a-timeline-item>
+
+      <a-timeline-item>
+        <template #dot>
+          <TagOutlined style="font-size: 16px" />
+        </template>
+        <span class="date-time">2024-06-28</span>
+        上线评论功能
       </a-timeline-item>
     </a-timeline>
   </div>

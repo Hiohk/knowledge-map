@@ -247,7 +247,13 @@ const onLoadMore = () => {};
       </a-row>
     </div>
 
-    <div class="like-video">
+    <div
+      class="like-video"
+      v-intersect="{
+        enter: 'animate__fadeInUp',
+        duration: 'animate__duration-2s',
+      }"
+    >
       <like-video></like-video>
     </div>
 
