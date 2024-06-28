@@ -2,81 +2,87 @@
   "hash": "faa0074a",
   "configHash": "55c04f6c",
   "lockfileHash": "18d351f8",
-  "browserHash": "75bf2dce",
+  "browserHash": "96e6a02a",
   "optimized": {
     "vue": {
       "src": "../../../node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "1eca3fd6",
+      "fileHash": "416210e0",
       "needsInterop": false
     },
     "vitepress > @vue/devtools-api": {
       "src": "../../../node_modules/.pnpm/@vue+devtools-api@7.2.1_vue@3.4.27/node_modules/@vue/devtools-api/dist/index.js",
       "file": "vitepress___@vue_devtools-api.js",
-      "fileHash": "8af75bc0",
+      "fileHash": "435cc32a",
       "needsInterop": false
     },
     "vitepress > @vueuse/core": {
       "src": "../../../node_modules/.pnpm/@vueuse+core@10.10.0_vue@3.4.27/node_modules/@vueuse/core/index.mjs",
       "file": "vitepress___@vueuse_core.js",
-      "fileHash": "9e8a8b8e",
+      "fileHash": "9f83168e",
       "needsInterop": false
     },
     "vitepress > @vueuse/integrations/useFocusTrap": {
       "src": "../../../node_modules/.pnpm/@vueuse+integrations@10.10.0_focus-trap@7.5.4_vue@3.4.27/node_modules/@vueuse/integrations/useFocusTrap.mjs",
       "file": "vitepress___@vueuse_integrations_useFocusTrap.js",
-      "fileHash": "241fc227",
+      "fileHash": "974bc262",
       "needsInterop": false
     },
     "vitepress > mark.js/src/vanilla.js": {
       "src": "../../../node_modules/.pnpm/mark.js@8.11.1/node_modules/mark.js/src/vanilla.js",
       "file": "vitepress___mark__js_src_vanilla__js.js",
-      "fileHash": "2794327f",
+      "fileHash": "89b5f0ca",
       "needsInterop": false
     },
     "vitepress > minisearch": {
       "src": "../../../node_modules/.pnpm/minisearch@6.3.0/node_modules/minisearch/dist/es/index.js",
       "file": "vitepress___minisearch.js",
-      "fileHash": "73eef1be",
+      "fileHash": "41b4ea53",
       "needsInterop": false
     },
     "ant-design-vue": {
       "src": "../../../node_modules/.pnpm/ant-design-vue@4.2.2_vue@3.4.27/node_modules/ant-design-vue/es/index.js",
       "file": "ant-design-vue.js",
-      "fileHash": "73bbd691",
+      "fileHash": "a0debb3a",
       "needsInterop": false
     },
     "@iconify/vue": {
       "src": "../../../node_modules/.pnpm/@iconify+vue@4.1.2_vue@3.4.27/node_modules/@iconify/vue/dist/iconify.mjs",
       "file": "@iconify_vue.js",
-      "fileHash": "2e44555c",
+      "fileHash": "52b260f6",
       "needsInterop": false
     },
     "gitalk": {
       "src": "../../../node_modules/.pnpm/gitalk@1.8.0_react-dom@15.7.0_react@15.7.0/node_modules/gitalk/dist/gitalk.js",
       "file": "gitalk.js",
-      "fileHash": "267360fe",
+      "fileHash": "ba9530e0",
       "needsInterop": true
     },
     "giscus": {
       "src": "../../../node_modules/.pnpm/giscus@1.5.0/node_modules/giscus/dist/giscus.mjs",
       "file": "giscus.js",
-      "fileHash": "925d0e41",
+      "fileHash": "994862ea",
       "needsInterop": false
     },
     "@ant-design/icons-vue": {
       "src": "../../../node_modules/.pnpm/@ant-design+icons-vue@7.0.1_vue@3.4.27/node_modules/@ant-design/icons-vue/es/index.js",
       "file": "@ant-design_icons-vue.js",
-      "fileHash": "86d3cdc4",
+      "fileHash": "766f6e1d",
+      "needsInterop": false
+    },
+    "mind-elixir": {
+      "src": "../../../node_modules/.pnpm/mind-elixir@4.0.2/node_modules/mind-elixir/dist/MindElixir.js",
+      "file": "mind-elixir.js",
+      "fileHash": "92b987a4",
       "needsInterop": false
     }
   },
   "chunks": {
-    "chunk-PAWBSCXU": {
-      "file": "chunk-PAWBSCXU.js"
-    },
     "chunk-GFJJ3DPO": {
       "file": "chunk-GFJJ3DPO.js"
+    },
+    "chunk-PAWBSCXU": {
+      "file": "chunk-PAWBSCXU.js"
     },
     "chunk-HQVRPW57": {
       "file": "chunk-HQVRPW57.js"
