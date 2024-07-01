@@ -4,6 +4,7 @@ layout: page
 ---
 
 <resource class="container"></resource>
+<a-back-top />
 
 <script setup>
 import Resource from "../../.vitepress/views/resource/Resource.vue";

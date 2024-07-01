@@ -39,5 +39,3 @@
 <giscus-comment class="comment" />
 
 <a-back-top />
-
-<reading-progress-bar/>
