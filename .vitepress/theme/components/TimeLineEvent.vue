@@ -65,15 +65,6 @@ import {
         首页改版
       </a-timeline-item>
 
-      <!-- <a-timeline-item>
-        <template #dot>
-          <TagOutlined style="font-size: 16px" />
-        </template>
-        <span class="date-time">2024-04-02</span>
-        搭建<span style="font-weight: 600">Chatbot-Gemini</span>
-        https://chatbot-gemini-seven.vercel.app/
-      </a-timeline-item> -->
-
       <a-timeline-item>
         <template #dot>
           <TagOutlined style="font-size: 16px" />

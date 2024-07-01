@@ -122,9 +122,10 @@ export default defineConfig({
       { text: "刷题", link: '/coding/' },
       {
         text: "探索", items: [
+          { text: "发布日志", link: '/exploration/releaseLog/' },
           { text: "方法论", link: '/exploration/methodology/' },
           { text: "资源导航", link: '/exploration/resource/' },
-          { text: "Web Open APIs", link: '/exploration/openApi/' },
+          { text: "Web Open APIs", link: '/exploration/openApi/' }
         ]
       },
       { text: '交流社区', link: '/community' }
