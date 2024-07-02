@@ -1,10 +1,10 @@
-# knowledge-graph
+# knowledge-map
 
 This is a knowledge summary website for front-end and back-end.
 
 ## 访问地址
 
-[https://hiohk.github.io/knowledge-map/](https://hiohk.github.io/knowledge-graph/)
+[https://hiohk.github.io/knowledge-map/](https://hiohk.github.io/knowledge-map/)
 
 ## 预览
 

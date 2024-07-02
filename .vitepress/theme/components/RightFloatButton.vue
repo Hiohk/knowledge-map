@@ -9,10 +9,7 @@ import {
 
 <template>
   <div class="container">
-    <a-float-button-group
-      trigger="hover"
-      :style="{ right: '15px' }"
-    >
+    <a-float-button-group trigger="hover" :style="{ right: '15px' }">
       <template #icon>
         <QuestionCircleOutlined />
       </template>
@@ -49,8 +46,11 @@ import {
             <p>
               1. 2024年中旬，上线评论功能 <a-tag color="orange">已发布</a-tag>
             </p>
-            <p>2. 2024年下旬，发布集成Gemini API的智能问答系统模块</p>
-            <p>3. 2024年底，发布交流社区模块</p>
+            <p>
+              2. 2024年7月，上线天气预报小组件 <a-tag color="green">开发中</a-tag>
+            </p>
+            <p>3. 2024年下旬，发布集成Gemini API的智能问答系统模块</p>
+            <p>4. 2024年底，发布交流社区模块</p>
           </div>
         </template>
         <template #title>
@@ -69,8 +69,6 @@ import {
 
       <a-back-top :visibility-height="0" />
     </a-float-button-group>
-
-    
   </div>
 </template>
 

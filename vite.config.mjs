@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite';
+import { resolve } from 'path';
 
 export default defineConfig({
   plugins: [
@@ -20,7 +21,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': '/assets',
+      '@': ".vitepress"
     },
   }
 });
