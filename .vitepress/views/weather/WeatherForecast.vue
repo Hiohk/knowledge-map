@@ -1,54 +1,64 @@
-<template>
-  <div class="card">
-    <div class="search">
-      <a-input-search
-        v-model:value="city"
-        placeholder="请输入城市名称"
-        enter-button
-        @search="checkWeather"
-        @keyup.enter="checkWeather"
-        size="large"
-      />
-    </div>
-    <div class="error" v-if="error">
-      <p>{{ error }}</p>
-    </div>
-    <div class="weather" v-if="weatherData">
-      <img :src="weatherIcon" class="weather-icon" alt="Weather Icon" />
-      <h1 class="temp">{{ Math.round(weatherData.temp) }}°C</h1>
-      <h2 class="city">{{ weatherData.city }}</h2>
-      <div class="details">
-        <div class="col">
-          <img src="../../assets/img/weather/humidity.png" alt="Humidity" />
-          <div>
-            <p class="humidity">{{ weatherData.humidity }}%</p>
-            <p>Humidity</p>
-          </div>
-        </div>
-        <div class="col">
-          <img src="../../assets/img/weather/wind.png" alt="Wind" />
-          <div>
-            <p class="wind">{{ weatherData.wind }} km/h</p>
-            <p>Wind Speed</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script setup>
 import { ref } from "vue";
-import { getCityLocation } from "../../http/weather.js";
+import { getCityLocation, getCityWeather } from "../../http/weather.js";
+import dayjs from "dayjs";
+import { Icon } from "@iconify/vue";
+
+// 使用 Vite 的动态导入功能
+const icons = import.meta.glob("../../assets/icons/*.svg");
+const iconUrl = ref("");
+// 加载图标
+const loadIcon = async () => {
+  const icon = icons[`../../assets/icons/${weatherData.value.icon}.svg`];
+  if (icon) {
+    const module = await icon();
+    iconUrl.value = module.default;
+  } else {
+    console.warn(`Icon ${weatherData.value.icon} not found`);
+  }
+};
 
 const city = ref("");
+const dataSource = ref([]);
 const weatherData = ref(null);
-const weatherIcon = ref("");
 const error = ref("");
+const locationId = ref("");
+const showWeatherData = ref(false);
 
-// Function to fetch weather data
-const checkWeather = () => {
-  if (!city.value) return;
+const onSelect = (value, option) => {
+  // console.log("onSelect", value, option);
+  locationId.value = option.id;
+  getCurrentCityWeather();
+};
+
+const highlightMatchedText = (text) => {
+  const regex = new RegExp(city.value, "gi");
+  const highlightedName = text.replace(
+    regex,
+    (match) => `<span style="color: red;">${match}</span>`
+  );
+  return highlightedName;
+};
+
+const getCurrentCityWeather = () => {
+  getCityWeather({
+    location: locationId.value,
+    lang: "zh",
+  }).then((res) => {
+    if (res.code === "200") {
+      weatherData.value = res.now;
+      showWeatherData.value = true;
+      loadIcon();
+    }
+  });
+};
+
+// 查询城市列表
+const getCityList = () => {
+  if (!city.value) {
+    dataSource.value = [];
+    return;
+  }
 
   let obj = {
     location: city.value, //城市名称
@@ -58,63 +68,107 @@ const checkWeather = () => {
   getCityLocation(obj)
     .then((res) => {
       if (res.code === "200") {
-        console.log("1111", res.location);
+        dataSource.value = res.location;
+        dataSource.value.map((item) => {
+          item.value = item.name;
+        });
       }
-      // weatherData.value = res.data;
     })
     .catch((err) => {
       error.value = "Error fetching weather data";
       weatherData.value = null;
+      showWeatherData.value = false;
     });
-  // try {
-  //   const response = await axios.get(
-  //     `${apiUrl}location=${city.value}&key=${apiKey}&lang=zh&number=20`
-  //   );
-
-  // console.log("response:", response.data);
-  // if (response.status === 404) {
-  //   error.value = "Invalid city name";
-  //   weatherData.value = null;
-  //   return;
-  // }
-
-  // const data = response.data;
-  // weatherData.value = {
-  //   city: data.name,
-  //   temp: data.main.temp,
-  //   humidity: data.main.humidity,
-  //   wind: data.wind.speed,
-  // };
-
-  // Set weather icon based on weather condition
-  // switch (data.weather[0].main) {
-  //   case "Clouds":
-  //     weatherIcon.value = "../../assets/img/weather/clouds.png";
-  //     break;
-  //   case "Clear":
-  //     weatherIcon.value = "../../assets/img/weather/clear.png";
-  //     break;
-  //   case "Rain":
-  //     weatherIcon.value = "../../assets/img/weather/rain.png";
-  //     break;
-  //   case "Drizzle":
-  //     weatherIcon.value = "../../assets/img/weather/drizzle.png";
-  //     break;
-  //   case "Mist":
-  //     weatherIcon.value = "../../assets/img/weather/mist.png";
-  //     break;
-  //   default:
-  //     weatherIcon.value = "../../assets/img/weather/clear.png";
-  //     break;
-  // }
-
-  // error.value = null;
-  // } catch (err) {
-  //   error.value = "Error fetching weather data";
-  //   weatherData.value = null;
-  // }
 };
 </script>
+
+<template>
+  <div class="card">
+    <div class="search">
+      <a-auto-complete
+        v-model:value="city"
+        :dropdown-match-select-width="252"
+        style="width: 300px"
+        :options="dataSource"
+        @select="onSelect"
+        @search="getCityList"
+      >
+        <template #option="item">
+          <div style="display: flex; justify-content: space-between">
+            <span>
+              <span v-html="highlightMatchedText(item.adm1)"></span>
+              <span>-</span>
+              <span v-html="highlightMatchedText(item.adm2)"></span>
+              <span>市-</span>
+              <span v-html="highlightMatchedText(item.name)"></span>
+            </span>
+            <span>{{ item.country }}</span>
+          </div>
+        </template>
+        <a-input-search
+          size="large"
+          placeholder="请输入城市名称"
+          enter-button
+        ></a-input-search>
+      </a-auto-complete>
+    </div>
+    <div class="error" v-if="error">
+      <p>{{ error }}</p>
+    </div>
+    <div class="weather" v-if="showWeatherData">
+      <a-row class="container-top">
+        <a-col :span="8" class="left-item">
+          <span class="city">{{ city }} </span>
+          <span><Icon icon="hugeicons:location-08"></Icon></span>
+        </a-col>
+        <a-col :span="12" :offset="4" class="right-item">
+          <span
+            >{{
+              dayjs(weatherData.obsTime).format("YYYY-MM-DD HH:mm:ss")
+            }}
+            更新</span
+          >
+        </a-col>
+      </a-row>
+
+      <a-row :gutter="[16, 16]" class="container-middle">
+        <a-col :span="6" class="weather-temp">
+          <div>{{ weatherData.temp }}°C</div>
+        </a-col>
+        <a-col :span="14">
+          <a-row :gutter="[10, 10]">
+            <a-col :span="24">{{ weatherData.text }}</a-col>
+            <a-col :span="24">体感温度：{{ weatherData.feelsLike }}</a-col>
+          </a-row>
+        </a-col>
+        <a-col :span="4">
+          <img :src="iconUrl" class="weather-icon" alt="QWeather Icons" />
+        </a-col>
+      </a-row>
+
+      <div class="details">
+        <div class="col">
+          <div>
+            <p class="humidity">{{ weatherData.humidity }}%</p>
+            <p>相对湿度</p>
+          </div>
+        </div>
+        <div class="col">
+          <div>
+            <p class="wind">{{ weatherData.windSpeed }} km/h</p>
+            <p>风速</p>
+          </div>
+        </div>
+        <div class="col">
+          <div>
+            <p class="wind">{{ weatherData.windScale }} km/h</p>
+            <p>风力等级</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
 
 <style scoped>
 @import "../../assets/css/google-front.css";
@@ -141,37 +195,8 @@ body {
   text-align: center;
 }
 
-.search {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.search input {
-  border: none;
-  outline: none;
-  background-color: #ebfffc;
-  color: #555;
-  padding: 10px 25px;
-  height: 60px;
-  border-radius: 30px;
-  flex: 1;
-  margin-right: 16px;
-  font-size: 18px;
-}
-
-.search button {
-  border: none;
-  outline: none;
-  background-color: #ebfffc;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.weather {
+  margin-top: 30px;
 }
 
 .search button img {
@@ -179,19 +204,7 @@ body {
 }
 
 .weather-icon {
-  width: 170px;
-  margin-top: 30px;
-}
-
-.weather h1 {
-  font-size: 80px;
-  font-weight: 500;
-}
-
-.weather h2 {
-  font-size: 45px;
-  font-weight: 400;
-  margin-top: -10px;
+  width: 60px;
 }
 
 .details {
@@ -218,15 +231,40 @@ body {
   font-size: 28px;
 }
 
-.weather {
-  display: none;
-}
-
 .error {
   text-align: left;
   margin-left: 10px;
   font-size: 14px;
   margin-top: 10px;
   display: none;
+}
+
+.container-top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.left-item {
+  font-size: 16px;
+  text-align: left;
+  display: flex;
+  line-height: 100%;
+}
+
+.right-item {
+  text-align: right;
+}
+
+.weather-temp {
+  text-align: left;
+  font-size: 60px;
+  line-height: 100%;
+}
+
+.container-middle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px auto;
 }
 </style>
