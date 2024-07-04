@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from "vue";
-import { getCityLocation, getCityWeather } from "../../http/weather.js";
+import { getCityLocation, getCityWeather } from "../../http/weather";
 import dayjs from "dayjs";
 import { Icon } from "@iconify/vue";
 
