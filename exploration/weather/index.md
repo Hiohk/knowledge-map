@@ -4,12 +4,12 @@ layout: page
 ---
 
 <div :class="$style.container" >
-  <weather-forecast />
+  <!-- <weather-forecast /> -->
   <a-back-top />
 </div>
 
 <script setup>
-import WeatherForecast from "../../.vitepress/views/weather/WeatherForecast.vue"
+// import WeatherForecast from "../../.vitepress/views/weather/WeatherForecast.vue"
 </script>
 
 <style module>
