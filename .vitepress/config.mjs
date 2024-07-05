@@ -51,10 +51,10 @@ export default defineConfig({
       prev: '上一页',
       next: '下一页'
     },
-    editLink: {
-      pattern: 'https://github.com/Hiohk/knowledge-map/tree/master/:path',
-      text: '在 GitHub 上编辑此页面'
-    },
+    // editLink: {
+    //   pattern: 'https://github.com/Hiohk/knowledge-map/tree/master/:path',
+    //   text: '在 GitHub 上编辑此页面'
+    // },
     search: {
       provider: 'local',
       options: {
