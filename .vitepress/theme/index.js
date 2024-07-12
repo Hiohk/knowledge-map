@@ -15,8 +15,7 @@ import ReadingProgressBar from "../views/publicComponent/ReadingProgressBar.vue"
 import 'animate.css';
 import intersect from "../utils/directives/intersect";
 
-// Gitalk组件
-import Gitalk from "./tools/Gitalk.vue";
+// Giscus组件
 import GiscusComment from "./tools/GiscusComment.vue";
 
 
@@ -33,7 +32,6 @@ export default {
     app.use(Antd);
     // 注册组件
     app.component('ReadingProgressBar', ReadingProgressBar);
-    app.component('Gitalk', Gitalk);
     app.component('GiscusComment', GiscusComment);
     // 注册全局指令
     app.directive('intersect', intersect);

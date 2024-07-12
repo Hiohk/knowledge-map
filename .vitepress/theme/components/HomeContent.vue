@@ -14,6 +14,7 @@ import HomeResource from "./HomeResource.vue";
     <div class="sponsor-by">
       <sponsor-list></sponsor-list>
     </div>
+
     <div>
       <home-resource></home-resource>
     </div>
@@ -96,9 +97,5 @@ import HomeResource from "./HomeResource.vue";
 
 .time-line-event {
   margin-top: 50px;
-}
-
-.loading-more {
-  text-align: center;
 }
 </style>
