@@ -1,6 +1,5 @@
 <script setup>
-import { ref } from "vue";
-import SponsorList from "./SponsorList.vue";
+import NoticeList from "./NoticeList.vue";
 import RightFloatButton from "./RightFloatButton.vue";
 import TimeLineEvent from "./TimeLineEvent.vue";
 import RecommendationBlog from "./RecommendationBlog.vue";
@@ -12,7 +11,7 @@ import HomeResource from "./HomeResource.vue";
 <template>
   <div class="container">
     <div class="sponsor-by">
-      <sponsor-list></sponsor-list>
+      <notice-list></notice-list>
     </div>
 
     <div>

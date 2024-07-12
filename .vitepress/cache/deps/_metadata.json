@@ -1,100 +1,73 @@
 {
-  "hash": "9a7e8f24",
-  "configHash": "19f9b855",
-  "lockfileHash": "df884c0a",
-  "browserHash": "bc02e834",
+  "hash": "ea45f4e6",
+  "configHash": "d055f2c7",
+  "lockfileHash": "51560009",
+  "browserHash": "337c1083",
   "optimized": {
     "vue": {
       "src": "../../../node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "653553ed",
+      "fileHash": "c8d3d02b",
       "needsInterop": false
     },
     "vitepress > @vue/devtools-api": {
       "src": "../../../node_modules/@vue/devtools-api/dist/index.js",
       "file": "vitepress___@vue_devtools-api.js",
-      "fileHash": "21001d77",
+      "fileHash": "9930f9e5",
       "needsInterop": false
     },
     "vitepress > @vueuse/core": {
       "src": "../../../node_modules/@vueuse/core/index.mjs",
       "file": "vitepress___@vueuse_core.js",
-      "fileHash": "ed8db6b5",
+      "fileHash": "256ef528",
       "needsInterop": false
     },
     "vitepress > @vueuse/integrations/useFocusTrap": {
       "src": "../../../node_modules/@vueuse/integrations/useFocusTrap.mjs",
       "file": "vitepress___@vueuse_integrations_useFocusTrap.js",
-      "fileHash": "04aa261d",
+      "fileHash": "5139f618",
       "needsInterop": false
     },
     "vitepress > mark.js/src/vanilla.js": {
       "src": "../../../node_modules/mark.js/src/vanilla.js",
       "file": "vitepress___mark__js_src_vanilla__js.js",
-      "fileHash": "be640448",
+      "fileHash": "0987d95d",
       "needsInterop": false
     },
     "vitepress > minisearch": {
       "src": "../../../node_modules/minisearch/dist/es/index.js",
       "file": "vitepress___minisearch.js",
-      "fileHash": "27b3d818",
+      "fileHash": "98730440",
       "needsInterop": false
     },
     "ant-design-vue": {
       "src": "../../../node_modules/ant-design-vue/es/index.js",
       "file": "ant-design-vue.js",
-      "fileHash": "75ec67dc",
+      "fileHash": "6e4d96bf",
       "needsInterop": false
-    },
-    "gitalk": {
-      "src": "../../../node_modules/gitalk/dist/gitalk.js",
-      "file": "gitalk.js",
-      "fileHash": "c578a4eb",
-      "needsInterop": true
     },
     "giscus": {
       "src": "../../../node_modules/giscus/dist/giscus.mjs",
       "file": "giscus.js",
-      "fileHash": "8252a8c8",
-      "needsInterop": false
-    },
-    "@ant-design/icons-vue": {
-      "src": "../../../node_modules/@ant-design/icons-vue/es/index.js",
-      "file": "@ant-design_icons-vue.js",
-      "fileHash": "79b52e36",
+      "fileHash": "66c9608c",
       "needsInterop": false
     },
     "@iconify/vue": {
       "src": "../../../node_modules/@iconify/vue/dist/iconify.mjs",
       "file": "@iconify_vue.js",
-      "fileHash": "c1a6ffc4",
+      "fileHash": "12547512",
       "needsInterop": false
     },
-    "mind-elixir": {
-      "src": "../../../node_modules/mind-elixir/dist/MindElixir.js",
-      "file": "mind-elixir.js",
-      "fileHash": "1610fce5",
-      "needsInterop": false
-    },
-    "dayjs": {
-      "src": "../../../node_modules/dayjs/dayjs.min.js",
-      "file": "dayjs.js",
-      "fileHash": "c7c70807",
-      "needsInterop": true
-    },
-    "axios": {
-      "src": "../../../node_modules/axios/index.js",
-      "file": "axios.js",
-      "fileHash": "5598388f",
+    "@ant-design/icons-vue": {
+      "src": "../../../node_modules/@ant-design/icons-vue/es/index.js",
+      "file": "@ant-design_icons-vue.js",
+      "fileHash": "a714118f",
       "needsInterop": false
     }
   },
   "chunks": {
     "chunk-GK7ZRSPS": {
       "file": "chunk-GK7ZRSPS.js"
-    },
-    "chunk-6LZCHPEF": {
-      "file": "chunk-6LZCHPEF.js"
     },
     "chunk-GWWI5S4I": {
       "file": "chunk-GWWI5S4I.js"
