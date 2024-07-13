@@ -41,7 +41,7 @@ const close = () => {
             {{ book.publishDate }}
           </a-descriptions-item>
           <a-descriptions-item label="推荐指数">
-            <a-rate class="rate-num" :value="book.rate" disabled />
+            <a-rate class="rate-num" :value="book.rate" disabled allow-half />
           </a-descriptions-item>
         </a-descriptions>
       </div>

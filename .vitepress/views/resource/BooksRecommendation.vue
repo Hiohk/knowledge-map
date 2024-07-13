@@ -78,7 +78,7 @@ const closeBookDetail = () => {
               </div>
               <div class="info-item">
                 <span class="info-title">推荐指数:</span>
-                <a-rate :value="book.rate" disabled />
+                <a-rate :value="book.rate" disabled allow-half />
               </div>
             </div>
           </div>
