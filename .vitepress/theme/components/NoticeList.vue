@@ -18,7 +18,9 @@ const shrinkCard = () => {
 <template>
   <div class="sponsor">
     <a-row :gutter="[16, 16]">
-      <a-col :span="24" class="recommendation-title"> Recommendation </a-col>
+      <a-col :span="24" class="recommendation-title">
+        Recommendation
+      </a-col>
       <a-col :span="7">
         <sleep-cat-icon></sleep-cat-icon>
       </a-col>
@@ -94,35 +96,28 @@ const shrinkCard = () => {
 
 .sponsor-tip .content {
   color: transparent;
-  /* 设置内容文字透明 */
   font-weight: bold;
   overflow: hidden;
   white-space: nowrap;
-  /* 防止文字换行 */
   transition: color 0.5s ease;
-  /* 添加颜色渐变过渡效果 */
 }
 
 .sponsor-tip:hover .content {
   color: #333;
-  /* 文字渐变显示 */
 }
 
 .fade-enter-active,
 .fade-leave-active {
   transition: transform 0.3s ease;
-  /* 添加过渡效果 */
 }
 
 .fade-enter,
 .fade-leave-to {
   transform: scaleY(0);
-  /* 初始和结束状态的高度为0 */
 }
 
 .fade-enter-active .content,
 .fade-leave-active .sponsor-text {
   transform: scaleY(1);
-  /* 过渡时文字展开效果 */
 }
 </style>

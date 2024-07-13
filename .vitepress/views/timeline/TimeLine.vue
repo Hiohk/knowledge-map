@@ -43,6 +43,11 @@ const releaseLog = ref([
     publishDate: "2024-06-28",
     description: "上线评论功能"
   },
+  {
+    publishDate: "2024-07-13",
+    description: `引入图床服务;
+                  修改推荐书籍UI;`
+  },
 
 ]);
 </script>
@@ -119,6 +124,20 @@ const releaseLog = ref([
         </template>
         <span class="date-time">2024-06-28</span>
         上线评论功能
+      </a-timeline-item>
+      <a-timeline-item>
+        <template #dot>
+          <TagOutlined style="font-size: 16px" />
+        </template>
+        <span class="date-time">2024-07-13</span>
+        引入图床服务;修改推荐书籍UI
+      </a-timeline-item>
+      <a-timeline-item>
+        <template #dot>
+          <TagOutlined style="font-size: 16px" />
+        </template>
+        <span class="date-time">2024-07-13</span>
+        首页新增天气预报组件
       </a-timeline-item>
     </a-timeline>
   </div>

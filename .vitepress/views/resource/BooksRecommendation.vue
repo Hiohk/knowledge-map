@@ -59,6 +59,7 @@ const closeBookDetail = () => {
       <div v-for="book in filteredBooks" :key="book.id" @click="selectBook(book)" class="book-card">
         <div class="book">
           <div class="book-content">
+            <div class="margin"></div>
             <div class="info-section">
               <div class="info-item">
                 <div class="info-title">《{{ book.title }}》</div>
@@ -82,7 +83,7 @@ const closeBookDetail = () => {
             </div>
           </div>
           <div class="cover">
-            <img :src="book.imageName" alt="book cover" class="book-cover" />
+            <img :src="book.imageUrl" alt="book cover" class="book-cover" />
           </div>
         </div>
       </div>
@@ -195,7 +196,55 @@ p {
 }
 
 .book-content {
-  margin-left: 30px;
+  /* margin-left: 30px; */
+
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  font-family: cursive;
+  font-size: 20px;
+  border-radius: 10px;
+  background: #fff;
+  background-image: linear-gradient(#f5f5f0 1.1rem, #ccc 1.2rem);
+  background-size: 100% 1.2rem;
+  line-height: 1.2rem;
+  padding: 1.4rem 0.5rem 1.4rem 2rem;
+}
+
+.book-content::before,
+.book-content::after {
+  position: absolute;
+  content: "";
+  bottom: 10px;
+  width: 40%;
+  height: 10px;
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.7);
+  z-index: -1;
+  transition: all 0.3s ease;
+}
+
+.page::before {
+  left: 15px;
+  transform: skew(-5deg) rotate(-5deg);
+}
+
+.book-content::after {
+  right: 15px;
+  transform: skew(5deg) rotate(5deg);
+}
+
+.book-content:hover::before,
+.book-content:hover::after {
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.4);
+}
+
+.margin {
+  position: absolute;
+  border-left: 1px solid #d88;
+  height: 100%;
+  left: 2rem;
+  top: 0;
 }
 
 .rate-num {

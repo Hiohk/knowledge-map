@@ -19,7 +19,7 @@ const close = () => {
   <div>
     <a-modal v-model:visible="isVisible" title="书籍详情" @cancel="close" :footer="null" :maskClosable="false">
       <div class="book-detail">
-        <img :src="book.imageName" alt="book cover" class="book-cover" />
+        <img :src="book.imageUrl" alt="book cover" class="book-cover" />
         <a-descriptions class="book-info" :title="book.title" :column="1">
           <a-descriptions-item label="作者">
             {{ book.author }}
