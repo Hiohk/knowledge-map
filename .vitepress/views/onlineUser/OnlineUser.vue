@@ -69,6 +69,7 @@ import { Icon } from "@iconify/vue";
 import { trackUser } from '../../service/trackUser';
 import UAParser from 'ua-parser-js'; // 浏览器信息解析
 import { browserData } from "../../commonData/browser";
+import WebSocket from 'websocket';
 
 const socket = new WebSocket('ws://localhost:8080'); // WebSocket服务器地址
 const fpPromise = FingerprintJS.load();
