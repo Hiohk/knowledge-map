@@ -151,7 +151,7 @@ const navigateToPage = (item) => {
 };
 
 // 加载更多
-const onLoadMore = () => {};
+const onLoadMore = () => { };
 </script>
 
 <template>
@@ -159,56 +159,23 @@ const onLoadMore = () => {};
     <a-row :gutter="[16, 20]">
       <template v-for="(item, index) in layout" :key="item.i">
         <a-col class="template-card" :xs="12" :sm="12" :md="6" :lg="4" :xl="4">
-          <a-card
-            ref="cardRefs"
-            class="grid-item small-card"
-            bordered
-            hoverable
-            size="small"
-            style="width: 100%; height: 100%; overflow: hidden"
-            v-intersect="{
-              enter: 'animate__fadeInUp',
-              duration: 'animate__duration-2s',
-            }"
-          >
+          <a-card ref="cardRefs" class="grid-item small-card" bordered hoverable size="small"
+            style="width: 100%; height: 100%; overflow: hidden" v-intersect="{
+      enter: 'animate__fadeInUp',
+      duration: 'animate__duration-2s',
+    }">
             <template #cover>
-              <img
-                v-if="item.imgName"
-                :style="cardImgStyle(item.w, item.h)"
-                alt="example"
-                :src="item.imgName"
-              />
-              <Icon
-                v-else
-                :icon="item.icon"
-                :style="cardImgStyle(item.w, item.h, item.color)"
-              ></Icon>
+              <img v-if="item.imgName" :style="cardImgStyle(item.w, item.h)" alt="example" :src="item.imgName" />
+              <Icon v-else :icon="item.icon" :style="cardImgStyle(item.w, item.h, item.color)"></Icon>
             </template>
             <a-card-meta :title="item.name">
               <template #description>
                 <span class="description-content">{{ item.content }}</span>
-                <!-- <div class="learn-more">
-                  <a-button
-                    v-if="layout.length - 1 !== index"
-                    class="learn-more-btn"
-                    type="link"
-                    :href="item.address"
-                    target="_self"
-                    >了解更多</a-button
-                  >
-                </div> -->
               </template>
             </a-card-meta>
           </a-card>
-          <a-button
-            v-if="layout.length - 1 !== index"
-            class="card-button"
-            type="primary"
-            shape="round"
-            size="small"
-            @click="navigateToPage(item)"
-            >了解更多</a-button
-          >
+          <a-button v-if="layout.length - 1 !== index" class="card-button" type="primary" shape="round" size="small"
+            @click="navigateToPage(item)">了解更多</a-button>
         </a-col>
       </template>
       <a-col :span="24">

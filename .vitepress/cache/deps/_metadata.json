@@ -1,79 +1,85 @@
 {
-  "hash": "ea45f4e6",
+  "hash": "c04ecc66",
   "configHash": "d055f2c7",
-  "lockfileHash": "51560009",
-  "browserHash": "53b863a1",
+  "lockfileHash": "dc84318b",
+  "browserHash": "3acb43a9",
   "optimized": {
     "vue": {
       "src": "../../../node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "c5e25538",
+      "fileHash": "7e9caeab",
       "needsInterop": false
     },
     "vitepress > @vue/devtools-api": {
       "src": "../../../node_modules/@vue/devtools-api/dist/index.js",
       "file": "vitepress___@vue_devtools-api.js",
-      "fileHash": "7023fac0",
+      "fileHash": "a6d9c044",
       "needsInterop": false
     },
     "vitepress > @vueuse/core": {
       "src": "../../../node_modules/@vueuse/core/index.mjs",
       "file": "vitepress___@vueuse_core.js",
-      "fileHash": "0fe2fd04",
+      "fileHash": "2b8c0e26",
       "needsInterop": false
     },
     "vitepress > @vueuse/integrations/useFocusTrap": {
       "src": "../../../node_modules/@vueuse/integrations/useFocusTrap.mjs",
       "file": "vitepress___@vueuse_integrations_useFocusTrap.js",
-      "fileHash": "1a14167b",
+      "fileHash": "526387c5",
       "needsInterop": false
     },
     "vitepress > mark.js/src/vanilla.js": {
       "src": "../../../node_modules/mark.js/src/vanilla.js",
       "file": "vitepress___mark__js_src_vanilla__js.js",
-      "fileHash": "cb41c9a0",
+      "fileHash": "b1501703",
       "needsInterop": false
     },
     "vitepress > minisearch": {
       "src": "../../../node_modules/minisearch/dist/es/index.js",
       "file": "vitepress___minisearch.js",
-      "fileHash": "85a2a09b",
+      "fileHash": "8dd0c718",
       "needsInterop": false
     },
     "ant-design-vue": {
       "src": "../../../node_modules/ant-design-vue/es/index.js",
       "file": "ant-design-vue.js",
-      "fileHash": "7e9b2bb4",
+      "fileHash": "33bed32c",
       "needsInterop": false
     },
     "giscus": {
       "src": "../../../node_modules/giscus/dist/giscus.mjs",
       "file": "giscus.js",
-      "fileHash": "1220a8f3",
-      "needsInterop": false
-    },
-    "@iconify/vue": {
-      "src": "../../../node_modules/@iconify/vue/dist/iconify.mjs",
-      "file": "@iconify_vue.js",
-      "fileHash": "a73c4648",
+      "fileHash": "cd3d3dfc",
       "needsInterop": false
     },
     "@ant-design/icons-vue": {
       "src": "../../../node_modules/@ant-design/icons-vue/es/index.js",
       "file": "@ant-design_icons-vue.js",
-      "fileHash": "66759928",
+      "fileHash": "9822532e",
       "needsInterop": false
     },
-    "dayjs": {
-      "src": "../../../node_modules/dayjs/dayjs.min.js",
-      "file": "dayjs.js",
-      "fileHash": "f7fe224f",
+    "@iconify/vue": {
+      "src": "../../../node_modules/@iconify/vue/dist/iconify.mjs",
+      "file": "@iconify_vue.js",
+      "fileHash": "16dffe57",
+      "needsInterop": false
+    },
+    "@fingerprintjs/fingerprintjs": {
+      "src": "../../../node_modules/@fingerprintjs/fingerprintjs/dist/fp.esm.js",
+      "file": "@fingerprintjs_fingerprintjs.js",
+      "fileHash": "4ef6253a",
+      "needsInterop": false
+    },
+    "ua-parser-js": {
+      "src": "../../../node_modules/ua-parser-js/src/ua-parser.js",
+      "file": "ua-parser-js.js",
+      "fileHash": "efbf24bd",
       "needsInterop": true
     },
     "axios": {
       "src": "../../../node_modules/axios/index.js",
       "file": "axios.js",
-      "fileHash": "f19630ff",
+      "fileHash": "94577aa3",
       "needsInterop": false
     }
   },
@@ -83,9 +89,6 @@
     },
     "chunk-GWWI5S4I": {
       "file": "chunk-GWWI5S4I.js"
-    },
-    "chunk-6LZCHPEF": {
-      "file": "chunk-6LZCHPEF.js"
     },
     "chunk-XPVHNUZ4": {
       "file": "chunk-XPVHNUZ4.js"

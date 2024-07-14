@@ -11,6 +11,7 @@ import 'ant-design-vue/dist/reset.css';
 import HomeContent from "./components/HomeContent.vue";
 import NotFound from "./components/NotFound.vue";
 import ReadingProgressBar from "../views/publicComponent/ReadingProgressBar.vue";
+import CustomFooter from "../theme/components/CustomFooter.vue";
 
 import 'animate.css';
 import intersect from "../utils/directives/intersect";
@@ -25,7 +26,8 @@ export default {
   Layout: () => {
     return h(DefaultTheme.Layout, null, {
       'home-features-after': () => h(HomeContent),
-      'not-found': () => h(NotFound)
+      'not-found': () => h(NotFound),
+      'layout-bottom': () => h(CustomFooter)
     })
   },
   enhanceApp({ app, router, siteData }) {

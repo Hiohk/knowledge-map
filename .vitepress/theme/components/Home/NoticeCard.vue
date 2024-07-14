@@ -1,4 +1,6 @@
-<script setup></script>
+<script setup>
+import OnlineUser from "../../../views/onlineUser/OnlineUser.vue";
+</script>
 
 <template>
     <div class="card">
@@ -7,7 +9,10 @@
                 <span>Article on</span>
                 <span>2024-07-10</span>
             </div>
-            <p class="heading">Different ways to use CSS in React</p>
+            <div>
+                Vue (发音为 /vjuː/，类似 view) 是一款用于构建用户界面的 JavaScript 框架。它基于标准 HTML、CSS 和 JavaScript
+                构建，并提供了一套声明式的、组件化的编程模型，帮助你高效地开发用户界面。
+            </div>
             <div class="categories">
                 <span>React</span>
                 <span>CSS</span>

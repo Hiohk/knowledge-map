@@ -147,9 +147,9 @@ export default defineConfig({
     socialLinks: [
       { icon: 'github', link: 'https://github.com/Hiohk' }
     ],
-    footer: {
-      message: "All rights reserved.",
-      copyright: "Copyright © 2024 HK Group."
-    }
+    // footer: {
+    // message: "All rights reserved.",
+    // copyright: "Copyright © 2024 HK Group."
+    // }
   }
 })
