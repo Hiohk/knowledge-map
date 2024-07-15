@@ -18,26 +18,17 @@
                       :icon="getBrowserInfo(item.browserInfo)"
                       width="35"
                       height="35"
-                    >
-                    </Icon>
+                    />
                   </div>
                   <div class="detail-right">
                     <div class="detail-right-bottom">
-                      <span class="detail-text"
-                        >{{ getOperatingSystemInfo(item.browserInfo) }}
-                      </span>
-                      <span class="detail-ip"
-                        >IP: {{ item.locationInfo.ip }}
-                      </span>
+                      <span class="detail-text">{{ getOperatingSystemInfo(item.browserInfo) }}</span>
+                      <span class="detail-ip">IP: {{ item.locationInfo.ip }}</span>
                       于
-                      <span class="detail-text">
-                        {{ item.locationInfo.region }}
-                      </span>
+                      <span class="detail-text">{{ item.locationInfo.region }}</span>
                     </div>
                     <div class="detail-right-bottom">
-                      正在访问<span class="detail-ip">
-                        {{ item.currentURL }}
-                      </span>
+                      正在访问<span class="detail-ip">{{ item.currentURL }}</span>
                     </div>
                   </div>
                 </div>
@@ -49,7 +40,7 @@
                 icon="fluent-emoji-flat:man-artist"
                 width="40"
                 height="40"
-              ></icon>
+              />
             </a-popover>
           </div>
           <div class="song">
@@ -70,7 +61,7 @@
               width="40"
               height="40"
               style="color: #5cc7bb"
-            ></icon>
+            />
           </div>
           <div class="song">
             <div class="name">总访问用户数:</div>
@@ -83,12 +74,13 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount, watch } from "vue";
+import { ref, computed, onMounted, onBeforeUnmount } from "vue";
 import { getCurrentUserInfo, getTotalUserCount } from "../../http/userService";
 import { Icon } from "@iconify/vue";
 import { trackUser } from "../../service/trackUser";
-import UAParser from "ua-parser-js"; // 浏览器信息解析
+import UAParser from "ua-parser-js";
 import { browserData } from "../../commonData/browser";
+import { io } from "socket.io-client";
 
 const currentPath = ref("");
 let startTime = null;
@@ -103,18 +95,18 @@ const getBaseURL = () => {
   let baseURL = "localhost";
 
   if (process.env.NODE_ENV === "development") {
-    baseURL = "ws://localhost";
+    baseURL = "http://localhost:8080";
   }
 
   if (process.env.NODE_ENV === "production") {
-    baseURL = "wss://knowledge-server-production.up.railway.app";
+    baseURL = "https://knowledge-server-production.up.railway.app";
   }
   return baseURL;
 };
 
 // 监听页面路径变化
 onMounted(() => {
-  socket = new WebSocket(`${getBaseURL()}:8080`); // WebSocket服务器地址
+  socket = io(getBaseURL());
 
   currentPath.value = window.location.pathname;
   startTime = Date.now();
@@ -128,12 +120,13 @@ onMounted(() => {
     const totalTime = endTime - startTime;
 
     // 发送总浏览时长到后端
-    socket.send(
-      JSON.stringify({
-        type: "totalTime",
-        totalTime: totalTime,
-      })
-    );
+    socket.emit("totalTime", { totalTime });
+  });
+
+  // 监听Socket.io消息
+  socket.on("onlineUsers", (message) => {
+    onlineUserCount.value = message.count;
+    onlineUsersInfo.value = message.users;
   });
 });
 
@@ -150,26 +143,15 @@ const sendUserData = async () => {
   const userIP = userInfo.locationInfo.ip; // 替换成从后端获取的用户IP地址
   const userLocation = userInfo.locationInfo.regionName; // 替换成从后端获取的用户地理位置信息
 
-  socket.send(
-    JSON.stringify({
-      type: "pageView",
-      ip: userIP,
-      location: userLocation,
-      path: window.location.pathname,
-      fingerprint: fingerprintId,
-      timestamp: new Date().toISOString(),
-    })
-  );
-  getTotalCount();
+  socket.emit("pageView", {
+    ip: userIP,
+    location: userLocation,
+    path: window.location.pathname,
+    fingerprint: fingerprintId,
+    timestamp: new Date().toISOString(),
+  });
 
-  // 监听WebSocket消息
-  socket.onmessage = (event) => {
-    const message = JSON.parse(event.data);
-    if (message.type === "onlineUsers") {
-      onlineUserCount.value = message.count;
-      onlineUsersInfo.value = message.users;
-    }
-  };
+  getTotalCount();
 };
 
 const getTotalCount = () => {
