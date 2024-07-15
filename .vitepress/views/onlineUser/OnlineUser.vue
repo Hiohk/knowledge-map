@@ -97,7 +97,6 @@ const getBaseUrl = () => {
 onMounted(() => {
   socket = io(getBaseUrl(), {
     path: "/socket.io",
-    transports: ["websocket", "polling"]
   });
 
   currentPath.value = window.location.pathname;
