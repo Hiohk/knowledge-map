@@ -29,7 +29,7 @@ export async function getCurrentUserInfo(fingerprint) {
 // 获取访问用户总数
 export async function getTotalUserCount() {
     try {
-        const response = await axios.get('/users/getAllUserCount');
+        const response = await axios.get('/users/get-user-count');
         return response;
     } catch (error) {
         throw new Error(error);
