@@ -22,13 +22,21 @@
                   </div>
                   <div class="detail-right">
                     <div class="detail-right-bottom">
-                      <span class="detail-text">{{ getOperatingSystemInfo(item.browserInfo) }}</span>
-                      <span class="detail-ip">IP: {{ item.locationInfo.ip }}</span>
+                      <span class="detail-text">{{
+                        getOperatingSystemInfo(item.browserInfo)
+                      }}</span>
+                      <span class="detail-ip"
+                        >IP: {{ item.locationInfo.ip }}</span
+                      >
                       于
-                      <span class="detail-text">{{ item.locationInfo.region }}</span>
+                      <span class="detail-text">{{
+                        item.locationInfo.region
+                      }}</span>
                     </div>
                     <div class="detail-right-bottom">
-                      正在访问<span class="detail-ip">{{ item.currentURL }}</span>
+                      正在访问<span class="detail-ip">{{
+                        item.currentURL
+                      }}</span>
                     </div>
                   </div>
                 </div>
@@ -106,7 +114,7 @@ const getBaseURL = () => {
 
 // 监听页面路径变化
 onMounted(() => {
-  socket = io(getBaseURL());
+  socket = io(getBaseURL(), { path: '/socket.io' });
 
   currentPath.value = window.location.pathname;
   startTime = Date.now();
