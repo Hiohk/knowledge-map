@@ -99,7 +99,7 @@ const getBaseURL = () => {
 
 // 监听页面路径变化
 onMounted(() => {
-  socket = io("https://knowledge-server-production.up.railway.app", {
+  socket = io("ws://knowledge-server-production.up.railway.app", {
     path: "/socket.io/"
   });
 
