@@ -83,7 +83,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount } from "vue";
+import { ref, computed, onMounted, onBeforeUnmount, watch } from "vue";
 import { getCurrentUserInfo, getTotalUserCount } from "../../http/userService";
 import { Icon } from "@iconify/vue";
 import { trackUser } from "../../service/trackUser";
@@ -103,18 +103,18 @@ const getBaseURL = () => {
   let baseURL = "localhost";
 
   if (process.env.NODE_ENV === "development") {
-    baseURL = "localhost";
+    baseURL = "ws://localhost";
   }
 
   if (process.env.NODE_ENV === "production") {
-    baseURL = "knowledge-server-production.up.railway.app";
+    baseURL = "wss://knowledge-server-production.up.railway.app";
   }
   return baseURL;
 };
 
 // 监听页面路径变化
 onMounted(() => {
-  socket = new WebSocket(`wss://${getBaseURL()}:8080`); // WebSocket服务器地址
+  socket = new WebSocket(`${getBaseURL()}:8080`); // WebSocket服务器地址
 
   currentPath.value = window.location.pathname;
   startTime = Date.now();
@@ -139,13 +139,11 @@ onMounted(() => {
 
 // 发送用户数据到后端
 const sendUserData = async () => {
-  const FingerprintJS = await import("@fingerprintjs/fingerprintjs-pro");
-  const fpPromise = FingerprintJS.load({
-    apiKey: "dPNUFf2HUjxZUXM86PKw",
-    region: "ap",
-  });
+  const FingerprintJS = await import("@fingerprintjs/fingerprintjs");
+  const fpPromise = FingerprintJS.load({});
   const fp = await fpPromise;
   const result = await fp.get();
+
   const fingerprintId = result.visitorId;
 
   const userInfo = await getCurrentUserInfo(fingerprintId);

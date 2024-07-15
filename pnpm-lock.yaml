@@ -11,9 +11,9 @@ importers:
       '@ant-design/icons-vue':
         specifier: ^7.0.1
         version: 7.0.1(vue@3.4.31)
-      '@fingerprintjs/fingerprintjs-pro':
-        specifier: ^3.9.10
-        version: 3.9.10
+      '@fingerprintjs/fingerprintjs':
+        specifier: ^4.4.3
+        version: 4.4.3
       '@giscus/vue':
         specifier: ^3.0.0
         version: 3.0.0(vue@3.4.31)
@@ -350,8 +350,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@fingerprintjs/fingerprintjs-pro@3.9.10':
-    resolution: {integrity: sha512-bPj/EzzIz6PrH6SWMJlrYLfkaR4croVpwchb5G4jidn9Nziixeyu+Su20yEPFSG6EZ87W32u93vmTWBENNaVVg==}
+  '@fingerprintjs/fingerprintjs@4.4.3':
+    resolution: {integrity: sha512-sm0ZmDp5Oeq8hQTf+bAHKsuuteVAYme/YOY9UPP/GrUBrR5Fzl1P5oOv6F5LvyBrO7qLjU5HQkfU0MmFte/8xA==}
 
   '@giscus/vue@3.0.0':
     resolution: {integrity: sha512-ZoSUmlc3ee2a+kdumCaXFDZaB4h9b1BYWzsmmRP7zoGEQKYopdAnzGvJK7RdvrYGAzNqZtGUxI0NnBl8/UA6bQ==}
@@ -1782,7 +1782,7 @@ snapshots:
   '@esbuild/win32-x64@0.21.5':
     optional: true
 
-  '@fingerprintjs/fingerprintjs-pro@3.9.10':
+  '@fingerprintjs/fingerprintjs@4.4.3':
     dependencies:
       tslib: 2.6.3
 

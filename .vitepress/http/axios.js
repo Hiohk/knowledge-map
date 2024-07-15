@@ -13,11 +13,11 @@ function getBaseURL() {
   let baseURL = '';
 
   if (process.env.NODE_ENV === 'development') {
-    baseURL = 'http://localhost:3000';
+    baseURL = 'http://localhost:3030';
   }
 
   if (process.env.NODE_ENV === 'production') {
-    baseURL = 'http://knowledge-server-production.up.railway.app:3000';
+    baseURL = 'http://knowledge-server-production.up.railway.app:3030';
   }
   return baseURL;
 }

@@ -21,12 +21,8 @@ async function getLocationInfo() {
 // 导出跟踪用户方法
 export async function trackUser() {
   try {
-    const FingerprintJS = await import("@fingerprintjs/fingerprintjs-pro");
-    const fpPromise = FingerprintJS.load({
-      apiKey: "dPNUFf2HUjxZUXM86PKw",
-      region: "ap",
-    });
-
+    const FingerprintJS = await import("@fingerprintjs/fingerprintjs");
+    const fpPromise = FingerprintJS.load();
     const fp = await fpPromise;
     const result = await fp.get();
     const visitorId = result.visitorId;
