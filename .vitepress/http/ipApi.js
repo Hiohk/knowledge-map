@@ -16,7 +16,7 @@ export async function getCurrentIp() {
 // 根据IP查询详细地址信息
 export async function getAddressByIp(ip) {
   try {
-    const response = await fetch(`http://ip-api.com/json/${ip}?lang=zh-CN`);
+    const response = await fetch(`https://ipinfo.io/${ip}/json?token=5fad38bad46b3b`);
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }

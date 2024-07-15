@@ -31,7 +31,7 @@
                       </span>
                       于
                       <span class="detail-text">
-                        {{ item.locationInfo.regionName }}
+                        {{ item.locationInfo.region }}
                       </span>
                     </div>
                     <div class="detail-right-bottom">
