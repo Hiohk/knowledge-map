@@ -1,24 +1,13 @@
-import axios from './axios';
-
-function getBaseURL() {
-  let urlStr = '';
-
-  if (process.env.NODE_ENV === 'development') {
-    urlStr = 'http';
-  }
-
-  if (process.env.NODE_ENV === 'production') {
-    urlStr = 'https';
-  }
-  return urlStr;
-}
-
+import axios from 'axios';
 
 // 获取当前的IP信息
 export async function getCurrentIp() {
   try {
-    const response = await axios.get(`${getBaseURL()}://edns.ip-api.com/json`);
-    return response;
+    const response = await fetch(`http://edns.ip-api.com/json`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return response.json();
   } catch (error) {
     throw new Error(error);
   }
@@ -27,8 +16,11 @@ export async function getCurrentIp() {
 // 根据IP查询详细地址信息
 export async function getAddressByIp(ip) {
   try {
-    const response = await axios.get(`${getBaseURL()}://ip-api.com/json/${ip}?lang=zh-CN`);
-    return response;
+    const response = await fetch(`http://ip-api.com/json/${ip}?lang=zh-CN`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return response.json();
   } catch (error) {
     throw new Error(error);
   }
