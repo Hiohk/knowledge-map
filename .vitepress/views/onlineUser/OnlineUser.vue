@@ -103,7 +103,6 @@ const onlineUserCount = ref(0);
 const totalUserCount = ref(0);
 const onlineUsersInfo = ref([]);
 let socket = null;
-let fpPromise = null;
 
 onMounted(trackUser);
 
@@ -123,7 +122,6 @@ const getBaseURL = () => {
 // 监听页面路径变化
 onMounted(() => {
   socket = new WebSocket(`ws://${getBaseURL()}:8080`); // WebSocket服务器地址
-  fpPromise = FingerprintJS.load();
 
   currentPath.value = window.location.pathname;
   startTime = Date.now();
@@ -151,6 +149,7 @@ onMounted(() => {
 // 发送用户数据到后端
 const sendUserData = async () => {
   // 在这里可以从后端获取用户的IP地址和地理位置信息，或者使用第三方服务获取
+  const fpPromise = await FingerprintJS.load();
   const fp = await fpPromise;
   const result = await fp.get();
   const fingerprintId = result.visitorId;
