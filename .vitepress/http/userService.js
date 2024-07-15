@@ -15,7 +15,7 @@ export async function sendUserData(userData) {
 // 获取当前用户的信息
 export async function getCurrentUserInfo(fingerprint) {
     try {
-        const response = await axios.get('/users/getUser', {
+        const response = await axios.get('/users/get-user', {
             params: {
                 fingerprint: fingerprint
             }

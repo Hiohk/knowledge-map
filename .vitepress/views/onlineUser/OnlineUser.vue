@@ -64,20 +64,20 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
 import { getCurrentUserInfo, getTotalUserCount } from "../../http/userService";
-// import FingerprintJS from '@fingerprintjs/fingerprintjs';
+import FingerprintJS from '@fingerprintjs/fingerprintjs';
 import { Icon } from "@iconify/vue";
 import { trackUser } from '../../service/trackUser';
 import UAParser from 'ua-parser-js'; // 浏览器信息解析
 import { browserData } from "../../commonData/browser";
 
 const socket = new WebSocket('ws://localhost:8080'); // WebSocket服务器地址
-const fpPromise = null; // FingerprintJS.load();
+const fpPromise = FingerprintJS.load();
 
-import("@fingerprintjs/fingerprintjs")
-    .then((module) => {
-        fpPromise = module.load();
-    })
-    .catch((error) => { });
+// import("@fingerprintjs/fingerprintjs")
+//     .then((module) => {
+//         fpPromise = module.load();
+//     })
+//     .catch((error) => { });
 
 const currentPath = ref('');
 let startTime = null;
