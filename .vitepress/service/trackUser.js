@@ -1,11 +1,13 @@
 // trackUser.js
 
-import FingerprintJS from '@fingerprintjs/fingerprintjs';
 import { sendUserData, getCurrentUserInfo } from '../http/userService';
 import { getCurrentIp, getAddressByIp } from "../http/ipApi";
+import FingerprintJS from "@fingerprintjs/fingerprintjs-pro";
 
-// 初始化指纹库
-const fpPromise = FingerprintJS.load();
+const fpPromise = FingerprintJS.load({
+  apiKey: "dPNUFf2HUjxZUXM86PKw",
+  region: "ap",
+});
 
 // 获取用户地理位置
 async function getLocationInfo() {
@@ -24,35 +26,31 @@ async function getLocationInfo() {
 
 // 导出跟踪用户方法
 export async function trackUser() {
-  if (typeof window !== undefined) {
-    try {
-      const FingerprintJS = await import("@fingerprintjs/fingerprintjs");
-      const fpPromise = await FingerprintJS.load();
-      const fp = await fpPromise;
-      const result = await fp.get();
-      const visitorId = result.visitorId;
+  try {
+    const fp = await fpPromise;
+    const result = await fp.get();
+    const visitorId = result.visitorId;
 
-      const browserInfo = navigator.userAgent;
-      const browseTime = new Date().toISOString();
-      const locationInfo = await getLocationInfo(); // 获取用户地理位置
+    const browserInfo = navigator.userAgent;
+    const browseTime = new Date().toISOString();
+    const locationInfo = await getLocationInfo(); // 获取用户地理位置
 
-      const userData = {
-        fingerprint: visitorId,
-        browserInfo,
-        browseTime,
-        locationInfo,
-        currentURL: window.location.href // 当前页面 URL
-        // 其他需要收集的信息
-      };
+    const userData = {
+      fingerprint: visitorId,
+      browserInfo,
+      browseTime,
+      locationInfo,
+      currentURL: window.location.href // 当前页面 URL
+      // 其他需要收集的信息
+    };
 
-      // 发送数据到后端
-      const response = await sendUserData(userData);
-      // if (response.code === 200) {
-      //     getUser(visitorId);
-      // }
-    } catch (error) {
-      console.error("trackUser->Error loading FingerprintJS:", error);
-    }
+    // 发送数据到后端
+    const response = await sendUserData(userData);
+    // if (response.code === 200) {
+    //     getUser(visitorId);
+    // }
+  } catch (error) {
+    console.error("trackUser->Error loading FingerprintJS:", error);
   }
 }
 

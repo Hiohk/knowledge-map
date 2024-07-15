@@ -89,8 +89,12 @@ import { Icon } from "@iconify/vue";
 import { trackUser } from "../../service/trackUser";
 import UAParser from "ua-parser-js"; // 浏览器信息解析
 import { browserData } from "../../commonData/browser";
-// import FingerprintJS from "@fingerprintjs/fingerprintjs";
-// const fpPromise = await FingerprintJS.load();
+import FingerprintJS from "@fingerprintjs/fingerprintjs-pro";
+
+const fpPromise = FingerprintJS.load({
+  apiKey: "dPNUFf2HUjxZUXM86PKw",
+  region: "ap",
+});
 
 const currentPath = ref("");
 let startTime = null;
@@ -141,24 +145,9 @@ onMounted(() => {
 
 // 发送用户数据到后端
 const sendUserData = async () => {
-  let fingerprintId = "";
-  if (typeof window !== undefined) {
-    try {
-      const FingerprintJS = await import("@fingerprintjs/fingerprintjs");
-      const fpPromise = await FingerprintJS.load();
-      const fp = await fpPromise;
-      const result = await fp.get();
-      fingerprintId = result.visitorId;
-    } catch (error) {
-      console.error("Error loading FingerprintJS:", error);
-    }
-  }
-
-  // const FingerprintJS = await import("@fingerprintjs/fingerprintjs");
-  // const fpPromise = await FingerprintJS.load();
-  // const fp = await fpPromise;
-  // const result = await fp.get();
-  // const fingerprintId = result.visitorId;
+  const fp = await fpPromise;
+  const result = await fp.get();
+  const fingerprintId = result.visitorId;
 
   const userInfo = await getCurrentUserInfo(fingerprintId);
   const userIP = userInfo.locationInfo.ip; // 替换成从后端获取的用户IP地址
