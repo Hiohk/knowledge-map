@@ -114,7 +114,7 @@ const getBaseURL = () => {
 
 // 监听页面路径变化
 onMounted(() => {
-  socket = new WebSocket(`ws://${getBaseURL()}:8080`); // WebSocket服务器地址
+  socket = new WebSocket(`wss://${getBaseURL()}:8080`); // WebSocket服务器地址
 
   currentPath.value = window.location.pathname;
   startTime = Date.now();
