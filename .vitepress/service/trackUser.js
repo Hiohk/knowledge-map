@@ -7,9 +7,9 @@ import { getCurrentIp, getAddressByIp } from "../http/ipApi";
 async function getLocationInfo() {
   try {
     const res = await getCurrentIp();
-    const response = await getAddressByIp(res.dns.ip);
+    const response = await getAddressByIp(res.ip);
     const locationInfo = {
-      ip: res.dns.ip,
+      ip: res.ip,
       ...response
     };
     return locationInfo;
