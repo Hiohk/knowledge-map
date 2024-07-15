@@ -143,13 +143,8 @@ onMounted(() => {
 
 // 发送用户数据到后端
 const sendUserData = async () => {
-  let fpPromise = null;
-  await import("@fingerprintjs/fingerprintjs")
-    .then((module) => {
-      fpPromise = module.load();
-    })
-    .catch((error) => {});
-
+  const FingerprintJS = await import("@fingerprintjs/fingerprintjs");
+  const fpPromise = await FingerprintJS.load();
   const fp = await fpPromise;
   const result = await fp.get();
   const fingerprintId = result.visitorId;
