@@ -24,33 +24,35 @@ async function getLocationInfo() {
 
 // 导出跟踪用户方法
 export async function trackUser() {
-  try {
-    const FingerprintJS = await import("@fingerprintjs/fingerprintjs");
-    const fpPromise = await FingerprintJS.load();
-    const fp = await fpPromise;
-    const result = await fp.get();
-    const visitorId = result.visitorId;
+  if (typeof window !== undefined) {
+    try {
+      const FingerprintJS = await import("@fingerprintjs/fingerprintjs");
+      const fpPromise = await FingerprintJS.load();
+      const fp = await fpPromise;
+      const result = await fp.get();
+      const visitorId = result.visitorId;
 
-    const browserInfo = navigator.userAgent;
-    const browseTime = new Date().toISOString();
-    const locationInfo = await getLocationInfo(); // 获取用户地理位置
+      const browserInfo = navigator.userAgent;
+      const browseTime = new Date().toISOString();
+      const locationInfo = await getLocationInfo(); // 获取用户地理位置
 
-    const userData = {
-      fingerprint: visitorId,
-      browserInfo,
-      browseTime,
-      locationInfo,
-      currentURL: window.location.href // 当前页面 URL
-      // 其他需要收集的信息
-    };
+      const userData = {
+        fingerprint: visitorId,
+        browserInfo,
+        browseTime,
+        locationInfo,
+        currentURL: window.location.href // 当前页面 URL
+        // 其他需要收集的信息
+      };
 
-    // 发送数据到后端
-    const response = await sendUserData(userData);
-    // if (response.code === 200) {
-    //     getUser(visitorId);
-    // }
-  } catch (error) {
-    console.error(error);
+      // 发送数据到后端
+      const response = await sendUserData(userData);
+      // if (response.code === 200) {
+      //     getUser(visitorId);
+      // }
+    } catch (error) {
+      console.error("trackUser->Error loading FingerprintJS:", error);
+    }
   }
 }
 
