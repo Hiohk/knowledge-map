@@ -2,12 +2,6 @@
 
 import { sendUserData, getCurrentUserInfo } from '../http/userService';
 import { getCurrentIp, getAddressByIp } from "../http/ipApi";
-import FingerprintJS from "@fingerprintjs/fingerprintjs-pro";
-
-const fpPromise = FingerprintJS.load({
-  apiKey: "dPNUFf2HUjxZUXM86PKw",
-  region: "ap",
-});
 
 // 获取用户地理位置
 async function getLocationInfo() {
@@ -27,6 +21,12 @@ async function getLocationInfo() {
 // 导出跟踪用户方法
 export async function trackUser() {
   try {
+    const FingerprintJS = await import("@fingerprintjs/fingerprintjs-pro");
+    const fpPromise = FingerprintJS.load({
+      apiKey: "dPNUFf2HUjxZUXM86PKw",
+      region: "ap",
+    });
+
     const fp = await fpPromise;
     const result = await fp.get();
     const visitorId = result.visitorId;

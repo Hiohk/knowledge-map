@@ -89,12 +89,6 @@ import { Icon } from "@iconify/vue";
 import { trackUser } from "../../service/trackUser";
 import UAParser from "ua-parser-js"; // 浏览器信息解析
 import { browserData } from "../../commonData/browser";
-import FingerprintJS from "@fingerprintjs/fingerprintjs-pro";
-
-const fpPromise = FingerprintJS.load({
-  apiKey: "dPNUFf2HUjxZUXM86PKw",
-  region: "ap",
-});
 
 const currentPath = ref("");
 let startTime = null;
@@ -145,6 +139,11 @@ onMounted(() => {
 
 // 发送用户数据到后端
 const sendUserData = async () => {
+  const FingerprintJS = await import("@fingerprintjs/fingerprintjs-pro");
+  const fpPromise = FingerprintJS.load({
+    apiKey: "dPNUFf2HUjxZUXM86PKw",
+    region: "ap",
+  });
   const fp = await fpPromise;
   const result = await fp.get();
   const fingerprintId = result.visitorId;
