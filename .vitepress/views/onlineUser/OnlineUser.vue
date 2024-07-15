@@ -85,17 +85,12 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount } from "vue";
 import { getCurrentUserInfo, getTotalUserCount } from "../../http/userService";
-import FingerprintJS from "@fingerprintjs/fingerprintjs";
 import { Icon } from "@iconify/vue";
 import { trackUser } from "../../service/trackUser";
 import UAParser from "ua-parser-js"; // 浏览器信息解析
 import { browserData } from "../../commonData/browser";
-
-// import("@fingerprintjs/fingerprintjs")
-//     .then((module) => {
-//         fpPromise = module.load();
-//     })
-//     .catch((error) => { });
+// import FingerprintJS from "@fingerprintjs/fingerprintjs";
+// const fpPromise = await FingerprintJS.load();
 
 const currentPath = ref("");
 let startTime = null;
@@ -148,8 +143,13 @@ onMounted(() => {
 
 // 发送用户数据到后端
 const sendUserData = async () => {
-  // 在这里可以从后端获取用户的IP地址和地理位置信息，或者使用第三方服务获取
-  const fpPromise = await FingerprintJS.load();
+  let fpPromise = null;
+  await import("@fingerprintjs/fingerprintjs")
+    .then((module) => {
+      fpPromise = module.load();
+    })
+    .catch((error) => {});
+
   const fp = await fpPromise;
   const result = await fp.get();
   const fingerprintId = result.visitorId;
