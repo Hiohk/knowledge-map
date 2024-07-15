@@ -84,24 +84,11 @@ let socket = null;
 
 onMounted(trackUser);
 
-const getBaseURL = () => {
-  let baseURL = "localhost";
-
-  if (process.env.NODE_ENV === "development") {
-    baseURL = "http://localhost:8080";
-  }
-
-  if (process.env.NODE_ENV === "production") {
-    baseURL = "https://knowledge-server-production.up.railway.app";
-  }
-  return baseURL;
-};
+const baseURL = process.env.NODE_ENV === "production" ? undefined : "http://localhost:8080";
 
 // 监听页面路径变化
 onMounted(() => {
-  socket = io("wss://knowledge-server-production.up.railway.app", {
-    path: "/socket.io/"
-  });
+  socket = io(baseURL);
 
   currentPath.value = window.location.pathname;
   startTime = Date.now();
