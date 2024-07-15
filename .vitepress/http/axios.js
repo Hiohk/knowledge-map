@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const instance = axios.create({
   baseURL: getBaseURL(), // 设置你的 baseURL
-  timeout: 10000, // 设置超时时间
+  timeout: 100000, // 设置超时时间
   headers: {
     'Content-Type': 'application/json',
     // 可以设置其他默认的请求头信息
@@ -17,7 +17,7 @@ function getBaseURL() {
   }
 
   if (process.env.NODE_ENV === 'production') {
-    baseURL = 'https://knowledge-server-production.up.railway.app:3030';
+    baseURL = 'https://knowledge-server-production.up.railway.app';
   }
   return baseURL;
 }
