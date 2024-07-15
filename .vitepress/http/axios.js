@@ -17,7 +17,7 @@ function getBaseURL() {
   }
 
   if (process.env.NODE_ENV === 'production') {
-    baseURL = 'http://knowledge-server-production.up.railway.app:3030';
+    baseURL = 'https://knowledge-server-production.up.railway.app:3030';
   }
   return baseURL;
 }
