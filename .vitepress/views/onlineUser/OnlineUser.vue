@@ -124,8 +124,6 @@ onMounted(() => {
   // 发送当前页面路径到后端
   sendUserData();
 
-  // 查询访问用户总数
-
   // 监听页面卸载事件，计算总浏览时长并发送
   onBeforeUnmount(() => {
     const endTime = Date.now();
@@ -143,18 +141,11 @@ onMounted(() => {
 
 // 发送用户数据到后端
 const sendUserData = async () => {
-  let fingerprintId = "";
-  if (typeof window !== "undefined") {
-    const FingerprintJS = await import("@fingerprintjs/fingerprintjs");
-    const fp = await FingerprintJS.load();
-    const result = await fp.get();
-    fingerprintId = result.visitorId;
-  }
-  // const FingerprintJS = await import("@fingerprintjs/fingerprintjs");
-  // const fpPromise = await FingerprintJS.load();
-  // const fp = await fpPromise;
-  // const result = await fp.get();
-  // const fingerprintId = result.visitorId;
+  const FingerprintJS = await import("@fingerprintjs/fingerprintjs");
+  const fpPromise = await FingerprintJS.load();
+  const fp = await fpPromise;
+  const result = await fp.get();
+  const fingerprintId = result.visitorId;
 
   const userInfo = await getCurrentUserInfo(fingerprintId);
   const userIP = userInfo.locationInfo.ip; // 替换成从后端获取的用户IP地址
