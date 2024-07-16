@@ -14,23 +14,29 @@
               <template #content>
                 <div v-for="item in onlineUsersInfo" class="detail-info">
                   <div class="detail-left">
-                    <Icon :icon="getBrowserInfo(item.browserInfo)" width="35" height="35" />
+                    <Icon
+                      :icon="getBrowserInfo(item.browserInfo)"
+                      width="35"
+                      height="35"
+                    />
                   </div>
                   <div class="detail-right">
                     <div class="detail-right-bottom">
                       <span class="detail-text">{{
-                  getOperatingSystemInfo(item.browserInfo)
-                }}</span>
-                      <span class="detail-ip">IP: {{ item.locationInfo.ip }}</span>
+                        getOperatingSystemInfo(item.browserInfo)
+                      }}</span>
+                      <span class="detail-ip"
+                        >IP: {{ item.locationInfo.ip }}</span
+                      >
                       于
                       <span class="detail-text">{{
-                  item.locationInfo.region
-                }}</span>
+                        item.locationInfo.region
+                      }}</span>
                     </div>
                     <div class="detail-right-bottom">
                       正在访问<span class="detail-ip">{{
-                    item.currentURL
-                  }}</span>
+                        item.currentURL
+                      }}</span>
                     </div>
                   </div>
                 </div>
@@ -38,7 +44,11 @@
               <template #title>
                 <span>正在浏览用户</span>
               </template>
-              <icon icon="fluent-emoji-flat:man-artist" width="40" height="40" />
+              <icon
+                icon="fluent-emoji-flat:man-artist"
+                width="40"
+                height="40"
+              />
             </a-popover>
           </div>
           <div class="song">
@@ -54,7 +64,12 @@
             <div class="load"></div>
           </div>
           <div class="albumcover">
-            <icon icon="vaadin:clipboard-user" width="40" height="40" style="color: #5cc7bb" />
+            <icon
+              icon="vaadin:clipboard-user"
+              width="40"
+              height="40"
+              style="color: #5cc7bb"
+            />
           </div>
           <div class="song">
             <div class="name">总访问用户数:</div>
@@ -87,11 +102,10 @@ onMounted(trackUser);
 const getBaseUrl = () => {
   let baseURL = "http://localhost:8080";
   if (process.env.NODE_ENV === "production") {
-    baseURL = "https://knowledge-server-production.up.railway.app";
+    baseURL = `https://knowledge-server-production.up.railway.app:${process.env.SOCKET_PORT}`;
   }
   return baseURL;
 };
-
 
 // 监听页面路径变化
 onMounted(() => {
@@ -148,7 +162,7 @@ const getTotalCount = () => {
     .then((res) => {
       totalUserCount.value = res.totalUsers;
     })
-    .catch((err) => { });
+    .catch((err) => {});
 };
 
 const getBrowserInfo = computed(() => {
