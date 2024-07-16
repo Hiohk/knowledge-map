@@ -130,7 +130,6 @@ onMounted(() => {
 
   // 监听Socket.io消息
   socket.on("onlineUsers", (message) => {
-    console.log(message);
     onlineUserCount.value = message.count;
     onlineUsersInfo.value = message.users;
   });
