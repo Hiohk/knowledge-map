@@ -155,6 +155,10 @@ const browserData = [
     {
         name: "Weibo",
         iconString: "fa:weibo"
+    },
+    {
+        name: "weibo",
+        iconString: "fa:weibo"
     }
 ];
 
