@@ -18,23 +18,25 @@ const shrinkCard = () => {
 <template>
   <div class="sponsor">
     <a-row :gutter="[16, 16]">
-      <a-col :span="24" class="recommendation-title">
-        Recommendation
+      <a-col :span="24" class="recommendation-title"> Recommendation </a-col>
+      <a-col :xs="24" :sm="24" :md="8" :lg="8" :xl="8">
+        <sleep-cat-icon class="sleep-icon"></sleep-cat-icon>
       </a-col>
-      <a-col :span="7">
-        <sleep-cat-icon></sleep-cat-icon>
-      </a-col>
-      <a-col :span="9">
+      <a-col :xs="24" :sm="24" :md="8" :lg="8" :xl="8">
         <notice-card></notice-card>
       </a-col>
-      <a-col :span="8">
+      <a-col :xs="24" :sm="24" :md="8" :lg="8" :xl="8">
         <weather-card></weather-card>
       </a-col>
       <a-col :span="24" class="sponsor-content">
         <a-row :gutter="[16, 16]">
           <a-col :span="24" class="column">
             <transition name="fade">
-              <div class="sponsor-tip" @mouseenter="expandCard" @mouseleave="shrinkCard">
+              <div
+                class="sponsor-tip"
+                @mouseenter="expandCard"
+                @mouseleave="shrinkCard"
+              >
                 <div v-if="!expanded" key="sponsor">成为赞助商</div>
                 <div v-else key="content" class="content">
                   广告招商：hk_snnu2020@163.com
@@ -119,5 +121,9 @@ const shrinkCard = () => {
 .fade-enter-active .content,
 .fade-leave-active .sponsor-text {
   transform: scaleY(1);
+}
+
+.sleep-icon {
+  margin: auto;
 }
 </style>

@@ -4,7 +4,7 @@ import { sendUserData, getCurrentUserInfo } from '../http/userService';
 import { getCurrentIp, getAddressByIp } from "../http/ipApi";
 
 // 获取用户地理位置
-async function getLocationInfo() {
+export async function getLocationInfo() {
   try {
     const res = await getCurrentIp();
     const response = await getAddressByIp(res.ip);
@@ -28,6 +28,7 @@ export async function trackUser() {
     const visitorId = result.visitorId;
 
     const browserInfo = navigator.userAgent;
+    const createTime = new Date().toISOString();
     const browseTime = new Date().toISOString();
     const locationInfo = await getLocationInfo(); // 获取用户地理位置
 
@@ -35,6 +36,7 @@ export async function trackUser() {
       fingerprint: visitorId,
       browserInfo,
       browseTime,
+      createTime,
       locationInfo,
       currentURL: window.location.href // 当前页面 URL
       // 其他需要收集的信息

@@ -1,94 +1,119 @@
 <template>
   <div>
     <div class="main">
-      <div class="bottom">
-        <div class="loader">
-          <div class="loading">
-            <div class="load"></div>
-            <div class="load"></div>
-            <div class="load"></div>
-            <div class="load"></div>
+      <a-row :gutter="16">
+        <a-col
+          style="text-align: center"
+          :xs="24"
+          :sm="24"
+          :md="12"
+          :lg="12"
+          :xl="12"
+        >
+          <div class="loader">
+            <div class="loading">
+              <div class="load"></div>
+              <div class="load"></div>
+              <div class="load"></div>
+              <div class="load"></div>
+            </div>
+            <div class="albumcover">
+              <a-popover placement="topLeft">
+                <template #content>
+                  <div v-for="item in onlineUsersInfo" class="detail-info">
+                    <div class="detail-left">
+                      <Icon
+                        :icon="getBrowserInfo(item.browserInfo)"
+                        width="35"
+                        height="35"
+                      />
+                    </div>
+                    <div class="detail-right">
+                      <div class="detail-right-bottom">
+                        <span class="detail-text">{{
+                          getOperatingSystemInfo(item.browserInfo)
+                        }}</span>
+                        <span class="detail-ip"
+                          >IP: {{ item.locationInfo.ip }}</span
+                        >
+                        于
+                        <span class="detail-text">{{
+                          item.locationInfo.region
+                        }}</span>
+                      </div>
+                      <div class="detail-right-bottom">
+                        正在访问<span class="detail-ip">{{
+                          item.currentURL
+                        }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </template>
+                <template #title>
+                  <span>正在浏览用户</span>
+                </template>
+                <icon
+                  icon="fluent-emoji-flat:man-artist"
+                  width="40"
+                  height="40"
+                />
+              </a-popover>
+            </div>
+            <div class="song">
+              <div class="name">实时在线用户数:</div>
+              <div class="artist">{{ onlineUserCount }}</div>
+            </div>
           </div>
-          <div class="albumcover">
-            <a-popover placement="topLeft">
-              <template #content>
-                <div v-for="item in onlineUsersInfo" class="detail-info">
-                  <div class="detail-left">
-                    <Icon
-                      :icon="getBrowserInfo(item.browserInfo)"
-                      width="35"
-                      height="35"
-                    />
-                  </div>
-                  <div class="detail-right">
-                    <div class="detail-right-bottom">
-                      <span class="detail-text">{{
-                        getOperatingSystemInfo(item.browserInfo)
-                      }}</span>
-                      <span class="detail-ip"
-                        >IP: {{ item.locationInfo.ip }}</span
-                      >
-                      于
-                      <span class="detail-text">{{
-                        item.locationInfo.region
-                      }}</span>
-                    </div>
-                    <div class="detail-right-bottom">
-                      正在访问<span class="detail-ip">{{
-                        item.currentURL
-                      }}</span>
-                    </div>
-                  </div>
-                </div>
-              </template>
-              <template #title>
-                <span>正在浏览用户</span>
-              </template>
+        </a-col>
+
+        <a-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
+          <div class="loader">
+            <div class="loading">
+              <div class="load"></div>
+              <div class="load"></div>
+              <div class="load"></div>
+              <div class="load"></div>
+            </div>
+
+            <div class="albumcover">
               <icon
-                icon="fluent-emoji-flat:man-artist"
+                icon="vaadin:clipboard-user"
                 width="40"
                 height="40"
+                style="color: #5cc7bb"
               />
-            </a-popover>
+            </div>
+
+            <div class="song">
+              <div class="name">总访问用户数:</div>
+              <div class="artist">{{ totalUserCount }}</div>
+            </div>
           </div>
-          <div class="song">
-            <div class="name">实时在线用户数:</div>
-            <div class="artist">{{ onlineUserCount }}</div>
-          </div>
-        </div>
-        <div class="loader">
-          <div class="loading">
-            <div class="load"></div>
-            <div class="load"></div>
-            <div class="load"></div>
-            <div class="load"></div>
-          </div>
-          <div class="albumcover">
-            <icon
-              icon="vaadin:clipboard-user"
-              width="40"
-              height="40"
-              style="color: #5cc7bb"
-            />
-          </div>
-          <div class="song">
-            <div class="name">总访问用户数:</div>
-            <div class="artist">{{ totalUserCount }}</div>
-          </div>
-        </div>
-      </div>
+        </a-col>
+      </a-row>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount } from "vue";
-import { getCurrentUserInfo, getTotalUserCount } from "../../http/userService";
+import { ref, watch, computed, onMounted, onBeforeUnmount } from "vue";
+import { getTotalUserCount } from "../../http/userService";
 import { Icon } from "@iconify/vue";
-import { trackUser } from "../../service/trackUser";
+import { trackUser, getLocationInfo } from "../../service/trackUser";
 import UAParser from "ua-parser-js";
 import { browserData } from "../../commonData/browser";
 import { io } from "socket.io-client";
+import { useRouter } from "vitepress";
+
+const { route } = useRouter();
+
+watch(
+  () => route.path,
+  (newValue) => {
+    console.log("path变化了", newValue);
+    sendUserData();
+  }
+);
 
 const currentPath = ref("");
 let startTime = null;
@@ -111,7 +136,7 @@ const getBaseUrl = () => {
 onMounted(() => {
   socket = io(getBaseUrl());
 
-  currentPath.value = window.location.pathname;
+  currentPath.value = window.location.href;
   startTime = Date.now();
 
   // 发送当前页面路径到后端
@@ -133,7 +158,7 @@ onMounted(() => {
   });
 });
 
-// 发送用户数据到后端
+// 发送实时用户数据到后端
 const sendUserData = async () => {
   const FingerprintJS = await import("@fingerprintjs/fingerprintjs");
   const fpPromise = FingerprintJS.load({});
@@ -141,16 +166,13 @@ const sendUserData = async () => {
   const result = await fp.get();
 
   const fingerprintId = result.visitorId;
-
-  const userInfo = await getCurrentUserInfo(fingerprintId);
-  const userIP = userInfo.locationInfo.ip; // 替换成从后端获取的用户IP地址
-  const userLocation = userInfo.locationInfo.regionName; // 替换成从后端获取的用户地理位置信息
+  const userLocation = await getLocationInfo(); // 获取用户地理位置
 
   socket.emit("pageView", {
-    ip: userIP,
-    location: userLocation,
-    path: window.location.pathname,
     fingerprint: fingerprintId,
+    locationInfo: userLocation,
+    browserInfo: navigator.userAgent,
+    currentURL: window.location.href,
     timestamp: new Date().toISOString(),
   });
 
@@ -191,12 +213,12 @@ const getOperatingSystemInfo = computed(() => {
   padding-bottom: 1.1em;
   border-radius: 15px;
   margin: 1em;
-  width: 600px;
+  width: 100%;
 }
 
 .loader {
   display: flex;
-  flex-direction: flex-start;
+  flex-direction: row;
   height: 4em;
   padding-left: 1em;
   padding-right: 1em;
@@ -209,10 +231,6 @@ const getOperatingSystemInfo = computed(() => {
 .loader:hover {
   cursor: pointer;
   background-color: lightgray;
-}
-
-.bottom {
-  display: flex;
 }
 
 .spotify {
@@ -270,10 +288,15 @@ const getOperatingSystemInfo = computed(() => {
 }
 
 .song {
-  position: relative;
-  margin-right: 1em;
-  color: black;
-  align-self: center;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.name {
+  color: #67676c;
 }
 
 @keyframes move6 {
@@ -292,10 +315,6 @@ const getOperatingSystemInfo = computed(() => {
   100% {
     height: 0.2em;
   }
-}
-
-.name {
-  color: #67676c;
 }
 
 .detail-info {
