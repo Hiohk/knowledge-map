@@ -109,7 +109,9 @@ const getBaseUrl = () => {
 
 // 监听页面路径变化
 onMounted(() => {
-  socket = io(getBaseUrl());
+  socket = io(getBaseUrl(), {
+    transports: ["websocket", "polling"],
+  });
 
   currentPath.value = window.location.pathname;
   startTime = Date.now();
