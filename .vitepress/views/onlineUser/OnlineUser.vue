@@ -87,7 +87,7 @@ onMounted(trackUser);
 const getBaseUrl = () => {
   let baseURL = "http://localhost:8080";
   if (process.env.NODE_ENV === "production") {
-    baseURL = "https://knowledge-server-production.up.railway.app:8080";
+    baseURL = "https://knowledge-server-production.up.railway.app:3030";
   }
   return baseURL;
 };
