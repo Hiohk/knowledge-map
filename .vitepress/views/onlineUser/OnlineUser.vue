@@ -2,14 +2,7 @@
   <div>
     <div class="main">
       <a-row :gutter="16">
-        <a-col
-          style="text-align: center"
-          :xs="24"
-          :sm="24"
-          :md="12"
-          :lg="12"
-          :xl="12"
-        >
+        <a-col style="text-align: center" :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
           <div class="loader">
             <div class="loading">
               <div class="load"></div>
@@ -22,29 +15,23 @@
                 <template #content>
                   <div v-for="item in onlineUsersInfo" class="detail-info">
                     <div class="detail-left">
-                      <Icon
-                        :icon="getBrowserInfo(item.browserInfo)"
-                        width="35"
-                        height="35"
-                      />
+                      <Icon :icon="getBrowserInfo(item.browserInfo)" width="35" height="35" />
                     </div>
                     <div class="detail-right">
                       <div class="detail-right-bottom">
                         <span class="detail-text">{{
-                          getOperatingSystemInfo(item.browserInfo)
-                        }}</span>
-                        <span class="detail-ip"
-                          >IP: {{ item.locationInfo.ip }}</span
-                        >
+        getOperatingSystemInfo(item.browserInfo)
+      }}</span>
+                        <span class="detail-ip">IP: {{ item.locationInfo.ip }}</span>
                         于
                         <span class="detail-text">{{
-                          item.locationInfo.region
-                        }}</span>
+        item.locationInfo.region
+      }}</span>
                       </div>
                       <div class="detail-right-bottom">
                         正在访问<span class="detail-ip">{{
-                          item.currentURL
-                        }}</span>
+          item.currentURL
+        }}</span>
                       </div>
                     </div>
                   </div>
@@ -52,11 +39,7 @@
                 <template #title>
                   <span>正在浏览用户</span>
                 </template>
-                <icon
-                  icon="fluent-emoji-flat:man-artist"
-                  width="40"
-                  height="40"
-                />
+                <icon icon="fluent-emoji-flat:man-artist" width="40" height="40" />
               </a-popover>
             </div>
             <div class="song">
@@ -76,12 +59,7 @@
             </div>
 
             <div class="albumcover">
-              <icon
-                icon="vaadin:clipboard-user"
-                width="40"
-                height="40"
-                style="color: #5cc7bb"
-              />
+              <icon icon="vaadin:clipboard-user" width="40" height="40" style="color: #5cc7bb" />
             </div>
 
             <div class="song">
@@ -152,6 +130,7 @@ onMounted(() => {
 
   // 监听Socket.io消息
   socket.on("onlineUsers", (message) => {
+    console.log(message);
     onlineUserCount.value = message.count;
     onlineUsersInfo.value = message.users;
   });
@@ -183,7 +162,7 @@ const getTotalCount = () => {
     .then((res) => {
       totalUserCount.value = res.totalUsers;
     })
-    .catch((err) => {});
+    .catch((err) => { });
 };
 
 const getBrowserInfo = computed(() => {

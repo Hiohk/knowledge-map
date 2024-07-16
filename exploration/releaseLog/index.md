@@ -1,5 +1,5 @@
 ---
-title: 发布日志
+title: 更新日志
 layout: page
 ---
 

@@ -128,7 +128,7 @@ export default defineConfig({
       {
         text: "探索", items: [
           { text: "天气预报", link: '/exploration/weather/' },
-          { text: "发布日志", link: '/exploration/releaseLog/' },
+          { text: "更新日志", link: '/exploration/releaseLog/' },
           { text: "方法论", link: '/exploration/methodology/' },
           { text: "资源导航", link: '/exploration/resource/' },
           { text: "Web Open APIs", link: '/exploration/openApi/' }

@@ -136,8 +136,8 @@ const releaseLog = ref([
         <template #dot>
           <TagOutlined style="font-size: 16px" />
         </template>
-        <span class="date-time">2024-07-13</span>
-        首页新增天气预报组件
+        <span class="date-time">2024-07-16</span>
+        发布后端项目（Node.js、Express、MongoDB）
       </a-timeline-item>
     </a-timeline>
   </div>

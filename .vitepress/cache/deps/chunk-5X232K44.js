@@ -2,9 +2,9 @@ import {
   __commonJS
 } from "./chunk-G3PMV62Z.js";
 
-// node_modules/dayjs/dayjs.min.js
+// node_modules/.pnpm/dayjs@1.11.11/node_modules/dayjs/dayjs.min.js
 var require_dayjs_min = __commonJS({
-  "node_modules/dayjs/dayjs.min.js"(exports, module) {
+  "node_modules/.pnpm/dayjs@1.11.11/node_modules/dayjs/dayjs.min.js"(exports, module) {
     !function(t, e) {
       "object" == typeof exports && "undefined" != typeof module ? module.exports = e() : "function" == typeof define && define.amd ? define(e) : (t = "undefined" != typeof globalThis ? globalThis : t || self).dayjs = e();
     }(exports, function() {
@@ -285,4 +285,4 @@ var require_dayjs_min = __commonJS({
 export {
   require_dayjs_min
 };
-//# sourceMappingURL=chunk-6LZCHPEF.js.map
+//# sourceMappingURL=chunk-5X232K44.js.map
