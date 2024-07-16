@@ -110,7 +110,6 @@ const { route } = useRouter();
 watch(
   () => route.path,
   (newValue) => {
-    console.log("path变化了", newValue);
     sendUserData();
   }
 );
