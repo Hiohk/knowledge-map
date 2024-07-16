@@ -100,7 +100,7 @@ let socket = null;
 onMounted(trackUser);
 
 const getBaseUrl = () => {
-  let baseURL = "http://localhost:8080";
+  let baseURL = "http://localhost:8000";
   if (process.env.NODE_ENV === "production") {
     baseURL = `https://knowledge-server-production.up.railway.app:${process.env.SOCKET_PORT}`;
   }
