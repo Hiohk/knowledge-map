@@ -1,7 +1,6 @@
 <script setup>
 import { ref } from "vue";
 import SleepCatIcon from "./Home/SleepCatIcon.vue";
-import WeatherCard from "./Home/WeatherCard.vue";
 import RegisterCard from "./Home/RegisterCard.vue";
 
 const expanded = ref(false);

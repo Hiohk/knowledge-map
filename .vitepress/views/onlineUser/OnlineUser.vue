@@ -2,13 +2,7 @@
   <div>
     <div class="main">
       <a-row :gutter="16">
-        <a-col
-          :xs="24"
-          :sm="24"
-          :md="12"
-          :lg="12"
-          :xl="12"
-        >
+        <a-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
           <div class="loader">
             <div class="loading">
               <div class="load"></div>
@@ -33,11 +27,11 @@
                           getOperatingSystemInfo(item.browserInfo)
                         }}</span>
                         <span class="detail-ip"
-                          >IP: {{ item.locationInfo.ip }}</span
+                          >IP: {{ item.locationInfo?.ip }}</span
                         >
                         于
                         <span class="detail-text">{{
-                          item.locationInfo.region
+                          item.locationInfo?.region
                         }}</span>
                       </div>
                       <div class="detail-right-bottom">
@@ -151,6 +145,7 @@ onMounted(() => {
 
   // 监听Socket.io消息
   socket.on("onlineUsers", (message) => {
+    console.log("onlineUsers--->", message);
     onlineUserCount.value = message.count;
     onlineUsersInfo.value = message.users;
   });
