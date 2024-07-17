@@ -32,7 +32,7 @@ const copyright = "Copyright © 2024-present HK Group.";
 
 .footer-content {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   flex-direction: column;
   align-items: center;
 }
@@ -48,6 +48,7 @@ const copyright = "Copyright © 2024-present HK Group.";
   flex-wrap: wrap;
   gap: 10px;
   font-size: 14px;
+  margin: 0 auto;
 }
 
 .user-info span {

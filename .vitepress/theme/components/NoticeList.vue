@@ -1,8 +1,8 @@
 <script setup>
 import { ref } from "vue";
 import SleepCatIcon from "./Home/SleepCatIcon.vue";
-import NoticeCard from "./Home/NoticeCard.vue";
 import WeatherCard from "./Home/WeatherCard.vue";
+import RegisterCard from "./Home/RegisterCard.vue";
 
 const expanded = ref(false);
 
@@ -19,15 +19,15 @@ const shrinkCard = () => {
   <div class="sponsor">
     <a-row :gutter="[16, 16]">
       <a-col :span="24" class="recommendation-title"> Recommendation </a-col>
-      <a-col :xs="24" :sm="24" :md="8" :lg="8" :xl="8">
+
+      <a-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
+        <register-card></register-card>
+      </a-col>
+
+      <a-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
         <sleep-cat-icon class="sleep-icon"></sleep-cat-icon>
       </a-col>
-      <a-col :xs="24" :sm="24" :md="8" :lg="8" :xl="8">
-        <notice-card></notice-card>
-      </a-col>
-      <a-col :xs="24" :sm="24" :md="8" :lg="8" :xl="8">
-        <weather-card></weather-card>
-      </a-col>
+
       <a-col :span="24" class="sponsor-content">
         <a-row :gutter="[16, 16]">
           <a-col :span="24" class="column">
@@ -124,6 +124,9 @@ const shrinkCard = () => {
 }
 
 .sleep-icon {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   margin: auto;
 }
 </style>

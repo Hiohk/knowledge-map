@@ -47,12 +47,13 @@
 
 <style scoped>
 .loader {
-  margin-top: 50px;
+  padding-top: 100px;
   width: fit-content;
   height: fit-content;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 .wrapper {
