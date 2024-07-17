@@ -87,7 +87,7 @@ const { route } = useRouter();
 
 watch(
   () => route.path,
-  (newValue) => {
+  () => {
     sendUserData();
   }
 );
@@ -124,8 +124,9 @@ onMounted(() => {
     const endTime = Date.now();
     const totalTime = endTime - startTime;
 
-    // 发送总浏览时长到后端
+    // 发送总浏览时长到后端,并关闭连接
     socket.emit("totalTime", { totalTime });
+    socket.disconnect();
   });
 
   // 监听Socket.io消息
