@@ -5,6 +5,7 @@ import javascriptSidebar from "./menusidebar/javascriptSidebar.mjs";
 import javaSidebar from './menusidebar/javaSidebar.mjs';
 import javaWebSidebar from "./menusidebar/javaWebSidebar.mjs";
 import mysqlSidebar from "./menusidebar/mysqlSidebar.mjs";
+import springSidebar from "./menusidebar/springSidebar.mjs";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -112,16 +113,35 @@ export default defineConfig({
           { text: 'Maven', link: '/backend/maven/', activeMatch: "/backend/maven/" },
           { text: 'MySQL', link: '/backend/mysql/basic01', activeMatch: "/backend/mysql/*" },
           { text: 'MyBatis', link: '/backend/mybatis/', activeMatch: "/backend/mybatis/" },
-          { text: 'MyBatis Plus', link: '/backend/mybatisPlus/' },
-          { text: 'Spring', link: '/backend/spring' },
-          { text: 'SpringMVC(暂未开放)', link: '/backend/springmvc' },
-          { text: 'SpringBoot(暂未开放)', link: '/backend/springBoot' },
-          { text: 'SpringCloud(暂未开放)', link: '/backend/springCloud' },
+          { text: 'MyBatis Plus', link: '/backend/mybatisPlus/', activeMatch: "/backend/mybatisPlus/" },
+          { text: 'Spring', link: '/backend/spring/spring01', activeMatch: "/backend/spring/" },
+          { text: 'SpringMVC', link: '/backend/springMVC/' },
+          { text: 'SpringBoot', link: '/backend/springBoot/' },
           { text: 'Redis(暂未开放)', link: '/backend/redis' },
+          { text: 'SpringCloud(暂未开放)', link: '/backend/springCloud' },
           { text: 'Git/SVN(暂未开放)', link: '/git' },
           { text: 'Linux(暂未开放)', link: '/linux' },
-          { text: 'TCP/IP(暂未开放)', link: '/backend/tcp' },
-          { text: '数据结构与算法(暂未开放)', link: '/backend/algorithm' },
+          { text: 'Docker(暂未开放)', link: '/backend/docker' },
+          { text: 'Nginx(暂未开放)', link: '/backend/nginx' },
+          { text: '设计模式(暂未开放)', link: '/backend/nginx' },
+          {
+            text: '基础理论', items: [
+              { text: '操作系统(暂未开放)', link: '/backend/basic/jvm' },
+              { text: '计算机网络(暂未开放)', link: '/backend/basic/juc' },
+              { text: '计算机组成原理(暂未开放)', link: '/backend/basic/tcp' },
+              { text: '数据结构与算法(暂未开放)', link: '/backend/advanced/algorithm' },
+            ]
+          },
+          {
+            text: '进阶知识', items: [
+              { text: '分布式(暂未开放)', link: '/backend/advanced/jvm' },
+              { text: '微服务(暂未开放)', link: '/backend/advanced/jvm' },
+              { text: 'JVM(暂未开放)', link: '/backend/advanced/jvm' },
+              { text: 'JUC(暂未开放)', link: '/backend/advanced/juc' },
+              { text: 'TCP/IP(暂未开放)', link: '/backend/advanced/tcp' },
+              { text: '运维知识(暂未开放)', link: '/backend/advanced/tcp' },
+            ]
+          },
         ]
       },
       { text: "刷题", link: '/coding/' },
@@ -143,6 +163,7 @@ export default defineConfig({
       "/backend/java/": javaSidebar,
       "/backend/javaweb/": javaWebSidebar,
       "/backend/mysql/": mysqlSidebar,
+      "/backend/spring/": springSidebar,
     },
     socialLinks: [
       { icon: 'github', link: 'https://github.com/Hiohk' }

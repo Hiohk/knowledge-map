@@ -90,7 +90,7 @@ const layout = ref([
     name: "Spring",
     imgName: "",
     icon: "devicon:spring-wordmark",
-    address: "/knowledge-map/backend/spring",
+    address: "/knowledge-map/backend/spring/spring01",
     content:
       "Spring 框架由 Rod Johnson 开发，2004 年发布了 Spring 框架的第一版。Spring 是一个从实际开发中抽取出来的框架，因此它完成了大量开发中的通用步骤，留给开发者的仅仅是与特定应用相关的部分，从而大大提高了企业应用的开发效率。",
   },
