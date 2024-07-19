@@ -16,7 +16,7 @@
                   <div v-for="item in onlineUsersInfo" class="detail-info">
                     <div class="detail-left">
                       <Icon
-                        :icon="getBrowserInfo(item.browserInfo)"
+                        :icon="getBrowserInfo(item.browserInfo.ua)"
                         width="35"
                         height="35"
                       />
@@ -24,7 +24,7 @@
                     <div class="detail-right">
                       <div class="detail-right-bottom">
                         <span class="detail-text">{{
-                          getOperatingSystemInfo(item.browserInfo)
+                          getOperatingSystemInfo(item.browserInfo.ua)
                         }}</span>
                         <span class="detail-ip"
                           >IP: {{ item.locationInfo?.ip }}</span
@@ -106,7 +106,7 @@ dayjs.extend(timezone);
 const beijingTime = dayjs().tz('Asia/Shanghai');  
 
 const { route } = useRouter();
-
+const uap = new UAParser();
 
 watch(
   () => route.path,
@@ -171,11 +171,10 @@ const sendUserData = async () => {
   socket.emit("pageView", {
     fingerprint: fingerprintId,
     locationInfo: userLocation,
-    browserInfo: navigator.userAgent,
+    browserInfo: uap.getResult(),
     currentURL: window.location.href,
     timestamp: beijingTime.format('YYYY-MM-DD HH:mm:ss'),
   });
-
   getTotalCount();
 };
 

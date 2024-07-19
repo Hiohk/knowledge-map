@@ -2,11 +2,14 @@
 import dayjs from "dayjs";
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
+import { sendUserData } from '../http/userService';
+import { getCurrentIp, getAddressByIp } from "../http/ipApi";
+import UAParser from "ua-parser-js";
+
 dayjs.extend(utc);
 dayjs.extend(timezone); 
 const beijingTime = dayjs().tz('Asia/Shanghai');
-import { sendUserData } from '../http/userService';
-import { getCurrentIp, getAddressByIp } from "../http/ipApi";
+const uap = new UAParser();
 
 
 // 获取用户地理位置
@@ -33,7 +36,7 @@ export async function trackUser() {
     const result = await fp.get();
     const visitorId = result.visitorId;
 
-    const browserInfo = navigator.userAgent;
+    const browserInfo = uap.getResult();
     const createTime = beijingTime.format('YYYY-MM-DD HH:mm:ss');
     const browseTime = beijingTime.format('YYYY-MM-DD HH:mm:ss');
     const locationInfo = await getLocationInfo(); // 获取用户地理位置
