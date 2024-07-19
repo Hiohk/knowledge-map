@@ -1,7 +1,13 @@
 // trackUser.js
-
-import { sendUserData, getCurrentUserInfo } from '../http/userService';
+import dayjs from "dayjs";
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+dayjs.extend(utc);
+dayjs.extend(timezone); 
+const beijingTime = dayjs().tz('Asia/Shanghai');
+import { sendUserData } from '../http/userService';
 import { getCurrentIp, getAddressByIp } from "../http/ipApi";
+
 
 // 获取用户地理位置
 export async function getLocationInfo() {
@@ -28,8 +34,8 @@ export async function trackUser() {
     const visitorId = result.visitorId;
 
     const browserInfo = navigator.userAgent;
-    const createTime = new Date().toISOString();
-    const browseTime = new Date().toISOString();
+    const createTime = beijingTime.format('YYYY-MM-DD HH:mm:ss');
+    const browseTime = beijingTime.format('YYYY-MM-DD HH:mm:ss');
     const locationInfo = await getLocationInfo(); // 获取用户地理位置
 
     const userData = {
@@ -51,7 +57,3 @@ export async function trackUser() {
     console.error("trackUser->Error loading FingerprintJS:", error);
   }
 }
-
-// export async function getUser(fingerId) {
-//     getCurrentUserInfo(fingerId).then(res => { }).catch(err => { });
-// }

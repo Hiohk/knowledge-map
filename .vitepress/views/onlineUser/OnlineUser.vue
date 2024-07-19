@@ -89,16 +89,24 @@
 </template>
 
 <script setup>
+import UAParser from "ua-parser-js";
+import { Icon } from "@iconify/vue";
 import { ref, watch, computed, onMounted, onBeforeUnmount } from "vue";
 import { getTotalUserCount } from "../../http/userService";
-import { Icon } from "@iconify/vue";
 import { trackUser, getLocationInfo } from "../../service/trackUser";
-import UAParser from "ua-parser-js";
 import { browserData } from "../../commonData/browser";
 import { io } from "socket.io-client";
 import { useRouter } from "vitepress";
 
+import dayjs from "dayjs";
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+dayjs.extend(utc);
+dayjs.extend(timezone); 
+const beijingTime = dayjs().tz('Asia/Shanghai');  
+
 const { route } = useRouter();
+
 
 watch(
   () => route.path,
@@ -165,7 +173,7 @@ const sendUserData = async () => {
     locationInfo: userLocation,
     browserInfo: navigator.userAgent,
     currentURL: window.location.href,
-    timestamp: new Date().toISOString(),
+    timestamp: beijingTime.format('YYYY-MM-DD HH:mm:ss'),
   });
 
   getTotalCount();
