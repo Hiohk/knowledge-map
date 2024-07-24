@@ -5,14 +5,12 @@ import TimeLineEvent from "./TimeLineEvent.vue";
 import RecommendationBlog from "./RecommendationBlog.vue";
 import LikeVideo from "./LikeVideo.vue";
 import HomeResource from "./HomeResource.vue";
-import Notification from "./Home/Notification.vue";
 
 </script>
 
 <template>
   <div class="container">
     <div class="sponsor-by">
-      <notification></notification>
       <notice-list></notice-list>
     </div>
 
