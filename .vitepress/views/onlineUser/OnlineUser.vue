@@ -54,7 +54,19 @@
             </div>
             <div class="song">
               <div class="name">实时在线用户数:</div>
-              <div class="artist">{{ onlineUserCount }}</div>
+              <div class="artist">
+                <span v-if="isLoadingOnlineUser">
+                  <icon
+                    icon="svg-spinners:3-dots-fade"
+                    width="20"
+                    height="20"
+                    style="color: #4096ff"
+                  />
+                </span>
+                <span v-else>{{
+                  onlineUsersInfo.length === 0 ? "--" : onlineUserCount
+                }}</span>
+              </div>
             </div>
           </div>
         </a-col>
@@ -79,7 +91,19 @@
 
             <div class="song">
               <div class="name">总访问用户数:</div>
-              <div class="artist">{{ totalUserCount }}</div>
+              <div class="artist">
+                <span v-if="isLoadingTotalUser">
+                  <icon
+                    icon="svg-spinners:3-dots-fade"
+                    width="20"
+                    height="20"
+                    style="color: #4096ff"
+                  />
+                </span>
+                <span v-else>{{
+                  onlineUserCount === 0 ? "--" : totalUserCount
+                }}</span>
+              </div>
             </div>
           </div>
         </a-col>
@@ -99,14 +123,16 @@ import { io } from "socket.io-client";
 import { useRouter } from "vitepress";
 
 import dayjs from "dayjs";
-import utc from 'dayjs/plugin/utc';
-import timezone from 'dayjs/plugin/timezone';
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
 dayjs.extend(utc);
-dayjs.extend(timezone); 
-const beijingTime = dayjs().tz('Asia/Shanghai');  
+dayjs.extend(timezone);
+const beijingTime = dayjs().tz("Asia/Shanghai");
 
 const { route } = useRouter();
 const uap = new UAParser();
+const isLoadingOnlineUser = ref(true);
+const isLoadingTotalUser = ref(true);
 
 watch(
   () => route.path,
@@ -155,6 +181,7 @@ onMounted(() => {
   socket.on("onlineUsers", (message) => {
     onlineUserCount.value = message.count;
     onlineUsersInfo.value = message.users;
+    isLoadingOnlineUser.value = false;
   });
 });
 
@@ -173,7 +200,7 @@ const sendUserData = async () => {
     locationInfo: userLocation,
     browserInfo: uap.getResult(),
     currentURL: window.location.href,
-    timestamp: beijingTime.format('YYYY-MM-DD HH:mm:ss'),
+    timestamp: beijingTime.format("YYYY-MM-DD HH:mm:ss"),
   });
   getTotalCount();
 };
@@ -182,8 +209,11 @@ const getTotalCount = () => {
   getTotalUserCount()
     .then((res) => {
       totalUserCount.value = res.totalUsers;
+      isLoadingTotalUser.value = false;
     })
-    .catch((err) => {});
+    .catch((err) => {
+      isLoadingTotalUser.value = false;
+    });
 };
 
 const getBrowserInfo = computed(() => {

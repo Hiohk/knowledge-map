@@ -53,9 +53,6 @@ export async function trackUser() {
 
     // 发送数据到后端
     const response = await sendUserData(userData);
-    // if (response.code === 200) {
-    //     getUser(visitorId);
-    // }
   } catch (error) {
     console.error("trackUser->Error loading FingerprintJS:", error);
   }

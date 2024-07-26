@@ -7,7 +7,7 @@ next:
   link: "/backend/spring/spring03"
 ---
 
-# 2 入门
+# 2. 入门
 
 ## 2.1 环境要求
 
