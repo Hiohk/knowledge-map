@@ -11,3 +11,7 @@
 
 
 即将推出...
+
+<a-back-top />
+
+<reading-progress-bar/>

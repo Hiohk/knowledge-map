@@ -118,6 +118,7 @@ export default defineConfig({
           { text: 'SpringMVC', link: '/backend/springMVC/' },
           { text: 'SpringBoot', link: '/backend/springBoot/' },
           { text: 'Redis(暂未开放)', link: '/backend/redis' },
+          { text: 'Dubbo(暂未开放)', link: '/backend/dubbo' },
           { text: 'SpringCloud(暂未开放)', link: '/backend/springCloud' },
           { text: 'Git/SVN(暂未开放)', link: '/git' },
           { text: 'Linux(暂未开放)', link: '/linux' },
