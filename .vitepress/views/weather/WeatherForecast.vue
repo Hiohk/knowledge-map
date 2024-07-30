@@ -161,7 +161,7 @@ const getCityList = () => {
         </div>
         <div class="col">
           <div>
-            <p class="wind">{{ weatherData.windScale }} km/h</p>
+            <p class="wind">{{ weatherData.windScale }} 级</p>
             <p>风力等级</p>
           </div>
         </div>
