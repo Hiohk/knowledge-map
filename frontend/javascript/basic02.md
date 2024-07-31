@@ -655,3 +655,5 @@ x = x + 1 中，x 中的标量基本类型值 2 从数字对象中拆封（或�
 这一章是学习者必须掌握的 JavaScript 基础知识。
 
 <a-back-top />
+
+<reading-progress-bar/>

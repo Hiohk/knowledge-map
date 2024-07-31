@@ -3488,3 +3488,5 @@ function foo() {
 - [Reference](https://github.com/airbnb/javascript/wiki/The-JavaScript-Style-Guide-Guide)
 
 <a-back-top />
+
+<reading-progress-bar/>

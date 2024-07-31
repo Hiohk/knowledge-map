@@ -339,3 +339,5 @@ console.log(a && b && c); // String { "" }
 ## 4.7 总结
 
 <a-back-top />
+
+<reading-progress-bar/>

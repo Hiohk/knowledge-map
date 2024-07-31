@@ -2006,3 +2006,5 @@ console.log(obj.prop);
 ```
 
 <a-back-top />
+
+<reading-progress-bar/>

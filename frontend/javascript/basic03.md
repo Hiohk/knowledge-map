@@ -21,3 +21,5 @@ next:
 ## 3.5 总结
 
 <a-back-top />
+
+<reading-progress-bar/>

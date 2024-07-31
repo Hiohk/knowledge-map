@@ -242,3 +242,5 @@ if (typeof DEBUG !== "undefined") {
 ```
 
 <a-back-top />
+
+<reading-progress-bar/>
