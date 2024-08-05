@@ -124,6 +124,66 @@ const backendBooks = [
     publishDate: "2022年03月",
     rate: 4.5
   },
+  {
+    id: 3,
+    title: "Effective Java",
+    author: "[美] 约书亚·布洛克（Joshua Bloch）",
+    imageUrl: baseUrl + "/2024/08/05/effective_java.jpeg",
+    category: "后端",
+    description: "Java之父James Gosling鼎力推荐、Jolt获奖作品全新升级，针对Java 7、8、9全面更新，Java程序员参考书。包含大量完整的示例代码和透彻的技术分析，通过90条经验法则，探索新的设计模式和语言习惯用法，帮助读者更加有效地使用Java编程语言及其基本类库。",
+    publishDate: "2019年04月",
+    rate: 4.5
+  },
+  {
+    id: 4,
+    title: "Spring实战（第6版）",
+    author: "克雷格·沃斯",
+    imageUrl: baseUrl + "/2024/08/05/spring6.jpeg",
+    category: "后端",
+    description: "本书是一本经典而实用的Spring学习指南，介绍了Spring使用框架、Spring Boot，以及Spring系统中的其他组成部分。",
+    publishDate: "2022年12月",
+    rate: 4.5
+  },
+  {
+    id: 5,
+    title: "Spring MVC学习指南 第2版",
+    author: "[美]Paul Deck",
+    imageUrl: baseUrl + "/2024/08/05/springmvc.jpeg",
+    category: "后端",
+    description: "Spring MVC是Spring框架中用于Web应用快速开发的一个模块，其中的MVC是Model-View-Controller的缩写。",
+    publishDate: "2017年05月",
+    rate: 4.0
+  },
+  {
+    id: 6,
+    title: "Spring Boot实战",
+    author: "[美]克雷格·沃斯（Craig Walls）",
+    imageUrl: baseUrl + "/2024/08/05/springboot.jpeg",
+    category: "后端",
+    description: "本书以Spring应用程序开发为中心，全面讲解如何运用Spring Boot提高效率，使应用程序的开发和管理更加轻松有趣。",
+    publishDate: "2021年07",
+    rate: 4.8
+  },
+  {
+    id: 7,
+    title: "MySQL必知必会",
+    author: "[英]Ben Forta",
+    imageUrl: baseUrl + "/2024/08/05/mysql.jpeg",
+    category: "后端",
+    description: "书中从介绍简单的数据检索开始，逐步深入一些复杂的内容，包括联结的使用、子查询、正则表达式和基于全文本的搜索、存储过程、游标、触发器、表约束，等等。",
+    publishDate: "2020年04月",
+    rate: 4.6
+  },
+  {
+    id: 8,
+    title: "Redis设计与实现",
+    author: "黄健宏",
+    imageUrl: baseUrl + "/2024/08/05/redis.jpeg",
+    category: "后端",
+    description: "本书全面而完整地讲解了Redis的内部机制与实现方式，对Redis 的大多数单机功能以及所有多机功能的实现原理进行了介绍，展示了这些功能的核心数据结构以及关键的算法思想。",
+    publishDate: "2022年03月",
+    rate: 4.2
+  }
 ];
 
 export { frontendBooks, backendBooks };
