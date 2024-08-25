@@ -12,6 +12,7 @@ import HomeContent from "./components/HomeContent.vue";
 import NotFound from "./components/NotFound.vue";
 import ReadingProgressBar from "../views/publicComponent/ReadingProgressBar.vue";
 import CustomFooter from "../theme/components/CustomFooter.vue";
+import BackgroundLottie from "../views/lottie/BackgroundLottie.vue";
 
 import 'animate.css';
 import intersect from "../utils/directives/intersect";
@@ -27,7 +28,8 @@ export default {
     return h(DefaultTheme.Layout, null, {
       'home-features-after': () => h(HomeContent),
       'not-found': () => h(NotFound),
-      'layout-bottom': () => h(CustomFooter)
+      'layout-bottom': () => h(CustomFooter),
+      'home-hero-image': () => h(BackgroundLottie)
     })
   },
   enhanceApp({ app, router, siteData }) {

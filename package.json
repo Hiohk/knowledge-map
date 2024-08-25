@@ -25,6 +25,7 @@
     "axios": "^1.7.2",
     "dayjs": "^1.11.10",
     "giscus": "^1.5.0",
+    "lottie-web": "^5.12.2",
     "qweather-icons": "^1.6.0",
     "socket.io-client": "^4.7.5",
     "ua-parser-js": "^1.0.38",
