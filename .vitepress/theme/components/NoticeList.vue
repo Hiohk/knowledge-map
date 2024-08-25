@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue";
-import SleepCatIcon from "./Home/SleepCatIcon.vue";
 import RegisterCard from "./Home/RegisterCard.vue";
+import ChatLottie from "../../views/lottie/ChatLottie.vue";
 
 const expanded = ref(false);
 
@@ -24,18 +24,14 @@ const shrinkCard = () => {
       </a-col>
 
       <a-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
-        <sleep-cat-icon class="sleep-icon"></sleep-cat-icon>
+        <chat-lottie class="chat-icon"></chat-lottie>
       </a-col>
 
       <a-col :span="24" class="sponsor-content">
         <a-row :gutter="[16, 16]">
           <a-col :span="24" class="column">
             <transition name="fade">
-              <div
-                class="sponsor-tip"
-                @mouseenter="expandCard"
-                @mouseleave="shrinkCard"
-              >
+              <div class="sponsor-tip" @mouseenter="expandCard" @mouseleave="shrinkCard">
                 <div v-if="!expanded" key="sponsor">成为赞助商</div>
                 <div v-else key="content" class="content">
                   广告招商：hk_snnu2020@163.com
@@ -122,7 +118,7 @@ const shrinkCard = () => {
   transform: scaleY(1);
 }
 
-.sleep-icon {
+.chat-icon {
   display: flex;
   align-items: center;
   flex-direction: column;
