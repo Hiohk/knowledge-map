@@ -25,5 +25,6 @@ onMounted(() => {
 <style scoped>
 #lottieId {
     height: 400px;
+    box-sizing: border-box;
 }
 </style>

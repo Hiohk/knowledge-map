@@ -29,7 +29,7 @@ export default {
       'home-features-after': () => h(HomeContent),
       'not-found': () => h(NotFound),
       'layout-bottom': () => h(CustomFooter),
-      'home-hero-image': () => h(BackgroundLottie)
+      'home-hero-image': () => h(BackgroundLottie),
     })
   },
   enhanceApp({ app, router, siteData }) {
