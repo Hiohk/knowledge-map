@@ -161,7 +161,7 @@ const backendBooks = [
     imageUrl: baseUrl + "/2024/08/05/springboot.jpeg",
     category: "后端",
     description: "本书以Spring应用程序开发为中心，全面讲解如何运用Spring Boot提高效率，使应用程序的开发和管理更加轻松有趣。",
-    publishDate: "2021年07",
+    publishDate: "2021年07月",
     rate: 4.8
   },
   {

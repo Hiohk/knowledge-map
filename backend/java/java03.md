@@ -47,14 +47,14 @@ public class Student {
 实例变量属于成员变量，成员变量如果没有手动赋值，系统会默认赋值：
 | <div style="width:200px">数据类型</div> | <div style="width:300px">默认值</div> |
 | :-------------------------------------: | :-----------------------------------: |
-| byte | 0 |
-| short | 0 |
+| byte | (byte)0 |
+| short | (short)0 |
 | int | 0 |
-| long | 0 |
-| float | 0 |
-| double | 0 |
-| boolean | 0 |
-| char | \u0000 |
+| long | 0L |
+| float | 0.0f |
+| double | 0.0d |
+| boolean | false |
+| char | \u0000(null) |
 | 引用数据类型 | null |
 
 ### 对象的创建和使用
