@@ -15,23 +15,29 @@
                 <template #content>
                   <div v-for="item in onlineUsersInfo" class="detail-info">
                     <div class="detail-left">
-                      <Icon :icon="getBrowserInfo(item.browserInfo.ua)" width="35" height="35" />
+                      <Icon
+                        :icon="getBrowserInfo(item.browserInfo.ua)"
+                        width="35"
+                        height="35"
+                      />
                     </div>
                     <div class="detail-right">
                       <div class="detail-right-bottom">
                         <span class="detail-text">{{
-        getOperatingSystemInfo(item.browserInfo.ua)
-      }}</span>
-                        <span class="detail-ip">IP: {{ item.locationInfo?.ip }}</span>
+                          getOperatingSystemInfo(item.browserInfo.ua)
+                        }}</span>
+                        <span class="detail-ip"
+                          >IP: {{ item.locationInfo?.ip }}</span
+                        >
                         于
                         <span class="detail-text">{{
-        item.locationInfo?.region
-      }}</span>
+                          item.locationInfo?.region
+                        }}</span>
                       </div>
                       <div class="detail-right-bottom">
                         正在访问<span class="detail-ip">{{
-          item.currentURL
-        }}</span>
+                          item.currentURL
+                        }}</span>
                       </div>
                     </div>
                   </div>
@@ -39,18 +45,27 @@
                 <template #title>
                   <span>正在浏览用户</span>
                 </template>
-                <icon icon="fluent-emoji-flat:man-artist" width="40" height="40" />
+                <icon
+                  icon="fluent-emoji-flat:man-artist"
+                  width="40"
+                  height="40"
+                />
               </a-popover>
             </div>
             <div class="song">
               <div class="name">实时在线用户数:</div>
               <div class="artist">
                 <span v-if="isLoadingOnlineUser">
-                  <icon icon="svg-spinners:3-dots-fade" width="20" height="20" style="color: #4096ff" />
+                  <icon
+                    icon="svg-spinners:3-dots-fade"
+                    width="20"
+                    height="20"
+                    style="color: #4096ff"
+                  />
                 </span>
                 <span v-else>{{
-        onlineUsersInfo.length === 0 ? "--" : onlineUserCount
-      }}</span>
+                  onlineUsersInfo.length === 0 ? "--" : onlineUserCount
+                }}</span>
               </div>
             </div>
           </div>
@@ -66,18 +81,28 @@
             </div>
 
             <div class="album-cover">
-              <icon icon="vaadin:clipboard-user" width="40" height="40" style="color: #5cc7bb" />
+              <icon
+                icon="vaadin:clipboard-user"
+                width="40"
+                height="40"
+                style="color: #5cc7bb"
+              />
             </div>
 
             <div class="song">
               <div class="name">总访问用户数:</div>
               <div class="artist">
                 <span v-if="isLoadingTotalUser">
-                  <icon icon="svg-spinners:3-dots-fade" width="20" height="20" style="color: #4096ff" />
+                  <icon
+                    icon="svg-spinners:3-dots-fade"
+                    width="20"
+                    height="20"
+                    style="color: #4096ff"
+                  />
                 </span>
                 <span v-else>{{
                   onlineUserCount === 0 ? "--" : totalUserCount
-                  }}</span>
+                }}</span>
               </div>
             </div>
           </div>
@@ -109,24 +134,28 @@ const uap = new UAParser();
 const isLoadingOnlineUser = ref(true);
 const isLoadingTotalUser = ref(true);
 
-onMounted(()=>{
-  const script = document.createElement('script');  
-      script.type = 'text/javascript';  
-      script.async = true;  
-      script.charset = 'UTF-8';  
-      script.src = 'https://sdk.51.la/js-sdk-pro.min.js';  
-      script.id = 'LA_COLLECT';  
-  
-      script.onload = () => {};
-  
-      window.LA = {  
-        id: '3JU8KwKTj3tYmm2O',  
-        ck: '3JU8KwKTj3tYmm2O',  
-        autoTrack: true,  
-        hashMode: true,  
-        screenRecord: true  
-      };  
-      document.head.appendChild(script); 
+onMounted(() => {
+  const script = document.createElement("script");
+  script.type = "text/javascript";
+  script.async = true;
+  script.charset = "UTF-8";
+  script.src = "https://sdk.51.la/js-sdk-pro.min.js";
+  script.id = "LA_COLLECT";
+
+  script.onload = () => {
+    if (window.LA) {
+      LA.init({
+        id: "3JU8KwKTj3tYmm2O",
+        ck: "3JU8KwKTj3tYmm2O",
+        autoTrack: true,
+        hashMode: true,
+        screenRecord: true,
+      });
+    } else {
+      console.error("51LA SDK loaded but LA is not available");
+    }
+  };
+  document.head.appendChild(script);
 });
 
 watch(
@@ -218,7 +247,9 @@ const getBrowserInfo = computed(() => {
     const iconString = browserData.find(
       (item) => item.name === browserName
     )?.iconString;
-    return iconString !== undefined && iconString !== null ? iconString : "iconoir:computer";
+    return iconString !== undefined && iconString !== null
+      ? iconString
+      : "iconoir:computer";
   };
 });
 
