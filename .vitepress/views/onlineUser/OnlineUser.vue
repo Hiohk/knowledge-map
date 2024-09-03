@@ -87,10 +87,6 @@
   </div>
 </template>
 
-<!-- 51LA 统计代码 -->
-<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
-<script>LA.init({id:"3JU8KwKTj3tYmm2O",ck:"3JU8KwKTj3tYmm2O",autoTrack:true,hashMode:true,screenRecord:true})</script>
-
 <script setup>
 import UAParser from "ua-parser-js";
 import { Icon } from "@iconify/vue";
@@ -112,6 +108,26 @@ const { route } = useRouter();
 const uap = new UAParser();
 const isLoadingOnlineUser = ref(true);
 const isLoadingTotalUser = ref(true);
+
+onMounted(()=>{
+  const script = document.createElement('script');  
+      script.type = 'text/javascript';  
+      script.async = true;  
+      script.charset = 'UTF-8';  
+      script.src = 'https://sdk.51.la/js-sdk-pro.min.js';  
+      script.id = 'LA_COLLECT';  
+  
+      script.onload = () => {};
+  
+      window.LA = {  
+        id: '3JU8KwKTj3tYmm2O',  
+        ck: '3JU8KwKTj3tYmm2O',  
+        autoTrack: true,  
+        hashMode: true,  
+        screenRecord: true  
+      };  
+      document.head.appendChild(script); 
+});
 
 watch(
   () => route.path,
