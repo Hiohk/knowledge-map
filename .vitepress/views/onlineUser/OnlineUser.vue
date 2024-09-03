@@ -135,26 +135,26 @@ const isLoadingOnlineUser = ref(true);
 const isLoadingTotalUser = ref(true);
 
 onMounted(() => {
-  const script = document.createElement("script");
-  script.async = true;
-  script.charset = "UTF-8";
-  script.src = "https://sdk.51.la/js-sdk-pro.min.js";
-  script.id = "LA_COLLECT";
+  // const script = document.createElement("script");
+  // script.async = true;
+  // script.charset = "UTF-8";
+  // script.src = "https://sdk.51.la/js-sdk-pro.min.js";
+  // script.id = "LA_COLLECT";
 
-  script.onload = () => {
-    if (window.LA) {
-      LA.init({
-        id: "3JU8KwKTj3tYmm2O",
-        ck: "3JU8KwKTj3tYmm2O",
-        autoTrack: true,
-        hashMode: true,
-        screenRecord: true,
-      });
-    } else {
-      console.error("51LA SDK loaded but LA is not available");
-    }
-  };
-  document.head.appendChild(script);
+  // script.onload = () => {
+  //   if (window.LA) {
+  //     LA.init({
+  //       id: "3JU8KwKTj3tYmm2O",
+  //       ck: "3JU8KwKTj3tYmm2O",
+  //       autoTrack: true,
+  //       hashMode: true,
+  //       screenRecord: true,
+  //     });
+  //   } else {
+  //     console.error("51LA SDK loaded but LA is not available");
+  //   }
+  // };
+  // document.head.appendChild(script);
 });
 
 watch(
