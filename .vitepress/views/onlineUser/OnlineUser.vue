@@ -136,7 +136,6 @@ const isLoadingTotalUser = ref(true);
 
 onMounted(() => {
   const script = document.createElement("script");
-  script.type = "text/javascript";
   script.async = true;
   script.charset = "UTF-8";
   script.src = "https://sdk.51.la/js-sdk-pro.min.js";
