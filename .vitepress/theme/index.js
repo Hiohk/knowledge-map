@@ -1,7 +1,7 @@
 // https://vitepress.dev/guide/custom-theme
-import { h } from 'vue'
-import DefaultTheme from 'vitepress/theme'
-import './style.css'
+import { h } from 'vue';
+import DefaultTheme from 'vitepress/theme';
+import './style.css';
 
 // 导入ant design vue
 import Antd from 'ant-design-vue';
@@ -20,6 +20,9 @@ import intersect from "../utils/directives/intersect";
 // Giscus组件
 import GiscusComment from "./tools/GiscusComment.vue";
 
+// Documate
+import Documate from '@documate/vue';
+import '@documate/vue/dist/style.css';
 
 /** @type {import('vitepress').Theme} */
 export default {
@@ -30,6 +33,9 @@ export default {
       'not-found': () => h(NotFound),
       'layout-bottom': () => h(CustomFooter),
       'home-hero-image': () => h(BackgroundLottie),
+      'nav-bar-content-before': () => h(Documate, {
+        endpoint: 'https://test123.us.aircode.run/ask',
+      }),
     })
   },
   enhanceApp({ app, router, siteData }) {

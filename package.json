@@ -1,5 +1,6 @@
 {
   "devDependencies": {
+    "@documate/documate": "^0.2.1",
     "@iconify/vue": "^4.1.2",
     "autoprefixer": "^10.4.17",
     "less": "^4.2.0",
@@ -13,10 +14,12 @@
   "scripts": {
     "docs:dev": "vitepress dev",
     "docs:build": "vitepress build",
-    "docs:preview": "vitepress preview"
+    "docs:preview": "vitepress preview",
+    "documate:upload": "documate upload"
   },
   "dependencies": {
     "@ant-design/icons-vue": "^7.0.1",
+    "@documate/vue": "^0.3.1",
     "@fingerprintjs/fingerprintjs": "^4.4.3",
     "@giscus/vue": "^3.0.0",
     "@vue/runtime-core": "^3.4.15",
