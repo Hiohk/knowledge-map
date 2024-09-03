@@ -34,27 +34,7 @@ export default defineConfig({
       var s = document.getElementsByTagName("script")[0];   
       s.parentNode.insertBefore(hm, s);  
     })();  
-  `],
-  [
-    'script',
-    {
-      async: '',
-      charset: 'UTF-8',
-      src: '//sdk.51.la/js-sdk-pro.min.js',
-      id: 'LA_COLLECT'
-    }
-  ],
-  [
-    'script',
-    {},
-    `LA.init({  
-        id: "3JU8KwKTj3tYmm2O",  
-        ck: "3JU8KwKTj3tYmm2O",  
-        autoTrack: true,  
-        hashMode: true,  
-        screenRecord: true  
-    });`
-  ]],
+  `]],
   markdown: {
     math: true,
     image: {

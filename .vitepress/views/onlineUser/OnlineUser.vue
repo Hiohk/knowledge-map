@@ -87,6 +87,10 @@
   </div>
 </template>
 
+<!-- 51LA 统计代码 -->
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id:"3JU8KwKTj3tYmm2O",ck:"3JU8KwKTj3tYmm2O",autoTrack:true,hashMode:true,screenRecord:true})</script>
+
 <script setup>
 import UAParser from "ua-parser-js";
 import { Icon } from "@iconify/vue";
