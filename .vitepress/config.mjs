@@ -26,15 +26,7 @@ export default defineConfig({
     gtag('js', new Date());
     gtag('config', 'G-9QSPNM0JWD');`
   ],
-  ['script', {}, `  
-    var _hmt = _hmt || [];  
-    (function() {  
-      var hm = document.createElement("script");  
-      hm.src = "https://hm.baidu.com/hm.js?3b176f31b4bbac2dfe254b62d02d79f4";  
-      var s = document.getElementsByTagName("script")[0];   
-      s.parentNode.insertBefore(hm, s);  
-    })();  
-  `], [
+  [
     'script', { charset: "UTF-8", id: "LA_COLLECT", src: "//sdk.51.la/js-sdk-pro.min.js" },
   ], [
     'script', {}, `LA.init({id:"3JU8KwKTj3tYmm2O",ck:"3JU8KwKTj3tYmm2O",autoTrack:true,hashMode:true,screenRecord:true})`
