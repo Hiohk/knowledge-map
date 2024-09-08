@@ -17,7 +17,7 @@ const activeKey = ref("1");
       </a-tab-pane>
 
 
-      <a-tab-pane key="1" tab="循环阿勒泰">
+      <a-tab-pane key="2" tab="循环阿勒泰">
         <div class="artistic-text animate__animated animate__slideInDown">
           《我的阿勒泰》|“少女的雀跃，自由自在”
         </div>
