@@ -47,9 +47,9 @@ import {
               1. 2024年中旬，上线评论功能 <a-tag color="orange">已发布</a-tag>
             </div>
             <div>
-              2. 2024年7月，上线天气预报小组件 <a-tag color="green">开发中</a-tag>
+              2. 2024年7月，上线天气预报小组件 <a-tag color="orange">已发布</a-tag>
             </div>
-            <div>3. 2024年下旬，发布集成Gemini API的智能问答系统模块</div>
+            <div>3. 2024年下旬，发布集成Gemini API的智能问答系统模块 <a-tag color="green">开发中</a-tag></div>
             <div>4. 2024年底，发布交流社区模块</div>
           </div>
         </template>

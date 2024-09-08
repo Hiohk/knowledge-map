@@ -11,7 +11,7 @@ const activeKey = ref("1");
         <div class="artistic-text animate__animated animate__slideInDown">
           越过5291个人的车窗，看他们途中的故事
         </div>
-        <iframe
+        <iframe class="fun-video"
           src="//player.bilibili.com/player.html?isOutside=true&aid=1656398310&bvid=BV1SE421w7B3&cid=1643652456&p=1"
           scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
       </a-tab-pane>
