@@ -7,34 +7,23 @@ const activeKey = ref("1");
 <template>
   <div class="sponsor">
     <a-tabs v-model:activeKey="activeKey" tab-position="left" animated>
+      <a-tab-pane key="1" tab="车窗外的风景">
+        <div class="artistic-text animate__animated animate__slideInDown">
+          越过5291个人的车窗，看他们途中的故事
+        </div>
+        <iframe
+          src="//player.bilibili.com/player.html?isOutside=true&aid=1656398310&bvid=BV1SE421w7B3&cid=1643652456&p=1"
+          scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+      </a-tab-pane>
+
+
       <a-tab-pane key="1" tab="循环阿勒泰">
         <div class="artistic-text animate__animated animate__slideInDown">
           《我的阿勒泰》|“少女的雀跃，自由自在”
         </div>
-        <iframe
-          class="fun-video"
+        <iframe class="fun-video"
           src="//player.bilibili.com/player.html?isOutside=true&aid=1904325435&bvid=BV1US411F72E&cid=1547364335&p=1"
-          scrolling="no"
-          border="0"
-          frameborder="no"
-          framespacing="0"
-          allowfullscreen="true"
-        ></iframe>
-      </a-tab-pane>
-
-      <a-tab-pane key="2" tab="大美新疆">
-        <div class="artistic-text animate__animated animate__slideInDown">
-          一个人去新疆随机旅行，四处辗转却又因果相连
-        </div>
-        <iframe
-          class="fun-video"
-          src="//player.bilibili.com/player.html?isOutside=true&aid=1253926073&bvid=BV1WJ4m1E7h4&cid=1522898894&p=1"
-          scrolling="no"
-          border="0"
-          frameborder="no"
-          framespacing="0"
-          allowfullscreen="true"
-        ></iframe>
+          scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
       </a-tab-pane>
     </a-tabs>
   </div>
