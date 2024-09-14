@@ -146,6 +146,13 @@ const releaseLog = ref([
         <span class="date-time">2024-08-25</span>
         修改首页图片为lottie file
       </a-timeline-item>
+      <a-timeline-item>
+        <template #dot>
+          <TagOutlined style="font-size: 16px" />
+        </template>
+        <span class="date-time">2024-09-08</span>
+        更新首页推荐视频
+      </a-timeline-item>
     </a-timeline>
   </div>
 </template>
