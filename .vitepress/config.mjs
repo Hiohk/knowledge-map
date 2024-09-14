@@ -14,7 +14,16 @@ export default defineConfig({
   title: "Knowledge Map",
   description: "A knowledge summary for frontend and backend.",
   lastUpdated: true,
-  head: [['link', { rel: 'icon', href: '/knowledge-map/logo.svg' }], [
+  head: [[
+    'script',
+    { type: "text/javascript" },
+    `(function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "o2v7azlcvp");`
+  ],
+  ['link', { rel: 'icon', href: '/knowledge-map/logo.svg' }], [
     'script',
     { async: '', src: 'https://www.googletagmanager.com/gtag/js?id=G-9QSPNM0JWD' }
   ],
