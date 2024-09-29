@@ -7,7 +7,7 @@ import { getCurrentIp, getAddressByIp } from "../http/ipApi";
 import UAParser from "ua-parser-js";
 
 dayjs.extend(utc);
-dayjs.extend(timezone); 
+dayjs.extend(timezone);
 const beijingTime = dayjs().tz('Asia/Shanghai');
 const uap = new UAParser();
 
