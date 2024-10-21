@@ -3,7 +3,7 @@ import axios from 'axios';
 // 获取当前的IP信息
 export async function getCurrentIp() {
   try {
-    const response = await fetch(`https://api.ipify.org?format=json`);
+    const response = await fetch(`https://api64.ipify.org?format=json`);
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
