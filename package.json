@@ -22,6 +22,7 @@
     "@documate/vue": "^0.3.1",
     "@fingerprintjs/fingerprintjs": "^4.4.3",
     "@giscus/vue": "^3.0.0",
+    "@headlessui/vue": "^1.7.23",
     "@vue/runtime-core": "^3.4.15",
     "animate.css": "^4.1.1",
     "ant-design-vue": "^4.2.2",

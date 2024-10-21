@@ -34,7 +34,7 @@ import {
   withCtx,
   withDirectives,
   withKeys
-} from "./chunk-CGFDJW4T.js";
+} from "./chunk-XPVHNUZ4.js";
 import "./chunk-G3PMV62Z.js";
 
 // node_modules/.pnpm/@documate+vue@0.3.1_tailwindcss@3.4.4_vue@3.4.31/node_modules/@documate/vue/dist/documate.js
