@@ -2,15 +2,21 @@
   "devDependencies": {
     "@documate/documate": "^0.2.1",
     "@iconify/vue": "^4.1.2",
+    "@vitejs/plugin-vue": "^5.1.4",
+    "@vue/compiler-sfc": "^3.5.12",
     "autoprefixer": "^10.4.17",
     "less": "^4.2.0",
     "markdown-it-mathjax3": "^4.3.2",
     "mind-elixir": "^4.0.2",
     "postcss": "^8.4.33",
     "tailwindcss": "^3.4.1",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.6.3",
     "vite": "^5.0.12",
+    "vite-plugin-dts": "^4.2.4",
     "vitepress": "^1.2.3"
   },
+  "type": "module",
   "scripts": {
     "docs:dev": "vitepress dev",
     "docs:build": "vitepress build",

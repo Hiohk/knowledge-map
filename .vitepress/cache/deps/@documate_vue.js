@@ -34,10 +34,10 @@ import {
   withCtx,
   withDirectives,
   withKeys
-} from "./chunk-ZHRRCW76.js";
-import "./chunk-G3PMV62Z.js";
+} from "./chunk-XPVHNUZ4.js";
+import "./chunk-V4OQ3NZ2.js";
 
-// node_modules/.pnpm/@documate+vue@0.3.1_tailwindcss@3.4.4_vue@3.4.31/node_modules/@documate/vue/dist/documate.js
+// node_modules/@documate/vue/dist/documate.js
 function pe(t, e, ...n) {
   if (t in e) {
     let a = e[t];

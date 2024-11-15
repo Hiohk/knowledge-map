@@ -1,6 +1,9 @@
 import {
-  __commonJS
-} from "./chunk-G3PMV62Z.js";
+  __commonJS,
+  __esm,
+  __export,
+  __toCommonJS
+} from "./chunk-V4OQ3NZ2.js";
 
 // node_modules/markdown-it/node_modules/entities/lib/maps/entities.json
 var require_entities = __commonJS({
@@ -48,11 +51,11 @@ var require_encode = __commonJS({
       }
       return cache;
     }
-    function encode(string, exclude, keepEscaped) {
+    function encode2(string, exclude, keepEscaped) {
       var i, l, code, nextCode, cache, result = "";
       if (typeof exclude !== "string") {
         keepEscaped = exclude;
-        exclude = encode.defaultChars;
+        exclude = encode2.defaultChars;
       }
       if (typeof keepEscaped === "undefined") {
         keepEscaped = true;
@@ -87,9 +90,9 @@ var require_encode = __commonJS({
       }
       return result;
     }
-    encode.defaultChars = ";/?:@&=+$,-_.!~*'()#";
-    encode.componentChars = "-_.!~*'()";
-    module.exports = encode;
+    encode2.defaultChars = ";/?:@&=+$,-_.!~*'()#";
+    encode2.componentChars = "-_.!~*'()";
+    module.exports = encode2;
   }
 });
 
@@ -114,10 +117,10 @@ var require_decode = __commonJS({
       }
       return cache;
     }
-    function decode(string, exclude) {
+    function decode2(string, exclude) {
       var cache;
       if (typeof exclude !== "string") {
-        exclude = decode.defaultChars;
+        exclude = decode2.defaultChars;
       }
       cache = getDecodeCache(exclude);
       return string.replace(/(%[a-f0-9]{2})+/gi, function(seq) {
@@ -176,9 +179,9 @@ var require_decode = __commonJS({
         return result;
       });
     }
-    decode.defaultChars = ";/?:@&=+$,#";
-    decode.componentChars = "";
-    module.exports = decode;
+    decode2.defaultChars = ";/?:@&=+$,#";
+    decode2.componentChars = "";
+    module.exports = decode2;
   }
 });
 
@@ -4533,16 +4536,253 @@ var require_linkify_it = __commonJS({
   }
 });
 
-// browser-external:punycode
-var require_punycode = __commonJS({
-  "browser-external:punycode"(exports, module) {
-    module.exports = Object.create(new Proxy({}, {
-      get(_, key) {
-        if (key !== "__esModule" && key !== "__proto__" && key !== "constructor" && key !== "splice") {
-          console.warn(`Module "punycode" has been externalized for browser compatibility. Cannot access "punycode.${key}" in client code. See https://vitejs.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.`);
+// node_modules/punycode/punycode.es6.js
+var punycode_es6_exports = {};
+__export(punycode_es6_exports, {
+  decode: () => decode,
+  default: () => punycode_es6_default,
+  encode: () => encode,
+  toASCII: () => toASCII,
+  toUnicode: () => toUnicode,
+  ucs2decode: () => ucs2decode,
+  ucs2encode: () => ucs2encode
+});
+function error(type) {
+  throw new RangeError(errors[type]);
+}
+function map(array, callback) {
+  const result = [];
+  let length = array.length;
+  while (length--) {
+    result[length] = callback(array[length]);
+  }
+  return result;
+}
+function mapDomain(domain, callback) {
+  const parts = domain.split("@");
+  let result = "";
+  if (parts.length > 1) {
+    result = parts[0] + "@";
+    domain = parts[1];
+  }
+  domain = domain.replace(regexSeparators, ".");
+  const labels = domain.split(".");
+  const encoded = map(labels, callback).join(".");
+  return result + encoded;
+}
+function ucs2decode(string) {
+  const output = [];
+  let counter = 0;
+  const length = string.length;
+  while (counter < length) {
+    const value = string.charCodeAt(counter++);
+    if (value >= 55296 && value <= 56319 && counter < length) {
+      const extra = string.charCodeAt(counter++);
+      if ((extra & 64512) == 56320) {
+        output.push(((value & 1023) << 10) + (extra & 1023) + 65536);
+      } else {
+        output.push(value);
+        counter--;
+      }
+    } else {
+      output.push(value);
+    }
+  }
+  return output;
+}
+var maxInt, base, tMin, tMax, skew, damp, initialBias, initialN, delimiter, regexPunycode, regexNonASCII, regexSeparators, errors, baseMinusTMin, floor, stringFromCharCode, ucs2encode, basicToDigit, digitToBasic, adapt, decode, encode, toUnicode, toASCII, punycode, punycode_es6_default;
+var init_punycode_es6 = __esm({
+  "node_modules/punycode/punycode.es6.js"() {
+    "use strict";
+    maxInt = 2147483647;
+    base = 36;
+    tMin = 1;
+    tMax = 26;
+    skew = 38;
+    damp = 700;
+    initialBias = 72;
+    initialN = 128;
+    delimiter = "-";
+    regexPunycode = /^xn--/;
+    regexNonASCII = /[^\0-\x7F]/;
+    regexSeparators = /[\x2E\u3002\uFF0E\uFF61]/g;
+    errors = {
+      "overflow": "Overflow: input needs wider integers to process",
+      "not-basic": "Illegal input >= 0x80 (not a basic code point)",
+      "invalid-input": "Invalid input"
+    };
+    baseMinusTMin = base - tMin;
+    floor = Math.floor;
+    stringFromCharCode = String.fromCharCode;
+    ucs2encode = (codePoints) => String.fromCodePoint(...codePoints);
+    basicToDigit = function(codePoint) {
+      if (codePoint >= 48 && codePoint < 58) {
+        return 26 + (codePoint - 48);
+      }
+      if (codePoint >= 65 && codePoint < 91) {
+        return codePoint - 65;
+      }
+      if (codePoint >= 97 && codePoint < 123) {
+        return codePoint - 97;
+      }
+      return base;
+    };
+    digitToBasic = function(digit, flag) {
+      return digit + 22 + 75 * (digit < 26) - ((flag != 0) << 5);
+    };
+    adapt = function(delta, numPoints, firstTime) {
+      let k = 0;
+      delta = firstTime ? floor(delta / damp) : delta >> 1;
+      delta += floor(delta / numPoints);
+      for (; delta > baseMinusTMin * tMax >> 1; k += base) {
+        delta = floor(delta / baseMinusTMin);
+      }
+      return floor(k + (baseMinusTMin + 1) * delta / (delta + skew));
+    };
+    decode = function(input) {
+      const output = [];
+      const inputLength = input.length;
+      let i = 0;
+      let n = initialN;
+      let bias = initialBias;
+      let basic = input.lastIndexOf(delimiter);
+      if (basic < 0) {
+        basic = 0;
+      }
+      for (let j = 0; j < basic; ++j) {
+        if (input.charCodeAt(j) >= 128) {
+          error("not-basic");
+        }
+        output.push(input.charCodeAt(j));
+      }
+      for (let index = basic > 0 ? basic + 1 : 0; index < inputLength; ) {
+        const oldi = i;
+        for (let w = 1, k = base; ; k += base) {
+          if (index >= inputLength) {
+            error("invalid-input");
+          }
+          const digit = basicToDigit(input.charCodeAt(index++));
+          if (digit >= base) {
+            error("invalid-input");
+          }
+          if (digit > floor((maxInt - i) / w)) {
+            error("overflow");
+          }
+          i += digit * w;
+          const t = k <= bias ? tMin : k >= bias + tMax ? tMax : k - bias;
+          if (digit < t) {
+            break;
+          }
+          const baseMinusT = base - t;
+          if (w > floor(maxInt / baseMinusT)) {
+            error("overflow");
+          }
+          w *= baseMinusT;
+        }
+        const out = output.length + 1;
+        bias = adapt(i - oldi, out, oldi == 0);
+        if (floor(i / out) > maxInt - n) {
+          error("overflow");
+        }
+        n += floor(i / out);
+        i %= out;
+        output.splice(i++, 0, n);
+      }
+      return String.fromCodePoint(...output);
+    };
+    encode = function(input) {
+      const output = [];
+      input = ucs2decode(input);
+      const inputLength = input.length;
+      let n = initialN;
+      let delta = 0;
+      let bias = initialBias;
+      for (const currentValue of input) {
+        if (currentValue < 128) {
+          output.push(stringFromCharCode(currentValue));
         }
       }
-    }));
+      const basicLength = output.length;
+      let handledCPCount = basicLength;
+      if (basicLength) {
+        output.push(delimiter);
+      }
+      while (handledCPCount < inputLength) {
+        let m = maxInt;
+        for (const currentValue of input) {
+          if (currentValue >= n && currentValue < m) {
+            m = currentValue;
+          }
+        }
+        const handledCPCountPlusOne = handledCPCount + 1;
+        if (m - n > floor((maxInt - delta) / handledCPCountPlusOne)) {
+          error("overflow");
+        }
+        delta += (m - n) * handledCPCountPlusOne;
+        n = m;
+        for (const currentValue of input) {
+          if (currentValue < n && ++delta > maxInt) {
+            error("overflow");
+          }
+          if (currentValue === n) {
+            let q = delta;
+            for (let k = base; ; k += base) {
+              const t = k <= bias ? tMin : k >= bias + tMax ? tMax : k - bias;
+              if (q < t) {
+                break;
+              }
+              const qMinusT = q - t;
+              const baseMinusT = base - t;
+              output.push(
+                stringFromCharCode(digitToBasic(t + qMinusT % baseMinusT, 0))
+              );
+              q = floor(qMinusT / baseMinusT);
+            }
+            output.push(stringFromCharCode(digitToBasic(q, 0)));
+            bias = adapt(delta, handledCPCountPlusOne, handledCPCount === basicLength);
+            delta = 0;
+            ++handledCPCount;
+          }
+        }
+        ++delta;
+        ++n;
+      }
+      return output.join("");
+    };
+    toUnicode = function(input) {
+      return mapDomain(input, function(string) {
+        return regexPunycode.test(string) ? decode(string.slice(4).toLowerCase()) : string;
+      });
+    };
+    toASCII = function(input) {
+      return mapDomain(input, function(string) {
+        return regexNonASCII.test(string) ? "xn--" + encode(string) : string;
+      });
+    };
+    punycode = {
+      /**
+       * A string representing the current Punycode.js version number.
+       * @memberOf punycode
+       * @type String
+       */
+      "version": "2.3.1",
+      /**
+       * An object of methods to convert from JavaScript's internal character
+       * representation (UCS-2) to Unicode code points, and back.
+       * @see <https://mathiasbynens.be/notes/javascript-encoding>
+       * @memberOf punycode
+       * @type Object
+       */
+      "ucs2": {
+        "decode": ucs2decode,
+        "encode": ucs2encode
+      },
+      "decode": decode,
+      "encode": encode,
+      "toASCII": toASCII,
+      "toUnicode": toUnicode
+    };
+    punycode_es6_default = punycode;
   }
 });
 
@@ -4747,7 +4987,7 @@ var require_lib = __commonJS({
     var ParserInline = require_parser_inline();
     var LinkifyIt = require_linkify_it();
     var mdurl = require_mdurl();
-    var punycode = require_punycode();
+    var punycode2 = (init_punycode_es6(), __toCommonJS(punycode_es6_exports));
     var config = {
       default: require_default(),
       zero: require_zero(),
@@ -4765,7 +5005,7 @@ var require_lib = __commonJS({
       if (parsed.hostname) {
         if (!parsed.protocol || RECODE_HOSTNAME_FOR.indexOf(parsed.protocol) >= 0) {
           try {
-            parsed.hostname = punycode.toASCII(parsed.hostname);
+            parsed.hostname = punycode2.toASCII(parsed.hostname);
           } catch (er) {
           }
         }
@@ -4777,7 +5017,7 @@ var require_lib = __commonJS({
       if (parsed.hostname) {
         if (!parsed.protocol || RECODE_HOSTNAME_FOR.indexOf(parsed.protocol) >= 0) {
           try {
-            parsed.hostname = punycode.toUnicode(parsed.hostname);
+            parsed.hostname = punycode2.toUnicode(parsed.hostname);
           } catch (er) {
           }
         }

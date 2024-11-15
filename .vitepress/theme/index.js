@@ -36,7 +36,6 @@ export default {
       'layout-bottom': () => h(CustomFooter),
       'home-hero-image': () => h(BackgroundLottie),
       'nav-bar-content-before': () => h(DocumateAiButton, {
-        // endpoint: 'https://test123.us.aircode.run/ask',
         endpoint: 'http://localhost:3000/api/chat',
       }),
     })

@@ -1,6 +1,6 @@
 import {
   __commonJS
-} from "./chunk-G3PMV62Z.js";
+} from "./chunk-V4OQ3NZ2.js";
 
 // node_modules/highlight.js/lib/core.js
 var require_core = __commonJS({

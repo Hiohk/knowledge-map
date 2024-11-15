@@ -129,7 +129,7 @@ onMounted(trackUser);
 const getBaseUrl = () => {
   let baseURL = "http://localhost:8000";
   if (process.env.NODE_ENV === "production") {
-    baseURL = `https://knowledge-server-production.up.railway.app`;
+    baseURL = process.env.PUBLIC_SERVER_URL;
   }
   return baseURL;
 };
