@@ -24,7 +24,7 @@ import GiscusComment from "./tools/GiscusComment.vue";
 import Documate from '@documate/vue';
 import '@documate/vue/dist/style.css';
 
-import DocumateAiButton from "./components/chat/DocumateAiButton.vue";
+// import DocumateAiButton from "./components/chat/DocumateAiButton.vue";
 
 /** @type {import('vitepress').Theme} */
 export default {
@@ -35,7 +35,7 @@ export default {
       'not-found': () => h(NotFound),
       'layout-bottom': () => h(CustomFooter),
       'home-hero-image': () => h(BackgroundLottie),
-      'nav-bar-content-before': () => h(DocumateAiButton, {
+      'nav-bar-content-before': () => h(Documate, {
         endpoint: 'http://localhost:3000/api/chat',
       }),
     })
