@@ -29,7 +29,6 @@ onMounted(() => {
 
 <template>
   <div>
-    <!-- 用于展示动态打字效果 -->
     <div
       id="typed-output"
       style="width: 100%; font-size: 24px; color: #3c3c43c7"
