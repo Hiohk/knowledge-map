@@ -6,7 +6,6 @@ const options = {
   strings: [
     "聪明的人不会因为知道自己不懂的事情而感到羞耻",
     "A wise person is not ashamed of acknowledging what they do not know.",
-    "——亚里士多德"
   ],
   typeSpeed: 5, // 打字速度
   backSpeed: 10, // 删除速度
