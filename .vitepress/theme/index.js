@@ -26,6 +26,9 @@ import '@documate/vue/dist/style.css';
 
 // import DocumateAiButton from "./components/chat/DocumateAiButton.vue";
 
+import VueTyped from '../views/typedText/VueTyped.vue';
+
+
 /** @type {import('vitepress').Theme} */
 export default {
   extends: DefaultTheme,
@@ -35,6 +38,7 @@ export default {
       'not-found': () => h(NotFound),
       'layout-bottom': () => h(CustomFooter),
       'home-hero-image': () => h(BackgroundLottie),
+      'home-hero-info-after': () => h(VueTyped),
       'nav-bar-content-before': () => h(Documate, {
         endpoint: 'http://localhost:3000/api/chat',
       }),
@@ -42,9 +46,11 @@ export default {
   },
   enhanceApp({ app, router, siteData }) {
     app.use(Antd);
+
     // 注册组件
     app.component('ReadingProgressBar', ReadingProgressBar);
     app.component('GiscusComment', GiscusComment);
+
     // 注册全局指令
     app.directive('intersect', intersect);
   }

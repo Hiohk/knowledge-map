@@ -50,6 +50,9 @@ importers:
       socket.io-client:
         specifier: ^4.7.5
         version: 4.7.5
+      typed.js:
+        specifier: ^2.1.0
+        version: 2.1.0
       ua-parser-js:
         specifier: ^1.0.38
         version: 1.0.38
@@ -2155,6 +2158,9 @@ packages:
 
   tslib@2.6.3:
     resolution: {integrity: sha512-xNvxJEOUiWPGhUuUdQgAJPKOOJfGnIyKySOc09XkKsgdUV/3E2zvwZYdejjmRgPCgcym1juLH3226yA7sEFJKQ==}
+
+  typed.js@2.1.0:
+    resolution: {integrity: sha512-bDuXEf7YcaKN4g08NMTUM6G90XU25CK3bh6U0THC/Mod/QPKlEt9g/EjvbYB8x2Qwr2p6J6I3NrsoYaVnY6wsQ==}
 
   typescript@5.4.2:
     resolution: {integrity: sha512-+2/g0Fds1ERlP6JsakQQDXjZdZMM+rqpamFZJEKh4kwTIn3iDkgKtby0CeNd5ATNZ4Ry1ax15TMx0W2V+miizQ==}
@@ -4451,6 +4457,8 @@ snapshots:
       webpack: 5.96.1
 
   tslib@2.6.3: {}
+
+  typed.js@2.1.0: {}
 
   typescript@5.4.2: {}
 

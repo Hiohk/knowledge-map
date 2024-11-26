@@ -2,9 +2,9 @@ import {
   __commonJS
 } from "./chunk-G3PMV62Z.js";
 
-// node_modules/.pnpm/lottie-web@5.12.2/node_modules/lottie-web/build/player/lottie.js
+// node_modules/lottie-web/build/player/lottie.js
 var require_lottie = __commonJS({
-  "node_modules/.pnpm/lottie-web@5.12.2/node_modules/lottie-web/build/player/lottie.js"(exports, module) {
+  "node_modules/lottie-web/build/player/lottie.js"(exports, module) {
     typeof navigator !== "undefined" && function(global, factory) {
       typeof exports === "object" && typeof module !== "undefined" ? module.exports = factory() : typeof define === "function" && define.amd ? define(factory) : (global = typeof globalThis !== "undefined" ? globalThis : global || self, global.lottie = factory());
     }(exports, function() {

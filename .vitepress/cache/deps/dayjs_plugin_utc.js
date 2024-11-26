@@ -2,9 +2,9 @@ import {
   __commonJS
 } from "./chunk-G3PMV62Z.js";
 
-// node_modules/.pnpm/dayjs@1.11.11/node_modules/dayjs/plugin/utc.js
+// node_modules/dayjs/plugin/utc.js
 var require_utc = __commonJS({
-  "node_modules/.pnpm/dayjs@1.11.11/node_modules/dayjs/plugin/utc.js"(exports, module) {
+  "node_modules/dayjs/plugin/utc.js"(exports, module) {
     !function(t, i) {
       "object" == typeof exports && "undefined" != typeof module ? module.exports = i() : "function" == typeof define && define.amd ? define(i) : (t = "undefined" != typeof globalThis ? globalThis : t || self).dayjs_plugin_utc = i();
     }(exports, function() {
